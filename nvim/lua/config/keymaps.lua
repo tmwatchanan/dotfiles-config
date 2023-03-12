@@ -88,13 +88,14 @@ keymaps.lsp = {
 -- INFO: Lazy keymap
 keymaps.lazy = {
     open    = '<leader>P',
+    lazygit = '<leader>g',
 }
 
 -- INFO: Focus keymap
 keymaps.focus = {
-    toggle_enable = '<leader><tab>',
+    toggle_enable = '<C-space>',
     toggle_size   = 'wt',
-    split_cycle   = '<C-space>',
+    split_cycle   = '<C-;>',
     split_left    = '<C-h>',
     split_right   = '<C-l>',
     split_up      = '<C-k>',
@@ -121,7 +122,7 @@ keymaps.telescope = {
     grep_workspace       = 'gw',
     search_buffer        = '<leader>/',
     search_workspace     = '<leader>fw',
-    buffers              = '<leader>\\',
+    buffers              = '<leader><tab>',
     find_files           = '<leader>fs',
     help                 = '<leader>;',
     jumplist             = '<leader>j',
@@ -141,7 +142,6 @@ keymaps.todocomments = {
 -- INFO: Terminal & ToggleTerm keymap
 keymaps.toggleterm = {
     toggle = '<leader>t',
-    lazygit = '<leader>g',
 }
 
 -- INFO: Marks keymap
@@ -174,7 +174,7 @@ keymaps.hlslens = {
 
 -- INFO: session-manager keymaps
 keymaps.session_manager = {
-    load   = '<leader>sr',
+    load   = '<leader>sl',
     save   = '<leader>ss',
     delete = '<leader>sd',
 }

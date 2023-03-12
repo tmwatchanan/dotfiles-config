@@ -597,19 +597,19 @@ M.config = function()
             IndentBlanklineContextChar = { fg = c.base04, nocombine = true }
         }
 
-        overrideHighlightConfig({
-            LocalHighlightText = { bg = c.base02, bold = true, nocombine = true },
-            Normal = { fg = c.base04, bg = c.base01 },
-            NormalNC = { fg = c.base05, bg = c.base01 },
-            LineNr = { fg = c.base03, bg = c.base01 },
-            FoldColumn = { fg = c.base02, bg = c.base01 },
-            SignColumn = { fg = c.base02, bg = c.base01 },
-            VertSplit = { fg = c.base02, bg = c.base01 },
-            NormalFloat = { bg = c.base00 },
-            FloatBorder = { link = 'NormalFloat' },
-            Pmenu = { fg = c.base04, bg = c.base00 },
-            PmenuSel = { fg = c.none, bg = c.base02 },
-        })
+        -- overrideHighlightConfig({
+        --     LocalHighlightText = { bg = c.base02, bold = true, nocombine = true },
+        --     Normal = { fg = c.base04, bg = c.base01 },
+        --     NormalNC = { fg = c.base05, bg = c.base01 },
+        --     LineNr = { fg = c.base03, bg = c.base01 },
+        --     FoldColumn = { fg = c.base02, bg = c.base01 },
+        --     SignColumn = { fg = c.base02, bg = c.base01 },
+        --     VertSplit = { fg = c.base02, bg = c.base01 },
+        --     NormalFloat = { bg = c.base00 },
+        --     FloatBorder = { link = 'NormalFloat' },
+        --     Pmenu = { fg = c.base04, bg = c.base00 },
+        --     PmenuSel = { fg = c.none, bg = c.base02 },
+        -- })
         overrideHighlightConfig(telescope_highlight)
         overrideHighlightConfig(incline_highlight)
         overrideHighlightConfig(noice_highlight)
