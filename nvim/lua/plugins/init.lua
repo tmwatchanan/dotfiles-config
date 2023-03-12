@@ -47,20 +47,14 @@ return {
     },
     {
         'utilyre/sentiment.nvim',
-        event = 'VeryLazy',
+        event = { 'BufReadPost', 'BufNewFile' },
         opts = {
+            delay = 200,
             excluded_filetypes = {
+                [''] = true,
                 ['toggleterm'] = true,
-                ['lspinfo'] = true,
-                ['terminal'] = true,
-                ['TelescopePrompt'] = true,
-                ['TelescopeResults'] = true,
             }
         }
-    },
-    {
-        'mg979/vim-visual-multi',
-        event = { 'BufReadPost', 'BufNewFile' }
     },
 
 
