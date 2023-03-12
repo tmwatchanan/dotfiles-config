@@ -50,6 +50,10 @@ return {
         event = 'VeryLazy',
         config = true,
     },
+    {
+        'mg979/vim-visual-multi',
+        event = { 'BufReadPost', 'BufNewFile' }
+    },
 
 
     -- Miscellaneous
