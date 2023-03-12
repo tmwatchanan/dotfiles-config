@@ -13,6 +13,7 @@ M.opts = function()
     local defaults = require('config').defaults
 
     local utils = require('telescope.utils')
+    local actions = require('telescope.actions')
     local action_state = require('telescope.actions.state')
 
     local vertical_layout_config = {
@@ -109,7 +110,9 @@ M.opts = function()
                     ['<C-q>'] = function(bufnr)
                         require 'telescope.actions'.smart_add_to_qflist(bufnr)
                         require 'telescope.builtin'.quickfix()
-                    end
+                    end,
+                    ['<C-k>'] = actions.move_selection_previous,
+                    ['<C-j>'] = actions.move_selection_next,
                 },
             },
         },

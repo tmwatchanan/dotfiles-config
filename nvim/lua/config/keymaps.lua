@@ -7,6 +7,13 @@ local function open_telescope_qflist(options)
 end
 
 keymaps.setup = function()
+    -- INFO: disable <Space> for moving the cursor
+    vim.keymap.set('n', '<Space>', '')
+
+    -- INFO: composite escape keys
+    vim.keymap.set('i', 'jj', '<Esc>')
+    vim.keymap.set('i', 'jk', '<Esc>')
+
     -- INFO: move up / down by visible lines with no [count]
     vim.keymap.set({ 'n', 'x' }, 'j', [[v:count == 0 ? 'gj' : 'j']], { expr = true })
     vim.keymap.set({ 'n', 'x' }, 'k', [[v:count == 0 ? 'gk' : 'k']], { expr = true })
@@ -47,10 +54,10 @@ keymaps.setup = function()
     vim.keymap.set('v', '>', '>gv')
 
     -- INFO: resize window
-    -- vim.keymap.set('n', '<C-w><left>', '<C-w><')
-    -- vim.keymap.set('n', '<C-w><right>', '<C-w>>')
-    -- vim.keymap.set('n', '<C-w><up>', '<C-w>+')
-    -- vim.keymap.set('n', '<C-w><down>', '<C-w>-')
+    vim.keymap.set('n', '<C-w>h', '<C-w><')
+    vim.keymap.set('n', '<C-w>l', '<C-w>>')
+    vim.keymap.set('n', '<C-w>k', '<C-w>+')
+    vim.keymap.set('n', '<C-w>j', '<C-w>-')
 
     -- INFO: remap jump keys
     vim.keymap.set('n', '<C-j>', '<C-i>')
@@ -70,7 +77,7 @@ keymaps.lsp = {
     ['gx']         = vim.lsp.buf.code_action,
     ['gs']         = vim.lsp.buf.signature_help,
     ['<leader>lr'] = vim.lsp.buf.rename,
-    ['<leader>ff'] = function() vim.lsp.buf.format({ async = true }) end,
+    ['<leader>fm'] = function() vim.lsp.buf.format({ async = true }) end,
     ['K']          = function()
         local ufo_loaded, ufo = pcall(require, 'ufo')
         if ufo_loaded then if ufo.peekFoldedLinesUnderCursor() then return end end
@@ -86,13 +93,13 @@ keymaps.lazy = {
 
 -- INFO: Focus keymap
 keymaps.focus = {
-    toggle_enable = '<leader><space>',
+    toggle_enable = '<leader><tab>',
     toggle_size   = 'wt',
-    split_cycle   = '<space>',
-    split_left    = 'wh',
-    split_right   = 'wl',
-    split_up      = 'wk',
-    split_down    = 'wj',
+    split_cycle   = '<C-space>',
+    split_left    = '<C-h>',
+    split_right   = '<C-l>',
+    split_up      = '<C-k>',
+    split_down    = '<C-j>',
 }
 
 -- INFO: GitSign keymap
@@ -119,7 +126,7 @@ keymaps.telescope = {
     find_files           = '<leader>fs',
     help                 = '<leader>;',
     jumplist             = '<leader>j',
-    oldfiles             = '<leader>?',
+    oldfiles             = '<leader>o',
     quickfix             = '<leader>q',
     file_browse          = '<leader>fb',
     action_buffer_delete = { n = 'd', i = '<m-d>' },
@@ -185,7 +192,7 @@ keymaps.flit = {
     backward = 'F',
     till     = 't',
     backtill = 'T',
-    leap     = 's',
+    leap     = ',',
 }
 
 -- INFO: markdown preview keymap
@@ -200,10 +207,10 @@ keymaps.bufremove = {
 
 -- INFO: mini.move keymap
 keymaps.move = {
-    move_up    = '<m-k>',
-    move_down  = '<m-j>',
-    move_left  = '<m-h>',
-    move_right = '<m-l>',
+    move_up    = '<leader><Up>',
+    move_down  = '<leader><Down>',
+    move_left  = '<leader><Left>',
+    move_right = '<leader><Right>',
 }
 
 -- INFO: search-replace keymap

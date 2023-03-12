@@ -84,6 +84,8 @@ end
 
 M.did_init = false
 M.init = function()
+    vim.g.mapleader = ' '
+    vim.g.maplocalleader = ' '
     if not M.did_init then
         M.did_init = true
 
