@@ -48,7 +48,15 @@ return {
     {
         'utilyre/sentiment.nvim',
         event = 'VeryLazy',
-        config = true,
+        opts = {
+            excluded_filetypes = {
+                ['toggleterm'] = true,
+                ['lspinfo'] = true,
+                ['terminal'] = true,
+                ['TelescopePrompt'] = true,
+                ['TelescopeResults'] = true,
+            }
+        }
     },
     {
         'mg979/vim-visual-multi',
