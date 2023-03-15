@@ -60,8 +60,8 @@ keymaps.setup = function()
     vim.keymap.set('n', '<C-w>j', '<C-w>-')
 
     -- INFO: remap jump keys
-    vim.keymap.set('n', '<C-j>', '<C-i>')
-    vim.keymap.set('n', '<C-k>', '<C-o>')
+    -- vim.keymap.set('n', '<C-j>', '<C-i>')
+    -- vim.keymap.set('n', '<C-k>', '<C-o>')
 end
 
 -- INFO: LSP keymap
@@ -133,7 +133,7 @@ keymaps.telescope = {
     buffers              = '<leader><tab>',
     find_files           = '<leader>fs',
     help                 = '<leader>;',
-    jumplist             = '<leader>j',
+    jumplist             = '<leader>jl',
     oldfiles             = '<leader>o',
     quickfix             = '<leader>q',
     file_browse          = '<leader>fb',
