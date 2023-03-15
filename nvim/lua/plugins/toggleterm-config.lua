@@ -4,15 +4,15 @@ local M = {
 	'akinsho/toggleterm.nvim',
 }
 
-M.init = function()
-	function _G.setup_terminal_config()
-		-- set terminal keymap
-		local key_opts = { buffer = 0 }
-		vim.keymap.set('t', '<C-w>', [[<C-\><C-n>]], key_opts)
-	end
-
-	vim.cmd('autocmd! TermOpen term://* lua setup_terminal_config()')
-end
+-- M.init = function()
+-- 	function _G.setup_terminal_config()
+-- 		-- set terminal keymap
+-- 		local key_opts = { buffer = 0 }
+-- 		vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], key_opts)
+-- 	end
+--
+-- 	vim.cmd('autocmd! TermOpen term://* lua setup_terminal_config()')
+-- end
 
 M.opts = function()
 	-- local defaults = require('config').defaults
@@ -39,12 +39,18 @@ M.config = function(_, opts)
 
 	local Terminal = require('toggleterm.terminal').Terminal
 
-	local lazygit = Terminal:new({ cmd = 'lazygit', count = 20 })
 	vim.api.nvim_create_user_command('ToggleLazyGit',
 		function()
-			lazygit:toggle()
+			Terminal:new({ cmd = 'lazygit', count = 20 }):toggle()
 		end,
 		{ desc = 'Toggle `lazygit` terminal using toggleterm' }
+	)
+
+	vim.api.nvim_create_user_command('ToggleLazyGitFileHistory',
+		function()
+			Terminal:new({ cmd = 'lazygit -f ' .. vim.fn.expand('%'), count = 21 }):toggle()
+		end,
+		{ desc = 'Toggle `lazygit` with filter opened file in current buffer' }
 	)
 
 	-- local gotop = Terminal:new({ cmd = 'gotop', count = 21, hidden = true })
@@ -56,7 +62,8 @@ end
 
 M.keys = {
 	{ toggleterm_keymap.toggle },
-	{ toggleterm_keymap.lazygit, '<Cmd>ToggleLazyGit<CR>', silent = true, noremap = true },
+	{ toggleterm_keymap.lazygit,              '<Cmd>ToggleLazyGit<CR>',            silent = true, noremap = true },
+	{ toggleterm_keymap.lazygit_file_history, '<Cmd>ToggleLazyGitFileHistory<CR>', silent = true, noremap = true },
 }
 
 return M
