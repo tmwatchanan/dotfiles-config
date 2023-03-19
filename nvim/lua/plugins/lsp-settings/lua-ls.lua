@@ -19,6 +19,9 @@ return {
                 maxPreload = 10000,
                 preloadFileSize = 10000,
                 checkThirdParty = false,
+                ignoreDir = {
+                    '**/node_modules/**',
+                },
             },
             telemetry = { enable = false },
         },
