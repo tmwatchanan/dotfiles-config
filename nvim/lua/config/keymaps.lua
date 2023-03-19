@@ -36,8 +36,8 @@ keymaps.setup = function()
     vim.keymap.set('i', '?', '?<C-g>u')
 
     -- INFO: windows/buffers navigated keys
-    vim.keymap.set('n', '<Tab>', '<Cmd>bnext<CR>')
-    vim.keymap.set('n', '<S-Tab>', '<Cmd>bprev<CR>')
+    vim.keymap.set('n', 'H', '<Cmd>bnext<CR>')
+    vim.keymap.set('n', 'L', '<Cmd>bprev<CR>')
     vim.keymap.set('n', 'wq', '<C-w>q')
 
     -- INFO: misc. keymap
@@ -88,9 +88,9 @@ keymaps.lsp = {
 -- INFO: Treesitter
 keymaps.treesitter = {
     incremental_selection = {
-        init_selection = 'gl',
-        node_incremental = 'gl',
-        node_decremental = 'gh',
+        init_selection = '<Tab>',
+        node_incremental = '<Tab>',
+        node_decremental = '<S-Tab>',
     },
 }
 
@@ -149,7 +149,7 @@ keymaps.todocomments = {
 
 -- INFO: Terminal & ToggleTerm keymap
 keymaps.toggleterm = {
-    toggle = '<leader>t',
+    toggle = '<Bslash>t',
     lazygit = '<leader>g',
     lazygit_file_history = '<leader>G',
 }

@@ -34,6 +34,8 @@ end
 M.keys = {
     { 'a', mode = { 'x', 'o' } },
     { 'i', mode = { 'x', 'o' } },
+    { 'g]' },
+    { 'g[' },
 }
 
 return M
