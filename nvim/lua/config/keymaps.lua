@@ -45,7 +45,7 @@ keymaps.setup = function()
 
     -- INFO: misc. keymap
     vim.keymap.set({ 'n', 'i' }, '<Esc>', '<Cmd>noh<CR><Esc>')
-    vim.keymap.set({ 'n', 'i' }, '<C-l>', '<Cmd>noh<CR>')
+    -- vim.keymap.set({ 'n', 'i' }, '<C-l>', '<Cmd>noh<CR>')
     vim.keymap.set('n', 'dw', 'vb"_d') -- delete a word backward
     vim.keymap.set('n', '<leader>d', '"_d') -- delete without yank
     vim.keymap.set('n', 'x', '"_x')
