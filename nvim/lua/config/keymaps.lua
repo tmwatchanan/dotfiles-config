@@ -7,9 +7,6 @@ local function open_telescope_qflist(options)
 end
 
 keymaps.setup = function()
-    -- INFO: <C-i> is <Tab>, so we need to replace it with another
-    vim.keymap.set('n', '<M-o>', '<C-i>')
-
     -- INFO: disable <Space> for moving the cursor
     vim.keymap.set('n', '<Space>', '')
 
@@ -63,7 +60,7 @@ keymaps.setup = function()
     vim.keymap.set('n', '<C-w>j', '<C-w>-')
 
     -- INFO: remap jump keys
-    -- vim.keymap.set('n', '<C-j>', '<C-i>')
+    vim.keymap.set('n', '<M-o>', '<C-i>') -- <C-i> is <Tab>, so we need to replace it with another
     -- vim.keymap.set('n', '<C-k>', '<C-o>')
 end
 
