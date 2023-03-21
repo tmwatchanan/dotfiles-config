@@ -1,11 +1,11 @@
 gui:
   showIcons: true
   showBottomLine: false
-  # theme:
-  #   selectedLineBgColor:
-  #     - default
-  #   selectedRangeBgColor:
-  #     - default
+  theme:
+    selectedLineBgColor:
+      - default
+    selectedRangeBgColor:
+      - default
 git:
   paging:
     colorArg: always
