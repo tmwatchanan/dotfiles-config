@@ -120,6 +120,9 @@ lsp_setup_module.config = function()
     local function lsp_on_attach(client, bufnr)
         lsp_keymaps(bufnr, require('config.keymaps').lsp)
         lsp_navic(client, bufnr)
+
+        local navbuddy = require('nvim-navbuddy')
+        navbuddy.attach(client, bufnr)
     end
 
     lsp_setup.setup({
@@ -212,9 +215,19 @@ lsp_lines_module.config = function()
     require('lsp_lines').setup()
 end
 
+local nvim_navbuddy_module = {
+    'SmiteshP/nvim-navbuddy',
+    dependencies = { 'neovim/nvim-lspconfig', 'SmiteshP/nvim-navic', 'MunifTanjim/nui.nvim' },
+    event = 'VeryLazy',
+    keys = {
+        { require('config.keymaps').navbuddy.toggle, '<Cmd>Navbuddy<CR>' }
+    }
+}
+
 return {
     mason_module,
     lsp_setup_module,
     null_ls_module,
     lsp_lines_module,
+    nvim_navbuddy_module,
 }

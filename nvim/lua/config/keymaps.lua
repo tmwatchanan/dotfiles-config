@@ -94,6 +94,11 @@ keymaps.lsp_lines = {
     toggle = '<leader>ll'
 }
 
+-- INFO: nvim-navbuddy keymap
+keymaps.navbuddy = {
+    toggle = '<leader>ln'
+}
+
 -- INFO: Treesitter
 keymaps.treesitter = {
     incremental_selection = {
