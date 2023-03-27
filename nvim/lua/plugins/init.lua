@@ -67,10 +67,6 @@ return {
         }
     },
     {
-        'github/copilot.vim',
-        event = { 'BufReadPost', 'BufNewFile' },
-    },
-    {
         'mg979/vim-visual-multi',
         event = { 'BufReadPost', 'BufNewFile' },
     },
