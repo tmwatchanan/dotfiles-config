@@ -16,7 +16,9 @@ M.opts = {
     suggestion = {
         auto_trigger = true,
         keymap = {
-            accept = false,
+            accept = '<C-l>',
+            next = '<C-j>',
+            prev = '<C-k>',
             dismiss = false,
         }
     },

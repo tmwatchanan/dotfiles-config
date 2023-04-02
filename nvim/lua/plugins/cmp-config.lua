@@ -85,8 +85,8 @@ M.opts = function()
         ['<CR>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
-            elseif copilot_status and copilot_suggestion.is_visible() then
-                copilot_suggestion.accept()
+            -- elseif copilot_status and copilot_suggestion.is_visible() then
+            --     copilot_suggestion.accept()
             else
                 fallback()
             end
