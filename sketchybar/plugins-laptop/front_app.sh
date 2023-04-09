@@ -5,6 +5,10 @@
 ICON_PADDING_RIGHT=6
 
 case $INFO in
+  "iTerm2")
+    ICON_PADDING_RIGHT=8
+    ICON=
+    ;;
   "kitty")
     ICON_PADDING_RIGHT=8
     ICON=
