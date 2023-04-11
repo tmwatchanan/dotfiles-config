@@ -6,12 +6,15 @@ FONT_FACE="Hack Nerd Font"
 # https://felixkratz.github.io/SketchyBar/config/bar
 
 sketchybar	--bar                   \
-                height=36           \
+                height=32           \
+                margin=10           \
+                y_offset=2          \
+                corner_radius=9     \
                 blur_radius=30      \
                 position=top        \
                 sticky=on           \
-                padding_left=20     \
-                padding_right=20    \
+                padding_left=4     \
+                padding_right=4    \
                 color=0x6624273a
 
 sketchybar	--default                               \
@@ -91,28 +94,28 @@ sketchybar	--add	item weather q                          \
                     	script="$PLUGIN_DIR/moon.sh"        \
             --subscribe weather.moon mouse.clicked
 
-SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
-sketchybar  --add   event spotify_change $SPOTIFY_EVENT         \
-            --add   item spotify e                              \
-            --set   spotify                                     \
-                        background.padding_left=2               \
-                        icon=                                  \
-                    	icon.font="$FONT_FACE:Bold:20.0"        \
-                    	icon.y_offset=1                         \
-                        label.drawing=off                       \
-                    	label.padding_left=2                    \
-                        script="$PLUGIN_DIR/spotify.sh"         \
-            --subscribe spotify spotify_change mouse.clicked    \
-                                                                \
-    	    --add	item spotify_playlist e                     \
-            --set	spotify_playlist                            \
-                        background.color=0xaa24273a             \
-                        icon=                                  \
-                        icon.color=0xffc6a0f6                   \
-                        icon.font="$FONT_FACE:Bold:19.0"        \
-                        label.drawing=off                       \
-                        script="$PLUGIN_DIR/spotify_playlist.sh"\
-            --subscribe spotify_playlist mouse.clicked
+# SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
+# sketchybar  --add   event spotify_change $SPOTIFY_EVENT         \
+#             --add   item spotify e                              \
+#             --set   spotify                                     \
+#                         background.padding_left=2               \
+#                         icon=                                  \
+#                     	icon.font="$FONT_FACE:Bold:20.0"        \
+#                     	icon.y_offset=1                         \
+#                         label.drawing=off                       \
+#                     	label.padding_left=2                    \
+#                         script="$PLUGIN_DIR/spotify.sh"         \
+#             --subscribe spotify spotify_change mouse.clicked    \
+#                                                                 \
+#     	    --add	item spotify_playlist e                     \
+#             --set	spotify_playlist                            \
+#                         background.color=0xaa24273a             \
+#                         icon=                                  \
+#                         icon.color=0xffc6a0f6                   \
+#                         icon.font="$FONT_FACE:Bold:19.0"        \
+#                         label.drawing=off                       \
+#                         script="$PLUGIN_DIR/spotify_playlist.sh"\
+#             --subscribe spotify_playlist mouse.clicked
 
 # INFO: right-side bar components
 sketchybar  --add item clock right                      \
@@ -143,5 +146,10 @@ sketchybar  --add item clock right                      \
                   icon=󰧹                                \
                   script="$PLUGIN_DIR/keyboard.sh"      \
             --subscribe keyboard input_change
+
+source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
+source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
+ITEM_DIR="$HOME/.config/sketchybar/items"
+source "$ITEM_DIR/volume.sh"
 
 sketchybar --update

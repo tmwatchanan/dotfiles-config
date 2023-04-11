@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DESIRED_SPACES_PER_DISPLAY=4
+DESIRED_SPACES_PER_DISPLAY=3
 CURRENT_SPACES="$(yabai -m query --displays | jq -r '.[].spaces | @sh')"
 
 DELTA=0
@@ -27,3 +27,4 @@ do
 done <<< "$CURRENT_SPACES"
 
 sketchybar --trigger space_change --trigger windows_on_spaces
+

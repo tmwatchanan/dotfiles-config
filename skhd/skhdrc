@@ -1,5 +1,5 @@
 # disable MacOS default cmd - h
-# cmd - h : []
+cmd - h : []
 
 # Space Navigation (four spaces per display): cmd - {1, 2, 3, 4}
 # lalt - 1 : DISPLAY="$(yabai -m query --displays --display | jq '.index')"; yabai -m space --focus $((1+4*($DISPLAY - 1)))
@@ -127,10 +127,10 @@ shift + lalt - r : sketchybar --remove '/.*/' && sh -c '$HOME/.config/sketchybar
 # Toggle margin of sketchybar
 shift + lalt - m : CURRENT="$(sketchybar --query bar | jq -r '.y_offset')"; \
                   if [ "$CURRENT" -eq "0" ]; then \
-                    yabai -m config external_bar all:49:0; \
-                    sketchybar --animate sin 15 --bar margin=10 y_offset=10 corner_radius=9; \
+                    yabai -m config external_bar all:36:0; \
+                    sketchybar --animate sin 15 --bar margin=10 y_offset=4 corner_radius=9; \
                   else \
-                    yabai -m config external_bar all:39:0; \
+                    yabai -m config external_bar all:36:0; \
                     sketchybar --animate sin 15 --bar margin=0 y_offset=0 corner_radius=0; \
                   fi \
 
