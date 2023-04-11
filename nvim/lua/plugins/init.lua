@@ -69,6 +69,9 @@ return {
     {
         'mg979/vim-visual-multi',
         event = { 'BufReadPost', 'BufNewFile' },
+        'chrisgrieser/nvim-early-retirement',
+        event = 'VeryLazy',
+        config = true,
     },
 
 
