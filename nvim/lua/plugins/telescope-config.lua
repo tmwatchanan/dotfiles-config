@@ -109,7 +109,7 @@ M.opts = function()
                 i = {
                     ['<C-q>'] = function(bufnr)
                         require 'telescope.actions'.smart_add_to_qflist(bufnr)
-                        require 'telescope.builtin'.quickfix()
+                        vim.cmd 'TroubleToggle quickfix'
                     end,
                     ['<C-k>'] = actions.move_selection_previous,
                     ['<C-j>'] = actions.move_selection_next,
@@ -196,7 +196,6 @@ M.keys = function()
         { telescope_keymap.search_workspace, '<Cmd>Telescope live_grep<CR>' },
         { telescope_keymap.oldfiles,         '<Cmd>Telescope oldfiles<CR>' },
         { telescope_keymap.search_buffer,    '<Cmd>Telescope current_buffer_fuzzy_find<CR>' },
-        { telescope_keymap.quickfix,         '<Cmd>Telescope quickfix<CR>' },
         { telescope_keymap.file_browse,      '<Cmd>Telescope file_browser<CR>' },
         { telescope_keymap.find_files,       '<Cmd>Telescope find_files<CR>' },
         { telescope_keymap.grep_workspace,   '<Cmd>Telescope grep_string<CR>' },
