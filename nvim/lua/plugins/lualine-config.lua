@@ -46,16 +46,13 @@ M.opts = function()
     -- }
 
     local navic_location = {
-        function()
-            local navic_text = require('nvim-navic').get_location()
-            if #navic_text ~= 0 then
-                return navic_text
-            else
-                return ''
-            end
-        end,
-        cond = require('nvim-navic').is_available,
-        padding = { left = 1, right = 0 }
+        'navic',
+        -- color_correction = 'dynamic',
+        navic_opts = {
+            separator = icons.lualine.navic_separator,
+            highlight = false,
+        }
+        -- padding = { right = 0 }
     }
 
     -- local filetype = {

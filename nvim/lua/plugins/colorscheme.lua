@@ -537,37 +537,6 @@ M.config = function()
             LeapMatch = { fg = 'white', bold = true, nocombine = true },
         }
 
-        local navic_highlight = {
-            NavicIconsFile = { bg = c.base01 },
-            NavicIconsModule = { bg = c.base01 },
-            NavicIconsNamespace = { bg = c.base01 },
-            NavicIconsPackage = { bg = c.base01 },
-            NavicIconsClass = { bg = c.base01 },
-            NavicIconsMethod = { bg = c.base01 },
-            NavicIconsProperty = { bg = c.base01 },
-            NavicIconsField = { bg = c.base01 },
-            NavicIconsConstructor = { bg = c.base01 },
-            NavicIconsEnum = { bg = c.base01 },
-            NavicIconsInterface = { bg = c.base01 },
-            NavicIconsFunction = { bg = c.base01 },
-            NavicIconsVariable = { bg = c.base01 },
-            NavicIconsConstant = { bg = c.base01 },
-            NavicIconsString = { bg = c.base01 },
-            NavicIconsNumber = { bg = c.base01 },
-            NavicIconsBoolean = { bg = c.base01 },
-            NavicIconsArray = { bg = c.base01 },
-            NavicIconsObject = { bg = c.base01 },
-            NavicIconsKey = { bg = c.base01 },
-            NavicIconsNull = { bg = c.base01 },
-            NavicIconsEnumMember = { bg = c.base01 },
-            NavicIconsStruct = { bg = c.base01 },
-            NavicIconsEvent = { bg = c.base01 },
-            NavicIconsOperator = { bg = c.base01 },
-            NavicIconsTypeParameter = { bg = c.base01 },
-            NavicText = { fg = c.base04, bg = c.base01 },
-            NavicSeparator = { fg = c.base04, bg = c.base01 },
-        }
-
         local diagnostic_highlight = {
             DiagnosticError = { fg = M.colorset.error },
             DiagnosticWarn = { fg = M.colorset.warn },
@@ -602,25 +571,25 @@ M.config = function()
             TreesitterContextLineNumber = { link = 'TreesitterContext' },
         }
 
-        -- overrideHighlightConfig({
-        --     LocalHighlightText = { bg = c.base02, bold = true, nocombine = true },
-        --     Normal = { fg = c.base04, bg = c.base01 },
-        --     NormalNC = { fg = c.base04, bg = c.base01 },
-        --     LineNr = { fg = c.base03, bg = c.base01 },
-        --     FoldColumn = { fg = c.base02, bg = c.base01 },
-        --     SignColumn = { fg = c.base02, bg = c.base01 },
-        --     CursorLine = { bg = c.base02 },
-        --     VertSplit = { fg = c.base02, bg = c.base01 },
-        --     NormalFloat = { bg = c.base00 },
-        --     FloatBorder = { link = 'NormalFloat' },
-        --     Pmenu = { fg = c.base04, bg = c.base00 },
-        --     PmenuSel = { fg = c.none, bg = c.base02 },
-        -- })
+        overrideHighlightConfig({
+            LocalHighlightText = { bg = c.base02, bold = true, nocombine = true },
+            Normal = { fg = c.base04, bg = c.base01 },
+            NormalNC = { fg = c.base04, bg = c.base01 },
+            LineNr = { fg = c.base03, bg = c.base01 },
+            FoldColumn = { fg = c.base02, bg = c.base01 },
+            SignColumn = { fg = c.base02, bg = c.base01 },
+            CursorLine = { bg = c.base02 },
+            VertSplit = { fg = c.base02, bg = c.base01 },
+            NormalFloat = { bg = c.base00 },
+            FloatBorder = { link = 'NormalFloat' },
+            NuiFloat = { fg = c.base10, bg = c.base00 },
+            Pmenu = { fg = c.base04, bg = c.base00 },
+            PmenuSel = { fg = c.none, bg = c.base02 },
+        })
         overrideHighlightConfig(telescope_highlight)
         overrideHighlightConfig(incline_highlight)
         overrideHighlightConfig(noice_highlight)
         overrideHighlightConfig(flit_highlight)
-        overrideHighlightConfig(navic_highlight)
         overrideHighlightConfig(diagnostic_highlight)
         overrideHighlightConfig(ts_rainbow_highlight)
         overrideHighlightConfig(indentblankline_highlight)

@@ -34,16 +34,16 @@ lalt - m : yabai -m window --focus "$(yabai -m query --windows | jq -re "sort_by
 # lalt - o : yabai -m window --focus first
 # shift + lalt - o : yabai -m window --focus  last
 
-# Float / Unfloat window: lalt - space
-ctrl + lalt - space : yabai -m window --toggle float; sketchybar --trigger window_focus
+# Float / Unfloat window: ctrl + lalt - space
+ctrl + lalt - space : yabai -m window --toggle float
 
 # Make window zoom to fullscreen: ctrl + lalt + enter
-ctrl + lalt - 0x24 : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
+ctrl + lalt - 0x24 : yabai -m window --toggle zoom-fullscreen
 
 # Make window zoom to parent node
-ctrl + lalt + shift - 0x24 : yabai -m window --toggle zoom-parent; sketchybar --trigger window_focus
+ctrl + lalt + shift - 0x24 : yabai -m window --toggle zoom-parent
 
-# Toggle split orientation of the selected windows node: shift + lalt - s
+# Toggle split orientation of the selected windows node: ctrl + lalt - s
 ctrl + lalt - s : yabai -m window --toggle split
 
 # Moving windows between spaces: shift + lalt - {1, 2, 3, 4, p, n } (Assumes 4 Spaces Max per Display)
@@ -69,10 +69,16 @@ shift + lalt - 4 : yabai -m window --space 4; sketchybar --trigger windows_on_sp
 shift + lalt - 5 : yabai -m window --space 5; sketchybar --trigger windows_on_spaces
 shift + lalt - 6 : yabai -m window --space 6; sketchybar --trigger windows_on_spaces
 
-# shift + lalt - p : yabai -m window --space prev; yabai -m space --focus prev; sketchybar --trigger windows_on_spaces
-# shift + lalt - n : yabai -m window --space next; yabai -m space --focus next; sketchybar --trigger windows_on_spaces
+shift + cmd - 2 : set -l SPACES (yabai -m query --displays --display | jq '.spaces[]') && [ -n $SPACES[2] ] \
+                  && yabai -m window --space $SPACES[2]
 
-# Mirror Space on X and Y Axis: ctrl + lalt - {-, |}
+shift + cmd - 3 : set -l SPACES (yabai -m query --displays --display | jq '.spaces[]') && [ -n $SPACES[3] ] \
+                  && yabai -m window --space $SPACES[3]
+
+shift + cmd - 4 : set -l SPACES (yabai -m query --displays --display | jq '.spaces[]') && [ -n $SPACES[4] ] \
+                  && yabai -m window --space $SPACES[4]
+
+# Mirror Space on X and Y Axis: shift + lalt - {-, |}
 ctrl + lalt - 0x1B : yabai -m space --mirror x-axis # -
 ctrl + lalt - 0x2A : yabai -m space --mirror y-axis # |
 

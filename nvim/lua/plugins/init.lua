@@ -1,6 +1,5 @@
 return {
     { 'nvim-lua/plenary.nvim',       lazy = false },
-    { 'MunifTanjim/nui.nvim',        lazy = false },
     { 'nvim-tree/nvim-web-devicons', lazy = false },
 
     -- Utilities
@@ -35,7 +34,12 @@ return {
         'SmiteshP/nvim-navic',
         dependencies = 'nvim-lspconfig',
         event = { 'BufReadPost', 'BufNewFile' },
-        opts = { separator = '  ', highlight = true },
+        opts = {
+            lsp = {
+                auto_attach = true,
+                preference = { 'volar', 'jsonls' },
+            },
+        },
     },
     {
         'Wansmer/treesj',
@@ -73,9 +77,18 @@ return {
     {
         'chrisgrieser/nvim-early-retirement',
         event = 'VeryLazy',
+        opts = {
+            retirementAgeMins = 30,
+            minimumBufferNum = 5,
+            notificationOnAutoClose = true,
+        },
+    },
+    {
+        'chrishrb/gx.nvim',
+        dependencies = { 'plenary.nvim' },
+        keys = { { 'gx' } },
         config = true,
     },
-
 
     -- Miscellaneous
     { 'RaafatTurki/hex.nvim', cmd = { 'HexToggle', 'HexDump', 'HexAssemble' }, config = true },

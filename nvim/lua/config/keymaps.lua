@@ -75,7 +75,7 @@ keymaps.lsp = {
     ['gr']         = '<Cmd>TroubleToggle lsp_references<CR>',
     ['<leader>ld'] = '<Cmd>TroubleToggle workspace_diagnostics<CR>',
     ['<leader>lr'] = vim.lsp.buf.rename,
-    ['gx']         = vim.lsp.buf.code_action,
+    ['<leader>lx'] = vim.lsp.buf.code_action,
     ['gs']         = vim.lsp.buf.signature_help,
     [']d']         = function() vim.diagnostic.goto_next({ float = false }) end,
     ['[d']         = function() vim.diagnostic.goto_prev({ float = false }) end,
@@ -132,10 +132,12 @@ keymaps.focus = {
 keymaps.gitsigns = {
     next_hunk    = ']c',
     prev_hunk    = '[c',
+    stage_hunk   = '<leader>hs',
     reset_hunk   = '<leader>hr',
     preview_hunk = '<leader>hp',
     blame_line   = '<leader>hb',
     toggle_blame = '<leader>hB',
+    diff_this    = '<leader>hd',
 }
 
 -- INFO: git-conflict keymap
@@ -240,11 +242,10 @@ keymaps.move = {
     move_right = '<leader><Right>',
 }
 
--- INFO: search-replace keymap
-keymaps.search_replace = {
-    single_open = '<leader>r',
-    multi_open  = '<leader>R',
-    visual_open = '<C-r>',
+-- INFO: muren search-replace keymap
+keymaps.muren = {
+    toggle = '<leader>r',
+    unique  = '<leader>R',
 }
 
 -- INFO: treesj keymap

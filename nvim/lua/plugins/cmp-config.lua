@@ -19,7 +19,9 @@ local M = {
             },
             opts = {
                 history = true,
-                delete_check_events = 'TextChanged',
+                enable_autosnippets = true,
+                region_check_events = 'InsertEnter',
+                delete_check_events = 'TextChanged,InsertLeave',
             }
         },
 
