@@ -1,147 +1,60 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-next ()
-{
-  osascript -e 'tell application "Spotify" to play next track'
-}
+source "$CONFIG_DIR/colors.sh"
 
-back () 
-{
-  osascript -e 'tell application "Spotify" to play previous track'
-}
+# Max number of characters so it fits nicely to the right of the notch
+# MAY NOT WORK WITH NON-ENGLISH CHARACTERS
+MAX_LENGTH=35
+HALF_LENGTH=$(((MAX_LENGTH + 1) / 2))
 
-play () 
-{
-  osascript -e 'tell application "Spotify" to playpause'
-}
-
-repeat () 
-{
-  REPEAT=$(osascript -e 'tell application "Spotify" to get repeating')
-  if [ "$REPEAT" = "false" ]; then
-    sketchybar -m --set spotify.repeat icon.highlight=on
-    osascript -e 'tell application "Spotify" to set repeating to true'
-  else 
-    sketchybar -m --set spotify.repeat icon.highlight=off
-    osascript -e 'tell application "Spotify" to set repeating to false'
-  fi
-}
-
-shuffle () 
-{
-  SHUFFLE=$(osascript -e 'tell application "Spotify" to get shuffling')
-  if [ "$SHUFFLE" = "false" ]; then
-    sketchybar -m --set spotify.shuffle icon.highlight=on
-    osascript -e 'tell application "Spotify" to set shuffling to true'
-  else 
-    sketchybar -m --set spotify.shuffle icon.highlight=off
-    osascript -e 'tell application "Spotify" to set shuffling to false'
-  fi
-}
-
-update ()
-{
-  PLAYING=1
-  if [ "$(echo "$INFO" | jq -r '.["Player State"]')" = "Playing" ]; then
-    PLAYING=0
-    TRACK="$(echo "$INFO" | jq -r .Name | sed 's/\(.\{20\}\).*/\1.../')"
-    ARTIST="$(echo "$INFO" | jq -r .Artist | sed 's/\(.\{20\}\).*/\1.../')"
-    ALBUM="$(echo "$INFO" | jq -r .Album | sed 's/\(.\{25\}\).*/\1.../')"
-    SHUFFLE=$(osascript -e 'tell application "Spotify" to get shuffling')
-    REPEAT=$(osascript -e 'tell application "Spotify" to get repeating')
-    COVER=$(osascript -e 'tell application "Spotify" to get artwork url of current track')
+update_track() {
+  # $INFO comes in malformed or not Spotify app, line below sanitizes it
+  CURRENT_APP=$(echo $INFO | jq -r .app)
+  if [ $CURRENT_APP != "Spotify" ]; then
+    sketchybar --set $NAME icon.color=$YELLOW
+    return
   fi
 
-  args=()
-  if [ $PLAYING -eq 0 ]; then
-    curl -s --max-time 20 "$COVER" -o /tmp/cover.jpg
-    if [ "$ARTIST" == "" ]; then
-      args+=(--set spotify.title label="$TRACK"
-             --set spotify.album label="Podcast"
-             --set spotify.artist label="$ALBUM"  )
-    else
-      args+=(--set spotify.title label="$TRACK"
-             --set spotify.album label="$ALBUM"
-             --set spotify.artist label="$ARTIST")
+  PLAYER_STATE=$(echo "$INFO" | jq -r .state)
+  if [ $PLAYER_STATE = "playing" ]; then
+    TRACK="$(echo "$INFO" | jq -r .title)"
+    ARTIST="$(echo "$INFO" | jq -r .artist)"
+
+    # Calculations so it fits nicely
+    TRACK_LENGTH=${#TRACK}
+    ARTIST_LENGTH=${#ARTIST}
+
+    if [ $((TRACK_LENGTH + ARTIST_LENGTH)) -gt $MAX_LENGTH ]; then
+      # If the total length exceeds the max
+      if [ $TRACK_LENGTH -gt $HALF_LENGTH ] && [ $ARTIST_LENGTH -gt $HALF_LENGTH ]; then
+        # If both the track and artist are too long, cut both at half length - 1
+        # If MAX_LENGTH is odd, HALF_LENGTH is calculated with an extra space, so give it an extra char
+        TRACK="${TRACK:0:$((MAX_LENGTH % 2 == 0 ? HALF_LENGTH - 2 : HALF_LENGTH - 1))}…"
+        ARTIST="${ARTIST:0:$((HALF_LENGTH - 2))}…"
+
+      elif [ $TRACK_LENGTH -gt $HALF_LENGTH ]; then
+        # Else if only the track is too long, cut it by the difference of the max length and artist length
+        TRACK="${TRACK:0:$((MAX_LENGTH - ARTIST_LENGTH - 1))}…"
+      elif [ $ARTIST_LENGTH -gt $HALF_LENGTH ]; then
+        ARTIST="${ARTIST:0:$((MAX_LENGTH - TRACK_LENGTH - 1))}…"
+      fi
     fi
-    args+=(--set spotify.play icon=􀊆
-           --set spotify.shuffle icon.highlight=$SHUFFLE
-           --set spotify.repeat icon.highlight=$REPEAT
-           --set spotify.cover background.image="/tmp/cover.jpg"
-                               background.color=0x00000000
-           --set spotify.anchor drawing=on                      )
-  else
-    args+=(--set spotify.anchor drawing=off popup.drawing=off
-           --set spotify.play icon=􀊄                         )
+    sketchybar --set $NAME label="${TRACK}  ${ARTIST}" label.drawing=yes icon.color=$GREEN
+
+  elif [ $PLAYER_STATE = "paused" ]; then
+    sketchybar --set $NAME icon.color=$YELLOW
   fi
-  sketchybar -m "${args[@]}"
-}
-
-scrubbing() {
-  DURATION_MS=$(osascript -e 'tell application "Spotify" to get duration of current track')
-  DURATION=$((DURATION_MS/1000))
-
-  TARGET=$((DURATION*PERCENTAGE/100))
-  osascript -e "tell application \"Spotify\" to set player position to $TARGET"
-  sketchybar --set spotify.state slider.percentage=$PERCENTAGE
-}
-
-scroll() {
-  DURATION_MS=$(osascript -e 'tell application "Spotify" to get duration of current track')
-  DURATION=$((DURATION_MS/1000))
-
-  FLOAT="$(osascript -e 'tell application "Spotify" to get player position')"
-  TIME=${FLOAT%.*}
-  
-  sketchybar --animate linear 10 \
-             --set spotify.state slider.percentage="$((TIME*100/DURATION))" \
-                                 icon="$(date -r $TIME +'%M:%S')" \
-                                 label="$(date -r $DURATION +'%M:%S')"
-}
-
-mouse_clicked () {
-  case "$NAME" in
-    "spotify.next") next
-    ;;
-    "spotify.back") back
-    ;;
-    "spotify.play") play
-    ;;
-    "spotify.shuffle") shuffle
-    ;;
-    "spotify.repeat") repeat
-    ;;
-    "spotify.state") scrubbing
-    ;;
-    *) exit
-    ;;
-  esac
-}
-
-popup () {
-  sketchybar --set spotify.anchor popup.drawing=$1
-}
-
-routine() {
-  case "$NAME" in
-    "spotify.state") scroll
-    ;;
-    *) update
-    ;;
-  esac
 }
 
 case "$SENDER" in
-  "mouse.clicked") mouse_clicked
-  ;;
-  "mouse.entered") popup on
-  ;;
-  "mouse.exited"|"mouse.exited.global") popup off
-  ;;
-  "routine") routine
-  ;;
-  "forced") exit 0
-  ;;
-  *) update
-  ;;
+  "mouse.clicked") 
+    if [ $BUTTON = "left" ]; then
+      osascript -e 'tell application "Spotify" to playpause'
+    else
+      osascript -e 'tell application "Spotify" to play next track'
+    fi
+    ;;
+  "media_change")
+    update_track
+    ;;
 esac

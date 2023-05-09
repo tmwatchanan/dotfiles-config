@@ -8,17 +8,16 @@ source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 ##### Bar Appearance #####
 # https://felixkratz.github.io/SketchyBar/config/bar
 
-sketchybar	--bar                   \
-                height=32           \
-                margin=10           \
-                y_offset=2          \
-                corner_radius=9     \
-                blur_radius=30      \
-                position=top        \
-                sticky=on           \
-                padding_left=4     \
-                padding_right=4    \
-                color=$BAR_COLOR
+bar=(
+    height=36
+    blur_radius=30
+    position=top
+    sticky=on
+    padding_left=20
+    padding_right=20
+    color=$BAR_COLOR
+)
+sketchybar --bar "${bar[@]}"
 
 default=(
     updates=when_shown
