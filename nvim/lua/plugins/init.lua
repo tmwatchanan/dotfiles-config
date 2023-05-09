@@ -21,11 +21,6 @@ return {
         config = true
     },
     {
-        'tzachar/local-highlight.nvim',
-        event = { 'BufReadPre', 'BufNewFile' },
-        opts = { hlgroup = 'LocalHighlightText', cw_hlgroup = 'LocalHighlightText' },
-    },
-    {
         'kylechui/nvim-surround',
         dependencies = { 'nvim-treesitter-textobjects' },
         event = { 'BufReadPost', 'BufNewFile' },
