@@ -1,6 +1,7 @@
 return {
     { 'nvim-lua/plenary.nvim',       lazy = false },
     { 'nvim-tree/nvim-web-devicons', lazy = false },
+    { 'MunifTanjim/nui.nvim',        lazy = false },
 
     -- Utilities
     {
@@ -11,7 +12,7 @@ return {
     {
         'tzachar/local-highlight.nvim',
         event = { 'BufReadPre', 'BufNewFile' },
-        opts = { hlgroup = 'LocalHighlightText', cw_hlgroup = 'LocalHighlightText' },
+        config = true,
     },
     {
         'kylechui/nvim-surround',
@@ -32,8 +33,6 @@ return {
     },
     {
         'SmiteshP/nvim-navic',
-        dependencies = 'nvim-lspconfig',
-        event = { 'BufReadPost', 'BufNewFile' },
         opts = {
             lsp = {
                 auto_attach = true,
