@@ -9,7 +9,7 @@ source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 # https://felixkratz.github.io/SketchyBar/config/bar
 
 bar=(
-    height=36
+    height=32
     blur_radius=30
     position=top
     sticky=on
