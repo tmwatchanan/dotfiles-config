@@ -497,12 +497,12 @@ M.config = function()
                 c = { fg = c.base04 },
             }),
             insert = vim.tbl_deep_extend('force', lualine_defaults, {
-                a = { fg = c.base14 },
+                a = { fg = c.base10 },
                 b = { fg = c.base04 },
                 c = { fg = c.base04 },
             }),
             visual = vim.tbl_deep_extend('force', lualine_defaults, {
-                a = { fg = c.base12 },
+                a = { fg = c.base14 },
                 b = { fg = c.base04 },
                 c = { fg = c.base04 },
             }),
@@ -512,7 +512,7 @@ M.config = function()
                 c = { fg = c.base04 },
             }),
             command = vim.tbl_deep_extend('force', lualine_defaults, {
-                a = { fg = c.base05 },
+                a = { fg = c.base12 },
                 b = { fg = c.base04 },
                 c = { fg = c.base04 },
             }),
@@ -546,6 +546,7 @@ M.config = function()
             TelescopeResultsDiffChange = { bg = c.base00 },
             TelescopeResultsDiffDelete = { bg = c.base00 },
             TelescopeResultsDiffUntracked = { bg = c.base00 },
+            TelescopeMatching = { link = 'Search' },
         }
 
         local flit_highlight = {
@@ -625,20 +626,21 @@ M.config = function()
             LocalHighlight = { bg = c.base02, bold = true, nocombine = true },
         }
 
-        -- overrideHighlightConfig({
-        --     Normal = { fg = c.base04, bg = c.base01 },
-        --     NormalNC = { fg = c.base04, bg = c.base01 },
-        --     LineNr = { fg = c.base03, bg = c.base01 },
-        --     FoldColumn = { fg = c.base02, bg = c.base01 },
-        --     SignColumn = { fg = c.base02, bg = c.base01 },
-        --     CursorLine = { bg = c.base02 },
-        --     VertSplit = { fg = c.base02, bg = c.base01 },
-        --     NormalFloat = { bg = c.base00 },
-        --     FloatBorder = { link = 'NormalFloat' },
-        --     FloatTitle = { fg = c.base10, bg = c.base00, bold = true },
-        --     Pmenu = { fg = c.base04, bg = c.base00 },
-        --     PmenuSel = { fg = c.none, bg = c.base02 },
-        -- })
+        overrideHighlightConfig({
+            Normal = { fg = c.base04, bg = c.base01 },
+            NormalNC = { fg = c.base04, bg = c.base01 },
+            LineNr = { fg = c.base03, bg = c.base01 },
+            FoldColumn = { fg = c.base02, bg = c.base01 },
+            SignColumn = { fg = c.base02, bg = c.base01 },
+            CursorLine = { bg = c.base02 },
+            VertSplit = { fg = c.base02, bg = c.base01 },
+            NormalFloat = { bg = c.base00 },
+            FloatBorder = { link = 'NormalFloat' },
+            FloatTitle = { fg = c.base10, bg = c.base00, bold = true },
+            Pmenu = { fg = c.base04, bg = c.base00 },
+            PmenuSel = { fg = c.none, bg = c.base02 },
+            Search = { fg = c.base01, bg = c.base12, bold = true },
+        })
         overrideHighlightConfig(telescope_highlight)
         overrideHighlightConfig(incline_highlight)
         overrideHighlightConfig(noice_highlight)

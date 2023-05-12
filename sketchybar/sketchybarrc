@@ -1,5 +1,5 @@
-SKETCHYBAR_CONFIG="$HOME/.config/sketchybar"
-PLUGIN_DIR="$SKETCHYBAR_CONFIG/plugins-laptop"
+CONFIG_DIR="$HOME/.config/sketchybar"
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 FONT_FACE="Hack Nerd Font"
 
 source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
