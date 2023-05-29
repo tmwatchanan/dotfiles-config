@@ -149,7 +149,7 @@ keymaps.telescope = {
     buffers              = '<leader><tab>',
     find_files           = '<leader>fs',
     help                 = '<leader>;',
-    jumplist             = '<leader>jl',
+    jumplist             = '<leader>ju',
     oldfiles             = '<leader>o',
     file_browse          = '<leader>fb',
     action_buffer_delete = { n = 'd', i = '<m-d>' },
@@ -246,7 +246,17 @@ keymaps.muren = {
 
 -- INFO: treesj keymap
 keymaps.treesj = {
-    toggle = 'J',
+    toggle = '<leader>jl',
+}
+
+-- INFO: refactoring
+keymaps.refactoring = {
+    extract_function = '<leader>re',
+    extract_function_to_file = '<leader>rf',
+    extract_variable = '<leader>rv',
+    inline_variable = '<leader>ri',
+    extract_block = '<leader>rb',
+    extract_block_to_file = '<leader>rbf',
 }
 
 return keymaps
