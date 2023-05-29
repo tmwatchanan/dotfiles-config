@@ -33,17 +33,17 @@ local M = {
         },
 
         -- NOTE: github copilot if available
-        {
-            'zbirenbaum/copilot-cmp',
-            dependencies = {
-                'zbirenbaum/copilot.lua',
-                opts = {
-                    suggestion = { enabled = false },
-                    panel = { enabled = false },
-                }
-            },
-            config = true
-        },
+        -- {
+        --     'zbirenbaum/copilot-cmp',
+        --     dependencies = {
+        --         'zbirenbaum/copilot.lua',
+        --         opts = {
+        --             suggestion = { enabled = false },
+        --             panel = { enabled = false },
+        --         }
+        --     },
+        --     config = true
+        -- },
     },
 }
 
