@@ -257,6 +257,8 @@ keymaps.refactoring = {
     inline_variable = '<leader>ri',
     extract_block = '<leader>rb',
     extract_block_to_file = '<leader>rbf',
+    print_var = '<leader>pv',
+    debug_cleanup = '<leader>rc',
 }
 
 return keymaps

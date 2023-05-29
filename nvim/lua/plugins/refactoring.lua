@@ -58,6 +58,24 @@ M.keys = function()
             mode = 'n',
             noremap = true, silent = true, expr = false,
         },
+        {
+            refactoring_keymap.print_var,
+            function() require('refactoring').debug.print_var({ normal = true }) end,
+            mode = 'n',
+            noremap = true,
+        },
+        {
+            refactoring_keymap.print_var,
+            function() require('refactoring').debug.print_var({}) end,
+            mode = 'v',
+            noremap = true,
+        },
+        {
+            refactoring_keymap.debug_cleanup,
+            function() require('refactoring').debug.cleanup({}) end,
+            mode = 'n',
+            noremap = true,
+        },
     }
 end
 
