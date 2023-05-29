@@ -183,7 +183,7 @@ local lsp_lines_module = {
 
 lsp_lines_module.config = function()
     -- INFO: store user severity config as a limit, if exist
-    local user_severity_limit = (vim.diagnostic.config().virtual_lines.severity.min or vim.diagnostic.severity.HINT)
+    local user_severity_limit = vim.diagnostic.severity.HINT
     local current_severity = user_severity_limit
 
     local function setSeverityConfig(min_severity)
