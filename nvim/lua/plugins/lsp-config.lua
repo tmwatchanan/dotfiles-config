@@ -46,9 +46,9 @@ lsp_setup_module.init = function()
     local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
         opts = opts or {}
-        opts.pad_top = opts.pad_top or 1
-        opts.pad_bottom = opts.pad_bottom or 1
         opts.focus = opts.focusable or false
+        opts.offset_x = opts.offset_x or -2
+        opts.offset_y = opts.offset_y or 0
 
         -- NOTE: padding contents
         for index, message in ipairs(contents) do
@@ -93,16 +93,27 @@ lsp_setup_module.config = function()
     vim.lsp.set_log_level 'off' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
     -- require('vim.lsp.log').set_format_func(vim.inspect)
 
-    -- INFO: config lsp keymaps
-    local function lsp_keymaps(bufnr, mapping)
-        local opts = { buffer = bufnr, silent = true, noremap = true }
-        for key, cmd in pairs(mapping or {}) do
-            vim.keymap.set('n', key, cmd, opts)
+    -- INFO: check if eslint is attach then enable documentFormattingProvider
+    local function check_eslint(client)
+        if client.name == 'eslint' then
+            client.server_capabilities.documentFormattingProvider = true
+            return true
         end
+        return false
     end
 
-    local function lsp_on_attach(_, bufnr)
-        lsp_keymaps(bufnr, require('config.keymaps').lsp)
+    -- INFO: config lsp keymaps
+    local function lsp_keymap(client, bufnr, mapping)
+        local opts = { buffer = bufnr, silent = true, noremap = true }
+
+        -- INFO: always call formatting with restrict to eslint if found
+        if check_eslint(client) then
+            mapping.format.cmd = function() vim.lsp.buf.format({ async = true, name = client.name }) end
+        end
+
+        for _, keymap in pairs(mapping) do
+            vim.keymap.set('n', keymap.key, keymap.cmd, opts)
+        end
     end
 
     local lsp = require('lsp-zero').preset {
@@ -121,7 +132,7 @@ lsp_setup_module.config = function()
     lsp.set_sign_icons(require('config').defaults.icons.diagnostics)
 
     lsp.on_attach(function(client, bufnr)
-        lsp_on_attach(client, bufnr)
+        lsp_keymap(client, bufnr, require('config.keymaps').lsp)
     end)
 
     -- INFO: config lsp servers in lsp-list

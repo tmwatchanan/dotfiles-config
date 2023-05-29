@@ -522,8 +522,8 @@ M.config = function()
         vim.cmd.colorscheme 'oxocarbon'
 
         local incline_highlight = {
-            InclineNormal = { bold = true },
-            InclineNormalNC = { fg = c.base03 },
+            InclineNormal = { bg = c.base01, bold = true },
+            InclineNormalNC = { fg = c.base03, bg = c.base01 },
             InclineSpacing = { fg = c.none, bg = c.base10, },
             InclineModified = { fg = c.base10, bg = c.none, },
         }
@@ -532,7 +532,7 @@ M.config = function()
             NoiceCmdlineIconCmdline = { link = 'lualine_a_command' },
             NoiceCmdlineIconSearch = { link = 'lualine_a_command' },
             NoiceCmdlineIconFilter = { link = 'lualine_a_command' },
-            NoiceMini = { bg = c.base01 },
+            NoiceMini = { bg = c.base02 },
             NoiceCmdline = { bg = c.base01 },
             NoiceSplit = { bg = c.base01 },
         }
@@ -627,21 +627,21 @@ M.config = function()
             LocalHighlight = { bg = c.base02, bold = true, nocombine = true },
         }
 
-        -- overrideHighlightConfig({
-        --     Normal = { fg = c.base04, bg = c.base01 },
-        --     NormalNC = { fg = c.base04, bg = c.base01 },
-        --     LineNr = { fg = c.base03, bg = c.base01 },
-        --     FoldColumn = { fg = c.base02, bg = c.base01 },
-        --     SignColumn = { fg = c.base02, bg = c.base01 },
-        --     CursorLine = { bg = c.base02 },
-        --     VertSplit = { fg = c.base02, bg = c.base01 },
-        --     NormalFloat = { bg = c.base00 },
-        --     FloatBorder = { link = 'NormalFloat' },
-        --     FloatTitle = { fg = c.base10, bg = c.base00, bold = true },
-        --     Pmenu = { fg = c.base04, bg = c.base00 },
-        --     PmenuSel = { fg = c.none, bg = c.base02 },
-        --     Search = { fg = c.base01, bg = c.base12, bold = true },
-        -- })
+        overrideHighlightConfig({
+            Normal = { fg = c.base04, bg = c.none },
+            NormalNC = { fg = c.base04, bg = c.none },
+            LineNr = { fg = c.base03, bg = c.none },
+            FoldColumn = { fg = c.base02, bg = c.none },
+            SignColumn = { fg = c.base02, bg = c.none },
+            CursorLine = { bg = c.base02 },
+            VertSplit = { fg = c.base02, bg = c.none },
+            NormalFloat = { bg = c.base00 },
+            FloatBorder = { link = 'NormalFloat' },
+            FloatTitle = { fg = c.base10, bg = c.base00, bold = true },
+            Pmenu = { fg = c.base04, bg = c.base00 },
+            PmenuSel = { fg = c.none, bg = c.base02 },
+            Search = { fg = c.base01, bg = c.base12, bold = true },
+        })
         overrideHighlightConfig(telescope_highlight)
         overrideHighlightConfig(incline_highlight)
         overrideHighlightConfig(noice_highlight)
