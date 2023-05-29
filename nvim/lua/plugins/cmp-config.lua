@@ -92,7 +92,7 @@ M.opts = function()
         end),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.select_next_item()
+                cmp.confirm({ select = true })
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
             elseif has_word_before() then
@@ -102,9 +102,9 @@ M.opts = function()
             end
         end, { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
+            -- if cmp.visible() then
+            --     cmp.select_prev_item()
+            if luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             else
                 fallback()
@@ -115,7 +115,7 @@ M.opts = function()
     local cmp_sorting = {
         priority_weight = 2,
         comparators = {
-            require('copilot_cmp.comparators').prioritize,
+            -- require('copilot_cmp.comparators').prioritize,
 
             cmp.config.compare.offset,
             cmp.config.compare.exact,
@@ -130,7 +130,7 @@ M.opts = function()
     }
 
     local cmp_sources = cmp.config.sources({
-        { name = 'copilot' },
+        -- { name = 'copilot' },
         { name = 'path' },
         { name = 'nvim_lsp' },
         { name = 'rg',      keyword_length = 3 },
