@@ -1,8 +1,9 @@
 local M = {
     -- 'rebelot/kanagawa.nvim',
-    -- 'folke/tokyonight.nvim',
+    'folke/tokyonight.nvim',
     -- 'catppuccin/nvim',
-    'nyoom-engineering/oxocarbon.nvim',
+    -- 'nyoom-engineering/oxocarbon.nvim',
+    -- 'sainnhe/gruvbox-material',
     name = 'nvim-colorscheme',
     event = 'UIEnter'
 }
@@ -657,7 +658,7 @@ M.config = function()
         end
 
         -- INFO: disable lsp semantic token highlighting
-        lspDisableHighlight()
+        -- lspDisableHighlight()
 
         -- INFO: overrided some terminal colors
         vim.g['terminal_color_3'] = c.base10

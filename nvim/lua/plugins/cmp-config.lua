@@ -33,7 +33,7 @@ local M = {
         },
 
         -- NOTE: github copilot if available
-        'copilot.lua'
+        -- 'copilot.lua'
     },
 }
 
@@ -136,7 +136,7 @@ M.opts = function()
         },
         preselect = cmp.PreselectMode.Item,
         completion = {
-            autocomplete = false,
+            autocomplete = true,
             completeopt  = 'menuone',
         },
         matching = {
