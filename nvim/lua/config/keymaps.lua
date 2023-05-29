@@ -49,7 +49,7 @@ keymaps.setup = function()
     vim.keymap.set('v', 'p', '"_dP')        -- replace-paste without yank
     vim.keymap.set('i', '<S-Tab>', '<C-d>') -- de-tab while in insert mode
     vim.keymap.set('n', 'Y', 'y$')          -- Yank line after cursor
-    vim.keymap.set('n', 'P', '<cmd>pu<CR>') -- Paste on new line
+    -- vim.keymap.set('n', 'P', '<cmd>pu<CR>') -- Paste on new line
     vim.keymap.set('v', '<', '<gv')
     vim.keymap.set('v', '>', '>gv')
 
@@ -97,11 +97,6 @@ keymaps.lsp = {
 -- INFO: lsp_lines keymap
 keymaps.lsp_lines = {
     toggle = '<leader>ll'
-}
-
--- INFO: nvim-navbuddy keymap
-keymaps.navbuddy = {
-    toggle = '<leader>ln'
 }
 
 -- INFO: Treesitter
