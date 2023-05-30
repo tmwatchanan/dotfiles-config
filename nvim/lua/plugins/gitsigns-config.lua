@@ -46,6 +46,12 @@ M.opts = {
         map('n', gitsigns_keymap.toggle_blame, gitsigns_actions.toggle_current_line_blame)
 
         map('n', gitsigns_keymap.diff_this, gitsigns_actions.diffthis)
+
+        vim.api.nvim_create_autocmd('OptionSet', {
+            desc = 'assign q to quit when in diff mode',
+            pattern = 'diff',
+            callback = function() vim.keymap.set('n', 'q', '<c-w>h:q<cr>', { buffer = true }) end
+        })
     end
 }
 
