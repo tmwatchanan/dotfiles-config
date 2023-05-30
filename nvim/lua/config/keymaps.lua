@@ -251,14 +251,14 @@ keymaps.treesj = {
 
 -- INFO: refactoring
 keymaps.refactoring = {
-    extract_function = '<leader>re',
+    extract_function         = '<leader>re',
     extract_function_to_file = '<leader>rf',
-    extract_variable = '<leader>rv',
-    inline_variable = '<leader>ri',
-    extract_block = '<leader>rb',
-    extract_block_to_file = '<leader>rbf',
-    print_var = '<leader>pv',
-    debug_cleanup = '<leader>rc',
+    extract_variable         = '<leader>rv',
+    inline_variable          = '<leader>ri',
+    extract_block            = '<leader>rb',
+    extract_block_to_file    = '<leader>rbf',
+    print_var                = '<leader>pv',
+    debug_cleanup            = '<leader>rc',
 }
 
 return keymaps
