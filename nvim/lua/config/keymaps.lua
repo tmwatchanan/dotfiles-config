@@ -261,4 +261,15 @@ keymaps.refactoring = {
     debug_cleanup            = '<leader>rc',
 }
 
+-- INFO: Neotest
+keymaps.neotest = {
+    run_nearest      = '<leader>tn',
+    stop_nearest     = '<leader>ts',
+    debug_nearest    = '<leader>td',
+    attach_nearest   = '<leader>ta',
+    run_current_file = '<leader>tf',
+    summary          = '<leader>tt',
+    output_panel     = '<leader>to',
+}
+
 return keymaps
