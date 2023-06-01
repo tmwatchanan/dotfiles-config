@@ -32,11 +32,13 @@ M.setup = function()
             callback = function()
                 require 'config.autocommands'
                 require 'config.keymaps'.setup()
+                require 'config.provider'
             end,
         })
     else
         require 'config.autocommands'
         require 'config.keymaps'.setup()
+        require 'config.provider'
 
         -- loads `telescope-file-browser` to handles in case of directory args
         require('lazy').load({ plugins = { 'telescope.nvim' } })
