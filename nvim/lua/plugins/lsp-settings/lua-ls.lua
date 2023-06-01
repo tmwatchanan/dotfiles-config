@@ -23,7 +23,6 @@ return {
                     '**/node_modules/**',
                 },
             },
-            telemetry = { enable = false },
         },
     },
 }
