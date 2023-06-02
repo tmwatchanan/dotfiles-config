@@ -149,7 +149,7 @@ keymaps.telescope = {
     buffers              = '<leader><tab>',
     find_files           = '<leader>fs',
     resume               = '<leader>;',
-    jumplist             = '<leader>j',
+    jumplist             = '<leader>ju',
     oldfiles             = '<leader>?',
     file_browse          = '<leader>fb',
     action_buffer_delete = { n = 'd', i = '<m-d>' },
