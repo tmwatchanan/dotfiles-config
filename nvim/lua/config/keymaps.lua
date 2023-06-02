@@ -148,9 +148,9 @@ keymaps.telescope = {
     search_workspace     = '<leader>fw',
     buffers              = '<leader><tab>',
     find_files           = '<leader>fs',
-    help                 = '<leader>;',
-    jumplist             = '<leader>ju',
-    oldfiles             = '<leader>o',
+    resume               = '<leader>;',
+    jumplist             = '<leader>j',
+    oldfiles             = '<leader>?',
     file_browse          = '<leader>fb',
     action_buffer_delete = { n = 'd', i = '<m-d>' },
 }
