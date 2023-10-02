@@ -12,10 +12,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
--- INFO: lazy.nvim configs
-local default_config = require('config').defaults
-
-local lazy_config = {
+require('lazy').setup {
+    spec = {
+        { import = 'plugins' },
+    },
     defaults = {
         lazy = true
     },
@@ -24,7 +24,7 @@ local lazy_config = {
             colorscheme = { 'nvim-colorscheme', 'habamax' }
         },
         ui = {
-            border = default_config.float_border
+            border = require('config').defaults.float_border
         },
         rtp = {
             disabled_plugins = {
@@ -38,7 +38,7 @@ local lazy_config = {
                 'netrwSettings',
                 'netrwFileHandlers',
                 'matchit',
-                'matchparen',
+                -- 'matchparen',
                 'tar',
                 'tarPlugin',
                 'tohtml',
@@ -55,20 +55,7 @@ local lazy_config = {
         path = '~/Developments/nvim-plugins'
     }
 }
-require('lazy').setup('plugins', lazy_config)
 
 -- INFO: lazy.nvim keybinding
 local lazy_keymap = require('config.keymaps').lazy
 vim.keymap.set('n', lazy_keymap.open, '<Cmd>Lazy<CR>')
-
--- INFO: fix double virtual texts
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'lazy',
-    callback = function()
-        local floating = vim.api.nvim_win_get_config(0).relative ~= ''
-        vim.diagnostic.config({
-            virtual_text = floating,
-            virtual_lines = not floating,
-        })
-    end,
-})

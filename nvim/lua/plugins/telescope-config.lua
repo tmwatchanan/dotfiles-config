@@ -4,8 +4,8 @@ local M = {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     dependencies = {
-        'nvim-telescope/telescope-file-browser.nvim',
-        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+        { 'nvim-telescope/telescope-file-browser.nvim' },
+        { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
     },
 }
 
@@ -20,17 +20,22 @@ M.opts = function()
         layout_strategy = 'vertical',
         layout_config = {
             preview_height = 0.75,
-            prompt_position = 'bottom'
-        }
+            prompt_position = 'bottom',
+            width = 0.85,
+            height = 0.8,
+        },
+        sorting_strategy = 'descending',
     }
 
     local horizontal_layout_config = {
-        -- sorting_strategy = 'ascending',
         layout_strategy = 'horizontal',
         layout_config = {
-            preview_width = 0.6,
-            -- prompt_position = 'top'
-        }
+            preview_width = 0.55,
+            prompt_position = 'top',
+            width = 0.85,
+            height = 0.8,
+        },
+        sorting_strategy = 'ascending',
     }
 
     local bottom_layout_config = {
@@ -66,7 +71,7 @@ M.opts = function()
             vim.notify(string.format('[buffers.actions.remove] %s', message), vim.log.levels.INFO,
                 { title = 'Telescope builtin' })
 
-            vim.ui.input({ prompt = 'Remove selections [y/N]: ' }, function(input)
+            vim.ui.input({ prompt = 'Remove selections ? [y/n] ' }, function(input)
                 vim.cmd [[ redraw ]] -- redraw to clear out vim.ui.prompt to avoid hit-enter prompt
                 if input and input:lower() == 'y' then
                     -- INFO: lazy loads `mini.bufremove` for handles buffer deletion
@@ -96,13 +101,14 @@ M.opts = function()
 
     return {
         defaults = {
-            prompt_prefix = '   ', -- this still got an issue of prompt buffer bug, can be workaround by changes it to empty string
+            prompt_prefix = '   ',
             entry_prefix = '  ',
-            selection_caret = '  ',
+            selection_caret = '   ',
+            results_title = '',
             color_devicons = true,
             path_display = { 'tail', 'smart' },
             set_env = { ['COLORTERM'] = 'truecolor' },
-            file_ignore_patterns = { 'node_module' },
+            file_ignore_patterns = { 'node_modules' },
             dynamic_preview_title = true,
             borderchars = defaults.float_border,
             mappings = {
@@ -114,6 +120,11 @@ M.opts = function()
                     ['<C-k>'] = actions.move_selection_previous,
                     ['<C-j>'] = actions.move_selection_next,
                 },
+            },
+            sorting_strategy = 'ascending',
+            layout_strategy = 'flex',
+            layout_config = {
+                prompt_position = 'top',
             },
         },
         pickers = {
@@ -193,19 +204,22 @@ M.keys = function()
         { telescope_keymap.resume,           '<Cmd>Telescope resume<CR>' },
         { telescope_keymap.buffers,          '<Cmd>Telescope buffers<CR>' },
         { telescope_keymap.jumplist,         '<Cmd>Telescope jumplist<CR>' },
-        { telescope_keymap.search_workspace, '<Cmd>Telescope live_grep<CR>' },
-        { telescope_keymap.oldfiles,         '<Cmd>Telescope oldfiles<CR>' },
-        { telescope_keymap.search_buffer,    '<Cmd>Telescope current_buffer_fuzzy_find<CR>' },
+        { telescope_keymap.help_tags,        '<Cmd>Telescope help_tags<CR>' },
         { telescope_keymap.file_browse,      '<Cmd>Telescope file_browser<CR>' },
         { telescope_keymap.find_files,       '<Cmd>Telescope find_files<CR>' },
-        { telescope_keymap.grep_workspace,   '<Cmd>Telescope grep_string<CR>' },
+        { telescope_keymap.oldfiles,         '<Cmd>Telescope oldfiles<CR>' },
+        { telescope_keymap.search_workspace, '<Cmd>Telescope live_grep<CR>' },
+        { telescope_keymap.grep_workspace,   '<Cmd>Telescope grep_string<CR>', mode = 'n' },
         {
             telescope_keymap.grep_workspace,
             function()
-                require('telescope.builtin').grep_string({ default_text = ("'%s"):format(getVisualSelection()), use_regex = false })
+                require('telescope.builtin').grep_string {
+                    default_text = ("'%s"):format(getVisualSelection()),
+                    use_regex = false,
+                }
             end,
             mode = 'v',
-        }
+        },
     }
 end
 

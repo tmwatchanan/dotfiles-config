@@ -1,7 +1,7 @@
 return {
-    { 'nvim-lua/plenary.nvim',       lazy = false },
-    { 'nvim-tree/nvim-web-devicons', lazy = false },
-    { 'MunifTanjim/nui.nvim',        lazy = false },
+    { 'nvim-lua/plenary.nvim',        lazy = false },
+    { 'DaikyXendo/nvim-web-devicons', lazy = false },
+    { 'MunifTanjim/nui.nvim',         lazy = false },
 
     -- Utilities
     {
@@ -11,12 +11,11 @@ return {
     },
     {
         'tzachar/local-highlight.nvim',
-        event = { 'BufReadPre', 'BufNewFile' },
+        event = { 'BufReadPost', 'BufNewFile' },
         config = true,
     },
     {
         'kylechui/nvim-surround',
-        dependencies = { 'nvim-treesitter-textobjects' },
         event = 'VeryLazy',
         config = true
     },
@@ -44,38 +43,6 @@ return {
         keys = {
             { require('config.keymaps').treesj.toggle, '<Cmd>TSJToggle<CR>' },
         }
-    },
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        event = 'VeryLazy',
-        opts = {
-            char = '│',
-            show_trailing_blankline_indent = false,
-            show_current_context = true,
-        }
-    },
-    {
-        'utilyre/sentiment.nvim',
-        event = 'VeryLazy',
-        opts = {
-            excluded_filetypes = {
-                [''] = true,
-                ['toggleterm'] = true,
-            }
-        }
-    },
-    {
-        'mg979/vim-visual-multi',
-        event = { 'BufReadPost', 'BufNewFile' },
-    },
-    {
-        'chrisgrieser/nvim-early-retirement',
-        event = 'VeryLazy',
-        opts = {
-            retirementAgeMins = 30,
-            minimumBufferNum = 9,
-            notificationOnAutoClose = true,
-        },
     },
     {
         'chrishrb/gx.nvim',

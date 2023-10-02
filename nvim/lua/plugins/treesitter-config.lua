@@ -3,12 +3,12 @@ local M = {
     build = ':TSUpdate',
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
+        { 'nvim-treesitter/nvim-treesitter-context', opts = { zindex = 5 } },
         'JoosepAlviste/nvim-ts-context-commentstring',
         'windwp/nvim-ts-autotag',
-        'HiPhish/nvim-ts-rainbow2',
-        'yioneko/nvim-yati',
-        'yioneko/vim-tmindent'
-    }
+        'nvim-treesitter-textobjects',
+    },
+    main = 'nvim-treesitter.configs'
 }
 
 M.opts = function()
@@ -24,6 +24,10 @@ M.opts = function()
             'bash',
             'fish',
             'yaml',
+            'tsx',
+            'javascript',
+            'css',
+            'scss',
         },
         ignore_install = {
             'norg',
@@ -36,16 +40,12 @@ M.opts = function()
             additional_vim_regex_highlighting = false,
         },
         indent = {
-            enable = false,
+            enable = true,
+            disable = { 'cpp' }
         },
         context_commentstring = {
             enable = true,
             enable_autocmd = false,
-        },
-        rainbow = {
-            enable = true,
-            -- max_file_lines = nil, -- Do not enable for files with more than n lines
-            -- colors = require('plugins.colorscheme').colorset.bracket
         },
         autotag = {
             enable = true,
@@ -54,17 +54,7 @@ M.opts = function()
             enable = true,
             keymaps = keymaps.incremental_selection,
         },
-        yati = {
-            enable = true,
-            default_fallback = function (lnum, computed, bufnr)
-                return require('tmindent').get_indent(lnum, bufnr) + computed
-            end
-        }
     }
-end
-
-M.config = function(_, opts)
-    require('nvim-treesitter.configs').setup(opts)
 end
 
 return M

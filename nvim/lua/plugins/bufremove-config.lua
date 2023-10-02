@@ -1,16 +1,17 @@
 local M = {
     'echasnovski/mini.bufremove',
+    main = 'mini.bufremove',
 }
 
-M.config = function()
-    require('mini.bufremove').setup { silent = true }
-end
+M.opts = {
+    silent = true,
+}
 
 M.keys = function()
     local bufremove_keymap = require('config.keymaps').bufremove
 
     return {
-        { bufremove_keymap.delete, require('mini.bufremove').delete },
+        { bufremove_keymap.delete, function() require('mini.bufremove').delete() end },
     }
 end
 

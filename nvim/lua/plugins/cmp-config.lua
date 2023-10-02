@@ -2,12 +2,15 @@ local M = {
     'hrsh7th/nvim-cmp',
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
+        -- NOTE: cmp sources
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-cmdline',
-        'hrsh7th/cmp-path',
+        'FelipeLema/cmp-async-path',
         'saadparwaiz1/cmp_luasnip',
-        'lukas-reineke/cmp-rg',
-        'onsails/lspkind.nvim',
+        {
+            'tzachar/cmp-fuzzy-buffer',
+            dependencies = { 'tzachar/fuzzy.nvim' },
+        },
 
         -- NOTE: snippet plugins
         {
@@ -33,21 +36,26 @@ local M = {
         },
 
         -- NOTE: github copilot if available
-        -- {
-        --     'zbirenbaum/copilot-cmp',
-        --     dependencies = {
-        --         'zbirenbaum/copilot.lua',
-        --         opts = {
-        --             suggestion = { enabled = false },
-        --             panel = { enabled = false },
-        --         }
-        --     },
-        --     config = true
-        -- },
+        {
+            'zbirenbaum/copilot-cmp',
+            dependencies = {
+                'zbirenbaum/copilot.lua',
+                opts = {
+                    suggestion = { enabled = false },
+                    panel = { enabled = false },
+                }
+            },
+            config = true
+        },
+
+        -- NOTE: misc. plugins
+        'onsails/lspkind.nvim',
     },
 }
 
 M.opts = function()
+    local default_border = require('config').defaults.float_border
+
     local cmp = require('cmp')
     local luasnip = require('luasnip')
 
@@ -69,7 +77,7 @@ M.opts = function()
             local kind = lspkind_format(entry, vim_item)
             local strings = vim.split(kind.kind, '%s', { trimempty = true })
 
-            kind.kind = ' ' .. strings[1] .. ' '
+            kind.kind = strings[1] .. ' '
             kind.menu = '   ' .. strings[2]
             kind.menu_hl_group = 'CmpItemKind' .. original_kind
 
@@ -115,13 +123,26 @@ M.opts = function()
     local cmp_sorting = {
         priority_weight = 2,
         comparators = {
-            -- require('copilot_cmp.comparators').prioritize,
+            require('copilot_cmp.comparators').prioritize,
+            require('cmp_fuzzy_buffer.compare'),
 
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            cmp.config.compare.locality,
+
+            -- INFO: sort by number of underscores
+            function(entry1, entry2)
+                local _, entry1_under = entry1.completion_item.label:find "^_+"
+                local _, entry2_under = entry2.completion_item.label:find "^_+"
+                entry1_under = entry1_under or 0
+                entry2_under = entry2_under or 0
+                if entry1_under > entry2_under then
+                    return false
+                elseif entry1_under < entry2_under then
+                    return true
+                end
+            end,
+
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
             cmp.config.compare.length,
@@ -129,13 +150,17 @@ M.opts = function()
         },
     }
 
-    local cmp_sources = cmp.config.sources({
-        -- { name = 'copilot' },
-        { name = 'path' },
-        { name = 'nvim_lsp' },
-        { name = 'rg',      keyword_length = 3 },
-        { name = 'luasnip', keyword_length = 2 },
-    })
+    local cmp_sources = cmp.config.sources(
+        {
+            { name = 'copilot' },
+            { name = 'async_path' },
+            { name = 'nvim_lsp' },
+            { name = 'luasnip',   keyword_length = 2 },
+        },
+        {
+            { name = 'fuzzy_buffer', option = { min_match_length = 2 } },
+        }
+    )
 
     return {
         snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
@@ -145,9 +170,13 @@ M.opts = function()
         formatting = cmp_formatting,
         window = {
             completion = {
-                col_offset = -3,
-                side_padding = 0,
+                col_offset = -4,
+                side_padding = 1,
+                border = default_border,
             },
+            documentation = {
+                border = default_border,
+            }
         },
         experimental = {
             ghost_text = { hl_group = 'Comment' }
@@ -173,7 +202,7 @@ M.config = function(_, opts)
             completeopt = 'menuone,noselect',
         },
         sources = {
-            { name = 'rg' }
+            { name = 'fuzzy_buffer', option = { min_match_length = 2 } },
         }
     })
 
@@ -183,7 +212,7 @@ M.config = function(_, opts)
             completeopt = 'menuone,noselect',
         },
         sources = cmp.config.sources({
-            { name = 'path' }
+            { name = 'async_path' }
         }, {
             { name = 'cmdline' }
         })

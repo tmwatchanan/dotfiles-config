@@ -53,13 +53,6 @@ M.colorset.todocomments = {
 
 local highlight_overrides = {}
 
-local function lspDisableHighlight()
-    for _, group in ipairs(vim.fn.getcompletion('@lsp', 'highlight')) do
-        vim.api.nvim_set_hl(0, group, {})
-    end
-end
-
-
 local function overrideHighlightConfig(rhs)
     highlight_overrides = vim.tbl_deep_extend('force', highlight_overrides, rhs)
 end
@@ -301,14 +294,14 @@ M.config = function()
             hl.TelescopeResultsDiffDelete = { bg = c.bg_dark }
             hl.TelescopeResultsDiffUntracked = { bg = c.bg_dark }
 
-            -- INFO: ts rainbow 2 highlight
-            hl.TSRainbowRed = { link = 'rainbowcol1' }
-            hl.TSRainbowYellow = { link = 'rainbowcol2' }
-            hl.TSRainbowBlue = { link = 'rainbowcol3' }
-            hl.TSRainbowOrange = { link = 'rainbowcol4' }
-            hl.TSRainbowGreen = { link = 'rainbowcol5' }
-            hl.TSRainbowViolet = { link = 'rainbowcol6' }
-            hl.TSRainbowCyan = { link = 'rainbowcol7' }
+            -- INFO: rainbow delimiter highlight
+            hl.RainbowDelimiterRed = { link = 'rainbowcol1' }
+            hl.RainbowDelimiterYellow = { link = 'rainbowcol2' }
+            hl.RainbowDelimiterBlue = { link = 'rainbowcol3' }
+            hl.RainbowDelimiterOrange = { link = 'rainbowcol4' }
+            hl.RainbowDelimiterGreen = { link = 'rainbowcol5' }
+            hl.RainbowDelimiterViolet = { link = 'rainbowcol6' }
+            hl.RainbowDelimiterCyan = { link = 'rainbowcol7' }
 
             -- INFO: lsp diagnostics virtual text highlight
             hl.DiagnosticVirtualTextError = { bg = '#322639', fg = M.colorset.error, italic = true }
@@ -462,7 +455,7 @@ M.config = function()
                 noice = true,
                 treesitter_context = true,
                 treesitter = true,
-                ts_rainbow2 = true,
+                rainbow_delimiters = true,
                 mason = true,
                 markdown = true,
                 navic = {
@@ -522,10 +515,9 @@ M.config = function()
         vim.cmd.colorscheme 'oxocarbon'
 
         local incline_highlight = {
-            InclineNormal = { bg = c.base01, bold = true },
-            InclineNormalNC = { fg = c.base03, bg = c.base01 },
-            InclineSpacing = { fg = c.none, bg = c.base10, },
-            InclineModified = { fg = c.base10, bg = c.none, },
+            InclineNormal = { bg = c.none, bold = true },
+            InclineNormalNC = { fg = c.base03, bg = c.none },
+            InclineModified = { fg = '#FF6F00', bg = c.none, },
         }
 
         local noice_highlight = {
@@ -540,14 +532,17 @@ M.config = function()
         local telescope_highlight = {
             TelescopeNormal = { fg = c.base03, bg = c.base00 },
             TelescopeSelection = { fg = c.base04, bold = true },
-            TelescopeResultsBorder = { bg = c.base00 },
-            TelescopePreviewBorder = { bg = c.base00 },
-            TelescopeResultsTitle = { fg = c.base00, bg = c.base00 },
-            TelescopeResultsDiffAdd = { bg = c.base00 },
-            TelescopeResultsDiffChange = { bg = c.base00 },
-            TelescopeResultsDiffDelete = { bg = c.base00 },
-            TelescopeResultsDiffUntracked = { bg = c.base00 },
-            TelescopeMatching = { link = 'Search' },
+            TelescopeMultiSelection = { fg = c.base13, bold = true },
+            TelescopePromptNormal = { fg = c.base04, bg = c.base02 },
+            TelescopePromptPrefix = { fg = c.base08, bg = c.base02 },
+            TelescopePromptBorder = { bg = c.base02 },
+            TelescopeResultsNormal = { bg = c.base01 },
+            TelescopeResultsBorder = { bg = c.base01 },
+            TelescopePreviewNormal = { bg = c.base01 },
+            TelescopePreviewBorder = { bg = c.base01 },
+            TelescopePreviewLine = { bg = c.base02 },
+            TelescopeResultsTitle = { fg = c.base03 },
+            TelescopeMatching = { fg = c.base12, bold = true },
         }
 
         local flit_highlight = {
@@ -572,22 +567,18 @@ M.config = function()
             DiagnosticVirtualTextHint = { bg = '#273644', fg = M.colorset.hint, italic = true },
         }
 
-        local ts_rainbow_highlight = {
-            TSRainbowRed = { fg = c.base10 },
-            TSRainbowBlue = { fg = c.base11 },
-            TSRainbowCyan = { fg = c.base08 },
-            TSRainbowGreen = { fg = c.base13 },
-            TSRainbowYellow = { fg = '#FFAB91' },
-            TSRainbowOrange = { fg = '#FF6F00' },
-            TSRainbowViolet = { fg = c.base14 },
+        local rainbow_delimiter_highlight = {
+            RainbowDelimiterRed = { fg = c.base10 },
+            RainbowDelimiterBlue = { fg = c.base11 },
+            RainbowDelimiterCyan = { fg = c.base08 },
+            RainbowDelimiterGreen = { fg = c.base13 },
+            RainbowDelimiterYellow = { fg = '#FFAB91' },
+            RainbowDelimiterOrange = { fg = '#FF6F00' },
+            RainbowDelimiterViolet = { fg = c.base14 },
         }
 
-        local indentblankline_highlight = {
-            IndentBlanklineContextChar = { fg = c.base04, nocombine = true }
-        }
-
-        local ts_context_highlight = {
-            TreesitterContext = { bg = c.base02, italic = true },
+        local treesitter_context_highlight = {
+            TreesitterContext = { bg = c.none, bold = true, italic = true },
             TreesitterContextLineNumber = { link = 'TreesitterContext' },
         }
 
@@ -627,6 +618,10 @@ M.config = function()
             LocalHighlight = { bg = c.base02, bold = true, nocombine = true },
         }
 
+        local hlslens_highlight = {
+            HlSearchLens = { link = 'PmenuSel' },
+        }
+
         overrideHighlightConfig({
             Normal = { fg = c.base04, bg = c.none },
             NormalNC = { fg = c.base04, bg = c.none },
@@ -641,17 +636,18 @@ M.config = function()
             Pmenu = { fg = c.base04, bg = c.base00 },
             PmenuSel = { fg = c.none, bg = c.base02 },
             Search = { fg = c.base01, bg = c.base12, bold = true },
+            LspInlayHint = { fg = c.base03, bg = c.none, italic = true },
         })
         overrideHighlightConfig(telescope_highlight)
         overrideHighlightConfig(incline_highlight)
         overrideHighlightConfig(noice_highlight)
         overrideHighlightConfig(flit_highlight)
         overrideHighlightConfig(diagnostic_highlight)
-        overrideHighlightConfig(ts_rainbow_highlight)
-        overrideHighlightConfig(indentblankline_highlight)
-        overrideHighlightConfig(ts_context_highlight)
+        overrideHighlightConfig(rainbow_delimiter_highlight)
+        overrideHighlightConfig(treesitter_context_highlight)
         overrideHighlightConfig(cmp_highlight)
         overrideHighlightConfig(local_highlight)
+        overrideHighlightConfig(hlslens_highlight)
 
         for hl_name, hl_value in pairs(highlight_overrides) do
             vim.api.nvim_set_hl(0, hl_name, hl_value)

@@ -1,5 +1,3 @@
-local default_config = require('config').defaults
-
 -- ----------------------------------------------------------------------
 -- INFO: lsp server manager config
 --
@@ -10,7 +8,7 @@ local mason_module = {
 
 mason_module.opts = {
     ui = {
-        border = default_config.float_border
+        border = require('config').defaults.float_border
     }
 }
 
@@ -19,10 +17,12 @@ mason_module.opts = {
 --
 local lsp_setup_module = {
     'VonHeikemen/lsp-zero.nvim',
+    branch = 'v3.x',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
         'mason.nvim',
         'cmp-nvim-lsp',
+        'diagflow.nvim',
         'neovim/nvim-lspconfig',
         'williamboman/mason-lspconfig.nvim',
     },
@@ -38,20 +38,8 @@ lsp_setup_module.init = function()
     }
     vim.diagnostic.config(diagnostic_config)
 
-    -- INFO: overrides globally default of `open_floating_preview`
-    local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-        opts = opts or {}
-        opts.focus = opts.focusable or false
-        opts.offset_x = opts.offset_x or -2
-        opts.offset_y = opts.offset_y or 0
-
-        -- NOTE: padding contents
-        for index, message in ipairs(contents) do
-            contents[index] = string.format(' %s ', message)
-        end
-        return orig_util_open_floating_preview(contents, syntax, opts, ...)
-    end
+    -- INFO: setup lsp-zero configs
+    vim.g.lsp_zero_ui_float_border = 0
 end
 
 lsp_setup_module.config = function()
@@ -63,7 +51,7 @@ lsp_setup_module.config = function()
     local load_local_settings = function(path, server_name)
         vim.validate { path = { path, 's' } }
 
-        local fname = string.format("%s/%s.json", path, server_name)
+        local fname = string.format('%s/%s.json', path, server_name)
         local ok, result = pcall(vim.fn.readfile, fname)
         if not ok then return nil end
 
@@ -112,104 +100,70 @@ lsp_setup_module.config = function()
         end
     end
 
-    local lsp = require('lsp-zero').preset {
-        name = 'minimal',
-        float_border = require('config').defaults.float_border,
-        manage_nvim_cmp = {
-            set_sources = 'lsp',
-            set_basic_mappings = false,
-            set_extra_mappings = false,
-            use_luasnip = false,
-            set_format = false,
-            documentation_window = false,
-        }
-    }
+    -- INFO: config lsp inlay hints
+    local function lsp_inlayhint(client, bufnr)
+        -- INFO: enable inlay hints when enter insert mode and disable when leave
+        if client.supports_method('textDocument/inlayHint') then
+            local inlayhint_augroup = vim.api.nvim_create_augroup('inlayhint_augroup', { clear = false })
 
-    lsp.set_sign_icons(require('config').defaults.icons.diagnostics)
+            vim.api.nvim_create_autocmd('InsertEnter', {
+                buffer = bufnr,
+                group = inlayhint_augroup,
+                callback = function() vim.lsp.inlay_hint(bufnr, true) end,
+            })
+            vim.api.nvim_create_autocmd('InsertLeave', {
+                buffer = bufnr,
+                group = inlayhint_augroup,
+                callback = function() vim.lsp.inlay_hint(bufnr, false) end,
+            })
 
-    lsp.on_attach(function(client, bufnr)
+            vim.notify_once('inlayhint enabled', vim.log.levels.INFO, { title = client.name .. ':' })
+        end
+    end
+
+
+    -- ----------------------------------------------------------------------
+    --  lsp-zero configs
+    --
+    local lsp_zero = require('lsp-zero')
+
+    lsp_zero.set_sign_icons(require('config').defaults.icons.diagnostics)
+
+    lsp_zero.on_attach(function(client, bufnr)
         lsp_keymap(client, bufnr, require('config.keymaps').lsp)
+        lsp_inlayhint(client, bufnr)
     end)
 
     -- INFO: config lsp servers in lsp-list
+    local lsp_list = {}
     for name, config in pairs(require('plugins.lsp-settings.lsp-list')) do
-        lsp.configure(name, config)
+        lsp_zero.configure(name, config)
+        table.insert(lsp_list, name)
     end
 
-    -- NOTE: manually injects unsupported lsp by mason.nvim
+    -- NOTE: manually injects unsupported lsp by mason.nvim, need to manually update lsp list to be automatically installed
     -- lsp.configure('ccls', {
     --     on_attach = lsp_on_attach,
     -- })
 
-    lsp.setup()
+    -- INFO: automatically setup lsp from default config installed via mason.nvim
+    require('mason-lspconfig').setup {
+        ensure_installed = lsp_list,
+        handlers = { lsp_zero.default_setup }
+    }
 end
 
--- ----------------------------------------------------------------------
--- INFO: formatters config
---
-local null_ls_module = {
-    'jay-babu/mason-null-ls.nvim',
-    dependencies = {
-        'jose-elias-alvarez/null-ls.nvim',
-        'mason.nvim',
-    },
-    event = { 'BufReadPre', 'BufNewFile' },
+local diagflow_module = {
+    'dgagn/diagflow.nvim',
 }
 
-null_ls_module.init = function()
-    vim.api.nvim_create_user_command('NullLsToggle', function()
-        require('null-ls').toggle({})
-    end, {})
-end
-
-null_ls_module.config = function()
-    require('mason-null-ls').setup {
-        ensure_installed = require('plugins.null-ls-settings.null-ls-list'),
-        handlers = {}
-    }
-    require('null-ls').setup {
-        border = default_config.float_border,
-    }
-end
-
-local lsp_lines_module = {
-    'MomePP/lsp_lines.nvim',
-    dependencies = 'nvim-lspconfig',
-    event = 'VeryLazy',
-    keys = {
-        { require('config.keymaps').lsp_lines.toggle, '<Cmd>LspLinesToggleSeverity<CR>' }
-    }
+diagflow_module.opts = {
+    padding_top = 1,
+    toggle_event = { 'InsertEnter' },
 }
-
-lsp_lines_module.config = function()
-    -- INFO: store user severity config as a limit, if exist
-    local user_severity_limit = vim.diagnostic.severity.HINT
-    local current_severity = user_severity_limit
-
-    local function setSeverityConfig(min_severity)
-        local config = {}
-        if min_severity == 0 then
-            config.virtual_lines = false
-        else
-            config.virtual_lines = { severity = { min = min_severity } }
-        end
-        vim.diagnostic.config(config)
-    end
-
-    vim.api.nvim_create_user_command('LspLinesToggleSeverity', function()
-            current_severity = (current_severity + 1) % (user_severity_limit + 1)
-            setSeverityConfig(current_severity)
-            vim.notify(string.format('[virtual lines] diagnostic level: %d', current_severity), vim.log.levels.INFO)
-        end,
-        { nargs = 0 }
-    )
-
-    require('lsp_lines').setup()
-end
 
 return {
     mason_module,
     lsp_setup_module,
-    null_ls_module,
-    lsp_lines_module,
+    diagflow_module,
 }

@@ -9,13 +9,14 @@ opt.backup         = false
 opt.writebackup    = false
 opt.swapfile       = false
 opt.updatetime     = 200 -- Save swap file and trigger CursorHold
+opt.undolevels     = 5000
 
 opt.title          = true
 opt.mouse          = 'a'
 opt.shell          = 'fish'
 opt.clipboard      = 'unnamedplus'
 
-opt.sessionoptions = { 'buffers', 'curdir', 'winsize', 'folds' }
+opt.sessionoptions = { 'buffers', 'curdir', 'winsize', 'folds', 'terminal' }
 opt.wildignore     = '**/node_module/*, **/.pio/*, **/.git/*'
 
 -- UI editor
@@ -56,7 +57,7 @@ opt.signcolumn    = 'yes'
 -- opt.statuscolumn  = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
 
 opt.pumheight     = 10 -- Make popup menu smaller
-opt.pumblend      = 8 -- Make builtin completion menus slightly transparent
+opt.pumblend      = 8  -- Make builtin completion menus slightly transparent
 -- opt.winblend      = 5 -- Make floating windows slightly transparent
 
 -- Editing

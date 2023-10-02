@@ -67,8 +67,8 @@ set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
 
 # config llvm x86_64
 # fish_add_path /usr/local/opt/llvm/bin
-set -gx LDFLAGS "-L/usr/local/opt/llvm/lib"
-set -gx CPPFLAGS "-I/usr/local/opt/llvm/include"
+# set -gx LDFLAGS "-L/usr/local/opt/llvm/lib"
+# set -gx CPPFLAGS "-I/usr/local/opt/llvm/include"
 
 # set path for commandline tools
 fish_add_path /Library/Developer/CommandLineTools/usr/bin
@@ -85,6 +85,7 @@ alias pip "python3 -m pip"
 alias tma "tmux attach-session || tmux new -s default"
 alias tmd "tmux detach"
 alias cat "bat"
+alias ssh "kitty +kitten ssh"
 
 pyenv init - | source
 starship init fish | source

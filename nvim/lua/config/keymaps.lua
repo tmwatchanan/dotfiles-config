@@ -19,15 +19,15 @@ keymaps.setup = function()
     vim.keymap.set({ 'n', 'x' }, 'k', [[v:count == 0 ? 'gk' : 'k']], { expr = true, silent = true })
 
     -- INFO: command-line abbreviations
-    vim.keymap.set('c', 'W', 'w')
-    vim.keymap.set('c', 'W!', 'w!')
-    vim.keymap.set('c', 'Wq', 'wq')
-    vim.keymap.set('c', 'WQ', 'wq')
-    vim.keymap.set('c', 'Wa', 'wa')
-    vim.keymap.set('c', 'Q', 'q')
-    vim.keymap.set('c', 'Q!', 'q!')
-    vim.keymap.set('c', 'Qa', 'qa')
-    vim.keymap.set('c', 'QA', 'qa')
+    -- vim.keymap.set('c', 'W', 'w')
+    -- vim.keymap.set('c', 'W!', 'w!')
+    -- vim.keymap.set('c', 'Wq', 'wq')
+    -- vim.keymap.set('c', 'WQ', 'wq')
+    -- vim.keymap.set('c', 'Wa', 'wa')
+    -- vim.keymap.set('c', 'Q', 'q')
+    -- vim.keymap.set('c', 'Q!', 'q!')
+    -- vim.keymap.set('c', 'Qa', 'qa')
+    -- vim.keymap.set('c', 'QA', 'qa')
 
     -- INFO: add undo break points
     vim.keymap.set('i', ',', ',<C-g>u')
@@ -66,6 +66,10 @@ keymaps.setup = function()
     -- INFO: quickfix keys
     vim.keymap.set('n', '<leader>q', '<Cmd>TroubleToggle quickfix<CR>')
     vim.keymap.set('n', '<leader>Q', '<Cmd>cexpr []<CR>')
+
+    -- INFO: search word under cursor (recursive called `hlslens`)
+    vim.keymap.set('n', ']]', '*', { remap = true })
+    vim.keymap.set('n', '[[', '#', { remap = true })
 end
 
 -- INFO: LSP keymap
@@ -92,11 +96,6 @@ keymaps.lsp = {
             return vim.diagnostic.open_float({ scope = 'cursor' }) or vim.lsp.buf.hover()
         end
     },
-}
-
--- INFO: lsp_lines keymap
-keymaps.lsp_lines = {
-    toggle = '<leader>ll'
 }
 
 -- INFO: Treesitter
@@ -144,7 +143,6 @@ keymaps.gitconflict = {
 -- INFO: Telescope keymap
 keymaps.telescope = {
     grep_workspace       = 'gw',
-    search_buffer        = '<leader>/',
     search_workspace     = '<leader>fw',
     buffers              = '<leader><tab>',
     find_files           = '<leader>fs',
@@ -152,6 +150,7 @@ keymaps.telescope = {
     jumplist             = '<leader>ju',
     oldfiles             = '<leader>?',
     file_browse          = '<leader>fb',
+    help_tags            = '<leader>?',
     action_buffer_delete = { n = 'd', i = '<m-d>' },
 }
 

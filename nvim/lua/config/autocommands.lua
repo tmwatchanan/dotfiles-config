@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd('OptionSet', {
     desc = 'assign q to quit when in diff mode',
     pattern = 'diff',
-    callback = function () vim.keymap.set('n', 'q', '<c-w>h:q<cr>', { buffer = true }) end
+    callback = function() vim.keymap.set('n', 'q', '<c-w>h:q<cr>', { buffer = true }) end
 })
 
 -- check if we need to reload file when it changed
