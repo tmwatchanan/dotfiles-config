@@ -70,6 +70,10 @@ keymaps.setup = function()
     -- INFO: search word under cursor (recursive called `hlslens`)
     vim.keymap.set('n', ']]', '*', { remap = true })
     vim.keymap.set('n', '[[', '#', { remap = true })
+
+    -- INFO: delete a acharacter next to the cursor in INSERT mode
+    vim.keymap.set('i', '<C-l>', '<Esc>lxi')
+
 end
 
 -- INFO: LSP keymap
@@ -269,6 +273,13 @@ keymaps.neotest = {
     run_current_file = '<leader>tf',
     summary          = '<leader>tt',
     output_panel     = '<leader>to',
+}
+
+keymaps.codeium = {
+    accept = '<c-tab>',
+    next = '<C-j>',
+    previous = '<C-k>',
+    clear = '<C-c>',
 }
 
 return keymaps

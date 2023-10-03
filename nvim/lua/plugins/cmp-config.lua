@@ -36,17 +36,17 @@ local M = {
         },
 
         -- NOTE: github copilot if available
-        {
-            'zbirenbaum/copilot-cmp',
-            dependencies = {
-                'zbirenbaum/copilot.lua',
-                opts = {
-                    suggestion = { enabled = false },
-                    panel = { enabled = false },
-                }
-            },
-            config = true
-        },
+        -- {
+        --     'zbirenbaum/copilot-cmp',
+        --     dependencies = {
+        --         'zbirenbaum/copilot.lua',
+        --         opts = {
+        --             suggestion = { enabled = false },
+        --             panel = { enabled = false },
+        --         }
+        --     },
+        --     config = true
+        -- },
 
         -- NOTE: misc. plugins
         'onsails/lspkind.nvim',
@@ -62,7 +62,8 @@ M.opts = function()
     local lspkind_format = require('lspkind').cmp_format({
         mode = 'symbol_text',
         maxwidth = 50,
-        symbol_map = { Copilot = '' },
+        ellipsis_char = '...',
+        symbol_map = { Codeium = '', Copilot = '' },
     })
 
     local function has_word_before()
@@ -86,6 +87,8 @@ M.opts = function()
     }
 
     local cmp_mapping = {
+        ["<C-p>"] = cmp.config.disable,
+        ["<C-n>"] = cmp.config.disable,
         ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
         ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
         ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(2), { 'i', 'c' }),
@@ -110,9 +113,9 @@ M.opts = function()
             end
         end, { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
-            -- if cmp.visible() then
-            --     cmp.select_prev_item()
-            if luasnip.jumpable(-1) then
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             else
                 fallback()
@@ -123,7 +126,7 @@ M.opts = function()
     local cmp_sorting = {
         priority_weight = 2,
         comparators = {
-            require('copilot_cmp.comparators').prioritize,
+            -- require('copilot_cmp.comparators').prioritize,
             require('cmp_fuzzy_buffer.compare'),
 
             cmp.config.compare.offset,
@@ -153,6 +156,7 @@ M.opts = function()
     local cmp_sources = cmp.config.sources(
         {
             -- { name = 'copilot' },
+            { name = 'codeium' },
             { name = 'async_path' },
             { name = 'nvim_lsp' },
             { name = 'luasnip',   keyword_length = 2 },

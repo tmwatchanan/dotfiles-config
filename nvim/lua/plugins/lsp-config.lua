@@ -32,7 +32,7 @@ lsp_setup_module.init = function()
     -- INFO: setup diagnostic configs
     local diagnostic_config = {
         update_in_insert = false,
-        virtual_text = false,
+        virtual_text = true,
         severity_sort = true,
     }
     vim.diagnostic.config(diagnostic_config)
