@@ -4,6 +4,9 @@ return {
             runtime = {
                 version = 'LuaJIT',
             },
+            hint = {
+                enable = true,
+            },
             completion = {
                 callSnippet = 'Replace',
             },

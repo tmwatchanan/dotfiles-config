@@ -52,14 +52,17 @@ M.config = function()
 
     require('ibl').setup {
         indent = {
-            char = '•',
+            -- char = '┋',
             smart_indent_cap = true,
         },
         scope = {
             show_start = false,
             show_end = false,
             highlight = rainbow_highlight,
-            include = included_scope,
+            -- include = included_scope,
+            include = {
+                node_type = { ["*"] = { "*" } },
+            },
         },
         debounce = 500,
     }

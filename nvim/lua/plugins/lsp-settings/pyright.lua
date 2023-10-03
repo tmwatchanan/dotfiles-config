@@ -1,8 +1,8 @@
 return {
     settings = {
         python = {
-            pythonPath = "/opt/homebrew/Caskroom/miniforge/base/bin/python",
-            -- pythonPath = "/opt/homebrew/Caskroom/miniforge/base/envs/preda/bin/python",
+            -- pythonPath = "/opt/homebrew/Caskroom/miniforge/base/bin/python",
+            pythonPath = "/opt/homebrew/Caskroom/miniforge/base/envs/tm/bin/python",
             analysis = {
                 autoImportCompletions = true,
                 extraPaths = {
