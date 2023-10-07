@@ -5,7 +5,8 @@ local M = {
     -- 'nyoom-engineering/oxocarbon.nvim',
     -- 'sainnhe/gruvbox-material',
     name = 'nvim-colorscheme',
-    event = 'UIEnter'
+    lazy = false,
+    priority = 1000,
 }
 
 M.colorset = {
