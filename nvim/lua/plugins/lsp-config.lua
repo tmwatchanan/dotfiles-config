@@ -173,8 +173,9 @@ local formatter_module = {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
         local formatters = require('plugins.lsp-settings.formatters')
-        require('null-ls').setup(formatters.none_ls)
         require('mason-tool-installer').setup(formatters.mason_tool_installer)
+        require('mason-tool-installer').check_install(false)
+        require('null-ls').setup(formatters.none_ls)
     end,
 }
 

@@ -73,7 +73,6 @@ keymaps.setup = function()
 
     -- INFO: delete a acharacter next to the cursor in INSERT mode
     vim.keymap.set('i', '<C-l>', '<Esc>lxi')
-
 end
 
 -- INFO: LSP keymap

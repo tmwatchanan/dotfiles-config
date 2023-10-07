@@ -1,6 +1,10 @@
 return {
     mason_tool_installer = {
-        'isort', 'black', 'prettierd',
+        ensure_installed = {
+            'isort',
+            'black',
+            'prettierd',
+        },
     },
     none_ls = {
         sources = {
