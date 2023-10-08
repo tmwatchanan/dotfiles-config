@@ -17,15 +17,17 @@ M.opts = function()
 
     return {
         n_lines = 500,
+        search_method = 'cover_or_nearest',
         custom_textobjects = {
             o = ai.gen_spec.treesitter({
                 a = { '@block.outer', '@conditional.outer', '@loop.outer' },
                 i = { '@block.inner', '@conditional.inner', '@loop.inner' },
             }, {}),
+            r = ai.gen_spec.treesitter({ a = '@return.outer', i = '@return.inner' }, {}),
             f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
-            c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
-            ['+'] = ai.gen_spec.treesitter({ a = "@assignment.lhs", i = "@assignment.lhs" }, {}),
-            ['='] = ai.gen_spec.treesitter({ a = "@assignment.rhs", i = "@assignment.rhs" }, {}),
+            c = ai.gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }, {}),
+            C = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
+            ['='] = ai.gen_spec.treesitter({ a = "@assignment.lhs", i = "@assignment.rhs" }, {}),
         },
     }
 end
