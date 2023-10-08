@@ -244,7 +244,8 @@ keymaps.move = {
 keymaps.search_replace = {
     single_open = '<leader>r',
     multi_open  = '<leader>R',
-    visual_open = '<C-r>',
+    visual_selection_charwise = '<C-c>',
+    visual_selection_current_word = '<C-r>',
 }
 
 -- INFO: treesj keymap
