@@ -24,7 +24,7 @@ M.opts = function()
                 i = { '@block.inner', '@conditional.inner', '@loop.inner' },
             }, {}),
             r = ai.gen_spec.treesitter({ a = '@return.outer', i = '@return.inner' }, {}),
-            f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
+            F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
             c = ai.gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }, {}),
             C = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
             ['='] = ai.gen_spec.treesitter({ a = "@assignment.lhs", i = "@assignment.rhs" }, {}),
