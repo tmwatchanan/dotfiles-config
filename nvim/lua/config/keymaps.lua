@@ -240,10 +240,11 @@ keymaps.move = {
     move_right = '<leader><Right>',
 }
 
--- INFO: muren search-replace keymap
-keymaps.muren = {
-    toggle = '<leader>r',
-    unique = '<leader>R',
+-- INFO: search-replace keymap
+keymaps.search_replace = {
+    single_open = '<leader>r',
+    multi_open  = '<leader>R',
+    visual_open = '<C-r>',
 }
 
 -- INFO: treesj keymap
@@ -253,14 +254,14 @@ keymaps.treesj = {
 
 -- INFO: refactoring
 keymaps.refactoring = {
-    extract_function         = '<leader>re',
-    extract_function_to_file = '<leader>rf',
-    extract_variable         = '<leader>rv',
-    inline_variable          = '<leader>ri',
-    extract_block            = '<leader>rb',
-    extract_block_to_file    = '<leader>rbf',
+    extract_function         = '<leader>le',
+    extract_function_to_file = '<leader>lf',
+    extract_variable         = '<leader>lv',
+    inline_variable          = '<leader>li',
+    extract_block            = '<leader>lb',
+    extract_block_to_file    = '<leader>lbf',
     print_var                = '<leader>pv',
-    debug_cleanup            = '<leader>rc',
+    debug_cleanup            = '<leader>lc',
 }
 
 -- INFO: Neotest
