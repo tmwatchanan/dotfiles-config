@@ -24,6 +24,8 @@ M.opts = function()
             }, {}),
             f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
             c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
+            ['+'] = ai.gen_spec.treesitter({ a = "@assignment.lhs", i = "@assignment.lhs" }, {}),
+            ['='] = ai.gen_spec.treesitter({ a = "@assignment.rhs", i = "@assignment.rhs" }, {}),
         },
     }
 end
