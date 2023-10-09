@@ -108,6 +108,54 @@ keymaps.treesitter = {
         node_incremental = '<Tab>',
         node_decremental = '<S-Tab>',
     },
+    textobjects = {
+        move = {
+            goto_next_start = {
+                ["]m"] = "@function.outer",
+                ["]c"] = "@comment.outer",
+                ["]i"] = "@conditional.outer",
+                ["]l"] = "@loop.outer",
+                ["]]"] = "@block.outer",
+                ["]a"] = "@parameter.outer",
+            },
+            goto_next_end = {
+                ["]M"] = "@function.outer",
+                ["]C"] = "@comment.outer",
+                ["]I"] = "@conditional.outer",
+                ["]L"] = "@loop.outer",
+                ["]}"] = "@block.outer",
+                ["]A"] = "@parameter.outer",
+            },
+            goto_previous_start = {
+                ["[m"] = "@function.outer",
+                ["[c"] = "@comment.outer,",
+                ["[i"] = "@conditional.outer,",
+                ["[l"] = "@loop.outer",
+                ["[["] = "@block.outer",
+                ["[a"] = "@parameter.outer",
+            },
+            goto_previous_end = {
+                ["[M"] = "@function.outer",
+                ["[C"] = "@comment.outer,",
+                ["[I"] = "@conditional.outer,",
+                ["[L"] = "@loop.outer",
+                ["[{"] = "@block.outer",
+                ["[A"] = "@parameter.outer",
+            },
+        },
+        swap = {
+            swap_next = {
+                ['<leader>sa'] = '@parameter.inner',
+                ['<leader>sm'] = '@function.outer',
+                ['<leader>sc'] = '@class.outer',
+            },
+            swap_previous = {
+                ['<leader>sA'] = '@parameter.inner',
+                ['<leader>sM'] = '@function.outer',
+                ['<leader>sC'] = '@class.outer',
+            },
+        },
+    }
 }
 
 -- INFO: Lazy keymap
@@ -128,8 +176,8 @@ keymaps.focus = {
 
 -- INFO: GitSign keymap
 keymaps.gitsigns = {
-    next_hunk    = ']c',
-    prev_hunk    = '[c',
+    next_hunk    = ']h',
+    prev_hunk    = '[h',
     stage_hunk   = '<leader>hs',
     reset_hunk   = '<leader>hr',
     preview_hunk = '<leader>hp',
@@ -242,9 +290,9 @@ keymaps.move = {
 
 -- INFO: search-replace keymap
 keymaps.search_replace = {
-    single_open = '<leader>r',
-    multi_open  = '<leader>R',
-    visual_selection_charwise = '<C-c>',
+    single_open                   = '<leader>r',
+    multi_open                    = '<leader>R',
+    visual_selection_charwise     = '<C-c>',
     visual_selection_current_word = '<C-r>',
 }
 

@@ -6,13 +6,18 @@ local M = {
         { 'nvim-treesitter/nvim-treesitter-context', opts = { zindex = 5 } },
         'JoosepAlviste/nvim-ts-context-commentstring',
         'windwp/nvim-ts-autotag',
-        'nvim-treesitter-textobjects',
+        'nvim-treesitter/nvim-treesitter-textobjects',
     },
     main = 'nvim-treesitter.configs'
 }
 
 M.opts = function()
     local keymaps = require('config.keymaps').treesitter
+
+    for k, _ in pairs(keymaps.textobjects) do
+        keymaps.textobjects[k].enable = true
+    end
+
     return {
         ensure_installed = {
             'regex',
@@ -28,6 +33,7 @@ M.opts = function()
             'javascript',
             'css',
             'scss',
+            'python',
         },
         ignore_install = {
             'norg',
@@ -53,6 +59,10 @@ M.opts = function()
         incremental_selection = {
             enable = true,
             keymaps = keymaps.incremental_selection,
+        },
+        textobjects = {
+            move = keymaps.textobjects.move,
+            swap = keymaps.textobjects.swap,
         },
     }
 end

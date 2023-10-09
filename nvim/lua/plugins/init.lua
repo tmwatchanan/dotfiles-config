@@ -20,12 +20,6 @@ return {
         config = true
     },
     {
-        'kylechui/nvim-surround',
-        dependencies = { 'nvim-treesitter-textobjects' },
-        event = { 'BufReadPost', 'BufNewFile' },
-        config = true
-    },
-    {
         'SmiteshP/nvim-navic',
         opts = {
             lsp = {
