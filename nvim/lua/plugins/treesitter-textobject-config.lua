@@ -4,10 +4,10 @@ local M = {
     dependencies = {
         {
             'nvim-treesitter/nvim-treesitter-textobjects',
-            init = function()
-                -- no need to load the plugin, since we only need its queries
-                require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
-            end,
+            -- init = function()
+            --     -- no need to load the plugin, since we only need its queries
+            --     require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
+            -- end,
         },
     }
 }
@@ -24,7 +24,8 @@ M.opts = function()
                 i = { '@block.inner', '@conditional.inner', '@loop.inner' },
             }, {}),
             r = ai.gen_spec.treesitter({ a = '@return.outer', i = '@return.inner' }, {}),
-            F = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
+            m = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
+            i = ai.gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }, {}),
             c = ai.gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }, {}),
             C = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
             ['='] = ai.gen_spec.treesitter({ a = "@assignment.lhs", i = "@assignment.rhs" }, {}),
