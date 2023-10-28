@@ -351,4 +351,9 @@ keymaps.dap = {
     },
 }
 
+-- INFO: swenv
+keymaps.swenv = {
+    pick = '<leader>pe',
+}
+
 return keymaps
