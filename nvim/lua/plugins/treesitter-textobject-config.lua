@@ -1,4 +1,4 @@
-local M = {
+local mini_ai_module = {
     'echasnovski/mini.ai',
     main = 'mini.ai',
     dependencies = {
@@ -12,7 +12,7 @@ local M = {
     }
 }
 
-M.opts = function()
+mini_ai_module.opts = function()
     local ai = require('mini.ai')
 
     return {
@@ -28,16 +28,52 @@ M.opts = function()
             i = ai.gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }, {}),
             c = ai.gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }, {}),
             C = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
-            ['='] = ai.gen_spec.treesitter({ a = "@assignment.lhs", i = "@assignment.rhs" }, {}),
+            ['='] = ai.gen_spec.treesitter({ a = '@assignment.lhs', i = '@assignment.rhs' }, {}),
         },
     }
 end
 
-M.keys = {
+mini_ai_module.keys = {
     { 'a', mode = { 'x', 'o' } },
     { 'i', mode = { 'x', 'o' } },
     { 'g]' },
     { 'g[' },
 }
 
-return M
+local various_textobjs_module = {
+    'chrisgrieser/nvim-various-textobjs',
+    lazy = false,
+    opts = {
+        useDefaultKeymaps = true,
+    },
+}
+
+local function delete_surrounding_indentation()
+    -- select inner indentation
+    require('various-textobjs').indentation(true, true)
+
+    -- plugin only switches to visual mode when a textobj has been found
+    local notOnIndentedLine = vim.fn.mode():find('V') == nil
+    if notOnIndentedLine then return end
+
+    -- dedent indentation
+    vim.cmd.normal { '<', bang = true }
+
+    -- delete surrounding lines
+    local endBorderLn = vim.api.nvim_buf_get_mark(0, '>')[1] + 1
+    local startBorderLn = vim.api.nvim_buf_get_mark(0, '<')[1] - 1
+    vim.cmd(tostring(endBorderLn) .. ' delete') -- delete end first so line index is not shifted
+    vim.cmd(tostring(startBorderLn) .. ' delete')
+end
+
+
+various_textobjs_module.keys = function()
+    return {
+        { 'dsi', function() delete_surrounding_indentation() end, mode = 'n' },
+    }
+end
+
+return {
+    mini_ai_module,
+    various_textobjs_module,
+}
