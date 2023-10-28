@@ -11,10 +11,12 @@ source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 bar=(
     height=32
     blur_radius=30
+    corner_radius=8
+    margin=8
     position=top
     sticky=on
-    padding_left=20
-    padding_right=20
+    padding_left=12
+    padding_right=8
     color=$BAR_COLOR
 )
 sketchybar --bar "${bar[@]}"
@@ -137,7 +139,7 @@ sketchybar  --add item clock right                              \
                                                                 \
             --add item wifi right                               \
             --set wifi "${wifi[@]}"                             \
-            --subscribe wifi wifi_change mouse.clicked          \
+            --subscribe wifi wifi_change                        \
                                                                 \
             --add event input_change $KEYBOARD_EVENT            \
             --add item keyboard right                           \

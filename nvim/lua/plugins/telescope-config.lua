@@ -19,7 +19,7 @@ M.opts = function()
     local vertical_layout_config = {
         layout_strategy = 'vertical',
         layout_config = {
-            preview_height = 0.75,
+            preview_height = 0.7,
             prompt_position = 'bottom',
             width = 0.85,
             height = 0.8,
@@ -78,7 +78,7 @@ M.opts = function()
                     require('lazy').load({ plugins = { 'mini.bufremove' } })
 
                     current_picker:delete_selection(function(selection)
-                        local force = vim.api.nvim_buf_get_option(selection.bufnr, 'buftype') == 'terminal'
+                        local force = vim.api.nvim_get_option_value('buftype', { buf = selection.bufnr }) == 'terminal'
                         local ok = pcall(require('mini.bufremove').delete, selection.bufnr, force)
                         if ok then table.insert(removed, utils.transform_path({}, selection.filename)) end
                         return ok
@@ -188,6 +188,14 @@ M.config = function(_, opts)
     telescope.setup(opts)
     telescope.load_extension('fzf')
     telescope.load_extension('file_browser')
+
+    local telescope_augroup = vim.api.nvim_create_augroup('UserTelescopeAugroup', { clear = true })
+    vim.api.nvim_create_autocmd('FileType', {
+        desc = 'disable cursorline when on telescope prompt',
+        group = telescope_augroup,
+        pattern = 'TelescopePrompt',
+        command = ':setlocal nocursorline'
+    })
 end
 
 M.keys = function()
