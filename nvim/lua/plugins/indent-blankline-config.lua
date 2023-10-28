@@ -5,7 +5,7 @@ local M = {
         {
             'echasnovski/mini.indentscope',
             opts = {
-                symbol = '•',
+                symbol = '▎',
             },
         }
     }
@@ -13,7 +13,7 @@ local M = {
 
 M.opts = {
     indent = {
-        char = '•',
+        char = '▎',
         smart_indent_cap = true,
     },
     scope = {
