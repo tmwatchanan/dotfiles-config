@@ -28,25 +28,28 @@ M.opts = {
 }
 
 M.keys = {
-		{
-			toggleterm_keymap.toggle,
-			desc = 'Toggle terminal'
-		},
-		{
-			toggleterm_keymap.lazygit,
-			function()
-				require('toggleterm.terminal').Terminal:new({ cmd = 'lazygit', count = 20 }):toggle()
-			end,
-			desc = 'Toggle `lazygit` terminal',
+	{
+		toggleterm_keymap.toggle,
+		desc = 'Toggle terminal'
+	},
+	{
+		toggleterm_keymap.lazygit,
+		function()
+			local environment_path = require('config.python').get_environment_path()
+			require('toggleterm.terminal').Terminal:new({ cmd = ('conda activate %s; lazygit'):format(environment_path),
+				count = 20 }):toggle()
+		end,
+		desc = 'Toggle `lazygit` terminal',
 
-		},
-		{
-			toggleterm_keymap.lazygit_file_history,
-			function()
-				require('toggleterm.terminal').Terminal:new({ cmd = 'lazygit -f ' .. vim.fn.expand('%'), count = 21 }):toggle()
-			end,
-			desc = 'Toggle file history in current buffer using `lazygit`',
-		},
-	}
+	},
+	{
+		toggleterm_keymap.lazygit_file_history,
+		function()
+			require('toggleterm.terminal').Terminal:new({ cmd = 'lazygit -f ' .. vim.fn.expand('%'), count = 21 })
+				:toggle()
+		end,
+		desc = 'Toggle file history in current buffer using `lazygit`',
+	},
+}
 
 return M

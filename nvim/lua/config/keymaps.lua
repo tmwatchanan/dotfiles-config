@@ -88,7 +88,10 @@ keymaps.lsp = {
     diagnostic_prev  = { key = '[d', cmd = function() vim.diagnostic.goto_prev({ float = false }) end },
     declaration      = { key = 'gD', cmd = function() vim.lsp.buf.declaration({ on_list = open_with_qflist }) end },
     format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
-    document_symbol  = { key = '<leader>ls', cmd = function() vim.lsp.buf.document_symbol({ on_list = open_with_qflist }) end },
+    document_symbol  = {
+        key = '<leader>ls',
+        cmd = function() vim.lsp.buf.document_symbol({ on_list = open_with_qflist }) end
+    },
     hover            = {
         key = 'K',
         cmd = function()
@@ -165,13 +168,13 @@ keymaps.lazy = {
 
 -- INFO: Focus keymap
 keymaps.focus = {
-    toggle_enable = '<C-space>',
+    toggle_enable = '<M-space>',
     toggle_size   = 'wt',
     split_cycle   = '<C-;>',
-    split_left    = '<C-h>',
-    split_right   = '<C-l>',
-    split_up      = '<C-k>',
-    split_down    = '<C-j>',
+    split_left    = '<M-h>',
+    split_right   = '<M-l>',
+    split_up      = '<M-k>',
+    split_down    = '<M-j>',
 }
 
 -- INFO: GitSign keymap
@@ -324,11 +327,28 @@ keymaps.neotest = {
     output_panel     = '<leader>to',
 }
 
+-- INFO: Codeium
 keymaps.codeium = {
-    accept = '<c-tab>',
-    next = '<C-j>',
-    previous = '<C-k>',
-    clear = '<C-c>',
+    accept = '<M-l>',
+    next = '<M-j>',
+    previous = '<M-k>',
+    clear = '<M-c>',
+}
+
+-- INFO: DAP
+keymaps.dap = {
+    ui = '<leader>dd',
+    breakpoint = '<leader>db',
+    breakpoint_condition = '<leader>dbc',
+    step_over = '<leader>do',
+    step_into = '<leader>di',
+    step_out = '<leader>du',
+    continue = '<leader>dn',
+    python = {
+        method = '<leader>df',
+        class = '<leader>dc',
+        selection = '<leader>ds',
+    },
 }
 
 return keymaps

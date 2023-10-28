@@ -1,8 +1,7 @@
 return {
     settings = {
         python = {
-            -- pythonPath = "/opt/homebrew/Caskroom/miniforge/base/bin/python",
-            pythonPath = "/opt/homebrew/Caskroom/miniforge/base/envs/tm/bin/python",
+            pythonPath = require('config.python').get_python_path(),
             analysis = {
                 autoImportCompletions = true,
                 extraPaths = {
