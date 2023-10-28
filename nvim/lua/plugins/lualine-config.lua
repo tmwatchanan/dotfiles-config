@@ -22,7 +22,10 @@ M.opts = function()
         end,
         check_session_exist = function()
             return vim.v.this_session ~= ''
-        end
+        end,
+        is_python_file = function()
+            return vim.bo.filetype == 'python'
+        end,
     }
 
     local mode = {
@@ -130,6 +133,12 @@ M.opts = function()
         end,
     }
 
+    local swenv = {
+        'swenv',
+        icon = '',
+        cond = conditions.is_python_file,
+    }
+
     return {
         options = {
             icons_enabled = true,
@@ -143,7 +152,7 @@ M.opts = function()
             lualine_b = { session_status },
             lualine_c = { branch, spacing, navic_location },
             lualine_x = { diagnostics },
-            lualine_y = { lsp_status },
+            lualine_y = { swenv, lsp_status },
             lualine_z = { location },
         },
         tabline = {},
