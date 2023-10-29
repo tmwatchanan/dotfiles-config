@@ -5,7 +5,8 @@ local M = {
 
 M.opts = {
     post_set_venv = function()
-        vim.cmd('LspRestart')
+        local python_path = require('config.python').get_python_path()
+        vim.cmd('PyrightSetPythonPath ' .. python_path)
     end,
 }
 

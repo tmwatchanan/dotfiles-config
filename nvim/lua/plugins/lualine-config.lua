@@ -135,7 +135,7 @@ M.opts = function()
 
     local swenv = {
         'swenv',
-        icon = '',
+        icon = '󰌠',
         color = { fg = require('plugins.colorscheme').colorset.cyan },
         cond = conditions.is_python_file,
     }
