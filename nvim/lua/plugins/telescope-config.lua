@@ -228,6 +228,7 @@ M.keys = function()
             end,
             mode = 'v',
         },
+        { telescope_keymap.current_buffer_fuzzy_find, '<Cmd>Telescope current_buffer_fuzzy_find<CR>' },
     }
 end
 

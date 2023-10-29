@@ -210,6 +210,7 @@ keymaps.telescope = {
     file_browse          = '<leader>fb',
     help_tags            = '<leader>?',
     action_buffer_delete = { n = 'd', i = '<m-d>' },
+    current_buffer_fuzzy_find = '<leader>fj',
 }
 
 -- INFO: Todocomments keymap
