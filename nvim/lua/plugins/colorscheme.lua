@@ -1,9 +1,8 @@
 local M = {
-    -- 'rebelot/kanagawa.nvim',
-    'folke/tokyonight.nvim',
+    'rebelot/kanagawa.nvim',
+    -- 'folke/tokyonight.nvim',
     -- 'catppuccin/nvim',
     -- 'nyoom-engineering/oxocarbon.nvim',
-    -- 'sainnhe/gruvbox-material',
     name = 'nvim-colorscheme',
     lazy = false,
     priority = 1000,
