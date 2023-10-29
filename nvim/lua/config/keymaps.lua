@@ -204,13 +204,14 @@ keymaps.telescope = {
     search_workspace     = '<leader>fw',
     buffers              = '<leader><tab>',
     find_files           = '<leader>fs',
+    find_files_hidden    = '<leader>fS',
     resume               = '<leader>;',
     jumplist             = '<leader>ju',
     oldfiles             = '<leader>?',
     file_browse          = '<leader>fb',
     help_tags            = '<leader>?',
     action_buffer_delete = { n = 'd', i = '<m-d>' },
-    current_buffer_fuzzy_find = '<leader>fj',
+    current_buffer_fuzzy_find = 'fj',
 }
 
 -- INFO: Todocomments keymap

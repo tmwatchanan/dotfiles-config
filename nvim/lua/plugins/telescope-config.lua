@@ -161,7 +161,19 @@ M.opts = function()
             help_tags = horizontal_layout_config,
             live_grep = vertical_layout_config,
             grep_string = vertical_layout_config,
-            current_buffer_fuzzy_find = vertical_layout_config,
+            current_buffer_fuzzy_find = {
+                borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+                layout_strategy = 'vertical',
+                layout_config = {
+                    preview_cutoff = 0.1,
+                    preview_height = 0.6,
+                    prompt_position = 'top',
+                    mirror = true,
+                    width = 0.85,
+                    height = 0.85,
+                },
+                sorting_strategy = 'ascending',
+            },
         },
         extensions = {
             ['fzf'] = {
@@ -209,12 +221,16 @@ M.keys = function()
     end
 
     return {
-        { telescope_keymap.resume,           '<Cmd>Telescope resume<CR>' },
-        { telescope_keymap.buffers,          '<Cmd>Telescope buffers<CR>' },
-        { telescope_keymap.jumplist,         '<Cmd>Telescope jumplist<CR>' },
-        { telescope_keymap.help_tags,        '<Cmd>Telescope help_tags<CR>' },
-        { telescope_keymap.file_browse,      '<Cmd>Telescope file_browser<CR>' },
-        { telescope_keymap.find_files,       '<Cmd>Telescope find_files<CR>' },
+        { telescope_keymap.resume,      '<Cmd>Telescope resume<CR>' },
+        { telescope_keymap.buffers,     '<Cmd>Telescope buffers<CR>' },
+        { telescope_keymap.jumplist,    '<Cmd>Telescope jumplist<CR>' },
+        { telescope_keymap.help_tags,   '<Cmd>Telescope help_tags<CR>' },
+        { telescope_keymap.file_browse, '<Cmd>Telescope file_browser<CR>' },
+        { telescope_keymap.find_files,  '<Cmd>Telescope find_files<CR>' },
+        {
+            telescope_keymap.find_files_hidden,
+            '<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--unrestricted<CR>'
+        },
         { telescope_keymap.oldfiles,         '<Cmd>Telescope oldfiles<CR>' },
         { telescope_keymap.search_workspace, '<Cmd>Telescope live_grep<CR>' },
         { telescope_keymap.grep_workspace,   '<Cmd>Telescope grep_string<CR>', mode = 'n' },
