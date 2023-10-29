@@ -119,15 +119,18 @@ M.config = function()
             }
 
             local telescope_highlight = {
-                TelescopeSelection = { bg = M.colorset.bg1 },
-                TelescopeNormal = { bg = M.colorset.bg0 },
-                TelescopePromptNormal = { bg = M.colorset.bg0 },
-                TelescopeResultsBorder = { fg = M.colorset.bright_blue, bg = M.colorset.bg0 },
-                TelescopePreviewBorder = { fg = M.colorset.bright_blue, bg = M.colorset.bg0 },
-                TelescopePromptBorder = { fg = M.colorset.bright_blue, bg = M.colorset.bg0 },
-                TelescopePromptTitle = { fg = M.colorset.bg, bg = M.colorset.bright_blue },
-                TelescopeResultsTitle = { fg = M.colorset.bg, bg = M.colorset.bright_blue },
-                TelescopePreviewTitle = { fg = M.colorset.bg, bg = M.colorset.bright_blue },
+                TelescopeTitle = { fg = theme.ui.special, bold = true },
+                TelescopePromptNormal = { bg = theme.ui.bg_p1 },
+                TelescopePromptBorder = { fg = theme.ui.fg_dim, bg = theme.ui.bg_p1 },
+                TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
+                TelescopeResultsBorder = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
+                TelescopePreviewNormal = { bg = theme.ui.bg_dim },
+                TelescopePreviewBorder = { fg = theme.ui.fg_dim, bg = theme.ui.bg_dim },
+                TelescopeSelection = { bg = theme.ui.bg_dim, bold = true },
+                TelescopeResultsDiffAdd = { bg = theme.ui.bg_dim },
+                TelescopeResultsDiffChange = { bg = theme.ui.bg_dim },
+                TelescopeResultsDiffDelete = { bg = theme.ui.bg_dim },
+                TelescopeResultsDiffUntracked = { bg = theme.ui.bg_dim },
             }
 
             local flit_highlight = {
@@ -194,21 +197,6 @@ M.config = function()
                 NavicIconsTypeParameter = { fg = palette.springBlue },
                 NavicText = { fg = M.colorset.white },
                 NavicSeparator = { fg = M.colorset.orange },
-            }
-
-            telescope_highlight = {
-                TelescopeTitle = { fg = theme.ui.special, bold = true },
-                TelescopePromptNormal = { bg = theme.ui.bg_p1 },
-                TelescopePromptBorder = { fg = theme.ui.bg_p1, bg = theme.ui.bg_p1 },
-                TelescopeResultsNormal = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
-                TelescopeResultsBorder = { fg = theme.ui.bg_m1, bg = theme.ui.bg_m1 },
-                TelescopePreviewNormal = { bg = theme.ui.bg_dim },
-                TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
-                TelescopeSelection = { bg = theme.ui.bg_dim, bold = true },
-                TelescopeResultsDiffAdd = { bg = theme.ui.bg_dim },
-                TelescopeResultsDiffChange = { bg = theme.ui.bg_dim },
-                TelescopeResultsDiffDelete = { bg = theme.ui.bg_dim },
-                TelescopeResultsDiffUntracked = { bg = theme.ui.bg_dim },
             }
 
             overrideHighlightConfig({
