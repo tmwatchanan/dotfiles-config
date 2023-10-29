@@ -7,7 +7,7 @@ local dapui_module = {
     dependencies = {
         'nvim-dap',
     },
-    event = {'VeryLazy'},
+    event = { 'VeryLazy' },
 }
 
 dap_module.config = function()
@@ -63,7 +63,7 @@ local dap_virtual_text_module = {
         'nvim-dap',
         'nvim-treesitter',
     },
-    event = {'VeryLazy'},
+    event = { 'VeryLazy' },
 }
 
 dap_virtual_text_module.config = function()
@@ -77,13 +77,17 @@ local dap_python_module = {
         'nvim-dap-ui',
         'nvim-dap',
     },
-    event = {'VeryLazy'},
+    event = { 'VeryLazy' },
 }
 
 dap_python_module.config = function()
     local python_path = require('config.python').get_python_path()
     require('dap-python').test_runner = 'pytest'
     require('dap-python').setup(python_path)
+
+    -- to launch debugger from the root of the project
+    require('dap').configurations.python[1].cwd = '${workspaceFolder}'
+    require('dap').configurations.python[2].cwd = '${workspaceFolder}'
 end
 
 return {
