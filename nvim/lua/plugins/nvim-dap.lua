@@ -7,6 +7,7 @@ local dapui_module = {
     dependencies = {
         'nvim-dap',
     },
+    event = {'VeryLazy'},
 }
 
 dap_module.config = function()
@@ -61,7 +62,8 @@ local dap_virtual_text_module = {
     dependencies = {
         'nvim-dap',
         'nvim-treesitter',
-    }
+    },
+    event = {'VeryLazy'},
 }
 
 dap_virtual_text_module.config = function()
@@ -75,6 +77,7 @@ local dap_python_module = {
         'nvim-dap-ui',
         'nvim-dap',
     },
+    event = {'VeryLazy'},
 }
 
 dap_python_module.config = function()
