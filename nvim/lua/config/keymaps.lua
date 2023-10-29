@@ -216,7 +216,7 @@ keymaps.telescope = {
 
 -- INFO: Todocomments keymap
 keymaps.todocomments = {
-    toggle    = '<leader>c',
+    toggle    = '<Bslash>c',
     next_todo = ']t',
     prev_todo = '[t',
 }
@@ -343,24 +343,33 @@ keymaps.codeium = {
 
 -- INFO: DAP
 keymaps.dap = {
-    ui = '<leader>dd',
-    breakpoint = '<leader>db',
-    breakpoint_condition = '<leader>dB',
-    continue = '<leader>dc',
-    terminate = '<leader>dt',
-    step_over = '<leader>do',
-    step_into = '<leader>di',
-    step_out = '<leader>du',
+    ui = '<leader>dap',
+    breakpoint = '<leader>dbb',
+    breakpoint_condition = '<leader>dbB',
+    continue = '<leader>dbc',
+    terminate = '<leader>dbt',
+    step_over = '<leader>dbo',
+    step_into = '<leader>dbi',
+    step_out = '<leader>dbu',
     python = {
-        method = '<leader>dm',
-        class = '<leader>dM',
-        selection = '<leader>ds',
+        method = '<leader>dbm',
+        class = '<leader>dbM',
+        selection = '<leader>dbs',
     },
 }
 
 -- INFO: swenv
 keymaps.swenv = {
     pick = '<leader>pe',
+}
+
+-- INFO: diffview
+keymaps.diffview = {
+    open         = '<leader>dv',
+    close        = '<leader>dc',
+    current_file = '<leader>df',
+    file_history = '<leader>dF',
+    toggle_files = '<leader>dt',
 }
 
 return keymaps
