@@ -17,17 +17,15 @@ end
 
 dap_module.keys = function()
     local keymap = require('config.keymaps').dap
-    local breakpoint_condition = function()
-        require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))
-    end
     return {
         { keymap.ui,                   function() require('dapui').toggle() end,               mode = 'n' },
-        { keymap.breakpoint,           '<Cmd>DapToggleBreakpoint<CR>',                         mode = 'n' },
-        { keymap.breakpoint_condition, breakpoint_condition,                                   mode = 'n' },
+        { keymap.breakpoint,           function() require('dap').toggle_breakpoint() end,      mode = 'n' },
+        { keymap.breakpoint_condition, function() require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, mode = 'n' },
+        { keymap.continue,             function() require('dap').continue() end,               mode = 'n' },
+        { keymap.terminate,             function() require('dap').terminate() end,             mode = 'n' },
         { keymap.step_over,            function() require('dap').step_over() end,              mode = 'n' },
         { keymap.step_into,            function() require('dap').step_into() end,              mode = 'n' },
         { keymap.step_out,             function() require('dap').step_out() end,               mode = 'n' },
-        { keymap.continue,             function() require('dap').continue() end,               mode = 'n' },
         { keymap.python.method,        function() require('dap-python').test_method() end,     mode = 'n' },
         { keymap.python.class,         function() require('dap-python').test_class() end,      mode = 'n' },
         { keymap.python.selection,     function() require('dap-python').debug_selection() end, mode = 'v' },

@@ -344,13 +344,14 @@ keymaps.dap = {
     ui = '<leader>dd',
     breakpoint = '<leader>db',
     breakpoint_condition = '<leader>dbc',
+    continue = '<leader>dc',
+    terminate = '<leader>dt',
     step_over = '<leader>do',
     step_into = '<leader>di',
     step_out = '<leader>du',
-    continue = '<leader>dn',
     python = {
-        method = '<leader>df',
-        class = '<leader>dc',
+        method = '<leader>dm',
+        class = '<leader>dM',
         selection = '<leader>ds',
     },
 }
