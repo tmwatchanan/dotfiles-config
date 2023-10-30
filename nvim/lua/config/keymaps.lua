@@ -58,10 +58,10 @@ keymaps.setup = function()
     vim.keymap.set('n', '<C-w>l', '<C-w>>')
     vim.keymap.set('n', '<C-w>k', '<C-w>+')
     vim.keymap.set('n', '<C-w>j', '<C-w>-')
-    vim.keymap.set('n', '<M-,>', '<Cmd>vertical resize -10<CR>', { silent = true })
-    vim.keymap.set('n', '<M-.>', '<Cmd>vertical resize +10<CR>', { silent = true })
-    vim.keymap.set('n', '<M-\'>', '<Cmd>resize +10<CR>', { silent = true })
-    vim.keymap.set('n', '<M-/>', '<Cmd>resize -10<CR>', { silent = true })
+    vim.keymap.set('n', '<C-,>', '<Cmd>vertical resize -10<CR>', { silent = true })
+    vim.keymap.set('n', '<C-.>', '<Cmd>vertical resize +10<CR>', { silent = true })
+    vim.keymap.set('n', '<C-\'>', '<Cmd>resize +10<CR>', { silent = true })
+    vim.keymap.set('n', '<C-/>', '<Cmd>resize -10<CR>', { silent = true })
 
     -- INFO: remap jump keys
     vim.keymap.set('n', '<M-o>', '<C-i>') -- <C-i> is <Tab>, so we need to replace it with another
@@ -172,13 +172,13 @@ keymaps.lazy = {
 
 -- INFO: Focus keymap
 keymaps.focus = {
-    toggle_enable = '<M-space>',
+    toggle_enable = '<C-space>',
     toggle_size   = 'wt',
     split_cycle   = '<C-;>',
-    split_left    = '<M-h>',
-    split_right   = '<M-l>',
-    split_up      = '<M-k>',
-    split_down    = '<M-j>',
+    split_left    = '<C-h>',
+    split_right   = '<C-l>',
+    split_up      = '<C-k>',
+    split_down    = '<C-j>',
 }
 
 -- INFO: GitSign keymap
@@ -335,10 +335,10 @@ keymaps.neotest = {
 
 -- INFO: Codeium
 keymaps.codeium = {
-    accept = '<M-l>',
-    next = '<M-j>',
+    accept   = '<M-;>',
+    next     = '<M-j>',
     previous = '<M-k>',
-    clear = '<M-c>',
+    clear    = '<M-c>',
 }
 
 -- INFO: DAP

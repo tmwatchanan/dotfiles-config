@@ -101,6 +101,20 @@ M.opts = function()
                 fallback()
             end
         end),
+        ['<C-h>'] = cmp.mapping(function()
+            if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            end
+        end, { 'i', 's' }),
+        ['<C-l>'] = cmp.mapping(function(fallback)
+            if luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            elseif has_word_before() then
+                cmp.complete()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -156,10 +170,9 @@ M.opts = function()
     local cmp_sources = cmp.config.sources(
         {
             -- { name = 'copilot' },
-            { name = 'codeium' },
             { name = 'async_path' },
-            { name = 'nvim_lsp' },
             { name = 'luasnip',   keyword_length = 2 },
+            { name = 'nvim_lsp' },
         },
         {
             { name = 'fuzzy_buffer', option = { min_match_length = 2 } },
