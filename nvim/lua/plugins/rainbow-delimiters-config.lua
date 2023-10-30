@@ -9,6 +9,15 @@ M.config = function()
             [''] = 'rainbow-delimiters',
             lua = 'rainbow-blocks',
         },
+        highlight = {
+            'RainbowDelimiterCyan',
+            'RainbowDelimiterViolet',
+            'RainbowDelimiterGreen',
+            'RainbowDelimiterOrange',
+            'RainbowDelimiterBlue',
+            'RainbowDelimiterYellow',
+            'RainbowDelimiterRed',
+        },
     }
 end
 

@@ -225,6 +225,7 @@ M.config = function()
             compile = false,
             transparent = false,
             globalStatus = true,
+            dimInactive = true,
             terminalColors = false,
             colors = {
                 theme = {
