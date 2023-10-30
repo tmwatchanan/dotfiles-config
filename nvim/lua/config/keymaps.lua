@@ -14,6 +14,9 @@ keymaps.setup = function()
     vim.keymap.set('i', 'jj', '<Esc>')
     vim.keymap.set('i', 'jk', '<Esc>')
 
+    vim.keymap.set('i', '<C-j>', '<Down>')
+    vim.keymap.set('i', '<C-k>', '<Up>')
+
     -- INFO: move up / down by visible lines with no [count]
     vim.keymap.set({ 'n', 'x' }, 'j', [[v:count == 0 ? 'gj' : 'j']], { expr = true, silent = true })
     vim.keymap.set({ 'n', 'x' }, 'k', [[v:count == 0 ? 'gk' : 'k']], { expr = true, silent = true })
