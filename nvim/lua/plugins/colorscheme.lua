@@ -223,7 +223,7 @@ M.config = function()
 
         kanagawa.setup {
             compile = false,
-            transparent = false,
+            transparent = true,
             globalStatus = true,
             dimInactive = true,
             terminalColors = false,
