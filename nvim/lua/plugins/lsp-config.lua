@@ -136,6 +136,14 @@ lsp_setup_module.config = function()
     -- INFO: config lsp servers in lsp-list
     local lsp_list = {}
     for name, config in pairs(require('plugins.lsp-settings.lsp-list')) do
+        -- INFO: enable foldingRange in LSP for `nvim-ufo`
+        local capabilities = lsp_zero.get_capabilities()
+        capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true
+        }
+        config.capabilities = capabilities
+
         lsp_zero.configure(name, config)
         table.insert(lsp_list, name)
     end
