@@ -75,8 +75,8 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>Q', '<Cmd>cexpr []<CR>')
 
     -- INFO: search word under cursor (recursive called `hlslens`)
-    vim.keymap.set('n', ']]', '*', { remap = true })
-    vim.keymap.set('n', '[[', '#', { remap = true })
+    -- vim.keymap.set('n', ']]', '*', { remap = true })
+    -- vim.keymap.set('n', '[[', '#', { remap = true })
 
     -- INFO: delete a acharacter next to the cursor in INSERT mode
     vim.keymap.set('i', '<C-l>', '<Esc>lxi')
@@ -100,7 +100,7 @@ keymaps.lsp = {
         cmd = function() vim.lsp.buf.document_symbol({ on_list = open_with_qflist }) end
     },
     hover            = {
-        key = 'K',
+        key = ',k',
         cmd = function()
             local ufo_loaded, ufo = pcall(require, 'ufo')
             if ufo_loaded then
@@ -109,6 +109,7 @@ keymaps.lsp = {
             return vim.diagnostic.open_float({ scope = 'cursor' }) or vim.lsp.buf.hover()
         end
     },
+    jump_to_context  = { key = '[c', cmd = function() require('treesitter-context').go_to_context() end },
 }
 
 -- INFO: Treesitter
@@ -120,9 +121,10 @@ keymaps.treesitter = {
     },
     textobjects = {
         move = {
+            enable = true,
             goto_next_start = {
                 ["]m"] = "@function.outer",
-                ["]c"] = "@comment.outer",
+                ["]/"] = "@comment.outer",
                 ["]i"] = "@conditional.outer",
                 ["]l"] = "@loop.outer",
                 ["]]"] = "@block.outer",
@@ -130,7 +132,7 @@ keymaps.treesitter = {
             },
             goto_next_end = {
                 ["]M"] = "@function.outer",
-                ["]C"] = "@comment.outer",
+                ["]?"] = "@comment.outer",
                 ["]I"] = "@conditional.outer",
                 ["]L"] = "@loop.outer",
                 ["]}"] = "@block.outer",
@@ -138,7 +140,7 @@ keymaps.treesitter = {
             },
             goto_previous_start = {
                 ["[m"] = "@function.outer",
-                ["[c"] = "@comment.outer,",
+                ["[/"] = "@comment.outer,",
                 ["[i"] = "@conditional.outer,",
                 ["[l"] = "@loop.outer",
                 ["[["] = "@block.outer",
@@ -146,7 +148,7 @@ keymaps.treesitter = {
             },
             goto_previous_end = {
                 ["[M"] = "@function.outer",
-                ["[C"] = "@comment.outer,",
+                ["[?"] = "@comment.outer,",
                 ["[I"] = "@conditional.outer,",
                 ["[L"] = "@loop.outer",
                 ["[{"] = "@block.outer",
@@ -154,6 +156,7 @@ keymaps.treesitter = {
             },
         },
         swap = {
+            enable = true,
             swap_next = {
                 ['<leader>sa'] = '@parameter.inner',
                 ['<leader>sm'] = '@function.outer',
@@ -164,6 +167,10 @@ keymaps.treesitter = {
                 ['<leader>sM'] = '@function.outer',
                 ['<leader>sC'] = '@class.outer',
             },
+        },
+        peek_definition_code = {
+            [',K'] = '@function.outer',
+            ['<leader>pc'] = '@class.outer',
         },
     }
 }

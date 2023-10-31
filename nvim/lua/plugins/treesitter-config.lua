@@ -24,11 +24,6 @@ local M = {
 
 M.opts = function()
     local keymaps = require('config.keymaps').treesitter
-
-    for k, _ in pairs(keymaps.textobjects) do
-        keymaps.textobjects[k].enable = true
-    end
-
     return {
         ensure_installed = {
             'regex',
@@ -74,6 +69,12 @@ M.opts = function()
         textobjects = {
             move = keymaps.textobjects.move,
             swap = keymaps.textobjects.swap,
+            lsp_interop = {
+                enable = true,
+                border = 'none',
+                floating_preview_opts = {},
+                peek_definition_code = keymaps.textobjects.peek_definition_code,
+            },
         },
     }
 end
