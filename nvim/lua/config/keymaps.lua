@@ -382,4 +382,9 @@ keymaps.diffview = {
     toggle_files = '<leader>dt',
 }
 
+-- INFO: undotree
+keymaps.undotree = {
+    open = '<leader>u',
+}
+
 return keymaps
