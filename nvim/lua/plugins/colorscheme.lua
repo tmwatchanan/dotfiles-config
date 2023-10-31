@@ -217,6 +217,13 @@ M.config = function()
             overrideHighlightConfig(local_highlight)
             overrideHighlightConfig(noice_highlight)
             overrideHighlightConfig(incline_highlight)
+            overrideHighlightConfig({
+                NormalNC = { bg = M.colorset.transparent },
+                TreesitterContext = { bg = M.colorset.transparent },
+                TreesitterContextBottom = { bg = M.colorset.bg1 },
+                NormalFloat = { bg = theme.ui.bg_dim },
+                FloatBorder = { link = 'NormalFloat' },
+            })
 
             return highlight_overrides
         end
@@ -347,6 +354,7 @@ M.config = function()
             style = 'moon',
             terminal_colors = true,
             on_highlights = on_highlights,
+            transparent = true,
         }
         vim.opt.background = 'dark'
         vim.cmd.colorscheme 'tokyonight'
