@@ -25,12 +25,17 @@ keymaps.setup = function()
     vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
     vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
-    -- INFO: command-line abbreviations
+    -- INFO: keep the cursor still when join lines
+    vim.keymap.set('n', 'J', 'mzJ`z')
+
+    -- INFO: movement in Command mode
     vim.keymap.set('c', '<C-A>', '<Home>')
-    vim.keymap.set('c', '<C-h>', '<Left>')
-    vim.keymap.set('c', '<C-l>', '<Right>')
-    vim.keymap.set('c', '<C-b>', '<S-Left>')
-    vim.keymap.set('c', '<C-w>', '<S-Right>')
+    vim.keymap.set('c', '<C-j>', '<Left>')
+    vim.keymap.set('c', '<C-k>', '<Right>')
+    vim.keymap.set('c', '<C-h>', '<S-Left>')
+    vim.keymap.set('c', '<C-l>', '<S-Right>')
+
+    -- INFO: command-line abbreviations
     -- vim.keymap.set('c', 'W', 'w')
     -- vim.keymap.set('c', 'W!', 'w!')
     -- vim.keymap.set('c', 'Wq', 'wq')
@@ -51,6 +56,9 @@ keymaps.setup = function()
     vim.keymap.set('n', 'H', '<Cmd>bnext<CR>')
     vim.keymap.set('n', 'L', '<Cmd>bprev<CR>')
     vim.keymap.set('n', 'wq', '<C-w>q')
+
+    -- INFO: replace the current word from the current line onward
+    vim.keymap.set('n', '<leader>r', [[:.,$s/\<<C-r><C-w>\>/<C-r><C-w>/gcI<Left><Left><Left><Left>]])
 
     -- INFO: misc. keymap
     vim.keymap.set({ 'n', 'i' }, '<Esc>', '<Cmd>noh<CR><Esc>')
@@ -318,8 +326,8 @@ keymaps.move = {
 
 -- INFO: search-replace keymap
 keymaps.search_replace = {
-    single_open                   = '<leader>r',
-    multi_open                    = '<leader>R',
+    single_open                   = '<leader>sr',
+    multi_open                    = '<leader>sR',
     visual_selection_charwise     = '<C-c>',
     visual_selection_current_word = '<C-r>',
 }
