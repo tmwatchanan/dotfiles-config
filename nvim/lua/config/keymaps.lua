@@ -22,6 +22,11 @@ keymaps.setup = function()
     vim.keymap.set({ 'n', 'x' }, 'k', [[v:count == 0 ? 'gk' : 'k']], { expr = true, silent = true })
 
     -- INFO: command-line abbreviations
+    vim.keymap.set('c', '<C-A>', '<Home>')
+    vim.keymap.set('c', '<C-h>', '<Left>')
+    vim.keymap.set('c', '<C-l>', '<Right>')
+    vim.keymap.set('c', '<C-b>', '<S-Left>')
+    vim.keymap.set('c', '<C-w>', '<S-Right>')
     -- vim.keymap.set('c', 'W', 'w')
     -- vim.keymap.set('c', 'W!', 'w!')
     -- vim.keymap.set('c', 'Wq', 'wq')
