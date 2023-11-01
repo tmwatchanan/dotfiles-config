@@ -54,7 +54,7 @@ M.opts = function()
         -- color_correction = 'dynamic',
         navic_opts = {
             separator = icons.lualine.navic_separator,
-            highlight = false,
+            highlight = true,
         }
         -- padding = { right = 0 }
     }
