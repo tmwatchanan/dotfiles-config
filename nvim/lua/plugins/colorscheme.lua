@@ -168,37 +168,6 @@ M.config = function()
                 InclineModified = { fg = M.colorset.red, bg = M.colorset.transparent, }
             }
 
-            local navic_highlight = {
-                NavicIconsFile = { fg = palette.springViolet2 },
-                NavicIconsModule = { fg = palette.boatYellow2 },
-                NavicIconsNamespace = { fg = palette.springViolet2 },
-                NavicIconsPackage = { fg = palette.springViolet1 },
-                NavicIconsClass = { fg = palette.surimiOrange },
-                NavicIconsMethod = { fg = palette.crystalBlue },
-                NavicIconsProperty = { fg = palette.waveAqua2 },
-                NavicIconsField = { fg = palette.waveAqua1 },
-                NavicIconsConstructor = { fg = palette.surimiOrange },
-                NavicIconsEnum = { fg = palette.boatYellow2 },
-                NavicIconsInterface = { fg = palette.carpYellow },
-                NavicIconsFunction = { fg = palette.crystalBlue },
-                NavicIconsVariable = { fg = palette.oniViolet },
-                NavicIconsConstant = { fg = palette.oniViolet },
-                NavicIconsString = { fg = palette.springGreen },
-                NavicIconsNumber = { fg = palette.sakuraPink },
-                NavicIconsBoolean = { fg = palette.surimiOrange },
-                NavicIconsArray = { fg = palette.waveAqua2 },
-                NavicIconsObject = { fg = palette.surimiOrange },
-                NavicIconsKey = { fg = palette.oniViolet },
-                NavicIconsNull = { fg = palette.carpYellow },
-                NavicIconsEnumMember = { fg = palette.carpYellow },
-                NavicIconsStruct = { fg = palette.surimiOrange },
-                NavicIconsEvent = { fg = palette.surimiOrange },
-                NavicIconsOperator = { fg = palette.springViolet2 },
-                NavicIconsTypeParameter = { fg = palette.springBlue },
-                NavicText = { fg = M.colorset.white },
-                NavicSeparator = { fg = M.colorset.orange },
-            }
-
             overrideHighlightConfig({
                 DiagnosticError = { fg = M.colorset.error },
                 DiagnosticWarn = { fg = M.colorset.warn },
@@ -209,7 +178,6 @@ M.config = function()
             overrideHighlightConfig({
                 WinSeparator = { fg = palette.sumiInk4, bg = M.colorset.transparent },
             })
-            overrideHighlightConfig(navic_highlight)
             overrideHighlightConfig(cmp_highlight)
             overrideHighlightConfig(telescope_highlight)
             overrideHighlightConfig(flit_highlight)
@@ -219,7 +187,7 @@ M.config = function()
             overrideHighlightConfig(incline_highlight)
             overrideHighlightConfig({
                 NormalNC = { bg = M.colorset.transparent },
-                TreesitterContext = { bg = M.colorset.transparent },
+                TreesitterContext = { link = M.colorset.transparent },
                 TreesitterContextBottom = { bg = M.colorset.bg1 },
                 NormalFloat = { bg = theme.ui.bg_dim },
                 FloatBorder = { link = 'NormalFloat' },
@@ -238,7 +206,7 @@ M.config = function()
                 theme = {
                     all = {
                         ui = {
-                            bg_gutter = 'none',
+                            bg_gutter = M.colorset.transparent,
                         }
                     }
                 }
