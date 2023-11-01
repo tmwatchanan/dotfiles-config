@@ -21,10 +21,6 @@ keymaps.setup = function()
     vim.keymap.set({ 'n', 'x' }, 'j', [[v:count == 0 ? 'gj' : 'j']], { expr = true, silent = true })
     vim.keymap.set({ 'n', 'x' }, 'k', [[v:count == 0 ? 'gk' : 'k']], { expr = true, silent = true })
 
-    -- INFO: move lines up / down in linewise Visual mode
-    vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-    vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
-
     -- INFO: keep the cursor still when join lines
     vim.keymap.set('n', 'J', 'mzJ`z')
 
@@ -70,8 +66,8 @@ keymaps.setup = function()
     vim.keymap.set('i', '<S-Tab>', '<C-d>') -- de-tab while in insert mode
     vim.keymap.set('n', 'Y', 'y$')          -- Yank line after cursor
     -- vim.keymap.set('n', 'P', '<cmd>pu<CR>') -- Paste on new line
-    vim.keymap.set('v', '<', '<gv')
-    vim.keymap.set('v', '>', '>gv')
+    -- vim.keymap.set('v', '<', '<gv')
+    -- vim.keymap.set('v', '>', '>gv')
 
     -- INFO: resize window
     vim.keymap.set('n', '<C-w>h', '<C-w><')
@@ -318,10 +314,10 @@ keymaps.bufremove = {
 
 -- INFO: mini.move keymap
 keymaps.move = {
-    move_up    = '<leader><Up>',
-    move_down  = '<leader><Down>',
-    move_left  = '<leader><Left>',
-    move_right = '<leader><Right>',
+    move_up    = 'K',
+    move_down  = 'J',
+    move_left  = '<',
+    move_right = '>',
 }
 
 -- INFO: search-replace keymap
