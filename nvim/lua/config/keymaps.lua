@@ -400,4 +400,20 @@ keymaps.undotree = {
     open = '<leader>u',
 }
 
+-- INFO: harpoon
+keymaps.harpoon = {
+    toggle_quick_menu = '<leader>hp',
+    add_file = '<leader>ha',
+    nav_next = 'H',
+    nav_prev = 'L',
+    nav_file_1 = "m1",
+    nav_file_2 = "m2",
+    nav_file_3 = "m3",
+    nav_file_4 = "m4",
+    nav_file_5 = "m5",
+    go_to_terminal_1 = ',1',
+    go_to_terminal_2 = ',2',
+    go_to_terminal_3 = ',3',
+}
+
 return keymaps
