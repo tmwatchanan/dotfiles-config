@@ -45,6 +45,9 @@ local various_textobjs_module = {
     lazy = false,
     opts = {
         useDefaultKeymaps = true,
+        disabledKeymaps = {
+            'r', -- restOfParagraph
+        },
     },
 }
 
