@@ -49,8 +49,8 @@ keymaps.setup = function()
     vim.keymap.set('i', '?', '?<C-g>u')
 
     -- INFO: windows/buffers navigated keys
-    vim.keymap.set('n', 'H', '<Cmd>bnext<CR>')
-    vim.keymap.set('n', 'L', '<Cmd>bprev<CR>')
+    vim.keymap.set('n', 'gh', '<Cmd>bnext<CR>')
+    vim.keymap.set('n', 'gl', '<Cmd>bprev<CR>')
     vim.keymap.set('n', 'wq', '<C-w>q')
 
     -- INFO: replace the current word from the current line onward
@@ -59,12 +59,12 @@ keymaps.setup = function()
     -- INFO: misc. keymap
     vim.keymap.set({ 'n', 'i' }, '<Esc>', '<Cmd>noh<CR><Esc>')
     -- vim.keymap.set({ 'n', 'i' }, '<C-l>', '<Cmd>noh<CR>')
-    vim.keymap.set('n', 'dw', 'vb"_d')      -- delete a word backward
-    vim.keymap.set('n', '<leader>d', '"_d') -- delete without yank
+    vim.keymap.set('n', 'dw', 'vb"_d')         -- delete a word backward
+    vim.keymap.set('n', '<leader>d', '"_d')    -- delete without yank
     vim.keymap.set('n', 'x', '"_x')
-    vim.keymap.set('v', 'p', '"_dP')        -- replace-paste without yank
-    vim.keymap.set('i', '<S-Tab>', '<C-d>') -- de-tab while in insert mode
-    vim.keymap.set('n', 'Y', 'y$')          -- Yank line after cursor
+    vim.keymap.set('x', 'p', '"_c<C-r>+<Esc>') -- replace-paste without yank
+    vim.keymap.set('i', '<S-Tab>', '<C-d>')    -- de-tab while in insert mode
+    vim.keymap.set('n', 'Y', 'y$')             -- Yank line after cursor
     -- vim.keymap.set('n', 'P', '<cmd>pu<CR>') -- Paste on new line
     -- vim.keymap.set('v', '<', '<gv')
     -- vim.keymap.set('v', '>', '>gv')
@@ -74,10 +74,10 @@ keymaps.setup = function()
     vim.keymap.set('n', '<C-w>l', '<C-w>>')
     vim.keymap.set('n', '<C-w>k', '<C-w>+')
     vim.keymap.set('n', '<C-w>j', '<C-w>-')
-    vim.keymap.set('n', '<C-,>', '<Cmd>vertical resize -10<CR>', { silent = true })
-    vim.keymap.set('n', '<C-.>', '<Cmd>vertical resize +10<CR>', { silent = true })
-    vim.keymap.set('n', '<C-\'>', '<Cmd>resize +10<CR>', { silent = true })
-    vim.keymap.set('n', '<C-/>', '<Cmd>resize -10<CR>', { silent = true })
+    vim.keymap.set('n', '<C-w>,', '<Cmd>vertical resize -10<CR>', { silent = true })
+    vim.keymap.set('n', '<C-w>.', '<Cmd>vertical resize +10<CR>', { silent = true })
+    vim.keymap.set('n', "<C-w>'", '<Cmd>resize +10<CR>', { silent = true })
+    vim.keymap.set('n', '<C-w>/', '<Cmd>resize -10<CR>', { silent = true })
 
     -- INFO: remap jump keys
     vim.keymap.set('n', '<M-o>', '<C-i>') -- <C-i> is <Tab>, so we need to replace it with another
@@ -128,8 +128,8 @@ keymaps.lsp = {
 -- INFO: Treesitter
 keymaps.treesitter = {
     incremental_selection = {
-        init_selection = '<Tab>',
-        node_incremental = '<Tab>',
+        init_selection = '<M-Tab>',
+        node_incremental = '<M-Tab>',
         node_decremental = '<S-Tab>',
     },
     textobjects = {
@@ -195,8 +195,8 @@ keymaps.lazy = {
 
 -- INFO: Focus keymap
 keymaps.focus = {
-    toggle_enable = '<C-space>',
-    toggle_size   = 'wt',
+    toggle_enable = 'wt',
+    toggle_size   = 'wT',
     split_cycle   = '<C-;>',
     split_left    = '<C-h>',
     split_right   = '<C-l>',
@@ -208,12 +208,12 @@ keymaps.focus = {
 keymaps.gitsigns = {
     next_hunk    = ']h',
     prev_hunk    = '[h',
-    stage_hunk   = '<leader>hs',
-    reset_hunk   = '<leader>hr',
-    preview_hunk = '<leader>hp',
-    blame_line   = '<leader>hb',
-    toggle_blame = '<leader>hB',
-    diff_this    = '<leader>hd',
+    stage_hunk   = '<leader>Hs',
+    reset_hunk   = '<leader>Hr',
+    preview_hunk = '<leader>Hp',
+    blame_line   = '<leader>Hb',
+    toggle_blame = '<leader>HB',
+    diff_this    = '<leader>Hd',
 }
 
 -- INFO: git-conflict keymap
@@ -223,18 +223,18 @@ keymaps.gitconflict = {
 
 -- INFO: Telescope keymap
 keymaps.telescope = {
-    grep_workspace       = 'gw',
-    search_workspace     = '<leader>fw',
-    buffers              = '<leader><tab>',
-    find_files           = '<leader>fs',
-    find_files_hidden    = '<leader>fS',
-    resume               = '<leader>;',
-    jumplist             = '<leader>ju',
-    oldfiles             = '<leader>?',
-    file_browse          = '<leader>fb',
-    help_tags            = '<leader>?',
-    action_buffer_delete = { n = 'd', i = '<m-d>' },
-    current_buffer_fuzzy_find = 'fj',
+    grep_workspace            = 'gw',
+    search_workspace          = '<leader>fw',
+    buffers                   = '<leader><tab>',
+    find_files                = '<leader>fs',
+    find_files_hidden         = '<leader>fS',
+    resume                    = '<leader>;',
+    jumplist                  = '<leader>ju',
+    oldfiles                  = '<leader>?',
+    file_browse               = '<leader>fb',
+    help_tags                 = '<leader>?',
+    action_buffer_delete      = { n = 'd', i = '<m-d>' },
+    current_buffer_fuzzy_find = 'g/',
 }
 
 -- INFO: Todocomments keymap
@@ -253,8 +253,8 @@ keymaps.toggleterm = {
 
 -- INFO: Marks keymap
 keymaps.marks = {
-    next    = "'",
-    prev    = '"',
+    next    = "mn",
+    prev    = 'mN',
     toggle  = "m'",
     preview = 'm"',
     clear   = 'md',
@@ -314,8 +314,8 @@ keymaps.bufremove = {
 
 -- INFO: mini.move keymap
 keymaps.move = {
-    move_up    = 'K',
-    move_down  = 'J',
+    move_up    = '<M-k>',
+    move_down  = '<M-j>',
     move_left  = '<',
     move_right = '>',
 }
@@ -324,8 +324,8 @@ keymaps.move = {
 keymaps.search_replace = {
     single_open                   = '<leader>sr',
     multi_open                    = '<leader>sR',
-    visual_selection_charwise     = '<C-c>',
-    visual_selection_current_word = '<C-r>',
+    visual_selection_charwise     = '<M-c>',
+    visual_selection_current_word = '<M-r>',
 }
 
 -- INFO: treesj keymap
