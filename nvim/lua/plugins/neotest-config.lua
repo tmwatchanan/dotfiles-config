@@ -21,6 +21,7 @@ M.config = function()
                 ignore_file_types = { 'python', 'vim', 'lua' },
             }),
         },
+        args = { '-s', '--log-level', 'DEBUG' },
     })
 end
 
