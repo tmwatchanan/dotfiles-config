@@ -51,7 +51,7 @@ keymaps.setup = function()
     -- INFO: windows/buffers navigated keys
     vim.keymap.set('n', 'gh', '<Cmd>bnext<CR>')
     vim.keymap.set('n', 'gl', '<Cmd>bprev<CR>')
-    vim.keymap.set('n', 'wq', '<C-w>q')
+    vim.keymap.set('n', '<leader>wq', '<C-w>q')
 
     -- INFO: replace the current word from the current line onward
     vim.keymap.set('n', '<leader>r', [[:.,$s/\<<C-r><C-w>\>/<C-r><C-w>/gcI<Left><Left><Left><Left>]])
@@ -195,8 +195,8 @@ keymaps.lazy = {
 
 -- INFO: Focus keymap
 keymaps.focus = {
-    toggle_enable = 'wt',
-    toggle_size   = 'wT',
+    toggle_enable = ',t',
+    toggle_size   = ',T',
     split_cycle   = '<C-;>',
     split_left    = '<C-h>',
     split_right   = '<C-l>',
@@ -309,7 +309,7 @@ keymaps.markdown_preview = {
 
 -- INFO: mini.bufremove keymap
 keymaps.bufremove = {
-    delete = 'wQ',
+    delete = '<leader>wQ',
 }
 
 -- INFO: mini.move keymap
