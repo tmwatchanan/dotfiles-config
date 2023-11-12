@@ -15,13 +15,16 @@ M.config = function()
             require('neotest-python')({
                 dap = { justMyCode = false },
                 python = require('config.python').get_python_path(),
+                args = {
+                    '-s',
+                    -- '--log-level DEBUG',
+                },
             }),
             require('neotest-plenary'),
             require('neotest-vim-test')({
                 ignore_file_types = { 'python', 'vim', 'lua' },
             }),
         },
-        args = { '-s', '--log-level', 'DEBUG' },
     })
 end
 
