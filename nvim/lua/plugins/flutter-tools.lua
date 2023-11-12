@@ -11,7 +11,7 @@ local M = {
 M.opts = {
     debugger = {
         enabled = true,
-        run_via_dap = true,
+        run_via_dap = false,
     },
     closing_tags = {
         prefix = "> ",

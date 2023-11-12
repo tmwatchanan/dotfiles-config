@@ -29,7 +29,14 @@ dap_module.keys = function()
             mode = 'n'
         },
         { keymap.continue,         function() require('dap').continue() end,               mode = 'n' },
-        { keymap.terminate,        function() require('dap').terminate() end,              mode = 'n' },
+        {
+            keymap.terminate,
+            function()
+                require('dap').terminate()
+                require("dapui").close()
+            end,
+            mode = 'n'
+        },
         { keymap.step_over,        function() require('dap').step_over() end,              mode = 'n' },
         { keymap.step_into,        function() require('dap').step_into() end,              mode = 'n' },
         { keymap.step_out,         function() require('dap').step_out() end,               mode = 'n' },
