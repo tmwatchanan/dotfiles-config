@@ -59,8 +59,9 @@ keymaps.setup = function()
     -- INFO: misc. keymap
     vim.keymap.set({ 'n', 'i' }, '<Esc>', '<Cmd>noh<CR><Esc>')
     -- vim.keymap.set({ 'n', 'i' }, '<C-l>', '<Cmd>noh<CR>')
-    vim.keymap.set('n', 'dw', 'vb"_d')         -- delete a word backward
-    vim.keymap.set('n', '<leader>d', '"_d')    -- delete without yank
+    vim.keymap.set('n', 'dw', 'vb"_d')      -- delete a word backward
+    vim.keymap.set('n', '<leader>d', '"_d') -- delete without yank
+    vim.keymap.set('n', 'c', '"_c')
     vim.keymap.set('n', 'x', '"_x')
     vim.keymap.set('x', 'p', '"_c<C-r>+<Esc>') -- replace-paste without yank
     vim.keymap.set('i', '<S-Tab>', '<C-d>')    -- de-tab while in insert mode

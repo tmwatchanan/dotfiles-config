@@ -15,7 +15,6 @@ local M = {
                 end
             }
         },
-        'JoosepAlviste/nvim-ts-context-commentstring',
         'windwp/nvim-ts-autotag',
         'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -54,10 +53,6 @@ M.opts = function()
         indent = {
             enable = true,
             disable = { 'cpp' }
-        },
-        context_commentstring = {
-            enable = true,
-            enable_autocmd = false,
         },
         autotag = {
             enable = true,
