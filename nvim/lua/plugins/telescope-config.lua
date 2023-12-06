@@ -151,6 +151,7 @@ M.opts = function()
                 trim_text = true,
             }),
             buffers = mergeConfig(horizontal_layout_config, {
+                sort_mru = true,
                 attach_mappings = buffers_mapping
             }),
             quickfix = mergeConfig(vertical_layout_config, {

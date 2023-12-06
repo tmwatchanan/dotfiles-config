@@ -18,11 +18,10 @@ mason_module.opts = {
 local lsp_setup_module = {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
         'mason.nvim',
         'cmp-nvim-lsp',
-        'diagflow.nvim',
         'neovim/nvim-lspconfig',
         'williamboman/mason-lspconfig.nvim',
     },
@@ -32,13 +31,15 @@ lsp_setup_module.init = function()
     -- INFO: setup diagnostic configs
     local diagnostic_config = {
         update_in_insert = false,
-        virtual_text = true,
         severity_sort = true,
+        virtual_text = false,
+        virtual_lines = true,
     }
     vim.diagnostic.config(diagnostic_config)
 
     -- INFO: setup lsp-zero configs
     vim.g.lsp_zero_ui_float_border = 0
+    vim.g.lsp_zero_extend_cmp = 0
 end
 
 lsp_setup_module.config = function()
@@ -162,11 +163,21 @@ end
 
 local diagflow_module = {
     'dgagn/diagflow.nvim',
+    event = 'LspAttach',
 }
 
 diagflow_module.opts = {
-    padding_top = 1,
+    scope = 'line',
+    show_sign = true,
+    padding_top = 2,
     toggle_event = { 'InsertEnter' },
+    update_event = { 'DiagnosticChanged', 'BufEnter' },
+    severity_colors = {
+        error = 'DiagnosticError',
+        warning = 'DiagnosticWarn',
+        info = 'DiagnosticInfo',
+        hint = 'DiagnosticHint',
+    },
 }
 
 -- ----------------------------------------------------------------------
