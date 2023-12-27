@@ -28,12 +28,17 @@ local lsp_setup_module = {
 }
 
 lsp_setup_module.init = function()
+    local diagnostic_icons = require('config').defaults.icons.diagnostics
+
     -- INFO: setup diagnostic configs
     local diagnostic_config = {
         update_in_insert = false,
         severity_sort = true,
         virtual_text = false,
         virtual_lines = true,
+        signs = {
+            text = { diagnostic_icons.error, diagnostic_icons.warn, diagnostic_icons.info, diagnostic_icons.hint },
+        }
     }
     vim.diagnostic.config(diagnostic_config)
 
@@ -127,9 +132,9 @@ lsp_setup_module.config = function()
     --
     local lsp_zero = require('lsp-zero')
 
-    lsp_zero.set_sign_icons(require('config').defaults.icons.diagnostics)
-
     lsp_zero.on_attach(function(client, bufnr)
+        lsp_zero.highlight_symbol(client, bufnr)
+
         lsp_keymap(client, bufnr, require('config.keymaps').lsp)
         lsp_inlayhint(client, bufnr)
     end)
@@ -168,34 +173,15 @@ local diagflow_module = {
 
 diagflow_module.opts = {
     scope = 'line',
-    show_sign = true,
     padding_top = 2,
-    toggle_event = { 'InsertEnter' },
+    toggle_event = { 'InsertEnter', 'InsertLeave' },
     update_event = { 'DiagnosticChanged', 'BufEnter' },
     severity_colors = {
         error = 'DiagnosticError',
-        warning = 'DiagnosticWarn',
+        warn = 'DiagnosticWarn',
         info = 'DiagnosticInfo',
         hint = 'DiagnosticHint',
     },
-}
-
--- ----------------------------------------------------------------------
--- INFO: formatter
---
-local formatter_module = {
-    'nvimtools/none-ls.nvim',
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-        'WhoIsSethDaniel/mason-tool-installer.nvim',
-    },
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-        local formatters = require('plugins.lsp-settings.formatters')
-        require('mason-tool-installer').setup(formatters.mason_tool_installer)
-        require('mason-tool-installer').check_install(false)
-        require('null-ls').setup(formatters.none_ls)
-    end,
 }
 
 return {
