@@ -184,6 +184,24 @@ diagflow_module.opts = {
     },
 }
 
+-- ----------------------------------------------------------------------
+-- INFO: formatter
+--
+local formatter_module = {
+    'nvimtools/none-ls.nvim',
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'WhoIsSethDaniel/mason-tool-installer.nvim',
+    },
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+        local formatters = require('plugins.lsp-settings.formatters')
+        require('mason-tool-installer').setup(formatters.mason_tool_installer)
+        require('mason-tool-installer').check_install(false)
+        require('null-ls').setup(formatters.none_ls)
+    end,
+}
+
 return {
     mason_module,
     lsp_setup_module,
