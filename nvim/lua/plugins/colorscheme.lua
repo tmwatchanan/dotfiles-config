@@ -147,6 +147,16 @@ M.config = function()
             })
 
             overrideHighlightConfig({
+                RainbowDelimiterRed = { link = 'rainbowcol1' },
+                RainbowDelimiterYellow = { link = 'rainbowcol2' },
+                RainbowDelimiterBlue = { link = 'rainbowcol3' },
+                RainbowDelimiterOrange = { link = 'rainbowcol4' },
+                RainbowDelimiterGreen = { link = 'rainbowcol5' },
+                RainbowDelimiterViolet = { link = 'rainbowcol6' },
+                RainbowDelimiterCyan = { link = 'rainbowcol7' },
+            })
+
+            overrideHighlightConfig({
                 WinSeparator = { fg = palette.sumiInk4, bg = M.colorset.transparent },
             })
             overrideHighlightConfig(cmp_highlight)
@@ -559,7 +569,7 @@ M.config = function()
         }
 
         local indentscope_highlight = {
-            MiniIndentscopeSymbol = { fg = c.base07, bg = c.none },
+            MiniIndentscopeSymbol = { fg = c.base04, bg = c.none },
         }
 
         overrideHighlightConfig({
