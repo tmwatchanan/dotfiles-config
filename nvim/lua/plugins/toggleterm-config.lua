@@ -21,6 +21,7 @@ local M = {
 -- end
 
 M.opts = {
+	size = 20,
 	open_mapping = toggleterm_keymap.toggle,
 	shade_terminals = false,
 	direction = 'tab',
@@ -41,7 +42,8 @@ M.keys = {
 			require('toggleterm.terminal').Terminal
 				:new({
 					cmd = ('conda activate %s; lazygit'):format(environment_path),
-					hidden = true,
+					count = M.opts.size + 1,
+					hidden = false,
 					on_open = function()
 						vim.opt_local.signcolumn = 'no'
 					end,
@@ -57,7 +59,8 @@ M.keys = {
 			require('toggleterm.terminal').Terminal
 				:new({
 					cmd = 'lazygit -f ' .. vim.fn.expand('%'),
-					hidden = true,
+					count = M.opts.size + 2,
+					hidden = false,
 					on_open = function()
 						vim.opt_local.signcolumn = 'no'
 					end,
