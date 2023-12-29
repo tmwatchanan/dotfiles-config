@@ -37,9 +37,10 @@ M.keys = {
 	{
 		toggleterm_keymap.lazygit,
 		function()
+			local environment_path = require('config.python').get_environment_path()
 			require('toggleterm.terminal').Terminal
 				:new({
-					cmd = 'lazygit',
+					cmd = ('conda activate %s; lazygit'):format(environment_path),
 					hidden = true,
 					on_open = function()
 						vim.opt_local.signcolumn = 'no'
