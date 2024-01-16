@@ -560,10 +560,6 @@ M.config = function()
             CmpItemKindEnumMember = { fg = c.base15, bg = c.none },
         }
 
-        local local_highlight = {
-            LocalHighlight = { bg = c.base02, bold = true, nocombine = true },
-        }
-
         local hlslens_highlight = {
             HlSearchLens = { link = 'PmenuSel' },
         }
@@ -597,7 +593,6 @@ M.config = function()
         overrideHighlightConfig(rainbow_delimiter_highlight)
         overrideHighlightConfig(treesitter_context_highlight)
         overrideHighlightConfig(cmp_highlight)
-        overrideHighlightConfig(local_highlight)
         overrideHighlightConfig(hlslens_highlight)
         overrideHighlightConfig(indentscope_highlight)
 
