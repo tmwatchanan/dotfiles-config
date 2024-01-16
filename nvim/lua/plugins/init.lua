@@ -44,11 +44,6 @@ return {
         event = 'VeryLazy',
         config = true
     },
-    {
-        "chrisgrieser/nvim-puppeteer",
-        dependencies = "nvim-treesitter/nvim-treesitter",
-        lazy = false, -- plugin lazy-loads itself. Can also load on filetypes.
-    },
 
     -- Miscellaneous
     { 'RaafatTurki/hex.nvim', cmd = { 'HexToggle', 'HexDump', 'HexAssemble' }, config = true },
