@@ -38,7 +38,7 @@ return {
         dependencies = { 'plenary.nvim' },
         keys = { {
             'gx',
-            function ()
+            function()
                 require('gx').open()
                 vim.defer_fn(function() vim.fn.jobstart('yabai -m space --balance') end, 300)
             end,
@@ -50,6 +50,11 @@ return {
         'utilyre/sentiment.nvim',
         event = 'VeryLazy',
         config = true
+    },
+    {
+        'Wansmer/sibling-swap.nvim',
+        requires = { 'nvim-treesitter' },
+        event = { 'BufReadPost', 'BufNewFile' },
     },
 
     -- Miscellaneous
