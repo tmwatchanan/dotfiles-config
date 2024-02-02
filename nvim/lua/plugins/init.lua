@@ -55,6 +55,7 @@ return {
         'Wansmer/sibling-swap.nvim',
         requires = { 'nvim-treesitter' },
         event = { 'BufReadPost', 'BufNewFile' },
+        config = true,
     },
 
     -- Miscellaneous
