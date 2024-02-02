@@ -55,8 +55,8 @@ M.opts = function()
         navic_opts = {
             separator = icons.lualine.navic_separator,
             highlight = true,
-        }
-        -- padding = { right = 0 }
+        },
+        padding = { right = 0 }
     }
 
     -- local filetype = {
