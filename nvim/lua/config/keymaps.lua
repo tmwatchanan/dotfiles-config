@@ -75,10 +75,10 @@ keymaps.setup = function()
     vim.keymap.set('n', '<C-w>l', '<C-w>>')
     vim.keymap.set('n', '<C-w>k', '<C-w>+')
     vim.keymap.set('n', '<C-w>j', '<C-w>-')
-    vim.keymap.set('n', '<C-w>,', '<Cmd>vertical resize -10<CR>', { silent = true })
-    vim.keymap.set('n', '<C-w>.', '<Cmd>vertical resize +10<CR>', { silent = true })
-    vim.keymap.set('n', "<C-w>'", '<Cmd>resize +10<CR>', { silent = true })
-    vim.keymap.set('n', '<C-w>/', '<Cmd>resize -10<CR>', { silent = true })
+    vim.keymap.set('n', '-', '<Cmd>vertical resize -10<CR>', { silent = true })
+    vim.keymap.set('n', '=', '<Cmd>vertical resize +10<CR>', { silent = true })
+    vim.keymap.set('n', '_', '<Cmd>resize -10<CR>', { silent = true })
+    vim.keymap.set('n', '+', '<Cmd>resize +10<CR>', { silent = true })
 
     -- INFO: remap jump keys
     vim.keymap.set('n', '<M-o>', '<C-i>') -- <C-i> is <Tab>, so we need to replace it with another
