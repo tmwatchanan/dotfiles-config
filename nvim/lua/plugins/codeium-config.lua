@@ -13,7 +13,7 @@ M.keys = function()
     }
 end
 
-vim.g.codeium_tab_fallback = "<Tab>"
+-- vim.g.codeium_tab_fallback = "<Tab>"
 -- vim.g.codeium_disable_bindings = true
 -- vim.g.codeium_no_map_tab = true
 

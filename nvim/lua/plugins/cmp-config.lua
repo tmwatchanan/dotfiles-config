@@ -98,13 +98,13 @@ M.opts = function()
             end
         end),
         ['<C-h>'] = cmp.mapping(function()
-            if luasnip.jumpable(-1) then
-                luasnip.jump(-1)
+            if cmp.jumpable(-1) then
+                cmp.jump(-1)
             end
         end, { 'i', 's' }),
         ['<C-l>'] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
+            if cmp.expand_or_jumpable() then
+                cmp.expand_or_jump()
             elseif has_word_before() then
                 cmp.complete()
             else
