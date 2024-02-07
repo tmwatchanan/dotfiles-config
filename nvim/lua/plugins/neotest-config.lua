@@ -18,6 +18,7 @@ M.config = function()
                 args = {
                     '-s',
                     -- '--log-level DEBUG',
+                    '-vv',
                 },
             }),
             require('neotest-plenary'),
