@@ -48,6 +48,8 @@ local M = {
 
         -- NOTE: misc. plugins
         'onsails/lspkind.nvim',
+
+        'kdheepak/cmp-latex-symbols',
     },
 }
 
@@ -169,6 +171,12 @@ M.opts = function()
             { name = 'async_path' },
             { name = 'snippets',  keyword_length = 2 },
             { name = 'nvim_lsp' },
+            {
+                name = 'latex_symbols',
+                option = {
+                    strategy = 0,     -- mixed
+                },
+            },
         },
         {
             { name = 'fuzzy_buffer', option = { min_match_length = 2 } },
