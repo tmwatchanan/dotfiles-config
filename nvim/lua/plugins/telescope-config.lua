@@ -245,6 +245,9 @@ M.keys = function()
             mode = 'v',
         },
         { telescope_keymap.current_buffer_fuzzy_find, '<Cmd>Telescope current_buffer_fuzzy_find<CR>' },
+        { telescope_keymap.git_commits,               '<Cmd>Telescope git_commits<CR>' },
+        { telescope_keymap.git_bcommits,              '<Cmd>Telescope git_bcommits<CR>' },
+        { telescope_keymap.git_branches,              '<Cmd>Telescope git_branches<CR>' },
     }
 end
 

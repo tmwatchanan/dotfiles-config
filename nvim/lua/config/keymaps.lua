@@ -239,6 +239,9 @@ keymaps.telescope = {
     help_tags                 = '<leader>?',
     action_buffer_delete      = { n = 'd', i = '<m-d>' },
     current_buffer_fuzzy_find = 'g/',
+    git_commits               = '<leader>fgc',
+    git_bcommits              = '<leader>fgC',
+    git_branches              = '<leader>fgb',
 }
 
 -- INFO: Todocomments keymap
