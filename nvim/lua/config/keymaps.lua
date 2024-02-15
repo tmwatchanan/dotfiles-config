@@ -94,6 +94,9 @@ keymaps.setup = function()
 
     -- INFO: delete a acharacter next to the cursor in INSERT mode
     vim.keymap.set('i', '<C-l>', '<Esc>lxi')
+
+    -- INFO: search files in neovim config directory
+    vim.keymap.set('n', '<leader>fnv', '<Cmd>Telescope find_files search_dirs={"~/.config/nvim"}<CR>')
 end
 
 -- INFO: LSP keymap
@@ -231,7 +234,7 @@ keymaps.telescope = {
     find_files_hidden         = '<leader>fS',
     resume                    = '<leader>;',
     jumplist                  = '<leader>ju',
-    oldfiles                  = '<leader>?',
+    oldfiles                  = '<leader>fo',
     file_browse               = '<leader>fb',
     help_tags                 = '<leader>?',
     action_buffer_delete      = { n = 'd', i = '<m-d>' },
