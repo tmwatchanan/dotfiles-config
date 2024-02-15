@@ -105,16 +105,19 @@ keymaps.lsp = {
     type_definitions = { key = 'gt', cmd = '<Cmd>TroubleToggle lsp_type_definitions<CR>' },
     reference        = { key = 'gr', cmd = '<Cmd>TroubleToggle lsp_references<CR>' },
     signature_help   = { key = 'gs', cmd = vim.lsp.buf.signature_help },
-    rename           = { key = '<leader>lr', cmd = vim.lsp.buf.rename },
-    code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
     diagnostic       = { key = '<leader>ld', cmd = '<Cmd>TroubleToggle workspace_diagnostics<CR>' },
+    rename           = { key = '<leader>lr', cmd = function() require 'config.rename-utils'.rename_to_qflist() end },
+    rename_clean     = { key = '<leader>lR', cmd = function() require 'config.rename-utils'.rename_clean_placeholder() end },
+    code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
     diagnostic_next  = { key = ']d', cmd = function() vim.diagnostic.goto_next({ float = false }) end },
     diagnostic_prev  = { key = '[d', cmd = function() vim.diagnostic.goto_prev({ float = false }) end },
     declaration      = { key = 'gD', cmd = function() vim.lsp.buf.declaration({ on_list = open_with_qflist }) end },
     format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
     document_symbol  = {
         key = '<leader>ls',
-        cmd = function() vim.lsp.buf.document_symbol({ on_list = open_with_qflist }) end
+        cmd = function()
+            vim.lsp.buf.document_symbol({ on_list = open_with_qflist })
+        end,
     },
     hover            = {
         key = ',k',
@@ -238,6 +241,8 @@ keymaps.telescope = {
     file_browse               = '<leader>fb',
     help_tags                 = '<leader>?',
     action_buffer_delete      = { n = 'd', i = '<m-d>' },
+    action_send_to_qflist     = { n = '<m-q>', i = '<m-q>' },
+    action_select_all         = { n = '<m-a>', i = '<m-a>' },
     current_buffer_fuzzy_find = 'g/',
     git_commits               = '<leader>fgc',
     git_bcommits              = '<leader>fgC',
