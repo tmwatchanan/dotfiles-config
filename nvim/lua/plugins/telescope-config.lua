@@ -128,6 +128,8 @@ M.opts = function()
                     [telescope_keymap.action_select_all.n] = mappings_action.select_all,
                 },
                 i = {
+                    ['<C-k>'] = actions.move_selection_previous,
+                    ['<C-j>'] = actions.move_selection_next,
                     [telescope_keymap.action_send_to_qflist.i] = mappings_action.send_to_qflist,
                     [telescope_keymap.action_select_all.i] = mappings_action.select_all,
                 }
