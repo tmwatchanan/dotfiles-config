@@ -10,4 +10,9 @@ M.keys = function()
     }
 end
 
+M.config = function()
+    vim.g.undotree_WindowLayout = 4
+    vim.g.undotree_SetFocusWhenToggle = true
+end
+
 return M
