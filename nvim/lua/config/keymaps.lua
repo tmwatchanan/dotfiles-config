@@ -97,6 +97,10 @@ keymaps.setup = function()
 
     -- INFO: search files in neovim config directory
     vim.keymap.set('n', '<leader>fnv', '<Cmd>Telescope find_files search_dirs={"~/.config/nvim"}<CR>')
+    vim.keymap.set('n', '<leader>fkm', function()
+        vim.cmd.edit("~/.config/nvim/lua/config/keymaps.lua")
+        require('telescope.builtin').current_buffer_fuzzy_find({})
+    end)
 end
 
 -- INFO: LSP keymap
