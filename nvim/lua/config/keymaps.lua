@@ -126,7 +126,7 @@ keymaps.lsp = {
         end,
     },
     hover            = {
-        key = ',k',
+        key = 'K',
         cmd = function()
             local ufo_loaded, ufo = pcall(require, 'ufo')
             if ufo_loaded then
@@ -208,8 +208,8 @@ keymaps.lazy = {
 
 -- INFO: Focus keymap
 keymaps.focus = {
-    toggle_enable = ',t',
-    toggle_size   = ',T',
+    toggle_enable = '<Bslash>f',
+    toggle_size   = '<Bslash>F',
     split_cycle   = '<C-;>',
     split_left    = '<C-h>',
     split_right   = '<C-l>',
@@ -271,8 +271,8 @@ keymaps.toggleterm = {
 
 -- INFO: Marks keymap
 keymaps.marks = {
-    next    = "mn",
-    prev    = 'mN',
+    next    = "mm",
+    prev    = 'MM',
     toggle  = "m'",
     preview = 'm"',
     clear   = 'md',
@@ -429,9 +429,9 @@ keymaps.harpoon = {
     nav_file_3 = "m3",
     nav_file_4 = "m4",
     nav_file_5 = "m5",
-    go_to_terminal_1 = ',1',
-    go_to_terminal_2 = ',2',
-    go_to_terminal_3 = ',3',
+    go_to_terminal_1 = '<Bslash>1',
+    go_to_terminal_2 = '<Bslash>2',
+    go_to_terminal_3 = '<Bslash>3',
 }
 
 -- INFO: flutter-tools

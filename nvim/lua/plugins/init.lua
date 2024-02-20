@@ -57,6 +57,19 @@ return {
         event = { 'BufReadPost', 'BufNewFile' },
         config = true,
     },
+    {
+        'rhysd/clever-f.vim',
+        event = { 'BufReadPost', 'BufNewFile' },
+        config = function()
+            vim.g.clever_f_fix_key_direction = 1
+            -- vim.g.clever_f_mark_direct = 1
+        end,
+        keys = {
+            { mode = 'n', '<Space>', '<Plug>(clever-f-reset)' },
+            { mode = 'n', ';',       '<Plug>(clever-f-repeat-forward)' },
+            { mode = 'n', ',',       '<Plug>(clever-f-repeat-back)' },
+        },
+    },
 
     -- Miscellaneous
     { 'RaafatTurki/hex.nvim', cmd = { 'HexToggle', 'HexDump', 'HexAssemble' }, config = true },
