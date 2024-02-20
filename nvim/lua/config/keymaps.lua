@@ -448,4 +448,10 @@ keymaps.flutter_tools = {
     visual_debug   = '<leader>ftv',
 }
 
+-- INFO: zen-mode
+keymaps.zen_mode = {
+    toggle = '<leader>z',
+    toggle_size = '<leader>Z',
+}
+
 return keymaps
