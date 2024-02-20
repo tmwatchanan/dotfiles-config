@@ -317,7 +317,7 @@ keymaps.flit = {
     backward = 'F',
     till     = 't',
     backtill = 'T',
-    leap     = ',',
+    leap     = '<Tab>',
 }
 
 -- INFO: markdown preview keymap
