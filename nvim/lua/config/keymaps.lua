@@ -98,7 +98,7 @@ keymaps.setup = function()
     -- INFO: search files in neovim config directory
     vim.keymap.set('n', '<leader>fnv', '<Cmd>Telescope find_files search_dirs={"~/.config/nvim"}<CR>')
     vim.keymap.set('n', '<leader>fkm', function()
-        local keymaps_file_path = "~/.config/nvim/lua/config/keymaps.lua"
+        local keymaps_file_path = '~/.config/nvim/lua/config/keymaps.lua'
         vim.cmd.edit(keymaps_file_path)
         vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'qq', '<Cmd>bdelete<CR>', { noremap = true})
         require('telescope.builtin').current_buffer_fuzzy_find({})
@@ -149,36 +149,36 @@ keymaps.treesitter = {
         move = {
             enable = true,
             goto_next_start = {
-                ["]m"] = "@function.outer",
-                ["]/"] = "@comment.outer",
-                ["]i"] = "@conditional.outer",
-                ["]l"] = "@loop.outer",
-                ["]]"] = "@block.outer",
-                ["]a"] = "@parameter.outer",
+                [']m'] = '@function.outer',
+                [']/'] = '@comment.outer',
+                [']i'] = '@conditional.outer',
+                [']l'] = '@loop.outer',
+                [']]'] = '@block.outer',
+                [']a'] = '@parameter.outer',
             },
             goto_next_end = {
-                ["]M"] = "@function.outer",
-                ["]?"] = "@comment.outer",
-                ["]I"] = "@conditional.outer",
-                ["]L"] = "@loop.outer",
-                ["]}"] = "@block.outer",
-                ["]A"] = "@parameter.outer",
+                [']M'] = '@function.outer',
+                [']?'] = '@comment.outer',
+                [']I'] = '@conditional.outer',
+                [']L'] = '@loop.outer',
+                [']}'] = '@block.outer',
+                [']A'] = '@parameter.outer',
             },
             goto_previous_start = {
-                ["[m"] = "@function.outer",
-                ["[/"] = "@comment.outer,",
-                ["[i"] = "@conditional.outer,",
-                ["[l"] = "@loop.outer",
-                ["[["] = "@block.outer",
-                ["[a"] = "@parameter.outer",
+                ['[m'] = '@function.outer',
+                ['[/'] = '@comment.outer,',
+                ['[i'] = '@conditional.outer,',
+                ['[l'] = '@loop.outer',
+                ['[['] = '@block.outer',
+                ['[a'] = '@parameter.outer',
             },
             goto_previous_end = {
-                ["[M"] = "@function.outer",
-                ["[?"] = "@comment.outer,",
-                ["[I"] = "@conditional.outer,",
-                ["[L"] = "@loop.outer",
-                ["[{"] = "@block.outer",
-                ["[A"] = "@parameter.outer",
+                ['[M'] = '@function.outer',
+                ['[?'] = '@comment.outer,',
+                ['[I'] = '@conditional.outer,',
+                ['[L'] = '@loop.outer',
+                ['[{'] = '@block.outer',
+                ['[A'] = '@parameter.outer',
             },
         },
         swap = {
@@ -195,7 +195,7 @@ keymaps.treesitter = {
             },
         },
         peek_definition_code = {
-            [',K'] = '@function.outer',
+            ['<leader>pK'] = '@function.outer',
             ['<leader>pc'] = '@class.outer',
         },
     }
@@ -271,7 +271,7 @@ keymaps.toggleterm = {
 
 -- INFO: Marks keymap
 keymaps.marks = {
-    next    = "mm",
+    next    = 'mm',
     prev    = 'MM',
     toggle  = "m'",
     preview = 'm"',
@@ -317,7 +317,7 @@ keymaps.flit = {
     backward = 'F',
     till     = 't',
     backtill = 'T',
-    leap     = '<Tab>',
+    leap     = 's',
 }
 
 -- INFO: markdown preview keymap
@@ -424,11 +424,11 @@ keymaps.harpoon = {
     add_file = '<leader>ha',
     nav_next = 'L',
     nav_prev = 'H',
-    nav_file_1 = "m1",
-    nav_file_2 = "m2",
-    nav_file_3 = "m3",
-    nav_file_4 = "m4",
-    nav_file_5 = "m5",
+    nav_file_1 = 'm1',
+    nav_file_2 = 'm2',
+    nav_file_3 = 'm3',
+    nav_file_4 = 'm4',
+    nav_file_5 = 'm5',
     go_to_terminal_1 = '<Bslash>1',
     go_to_terminal_2 = '<Bslash>2',
     go_to_terminal_3 = '<Bslash>3',
