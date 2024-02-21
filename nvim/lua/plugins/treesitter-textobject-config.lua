@@ -28,7 +28,10 @@ mini_ai_module.opts = function()
             i = ai.gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }, {}),
             c = ai.gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }, {}),
             C = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
+            e = ai.gen_spec.treesitter({ a = '@assignment.outer', i = '@assignment.inner' }, {}),
             ['='] = ai.gen_spec.treesitter({ a = '@assignment.lhs', i = '@assignment.rhs' }, {}),
+            x = ai.gen_spec.treesitter({ a = '@call.outer', i = '@call.inner' }, {}),
+            d = ai.gen_spec.treesitter({ a = '@number.inner', i = '@number.inner' }, {}),
         },
     }
 end
@@ -36,8 +39,6 @@ end
 mini_ai_module.keys = {
     { 'a', mode = { 'x', 'o' } },
     { 'i', mode = { 'x', 'o' } },
-    { 'g]' },
-    { 'g[' },
 }
 
 local various_textobjs_module = {
