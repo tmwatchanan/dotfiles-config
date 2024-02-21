@@ -12,7 +12,13 @@ return {
     {
         'kylechui/nvim-surround',
         event = 'VeryLazy',
-        config = true
+        config = true,
+        opts = {
+            move_cursor = false,
+            highlight = {
+                duration = 1000,
+            },
+        }
     },
     {
         'SmiteshP/nvim-navic',
