@@ -14,7 +14,6 @@ return {
         event = 'VeryLazy',
         config = true,
         opts = {
-            move_cursor = false,
             highlight = {
                 duration = 1000,
             },
