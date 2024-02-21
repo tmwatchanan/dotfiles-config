@@ -2,6 +2,7 @@ local M = {
     'ggandor/flit.nvim',
     dependencies = {
         'ggandor/leap.nvim',
+        dependencies = 'tpope/vim-repeat',
         opts = {
             highlight_unlabeled_phase_one_targets = true,
         },
@@ -10,6 +11,7 @@ local M = {
 
 M.opts = {
     labeled_modes = 'nv',
+    multiline = false,
 }
 
 M.keys = function()
