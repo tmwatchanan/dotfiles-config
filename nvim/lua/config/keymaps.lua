@@ -461,4 +461,14 @@ keymaps.zen_mode = {
     toggle_size = '<leader>Z',
 }
 
+-- INFO: nvim-spider
+keymaps.spider = {
+    old_w = 'W',
+    old_e = 'E',
+    old_b = 'B',
+    new_w = 'w',
+    new_e = 'e',
+    new_b = 'b',
+}
+
 return keymaps
