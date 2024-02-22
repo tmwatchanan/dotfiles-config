@@ -103,6 +103,10 @@ keymaps.setup = function()
         vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'qq', '<Cmd>bdelete<CR>', { noremap = true})
         require('telescope.builtin').current_buffer_fuzzy_find({})
     end)
+
+
+    -- INFO: open treesitter's language tree
+    vim.keymap.set('n', '<leader>it', function() vim.cmd('InspectTree') end)
 end
 
 -- INFO: LSP keymap
