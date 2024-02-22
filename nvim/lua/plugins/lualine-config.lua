@@ -107,6 +107,12 @@ M.opts = function()
         cond = conditions.check_session_exist
     }
 
+    local recording_mode = {
+        require('noice').api.statusline.mode.get,
+        cond = require('noice').api.statusline.mode.has,
+        color = { fg = "#ff9e64" },
+    }
+
     local location = {
         function()
             return '[%3l/%3L] :%2v'
@@ -136,7 +142,7 @@ M.opts = function()
         },
         sections = {
             lualine_a = { mode },
-            lualine_b = { session_status },
+            lualine_b = { session_status, recording_mode },
             lualine_c = { branch, spacing, navic_location },
             lualine_x = { diagnostics },
             lualine_y = { swenv, lsp_status },
