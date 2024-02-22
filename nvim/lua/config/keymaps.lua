@@ -104,12 +104,16 @@ keymaps.setup = function()
         require('telescope.builtin').current_buffer_fuzzy_find({})
     end)
 
-
     -- INFO: open treesitter's language tree
     vim.keymap.set('n', '<leader>it', function()
         vim.cmd('InspectTree')
         vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'q', '<Cmd>bdelete<CR>', { noremap = true})
     end)
+
+    -- INFO: development utility keymaps
+    vim.keymap.set('n', '<leader>dpft', function() vim.print(('filetype: %s'):format(vim.bo.filetype)) end)
+    vim.keymap.set('n', '<leader>dpbn', function() vim.print(('buffer name: %s'):format(vim.api.nvim_buf_get_name(0))) end)
+    vim.keymap.set('n', '<leader>dpwd', function() vim.print(('window: %s'):format(vim.api.nvim_get_current_win())) end)
 end
 
 -- INFO: LSP keymap
