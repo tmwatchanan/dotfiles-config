@@ -147,13 +147,13 @@ M.config = function()
             })
 
             overrideHighlightConfig({
-                RainbowDelimiterRed = { link = 'rainbowcol1' },
-                RainbowDelimiterYellow = { link = 'rainbowcol2' },
-                RainbowDelimiterBlue = { link = 'rainbowcol3' },
-                RainbowDelimiterOrange = { link = 'rainbowcol4' },
-                RainbowDelimiterGreen = { link = 'rainbowcol5' },
-                RainbowDelimiterViolet = { link = 'rainbowcol6' },
-                RainbowDelimiterCyan = { link = 'rainbowcol7' },
+                RainbowDelimiterRed = { fg = palette.springViolet2 },
+                RainbowDelimiterYellow = { fg = palette.dragonBlue },
+                RainbowDelimiterBlue = { fg = palette.springGreen },
+                RainbowDelimiterOrange = { fg = palette.waveAqua2 },
+                RainbowDelimiterGreen = { fg = palette.springViolet1 },
+                RainbowDelimiterViolet = { fg = palette.carpYellow },
+                RainbowDelimiterCyan = { fg = palette.waveRed },
             })
 
             overrideHighlightConfig({
