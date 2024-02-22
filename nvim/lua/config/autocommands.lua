@@ -10,6 +10,18 @@ vim.api.nvim_create_autocmd('FileType', {
     command = ':wincmd L | :vert'
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+    desc = 'press <Enter> to jump to the location in help docs',
+    pattern = 'help',
+    callback = function() vim.keymap.set('n', '<CR>', '<C-]>', { buffer = true }) end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    desc = 'press <BS> to jump back in help docs',
+    pattern = 'help',
+    callback = function() vim.keymap.set('n', '<BS>', '<C-o>', { buffer = true }) end
+})
+
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'highlight text on yank',
     pattern = '*',
