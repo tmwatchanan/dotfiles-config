@@ -97,7 +97,7 @@ keymaps.setup = function()
 
     -- INFO: search files in neovim config directory
     vim.keymap.set('n', '<leader>fnv', '<Cmd>Telescope find_files search_dirs={"~/.config/nvim"}<CR>')
-    vim.keymap.set('n', '<leader>fkm', function()
+    vim.keymap.set('n', '<leader>Fkm', function()
         local keymaps_file_path = '~/.config/nvim/lua/config/keymaps.lua'
         vim.cmd.edit(keymaps_file_path)
         vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'qq', '<Cmd>bdelete<CR>', { noremap = true})
@@ -261,6 +261,7 @@ keymaps.telescope = {
     action_send_to_qflist     = { n = '<m-q>', i = '<m-q>' },
     action_select_all         = { n = '<m-a>', i = '<m-a>' },
     current_buffer_fuzzy_find = 'g/',
+    keymaps                   = '<leader>fkm',
     git_commits               = '<leader>fgc',
     git_bcommits              = '<leader>fgC',
     git_branches              = '<leader>fgb',
