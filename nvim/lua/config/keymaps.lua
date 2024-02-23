@@ -475,4 +475,11 @@ keymaps.spider = {
     new_b = 'b',
 }
 
+-- INFO: Comment.nvim
+keymaps.comment = {
+    toggler = {
+        line = '<leader>/',
+    },
+}
+
 return keymaps
