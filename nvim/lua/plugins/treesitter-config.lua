@@ -17,6 +17,14 @@ local M = {
         },
         'windwp/nvim-ts-autotag',
         'nvim-treesitter/nvim-treesitter-textobjects',
+        {
+            'andymass/vim-matchup',
+            dependencies = 'nvim-treesitter/nvim-treesitter',
+            event = { 'BufReadPost', 'BufNewFile' },
+            setup = function()
+                vim.g.matchup_matchparen_offscreen = { method = 'popup' }
+            end,
+        }
     },
     main = 'nvim-treesitter.configs'
 }
@@ -70,6 +78,9 @@ M.opts = function()
                 floating_preview_opts = {},
                 peek_definition_code = keymaps.textobjects.peek_definition_code,
             },
+        },
+        matchup = {
+            enable = true,
         },
     }
 end
