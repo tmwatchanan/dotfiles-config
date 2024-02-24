@@ -16,7 +16,7 @@ M.opts = function()
 
     return {
         indent = {
-            char = '▎',
+            char = '▏',
             smart_indent_cap = true,
         },
         scope = {
@@ -30,6 +30,7 @@ M.opts = function()
                         'for_statement',
                         'expression_statement',
                         'raise_statement',
+                        'call',
                     },
                     lua = {
                         'function_call',
@@ -48,7 +49,7 @@ M.config = function(_, opts)
 
     local hooks = require('ibl.hooks')
     hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
-    -- hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 end
 
 return M
