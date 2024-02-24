@@ -16,10 +16,12 @@ M.opts = {
 
 M.keys = function()
     local comment_keymap = require('config.keymaps').comment
+
     vim.keymap.set('n', comment_keymap.toggler.line, function()
         return vim.api.nvim_get_vvar('count') == 0 and '<Plug>(comment_toggle_linewise_current)' or
             '<Plug>(comment_toggle_linewise_count)'
     end, { expr = true, desc = 'Comment toggle current line with lesser key strokes' })
+    vim.keymap.set('x', comment_keymap.toggler.line, '<Plug>(comment_toggle_linewise_visual)', { desc = 'Comment toggle current line with lesser key strokes' })
 end
 
 return M

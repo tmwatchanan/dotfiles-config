@@ -25,7 +25,7 @@ mini_ai_module.opts = function()
             }, {}),
             r = ai.gen_spec.treesitter({ a = '@return.outer', i = '@return.inner' }, {}),
             m = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
-            i = ai.gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }, {}),
+            u = ai.gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }, {}),
             c = ai.gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }, {}),
             C = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
             e = ai.gen_spec.treesitter({ a = '@assignment.outer', i = '@assignment.inner' }, {}),
@@ -47,7 +47,8 @@ local various_textobjs_module = {
     opts = {
         useDefaultKeymaps = true,
         disabledKeymaps = {
-            'r', -- restOfParagraph
+            'r',  -- restOfParagraph
+            'gc', -- multiCommentedLines
         },
     },
 }
@@ -72,8 +73,10 @@ end
 
 
 various_textobjs_module.keys = function()
+    local keymaps = require('config.keymaps').treesitter.textobjects.various_textobjs
     return {
-        { 'dsi', function() delete_surrounding_indentation() end, mode = 'n' },
+        { mode = { 'o', 'x' }, keymaps.multi_commented_lines,          '<cmd>lua require("various-textobjs").multiCommentedLines()<CR>' }, -- NOTE: `gc` conflicts with comment.nvim
+        { mode = 'n',          keymaps.delete_surrounding_indentation, function() delete_surrounding_indentation() end },
     }
 end
 

@@ -97,7 +97,7 @@ keymaps.setup = function()
 
     -- INFO: search files in neovim config directory
     vim.keymap.set('n', '<leader>fnv', '<Cmd>Telescope find_files search_dirs={"~/.config/nvim"}<CR>')
-    vim.keymap.set('n', '<leader>Fkm', function()
+    vim.keymap.set('n', '<leader>kM', function()
         local keymaps_file_path = '~/.config/nvim/lua/config/keymaps.lua'
         vim.cmd.edit(keymaps_file_path)
         vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'qq', '<Cmd>bdelete<CR>', { noremap = true})
@@ -209,6 +209,10 @@ keymaps.treesitter = {
             ['<leader>pK'] = '@function.outer',
             ['<leader>pc'] = '@class.outer',
         },
+        various_textobjs = {
+            multi_commented_lines = 'cc',
+            delete_surrounding_indentation = 'dsi',
+        },
     }
 }
 
@@ -261,7 +265,7 @@ keymaps.telescope = {
     action_send_to_qflist     = { n = '<m-q>', i = '<m-q>' },
     action_select_all         = { n = '<m-a>', i = '<m-a>' },
     current_buffer_fuzzy_find = 'g/',
-    keymaps                   = '<leader>fkm',
+    keymaps                   = '<leader>km',
     git_commits               = '<leader>fgc',
     git_bcommits              = '<leader>fgC',
     git_branches              = '<leader>fgb',
@@ -479,7 +483,10 @@ keymaps.spider = {
 -- INFO: Comment.nvim
 keymaps.comment = {
     toggler = {
-        line = '<leader>/',
+        line = '<leader>c',
+    },
+    opleader = {
+        line = '<leader>c',
     },
 }
 
