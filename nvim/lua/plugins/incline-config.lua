@@ -34,7 +34,7 @@ M.opts = function()
             local win_width = vim.api.nvim_win_get_width(props.win)
             local path_length = win_width - first_line_length - 10
             if not props.focused then
-                local filename_length = vim.fn.fnamemodify(bufname, ":p:t"):len()
+                local filename_length = vim.fn.fnamemodify(bufname, ":t"):len()
                 path_length = math.max(path_length, filename_length + 2)
             end
             local render_path = truncate_utils(
