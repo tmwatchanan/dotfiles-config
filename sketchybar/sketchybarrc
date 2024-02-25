@@ -11,12 +11,10 @@ source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
 bar=(
     height=32
     blur_radius=30
-    corner_radius=8
-    margin=4
     position=top
     sticky=on
-    padding_left=12
-    padding_right=8
+    padding_left=20
+    padding_right=20
     color=$BAR_COLOR
 )
 sketchybar --bar "${bar[@]}"
@@ -44,7 +42,7 @@ for i in {0..5};
 do
     sid=$(($i+1))
     space=(
-        space=$sid
+        associated_space=$sid
         icon=$sid
         icon.font="$FONT_FACE:Bold:13.0"
         background.color=$BAR_BORDER_COLOR
@@ -59,18 +57,29 @@ do
                --set space.$sid "${space[@]}"
 done
 
+yabai=(
+  icon="􀧍"
+  icon.width=34
+  icon.y_offset=1
+  icon.color=$GREY
+  label.width=0
+  script="$PLUGIN_DIR/yabai.sh"
+  associated_display=active
+)
 front_app=(
-  display=active
-  icon.background.drawing=on
-  icon.background.image.scale=0.8
+  icon.drawing=off
   label.font="$FONT_FACE:Bold:12.0"
-  label.padding_left=8
+  associated_display=active
   script="$PLUGIN_DIR/front_app.sh"
 )
-sketchybar --add event window_focus                                     \
-           --add item front_app left                                    \
-           --set front_app "${front_app[@]}"                            \
-           --subscribe front_app front_app_switched window_focus mouse.clicked
+sketchybar --add event window_focus                     \
+           --add item yabai left                        \
+           --set yabai "${yabai[@]}"                    \
+           --subscribe yabai window_focus mouse.clicked \
+                                                        \
+           --add item front_app left                    \
+           --set front_app "${front_app[@]}"            \
+           --subscribe front_app front_app_switched
 
 # INFO: center bar components
 weather=(
@@ -78,21 +87,17 @@ weather=(
     icon=
     icon.color=$PINK
     icon.font="$FONT_FACE:Bold:16.0"
-    label.max_chars=40
-    scroll_texts=yes
     update_freq=1800
     script="$PLUGIN_DIR/weather.sh"
 )
 spotify=(
-    icon.background.drawing=on
-    icon.background.image=media.artwork
-    icon.background.image.scale=0.8
-    icon.background.image.corner_radius=8
-    label.padding_left=8
-    label.max_chars=30
-    scroll_texts=yes
-    updates=on
-    script="$PLUGIN_DIR/media_info.sh"
+    background.padding_left=2
+    icon=
+    icon.color=$YELLOW
+    icon.font="$FONT_FACE:Bold:20.0"
+    label.drawing=off
+    label.padding_left=3
+    script="$PLUGIN_DIR/spotify.sh"
 )
 sketchybar --add item weather q                         \
            --set weather "${weather[@]}"                     \
@@ -100,7 +105,7 @@ sketchybar --add item weather q                         \
                                                              \
            --add item spotify e                         \
            --set spotify "${spotify[@]}"                     \
-           --subscribe spotify media_change
+           --subscribe spotify mouse.clicked media_change
 
 # INFO: right-side bar components
 clock=(
@@ -139,11 +144,11 @@ sketchybar  --add item clock right                              \
             --set keyboard "${keyboard[@]}"                     \
             --subscribe keyboard input_change
 
+
 ##### Finalizing Setup #####
-sketchybar --hotload on
 sketchybar --update
 
-ITEM_DIR="$HOME/.config/sketchybar/items"
-source "$ITEM_DIR/volume.sh"
+# ITEM_DIR="$HOME/.config/sketchybar/items"
+# source "$ITEM_DIR/volume.sh"
 
 sketchybar --update
