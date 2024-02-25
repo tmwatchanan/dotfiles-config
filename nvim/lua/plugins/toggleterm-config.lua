@@ -38,7 +38,7 @@ M.keys = {
 			local environment_path = require('config.python').get_environment_path()
 			require('toggleterm.terminal').Terminal
 				:new({
-					cmd = ('conda activate %s; lazygit'):format(environment_path),
+					cmd = ('conda activate %s ; cd $(readlink -f .) & lazygit'):format(environment_path),
 					count = M.opts.size + 1,
 					hidden = false,
 					on_open = function()
@@ -53,9 +53,10 @@ M.keys = {
 	{
 		toggleterm_keymap.lazygit_file_history,
 		function()
+			local resolved_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
 			require('toggleterm.terminal').Terminal
 				:new({
-					cmd = 'lazygit -f ' .. vim.fn.expand('%'),
+					cmd = ('cd $(readlink -f .) & lazygit -f %s'):format(resolved_path),
 					count = M.opts.size + 2,
 					hidden = false,
 					on_open = function()
