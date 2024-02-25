@@ -1,6 +1,12 @@
 # MomePP's dotfiles
 > Requires `Homebrew` to be installed
 
+> [!TIP]
+> Use [GNU Stow](https://www.gnu.org/software/stow/) for managing config files with a symlink farm
+> ```sh
+> stow . --target="$HOME/.config"
+> ```
+
 ## Neovim
 <img width="2536" alt="image" src="https://github.com/MomePP/dotfiles-config/assets/13793017/8df85204-80f9-460c-8a38-081a5a7bf3a5">
 
