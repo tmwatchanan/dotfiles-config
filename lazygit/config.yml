@@ -3,9 +3,9 @@ gui:
   showBottomLine: false
   theme:
     selectedLineBgColor:
-      - default
-    selectedRangeBgColor:
       - '#393939'
+    selectedRangeBgColor:
+      - reverse
   experimentalShowBranchHeads: true
 git:
   paging:
@@ -22,6 +22,8 @@ os:
   open: "nvim --server $NVIM --remote-send '<S-q><C-\\><C-n>:lua _OpenFile({{filename}})<CR>'"
 notARepository: 'quit'
 promptToReturnFromSubprocess: false
+refresher:
+  fetchInterval: 150
 keybinding:
   universal:
     confirm-alt1: null
