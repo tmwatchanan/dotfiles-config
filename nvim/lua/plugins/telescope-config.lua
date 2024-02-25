@@ -150,7 +150,8 @@ M.opts = function()
             },
             find_files = mergeConfig(horizontal_layout_config, {
                 path_display = { 'smart' },
-                wrap_results = true
+                wrap_results = true,
+                follow = true,
             }),
             lsp_definitions = mergeConfig(bottom_layout_config, {
                 layout_config = {
@@ -204,6 +205,7 @@ M.opts = function()
                 hidden = true,
                 grouped = true,
                 hijack_netrw = true,
+                follow_symlinks = true,
             }),
         }
     }
