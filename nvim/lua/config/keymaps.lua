@@ -333,7 +333,7 @@ keymaps.flit = {
     backward = 'F',
     till     = 't',
     backtill = 'T',
-    leap     = 's',
+    leap     = 'S',
 }
 
 -- INFO: markdown preview keymap
