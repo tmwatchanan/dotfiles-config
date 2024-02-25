@@ -3,7 +3,6 @@
 DESIRED_SPACES_PER_DISPLAY=3
 CURRENT_SPACES="$(yabai -m query --displays | jq -r '.[].spaces | @sh')"
 
-DISPLAY_INDEX=1
 DELTA=0
 while read -r line
 do
@@ -14,7 +13,7 @@ do
   if [ "$MISSING_SPACES" -gt 0 ]; then
     for i in $(seq 1 $MISSING_SPACES)
     do
-      yabai -m space --create "$DISPLAY_INDEX"
+      yabai -m space --create "$LAST_SPACE"
       LAST_SPACE=$(($LAST_SPACE+1))
     done
   elif [ "$MISSING_SPACES" -lt 0 ]; then
@@ -25,7 +24,6 @@ do
     done
   fi
   DELTA=$(($DELTA+$MISSING_SPACES))
-  DISPLAY_INDEX=$(($DISPLAY_INDEX+1))
 done <<< "$CURRENT_SPACES"
 
 sketchybar --trigger space_change --trigger windows_on_spaces
