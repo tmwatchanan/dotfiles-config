@@ -22,6 +22,12 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = function() vim.keymap.set('n', '<BS>', '<C-o>', { buffer = true }) end
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+    desc = 'press `qq` to exit help docs',
+    pattern = 'help',
+    callback = function() vim.keymap.set('n', 'qq', '<C-w>q', { buffer = true }) end
+})
+
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'highlight text on yank',
     pattern = '*',
