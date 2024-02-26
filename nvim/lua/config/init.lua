@@ -5,10 +5,10 @@ local M = {
 M.defaults = {
     icons = {
         diagnostics = {
-            error = ' ',
-            warn = ' ',
-            hint = '󰞋 ',
-            info = ' ',
+            Error = ' ',
+            Warn = ' ',
+            Info = ' ',
+            Hint = ' ',
         },
         git = {
             added = ' ',
@@ -20,6 +20,13 @@ M.defaults = {
             git = '',
             session = '',
             navic_separator = '  ',
+        },
+        dap = {
+            breakpoint = '',
+            breakpoint_condition = '',
+            breakpoint_rejected = '',
+            log_point = '',
+            stopped = '',
         },
     },
     float_border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },

@@ -186,13 +186,8 @@ diagflow_module.opts = {
 
 diagflow_module.config = function(_, opts)
     if opts.show_sign then
-        local signs = {
-            Error = "",
-            Warn = "",
-            Info = "",
-            Hint = "",
-        }
-        for type, icon in pairs(signs) do
+        local icons = require('config').defaults.icons.diagnostics
+        for type, icon in pairs(icons) do
             local name = ('DiagnosticSign%s'):format(type)
             vim.fn.sign_define(name, { text = icon, texthl = name, numhl = name })
         end

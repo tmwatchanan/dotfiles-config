@@ -37,6 +37,11 @@ dap_module.keys = function()
             end,
             mode = 'n'
         },
+        {
+            keymap.log_point,
+            function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+            mode = 'n',
+        },
         { keymap.step_over,        function() require('dap').step_over() end,              mode = 'n' },
         { keymap.step_into,        function() require('dap').step_into() end,              mode = 'n' },
         { keymap.step_out,         function() require('dap').step_out() end,               mode = 'n' },
@@ -44,6 +49,28 @@ dap_module.keys = function()
         { keymap.python.class,     function() require('dap-python').test_class() end,      mode = 'n' },
         { keymap.python.selection, function() require('dap-python').debug_selection() end, mode = 'v' },
     }
+end
+
+local function setup_dap_signs()
+    local colors = require('plugins.colorscheme').colorset
+    vim.api.nvim_set_hl(0, 'DapBreakpoint', { fg = colors.red })
+    vim.api.nvim_set_hl(0, 'DapLogPoint', { fg = colors.info })
+    vim.api.nvim_set_hl(0, 'DapStopped', { fg = colors.red })
+    vim.api.nvim_set_hl(0, 'DapStoppedLine', { bg = colors.bg2 })
+    vim.api.nvim_set_hl(0, 'DapBreakpointRejected', { bg = colors.bg2 })
+
+    local dap_icons = require('config').defaults.icons.dap
+    local dap_signs = {
+        { name = 'DapBreakpoint',          text = dap_icons.breakpoint,           texthl = 'DapBreakpoint', numhl = 'DapBreakpoint' },
+        { name = 'DapBreakpointCondition', text = dap_icons.breakpoint_condition, texthl = 'DapBreakpoint', numhl = 'DapBreakpoint' },
+        { name = 'DapBreakpointRejected',  text = dap_icons.breakpoint_rejected,  texthl = 'DapBreakpoint', linehl = 'DapBreakpointRejected', numhl = 'DapBreakpoint' },
+        { name = 'DapLogPoint',            text = dap_icons.log_point,            texthl = 'DapLogPoint',   numhl = 'DapLogPoint' },
+        { name = 'DapStopped',             text = dap_icons.stopped,              texthl = 'DapStopped',    linehl = 'DapStoppedLine',        numhl = 'DapStopped' },
+    }
+    for _, sign in ipairs(dap_signs) do
+        vim.fn.sign_define(sign.name,
+            { text = sign.text, texthl = sign.texthl, linehl = sign.linehl, numhl = sign.numhl })
+    end
 end
 
 dapui_module.config = function()
@@ -62,6 +89,7 @@ dapui_module.config = function()
         require('focus').setup({ autoresize = { enable = true } })
         dapui.close()
     end
+    setup_dap_signs()
 end
 
 local dap_virtual_text_module = {

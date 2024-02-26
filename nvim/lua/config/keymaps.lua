@@ -405,6 +405,7 @@ keymaps.dap = {
     breakpoint_condition = '<leader>dbB',
     continue = '<leader>dbc',
     terminate = '<leader>dbt',
+    log_point = '<leader>dbl',
     step_over = '<leader>dbo',
     step_into = '<leader>dbi',
     step_out = '<leader>dbu',
