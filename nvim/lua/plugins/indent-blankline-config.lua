@@ -31,6 +31,7 @@ M.opts = function()
                         'expression_statement',
                         'raise_statement',
                         'call',
+                        'try_statement',
                     },
                     lua = {
                         'function_call',
