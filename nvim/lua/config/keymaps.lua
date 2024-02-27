@@ -11,7 +11,7 @@ keymaps.setup = function()
     vim.keymap.set('n', '<Space>', '')
 
     -- INFO: use <Esc> to exit terminal-mode
-    vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+    -- vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
     -- INFO: composite escape keys
     vim.keymap.set('i', 'jj', '<Esc>')
@@ -103,14 +103,14 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>kM', function()
         local keymaps_file_path = '~/.config/nvim/lua/config/keymaps.lua'
         vim.cmd.edit(keymaps_file_path)
-        vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'qq', '<Cmd>bdelete<CR>', { noremap = true})
+        vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'qq', '<Cmd>bdelete<CR>', { noremap = true })
         require('telescope.builtin').current_buffer_fuzzy_find({})
     end)
 
     -- INFO: open treesitter's language tree
     vim.keymap.set('n', '<leader>it', function()
         vim.cmd('InspectTree')
-        vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'q', '<Cmd>bdelete<CR>', { noremap = true})
+        vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'q', '<Cmd>bdelete<CR>', { noremap = true })
     end)
 
     -- INFO: development utility keymaps
@@ -128,7 +128,7 @@ keymaps.lsp = {
     diagnostic       = { key = '<leader>ld', cmd = '<Cmd>TroubleToggle workspace_diagnostics<CR>' },
     rename           = { key = '<leader>lr', cmd = function() require 'config.rename-utils'.rename_to_qflist() end },
     rename_clean     = { key = '<leader>lR', cmd = function() require 'config.rename-utils'.rename_clean_placeholder() end },
-    code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
+    code_action      = { key = '<leader>la', cmd = vim.lsp.buf.code_action },
     diagnostic_next  = { key = ']d', cmd = function() vim.diagnostic.goto_next({ float = false }) end },
     diagnostic_prev  = { key = '[d', cmd = function() vim.diagnostic.goto_prev({ float = false }) end },
     declaration      = { key = 'gD', cmd = function() vim.lsp.buf.declaration({ on_list = open_with_qflist }) end },
