@@ -10,6 +10,9 @@ keymaps.setup = function()
     -- INFO: disable <Space> for moving the cursor
     vim.keymap.set('n', '<Space>', '')
 
+    -- INFO: use <Esc> to exit terminal-mode
+    vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
     -- INFO: composite escape keys
     vim.keymap.set('i', 'jj', '<Esc>')
     vim.keymap.set('i', 'jk', '<Esc>')

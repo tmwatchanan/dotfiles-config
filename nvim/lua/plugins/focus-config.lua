@@ -41,13 +41,13 @@ M.keys = function()
     local focus_keymaps = require('config.keymaps').focus
 
     return {
-        { focus_keymaps.toggle_enable, '<Cmd>FocusToggle<CR>' },
-        { focus_keymaps.toggle_size,   '<Cmd>FocusMaxOrEqual<CR>' },
-        { focus_keymaps.split_cycle,   '<Cmd>FocusSplitCycle<CR>' },
-        { focus_keymaps.split_left,    '<Cmd>FocusSplitLeft<CR>' },
-        { focus_keymaps.split_right,   '<Cmd>FocusSplitRight<CR>' },
-        { focus_keymaps.split_up,      '<Cmd>FocusSplitUp<CR>' },
-        { focus_keymaps.split_down,    '<Cmd>FocusSplitDown<CR>' },
+        { mode = { 'n', 't' }, focus_keymaps.toggle_size,   '<Cmd>FocusMaxOrEqual<CR>' },
+        { mode = { 'n', 't' }, focus_keymaps.toggle_enable, '<Cmd>FocusToggle<CR>' },
+        { mode = { 'n', 't' }, focus_keymaps.split_cycle,   '<Cmd>FocusSplitCycle<CR>' },
+        { mode = { 'n', 't' }, focus_keymaps.split_left,    '<Cmd>FocusSplitLeft<CR>' },
+        { mode = { 'n', 't' }, focus_keymaps.split_right,   '<Cmd>FocusSplitRight<CR>' },
+        { mode = { 'n', 't' }, focus_keymaps.split_up,      '<Cmd>FocusSplitUp<CR>' },
+        { mode = { 'n', 't' }, focus_keymaps.split_down,    '<Cmd>FocusSplitDown<CR>' },
     }
 end
 
