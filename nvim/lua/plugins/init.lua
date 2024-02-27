@@ -62,6 +62,11 @@ return {
         event = { 'BufReadPost', 'BufNewFile' },
         config = true,
     },
+    {
+        'folke/neodev.nvim',
+        event = { 'BufReadPost', 'BufNewFile' },
+        opts = {},
+    },
 
     -- Miscellaneous
     { 'RaafatTurki/hex.nvim', cmd = { 'HexToggle', 'HexDump', 'HexAssemble' }, config = true },
