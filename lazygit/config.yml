@@ -1,12 +1,12 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 gui:
-  nerdFontsVersion: '3'
+  nerdFontsVersion: "3"
   showBottomLine: false
+  scrollOffMargin: 2
   theme:
     selectedLineBgColor:
-      - '#393939'
-    selectedRangeBgColor:
-      - reverse
-  experimentalShowBranchHeads: true
+      - "#404040"
+      # - reverse
 git:
   paging:
     colorArg: always
@@ -20,15 +20,14 @@ git:
 os:
   editPreset: "nvim"
   open: "nvim --server $NVIM --remote-send '<S-q><C-\\><C-n>:lua _OpenFile({{filename}})<CR>'"
-notARepository: 'quit'
+notARepository: "quit"
 promptToReturnFromSubprocess: false
 refresher:
   fetchInterval: 150
 keybinding:
   universal:
-    confirm-alt1: null
-    copyToClipboard: 'y'
+    copyToClipboard: "y"
 customCommands:
-  - key: 'w'
+  - key: "w"
     command: "nvim --server $NVIM --remote-send '<S-q><C-\\><C-n>:lua _OpenDiffView(\"{{.SelectedLocalCommit.Sha}}\")<CR>'"
-    context: 'commits'
+    context: "commits"
