@@ -6,6 +6,14 @@ local function open_with_qflist(options)
     vim.cmd 'TroubleToggle quickfix'
 end
 
+local function set_multiple_cursors_keymaps()
+    -- NOTE: thanks to https://www.kevinli.co/posts/2017-01-19-multiple-cursors-in-500-bytes-of-vimscript/
+    vim.keymap.set('n', 'cn', '*``"_cgn')
+    vim.keymap.set('n', 'cN', '*``"_cgN')
+    vim.keymap.set('x', 'cn', 'y/\\V<C-r>=escape(@\","/")<CR><CR>``"_cgn') -- BUG: still yank to clipboard
+    vim.keymap.set('x', 'cN', 'y/\\V<C-r>=escape(@\","/")<CR><CR>``"_cgN') -- BUG: still yank to clipboard
+end
+
 keymaps.setup = function()
     -- INFO: disable <Space> for moving the cursor
     vim.keymap.set('n', '<Space>', '')
@@ -58,6 +66,7 @@ keymaps.setup = function()
 
     -- INFO: replace the current word from the current line onward
     vim.keymap.set('n', '<leader>r', [[:.,$s/\<<C-r><C-w>\>/<C-r><C-w>/gcI<Left><Left><Left><Left>]])
+    set_multiple_cursors_keymaps()
 
     -- INFO: misc. keymap
     vim.keymap.set({ 'n', 'i' }, '<Esc>', '<Cmd>noh<CR><Esc>')
