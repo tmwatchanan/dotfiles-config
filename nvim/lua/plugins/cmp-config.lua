@@ -5,7 +5,7 @@ local M = {
         -- NOTE: cmp sources
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-cmdline',
-        'FelipeLema/cmp-async-path',
+        'hrsh7th/cmp-path',
         {
             'tzachar/cmp-fuzzy-buffer',
             dependencies = { 'tzachar/fuzzy.nvim' },
@@ -168,7 +168,7 @@ M.opts = function()
     local cmp_sources = cmp.config.sources(
         {
             -- { name = 'copilot' },
-            { name = 'async_path' },
+            { name = 'path' },
             { name = 'snippets',  keyword_length = 2 },
             { name = 'nvim_lsp' },
             {
@@ -233,7 +233,7 @@ M.config = function(_, opts)
             completeopt = 'menuone,noselect',
         },
         sources = cmp.config.sources({
-            { name = 'async_path' }
+            { name = 'path' }
         }, {
             { name = 'cmdline' }
         })
