@@ -67,6 +67,8 @@ brew install ncurses
 sudo tic -xe tmux-256color ~/tmux-256color.info
 ```
 
+## skhd
+- Using `skhd` with `fish` shell can cause some slowness issue. See [Long Delay before Action #42](https://github.com/koekeishiya/skhd/issues/42) for specifying the `SHELL` environment variable to be `/bin/sh` instead. Then, you'll have a much snappier reactions.
 
 ## fyabai : window tilling manager
 Using `yabai` forked by `FelixKratz`
