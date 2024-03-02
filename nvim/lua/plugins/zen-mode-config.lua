@@ -20,6 +20,16 @@ M.opts = {
     },
 }
 
+local function set_twilight_context(context)
+    require('twilight.config').options.context = context
+end
+
+local function toggle_twilight(context)
+    context = context or 0
+    set_twilight_context(context)
+    require('twilight').toggle()
+end
+
 M.keys = function()
     local keymap = require('config.keymaps').zen_mode
     return {
@@ -37,16 +47,18 @@ M.keys = function()
             function()
                 require('zen-mode').toggle({
                     window = {
-                        width = .85, -- width will be 85% of the editor width
+                        width = .95, -- width will be 95% of the editor width
                     },
                     plugins = {
                         wezterm = {
-                            font = '+5',
+                            font = '+3',
                         }
                     },
                 })
             end
         },
+        { keymap.twilight_current_line, function() toggle_twilight(0) end },
+        { keymap.twilight_context,      function() toggle_twilight(2) end },
     }
 end
 

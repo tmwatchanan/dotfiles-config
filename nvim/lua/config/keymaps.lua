@@ -481,6 +481,8 @@ keymaps.flutter_tools = {
 keymaps.zen_mode = {
     toggle = '<leader>z',
     toggle_size = '<leader>Z',
+    twilight_current_line = '<leader>tw',
+    twilight_context = '<leader>tW',
 }
 
 -- INFO: nvim-spider
