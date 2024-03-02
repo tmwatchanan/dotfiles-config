@@ -6,6 +6,7 @@ fish/conf.d
 configstore
 nvim/plugin/packer_compiled.lua
 tmux/plugins
+lazygit/state.yml
 containers
 
 github-copilot
