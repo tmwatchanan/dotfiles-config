@@ -1,8 +1,11 @@
 [user]
-	name = momeppkt
-	email = peeranut32@gmail.com
+	name = tmwatchanan
+	email = tmwatchanan@users.noreply.github.com
+	signingkey = F4D43507B7A7F4AC
+[commit]
+	gpgsign = true
 [core]
-	excludesfile = /Users/momeppkt/.gitignore_global
+	excludesfile = ~/.gitignore_global
 	pager = delta --paging=never
 [interactive]
     diffFilter = delta --color-only
@@ -30,6 +33,8 @@
     navigate = true
 	features = tokyonight
 [include]
-	path = /Users/momeppkt/.config/delta/themes.gitconfig
+	path = ~/.config/delta/themes.gitconfig
 [pull]
 	rebase = true
+[alias]
+    mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
