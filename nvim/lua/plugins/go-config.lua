@@ -14,6 +14,9 @@ M.opts = {
     lsp_cfg = true,
     test_runner = 'go',
     trouble = true,
+    lsp_inlay_hints = {
+        enable = false,
+    },
 }
 
 return M
