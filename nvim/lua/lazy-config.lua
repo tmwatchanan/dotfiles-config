@@ -52,7 +52,7 @@ require('lazy').setup {
         },
     },
     dev = {
-        path = '~/dev/nvim-plugins'
+        path = '~/tm/nvim-plugins',
     }
 }
 
