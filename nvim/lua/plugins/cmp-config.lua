@@ -99,16 +99,22 @@ M.opts = function()
                 fallback()
             end
         end),
-        ['<C-h>'] = cmp.mapping(function()
-            if cmp.jumpable(-1) then
-                cmp.jump(-1)
-            end
-        end, { 'i', 's' }),
         ['<C-l>'] = cmp.mapping(function(fallback)
-            if cmp.expand_or_jumpable() then
-                cmp.expand_or_jump()
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif vim.snippet.jumpable(1) then
+                vim.schedule(function() vim.snippet.jump(1) end)
             elseif has_word_before() then
                 cmp.complete()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<C-h>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif vim.snippet.jumpable(-1) then
+                vim.schedule(function() vim.snippet.jump(-1) end)
             else
                 fallback()
             end
