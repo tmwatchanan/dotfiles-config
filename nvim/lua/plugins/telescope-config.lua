@@ -19,10 +19,11 @@ M.opts = function()
     local vertical_layout_config = {
         layout_strategy = 'vertical',
         layout_config = {
-            preview_height = 0.7,
+            preview_height = 0.5,
             prompt_position = 'bottom',
             width = 0.85,
             height = 0.8,
+            preview_cutoff = 0,
         },
         sorting_strategy = 'descending',
     }
