@@ -26,6 +26,9 @@ M.opts = function()
             preview_cutoff = 0,
         },
         sorting_strategy = 'descending',
+        mappings = {
+            i = { ["<C-f>"] = actions.to_fuzzy_refine },
+        },
     }
 
     local horizontal_layout_config = {
@@ -248,7 +251,8 @@ M.keys = function()
             '<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--unrestricted<CR>'
         },
         { telescope_keymap.oldfiles,         '<Cmd>Telescope oldfiles<CR>' },
-        { telescope_keymap.search_workspace, '<Cmd>Telescope live_grep<CR>' },
+        { telescope_keymap.search_workspace_fuzzy, '<Cmd>Telescope grep_string search="" only_sort_text=true<CR>' },
+        { telescope_keymap.search_workspace_live_grep, '<Cmd>Telescope live_grep<CR>' },
         { telescope_keymap.grep_workspace,   '<Cmd>Telescope grep_string<CR>', mode = 'n' },
         {
             telescope_keymap.grep_workspace,

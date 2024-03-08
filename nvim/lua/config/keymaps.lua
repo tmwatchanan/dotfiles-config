@@ -264,7 +264,8 @@ keymaps.gitconflict = {
 -- INFO: Telescope keymap
 keymaps.telescope = {
     grep_workspace            = 'gw',
-    search_workspace          = '<leader>fw',
+    search_workspace_fuzzy    = '<leader>fw',
+    search_workspace_live_grep= '<leader>fW',
     buffers                   = '<leader><tab>',
     find_files                = '<leader>fs',
     find_files_hidden         = '<leader>fS',
@@ -360,8 +361,8 @@ keymaps.bufremove = {
 
 -- INFO: mini.move keymap
 keymaps.move = {
-    move_up    = '<M-k>',
-    move_down  = '<M-j>',
+    move_up    = '<M-K>',
+    move_down  = '<M-J>',
     move_left  = '<',
     move_right = '>',
 }
