@@ -207,14 +207,14 @@ keymaps.treesitter = {
         swap = {
             enable = true,
             swap_next = {
-                ['<leader>sa'] = '@parameter.inner',
-                ['<leader>sm'] = '@function.outer',
-                ['<leader>sc'] = '@class.outer',
+                ['<C-s>a'] = '@parameter.inner',
+                ['<C-s>m'] = '@function.outer',
+                ['<C-s>c'] = '@class.outer',
             },
             swap_previous = {
-                ['<leader>sA'] = '@parameter.inner',
-                ['<leader>sM'] = '@function.outer',
-                ['<leader>sC'] = '@class.outer',
+                ['<C-s>A'] = '@parameter.inner',
+                ['<C-s>M'] = '@function.outer',
+                ['<C-s>C'] = '@class.outer',
             },
         },
         peek_definition_code = {
@@ -264,8 +264,8 @@ keymaps.gitconflict = {
 -- INFO: Telescope keymap
 keymaps.telescope = {
     grep_workspace            = 'gw',
-    search_workspace_fuzzy    = '<leader>fw',
-    search_workspace_live_grep= '<leader>fW',
+    search_workspace_fuzzy    = '<leader>sf',
+    search_workspace_live_grep= '<leader>sg',
     buffers                   = '<leader><tab>',
     find_files                = '<leader>fs',
     find_files_hidden         = '<leader>fS',
@@ -340,13 +340,10 @@ keymaps.noice = {
     docs_scroll_down = '<C-d>',
 }
 
--- INFO: flit keymaps
-keymaps.flit = {
-    forward  = 'f',
-    backward = 'F',
-    till     = 't',
-    backtill = 'T',
-    leap     = 'S',
+-- INFO: flash keymaps
+keymaps.flash = {
+    flash            = 's',
+    flash_treesitter = 'zs',
 }
 
 -- INFO: markdown preview keymap
