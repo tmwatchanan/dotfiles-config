@@ -97,7 +97,7 @@ M.config = function()
                 -- TelescopeResultsBorder = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m1 },
                 TelescopePreviewNormal = { bg = theme.ui.bg_dim },
                 -- TelescopePreviewBorder = { fg = theme.ui.fg_dim, bg = theme.ui.bg_dim },
-                TelescopeSelection = { bg = theme.ui.bg_dim, bold = true },
+                -- TelescopeSelection = { bg = theme.ui.bg_dim, bold = true },
                 TelescopeResultsDiffAdd = { bg = theme.ui.bg_dim },
                 TelescopeResultsDiffChange = { bg = theme.ui.bg_dim },
                 TelescopeResultsDiffDelete = { bg = theme.ui.bg_dim },

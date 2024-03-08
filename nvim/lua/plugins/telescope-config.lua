@@ -25,7 +25,7 @@ M.opts = function()
             height = 0.8,
             preview_cutoff = 0,
         },
-        sorting_strategy = 'descending',
+        sorting_strategy = 'ascending',
         mappings = {
             i = { ["<C-f>"] = actions.to_fuzzy_refine },
         },
