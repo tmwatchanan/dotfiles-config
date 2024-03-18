@@ -84,3 +84,11 @@ sudo yabai --uninstall-sa # don't forgot to unload old sa
 sudo yabai --load-sa
 brew services start fyabai
 ```
+## bat
+To install a custom theme, use the following commands:
+```sh
+bat cache --build
+
+# to check the available themes
+bat --list-themes
+```
