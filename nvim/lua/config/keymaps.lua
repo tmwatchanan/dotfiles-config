@@ -164,8 +164,8 @@ keymaps.lsp = {
 -- INFO: Treesitter
 keymaps.treesitter = {
     incremental_selection = {
-        init_selection = '<M-Tab>',
-        node_incremental = '<M-Tab>',
+        init_selection = '<Tab>',
+        node_incremental = '<Tab>',
         node_decremental = '<S-Tab>',
     },
     textobjects = {

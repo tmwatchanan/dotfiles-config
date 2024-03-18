@@ -2,11 +2,16 @@
 gui:
   nerdFontsVersion: "3"
   showBottomLine: false
-  scrollOffMargin: 2
   theme:
     selectedLineBgColor:
-      - "#404040"
-      # - reverse
+      - "#363646" # sumiInk5
+    cherryPickedCommitBgColor:
+      - "#2D4F67" # waveBlue1
+    cherryPickedCommitFgColor:
+      - "#7AA89F" # waveAqua2
+  authorColors:
+    "tmwatchanan": "#D27E99" # sakuraPink
+    "Watchanan Chantapakul": "#D27E99" # sakuraPink
 git:
   paging:
     colorArg: always
