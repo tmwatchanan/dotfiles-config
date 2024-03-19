@@ -6,6 +6,7 @@ local dapui_module = {
     'rcarriga/nvim-dap-ui',
     dependencies = {
         'nvim-dap',
+        'nvim-neotest/nvim-nio',
     },
     event = { 'VeryLazy' },
 }
