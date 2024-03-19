@@ -31,6 +31,21 @@ M.init = function()
         end,
         desc = 'Disable focus autoresize for FileType',
     })
+
+    local dapui_filetypes = { 'dapui_breakpoints', 'dap-repl', 'dapui_console', 'dapui_scopes', 'dapui_watches', 'dapui_stacks' }
+    local focus_keymaps = require('config.keymaps').focus
+    vim.api.nvim_create_autocmd('FileType', {
+        group = augroup,
+        callback = function()
+            if vim.tbl_contains(dapui_filetypes, vim.bo.filetype) then
+                vim.keymap.set('n', focus_keymaps.split_left, '<C-w><C-h>', { buffer = true, desc = "focus left" })
+                vim.keymap.set('n', focus_keymaps.split_right, '<C-w><C-l>', { buffer = true, desc = "focus right" })
+                vim.keymap.set('n', focus_keymaps.split_up, '<C-w><C-k>', { buffer = true, desc = "focus up" })
+                vim.keymap.set('n', focus_keymaps.split_down, '<C-w><C-j>', { buffer = true, desc = "focus down" })
+            end
+        end,
+        desc = 'Disable focus autoresize for FileType',
+    })
 end
 
 M.opts = {
