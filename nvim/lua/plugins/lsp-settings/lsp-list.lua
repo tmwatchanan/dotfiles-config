@@ -3,7 +3,7 @@ return {
     jsonls = {},
     lua_ls = require('plugins.lsp-settings.lua-ls'),
     marksman = {},
-    pyright = require('plugins.lsp-settings.pyright'),
+    basedpyright = require('plugins.lsp-settings.basedpyright'),
     ruff_lsp = require('plugins.lsp-settings.ruff-lsp'),
     rust_analyzer = {},
 }
