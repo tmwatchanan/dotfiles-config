@@ -158,14 +158,14 @@ keymaps.lsp = {
             return vim.diagnostic.open_float({ scope = 'cursor' }) or vim.lsp.buf.hover()
         end
     },
-    jump_to_context  = { key = '[c', cmd = function() require('treesitter-context').go_to_context() end },
+    jump_to_context  = { key = '[C', cmd = function() require('treesitter-context').go_to_context() end },
 }
 
 -- INFO: Treesitter
 keymaps.treesitter = {
     incremental_selection = {
-        init_selection = '<Tab>',
-        node_incremental = '<Tab>',
+        init_selection = '<M-Tab>',
+        node_incremental = '<M-Tab>',
         node_decremental = '<S-Tab>',
     },
     textobjects = {
@@ -178,6 +178,7 @@ keymaps.treesitter = {
                 [']l'] = '@loop.outer',
                 [']]'] = '@block.outer',
                 [']a'] = '@parameter.outer',
+                [']b'] = '@block_node.outer',
             },
             goto_next_end = {
                 [']M'] = '@function.outer',
@@ -438,6 +439,7 @@ keymaps.diffview = {
     current_file = '<leader>df',
     file_history = '<leader>dF',
     toggle_files = '<leader>dt',
+    compare_head = '<leader>dh',
 }
 
 -- INFO: undotree
