@@ -1,8 +1,7 @@
 return {
     settings = {
         python = {
-            -- pythonPath = require('config.python').get_python_path(),
-            venvPath = "",
+            pythonPath = require('config.python').get_python_path(),
         },
         basedpyright = {
             typeCheckingMode = 'standard',
