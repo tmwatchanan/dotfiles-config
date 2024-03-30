@@ -65,7 +65,7 @@ M.opts = function()
     local mappings_action = {
         send_to_qflist = function(bufnr)
             telescope_actions.smart_add_to_qflist(bufnr)
-            vim.cmd('TroubleToggle quickfix')
+            vim.cmd('Telescope quickfix')
         end,
 
         select_all = function(bufnr)
