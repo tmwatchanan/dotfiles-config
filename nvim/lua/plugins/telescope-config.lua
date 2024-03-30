@@ -50,11 +50,12 @@ M.opts = function()
     }
 
     local bottom_layout_config = {
+        prompt_title = false,
         layout_strategy = 'bottom_pane',
         layout_config = {
             height = 0.33,
             preview_width = 0.4,
-            prompt_position = 'bottom'
+            prompt_position = 'top'
         }
     }
 
@@ -76,9 +77,10 @@ M.opts = function()
     return {
         defaults = {
             prompt_prefix = '   ',
-            entry_prefix = '  ',
-            selection_caret = '   ',
-            results_title = '',
+            entry_prefix = '   ',
+            selection_caret = '🐥 ',
+            multi_icon = '🐣 ',
+            results_title = false,
             color_devicons = true,
             path_display = { 'tail', 'smart' },
             set_env = { ['COLORTERM'] = 'truecolor' },
