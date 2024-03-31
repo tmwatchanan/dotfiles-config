@@ -1,6 +1,6 @@
 CONFIG_DIR="$HOME/.config/sketchybar"
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
-FONT_FACE="Hack Nerd Font"
+FONT_FACE="Maple Mono NF"
 
 source "$CONFIG_DIR/colors.sh"
 
