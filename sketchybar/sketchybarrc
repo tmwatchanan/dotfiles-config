@@ -82,8 +82,7 @@ weather=(
     update_freq=1800
     script="$PLUGIN_DIR/weather.sh"
 )
-spotify=(
-    icon.background.drawing=on
+media_info=(
     icon.background.image=media.artwork
     icon.background.image.scale=0.8
     icon.background.image.corner_radius=8
@@ -97,9 +96,9 @@ sketchybar --add item weather center                         \
            --set weather "${weather[@]}"                     \
            --subscribe weather system_woke                   \
                                                              \
-           --add item spotify center                         \
-           --set spotify "${spotify[@]}"                     \
-           --subscribe spotify media_change
+           --add item media_info center                      \
+           --set media_info "${media_info[@]}"               \
+           --subscribe media_info media_change
 
 # INFO: right-side bar components
 clock=(

@@ -5,9 +5,9 @@ update_media() {
 
   if [ "$STATE" = "playing" ]; then
     MEDIA="$(echo "$INFO" | jq -r '.title + " - " + .artist')"
-    sketchybar --set $NAME label="$MEDIA" drawing=on
+    sketchybar --set $NAME label="$MEDIA" drawing=on icon.background.drawing=on
   else
-    sketchybar --set $NAME drawing=off
+    sketchybar --set $NAME drawing=off icon.background.drawing=off
   fi
 }
 
