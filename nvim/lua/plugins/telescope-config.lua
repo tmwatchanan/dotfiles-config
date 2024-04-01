@@ -38,7 +38,7 @@ M.opts = function()
         },
         sorting_strategy = 'ascending',
         mappings = {
-            i = { ["<C-f>"] = actions.to_fuzzy_refine },
+            i = { ["<C-f>"] = telescope_actions.to_fuzzy_refine },
         },
     }
 
@@ -78,17 +78,6 @@ M.opts = function()
         end,
     }
 
-    local mappings_action = {
-        send_to_qflist = function(bufnr)
-            require('telescope.actions').smart_add_to_qflist(bufnr)
-            vim.cmd('TroubleToggle quickfix')
-        end,
-
-        select_all = function(bufnr)
-            require('telescope.actions').select_all(bufnr)
-        end,
-    }
-
     return {
         defaults = {
             prompt_prefix = '   ',
@@ -108,8 +97,8 @@ M.opts = function()
                     [telescope_keymap.action_select_all.n] = mappings_action.select_all,
                 },
                 i = {
-                    ['<C-k>'] = actions.move_selection_previous,
-                    ['<C-j>'] = actions.move_selection_next,
+                    ['<C-k>'] = telescope_actions.move_selection_previous,
+                    ['<C-j>'] = telescope_actions.move_selection_next,
                     [telescope_keymap.action_send_to_qflist.i] = mappings_action.send_to_qflist,
                     [telescope_keymap.action_select_all.i] = mappings_action.select_all,
                 }
@@ -231,7 +220,7 @@ M.keys = function()
 
     return {
         { telescope_keymap.resume,      '<Cmd>Telescope resume<CR>' },
-        { telescope_keymap.buffers,     '<Cmd>Telescope buffers<CR>' },
+        { telescope_keymap.buffers,     '<Cmd>Telescope hbac buffers<CR>' },
         { telescope_keymap.jumplist,    '<Cmd>Telescope jumplist<CR>' },
         { telescope_keymap.help_tags,   '<Cmd>Telescope help_tags<CR>' },
         { telescope_keymap.file_browse, '<Cmd>Telescope file_browser<CR>' },
@@ -240,10 +229,10 @@ M.keys = function()
             telescope_keymap.find_files_hidden,
             '<Cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files,--unrestricted<CR>'
         },
-        { telescope_keymap.oldfiles,         '<Cmd>Telescope oldfiles<CR>' },
-        { telescope_keymap.search_workspace_fuzzy, '<Cmd>Telescope grep_string search="" only_sort_text=true<CR>' },
+        { telescope_keymap.oldfiles,                   '<Cmd>Telescope oldfiles<CR>' },
+        { telescope_keymap.search_workspace_fuzzy,     '<Cmd>Telescope grep_string search="" only_sort_text=true<CR>' },
         { telescope_keymap.search_workspace_live_grep, '<Cmd>Telescope live_grep<CR>' },
-        { telescope_keymap.grep_workspace,   '<Cmd>Telescope grep_string<CR>', mode = 'n' },
+        { telescope_keymap.grep_workspace,             '<Cmd>Telescope grep_string<CR>',                              mode = 'n' },
         {
             telescope_keymap.grep_workspace,
             function()

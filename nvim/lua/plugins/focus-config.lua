@@ -41,9 +41,7 @@ M.init = function()
             end
 
             local width = filetype_widths[vim.bo.filetype]
-            vim.print(vim.bo.filetype)
             if width then
-                vim.print(("set %s width -> %d"):format(vim.bo.filetype, width))
                 vim.api.nvim_win_set_width(0, width)
                 vim.b.focus_disable = true
             end
