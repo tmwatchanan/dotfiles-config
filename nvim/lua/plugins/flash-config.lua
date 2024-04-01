@@ -1,6 +1,7 @@
 local M = {
     'folke/flash.nvim',
     event = 'VeryLazy',
+    dev = true,
 }
 
 M.opts = {
@@ -11,9 +12,12 @@ M.opts = {
     },
     modes = {
         char = {
-            multi_line = false,
             jump_labels = true,
-        }
+            multi_line = false,
+            jump = {
+                autojump = true,
+            },
+        },
     },
 }
 
