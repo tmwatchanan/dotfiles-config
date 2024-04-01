@@ -47,7 +47,7 @@ M.config = function(_, opts)
 
     -- HACK: force keyword highlight from wide_bg to bold fg style
     for kw, options in pairs(opts.keywords) do
-        vim.api.nvim_set_hl(0, 'TodoBg' .. kw, { fg = opts.colors[options.color], bg = 'NONE', bold = true })
+        vim.api.nvim_set_hl(0, 'TodoBg' .. kw, { bg = opts.colors[options.color], fg = 'white', bold = true })
     end
 end
 
