@@ -15,6 +15,7 @@ dap_module.config = function()
     local debuggers = require('plugins.lsp-settings.debuggers')
     require('mason-tool-installer').setup(debuggers)
     require('mason-tool-installer').check_install(false)
+    require('dap').defaults.python.exception_breakpoints = {'raised'}
 end
 
 dap_module.keys = function()
@@ -34,7 +35,7 @@ dap_module.keys = function()
             keymap.terminate,
             function()
                 require('dap').terminate()
-                require("dapui").close()
+                require('dapui').close()
             end,
             mode = 'n'
         },
