@@ -1,6 +1,9 @@
 local M = {
     'nvim-lualine/lualine.nvim',
-    dependencies = 'nvim-colorscheme',
+    dependencies = {
+        'nvim-colorscheme',
+        'copilot-lualine',
+    },
     event = 'UIEnter'
 }
 
@@ -132,6 +135,19 @@ M.opts = function()
         cond = conditions.is_python_file,
     }
 
+    local copilot = {
+        'copilot',
+    }
+
+    local hbac = {
+        function()
+            local cur_buf = vim.api.nvim_get_current_buf()
+            local _, pinned = pcall(require('hbac.state').is_pinned, cur_buf)
+            return pinned and '  pinned buffer' or ''
+        end,
+        color = { fg = '#ef5f6b', gui = 'bold' },
+    }
+
     return {
         options = {
             icons_enabled = true,
@@ -144,7 +160,7 @@ M.opts = function()
             lualine_a = { mode },
             lualine_b = { session_status, recording_mode },
             lualine_c = { branch, spacing, navic_location },
-            lualine_x = { diagnostics },
+            lualine_x = { hbac, copilot, diagnostics },
             lualine_y = { swenv, lsp_status },
             lualine_z = { location },
         },

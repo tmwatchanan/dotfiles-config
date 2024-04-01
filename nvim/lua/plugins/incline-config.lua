@@ -18,7 +18,6 @@ M.opts = function()
             zindex = 10,
         },
         render = function(props)
-            local render_icon = {}
             local line_number = vim.fn.line('w0', props.win) - 1
             local first_line_length = vim.api.nvim_buf_get_lines(props.buf, line_number, line_number + 1, false)[1]:len()
             if props.focused then
@@ -37,27 +36,22 @@ M.opts = function()
                 local filename_length = vim.fn.fnamemodify(bufname, ":t"):len()
                 path_length = math.max(path_length, filename_length + 2)
             end
+            local icon, icon_hl = require('nvim-web-devicons').get_icon(
+                vim.fn.fnamemodify(bufname, ':t'),
+                vim.fn.fnamemodify(bufname, ':e'),
+                { default = true }
+            )
+
+            local render_icon = { ' ', icon, ' ', group = icon_hl }
             local render_path = truncate_utils(
                 (bufname ~= '' and vim.fn.fnamemodify(bufname, ':.') or '[No Name]'),
                 path_length,
                 nil,
                 -1
             )
-
-            if vim.bo[props.buf].modified then
-                render_icon = { '  ', group = 'InclineModified' }
-            else
-                local icon, icon_hl = require('nvim-web-devicons').get_icon(
-                    vim.fn.fnamemodify(bufname, ':t'),
-                    vim.fn.fnamemodify(bufname, ':e'),
-                    { default = true }
-                )
-                render_icon = { ' ', icon, ' ', group = icon_hl }
-            end
-
             return {
-                render_icon,
-                render_path,
+                { render_icon },
+                { render_path, gui = 'bold', guifg = vim.bo[props.buf].modified and '#ffaa00' or nil },
             }
         end,
     }

@@ -53,7 +53,13 @@ M.init = function()
 end
 
 M.opts = {
-    ui = { signcolumn = false }
+    autoresize = {
+        minwidth = 30,
+        minheight = 10,
+    },
+    ui = {
+        signcolumn = false,
+    }
 }
 
 M.keys = function()

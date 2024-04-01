@@ -31,7 +31,7 @@
 	cmd = nvim -d $MERGED
 [delta]
     navigate = true
-	features = tokyonight
+	features = oxocarbon
 [include]
 	path = ~/.config/delta/themes.gitconfig
 [pull]

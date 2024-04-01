@@ -2,6 +2,7 @@
 gui:
   nerdFontsVersion: "3"
   showBottomLine: false
+  showListFooter: false
   theme:
     selectedLineBgColor:
       - "#363646" # sumiInk5

@@ -98,7 +98,7 @@ keymaps.setup = function()
     -- vim.keymap.set('n', '<C-k>', '<C-o>')
 
     -- INFO: quickfix keys
-    vim.keymap.set('n', '<leader>q', '<Cmd>TroubleToggle quickfix<CR>')
+    vim.keymap.set('n', '<leader>q', '<Cmd>Telescope quickfix<CR>')
     vim.keymap.set('n', '<leader>Q', '<Cmd>cexpr []<CR>')
 
     -- INFO: search word under cursor (recursive called `hlslens`)
@@ -131,24 +131,19 @@ end
 
 -- INFO: LSP keymap
 keymaps.lsp = {
-    definitions      = { key = 'gd', cmd = '<Cmd>TroubleToggle lsp_definitions<CR>' },
-    type_definitions = { key = 'gt', cmd = '<Cmd>TroubleToggle lsp_type_definitions<CR>' },
-    reference        = { key = 'gr', cmd = '<Cmd>TroubleToggle lsp_references<CR>' },
+    definitions      = { key = 'gd', cmd = '<Cmd>Telescope lsp_definitions<CR>' },
+    type_definitions = { key = 'gt', cmd = '<Cmd>Telescope lsp_type_definitions<CR>' },
+    reference        = { key = 'gr', cmd = '<Cmd>Telescope lsp_references<CR>' },
+    implementation   = { key = 'gi', cmd = '<Cmd>Telescope lsp_implementations<CR>' },
     signature_help   = { key = 'gs', cmd = vim.lsp.buf.signature_help },
-    diagnostic       = { key = '<leader>ld', cmd = '<Cmd>TroubleToggle workspace_diagnostics<CR>' },
+    diagnostic       = { key = '<leader>ld', cmd = '<Cmd>Telescope diagnostics<CR>' },
+    document_symbol  = { key = '<leader>ls', cmd = '<Cmd>Telescope lsp_document_symbols<CR>' },
     rename           = { key = '<leader>lr', cmd = function() require 'config.rename-utils'.rename_to_qflist() end },
     rename_clean     = { key = '<leader>lR', cmd = function() require 'config.rename-utils'.rename_clean_placeholder() end },
     code_action      = { key = '<leader>la', cmd = vim.lsp.buf.code_action },
     diagnostic_next  = { key = ']d', cmd = function() vim.diagnostic.goto_next({ float = false }) end },
     diagnostic_prev  = { key = '[d', cmd = function() vim.diagnostic.goto_prev({ float = false }) end },
-    declaration      = { key = 'gD', cmd = function() vim.lsp.buf.declaration({ on_list = open_with_qflist }) end },
     format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
-    document_symbol  = {
-        key = '<leader>ls',
-        cmd = function()
-            vim.lsp.buf.document_symbol({ on_list = open_with_qflist })
-        end,
-    },
     hover            = {
         key = 'K',
         cmd = function()
@@ -348,11 +343,6 @@ keymaps.flash = {
     flash_treesitter = 'zs',
 }
 
--- INFO: markdown preview keymap
-keymaps.markdown_preview = {
-    toggle = '<leader>p',
-}
-
 -- INFO: mini.bufremove keymap
 keymaps.bufremove = {
     delete = '<leader>wQ',
@@ -504,6 +494,25 @@ keymaps.comment = {
     opleader = {
         line = '<leader>c',
     },
+}
+
+-- INFO: copilot keymap
+keymaps.copilot = {
+    next = '<m-]>',
+    prev = '<m-[>',
+}
+
+-- INFO: Hbac keymap
+keymaps.hbac = {
+    toggle_pin        = '<leader>p',
+    action_delete     = { n = 'd', i = '<m-d>' },
+    action_toggle_pin = { n = 'p', i = '<m-p>' },
+}
+
+-- Spectre keymap
+keymaps.spectre = {
+    toggle = '<leader>r',
+    tree_replace = 'r',
 }
 
 return keymaps

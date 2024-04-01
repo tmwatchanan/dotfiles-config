@@ -41,14 +41,7 @@ return {
     {
         'chrishrb/gx.nvim',
         dependencies = { 'plenary.nvim' },
-        keys = { {
-            'gx',
-            function()
-                require('gx').open()
-                vim.defer_fn(function() vim.fn.jobstart('yabai -m space --balance') end, 300)
-            end,
-            mode = { 'n', 'x' },
-        } },
+        keys = { { 'gx', function() require('gx').open() end, mode = { 'n', 'x' } } },
         config = true,
     },
     {
@@ -69,5 +62,15 @@ return {
     },
 
     -- Miscellaneous
-    { 'RaafatTurki/hex.nvim', cmd = { 'HexToggle', 'HexDump', 'HexAssemble' }, config = true },
+    {
+        'RaafatTurki/hex.nvim',
+        cmd = { 'HexToggle', 'HexDump', 'HexAssemble' },
+        config = true,
+    },
+    {
+        'MeanderingProgrammer/markdown.nvim',
+        dependencies = 'nvim-treesitter',
+        ft = 'markdown',
+        config = true,
+    },
 }

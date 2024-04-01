@@ -1,4 +1,5 @@
 local telescope_keymap = require('config.keymaps').telescope
+local hbac_keymap = require('config.keymaps').hbac
 
 local M = {
     'nvim-telescope/telescope.nvim',
@@ -6,15 +7,25 @@ local M = {
     dependencies = {
         { 'nvim-telescope/telescope-file-browser.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
+        {
+            'momepp/hbac.nvim',
+            opts = {
+                threshold = 20,
+                close_command = function(bufnr)
+                    local force = vim.api.nvim_get_option_value('buftype', { buf = bufnr }) == 'terminal'
+                    require('lazy').load({ plugins = { 'mini.bufremove' } })
+                    pcall(require('mini.bufremove').delete, bufnr, force)
+                end,
+            },
+            keys = { { hbac_keymap.toggle_pin, function() require('hbac').toggle_pin() end } },
+        },
     },
 }
 
 M.opts = function()
     local defaults = require('config').defaults
-
-    local utils = require('telescope.utils')
-    local actions = require('telescope.actions')
-    local action_state = require('telescope.actions.state')
+    local telescope_actions = require('telescope.actions')
+    local hbac_actions = require('hbac.telescope.actions')
 
     local vertical_layout_config = {
         layout_strategy = 'vertical',
@@ -43,11 +54,12 @@ M.opts = function()
     }
 
     local bottom_layout_config = {
+        prompt_title = false,
         layout_strategy = 'bottom_pane',
         layout_config = {
             height = 0.33,
             preview_width = 0.4,
-            prompt_position = 'bottom'
+            prompt_position = 'top'
         }
     }
 
@@ -55,53 +67,16 @@ M.opts = function()
         return vim.tbl_deep_extend('force', conf1, conf2)
     end
 
-    local function buffers_mapping(prompt_bufnr, map)
-        local function delete_buf()
-            local current_picker = action_state.get_current_picker(prompt_bufnr)
-            local multi_selections = current_picker:get_multi_selection()
+    local mappings_action = {
+        send_to_qflist = function(bufnr)
+            telescope_actions.smart_add_to_qflist(bufnr)
+            vim.cmd('Telescope quickfix')
+        end,
 
-            local buffers = vim.tbl_map(function(selection)
-                return utils.transform_path({}, selection.filename)
-            end, multi_selections)
-
-            if next(buffers) == nil then
-                local selection = action_state.get_selected_entry()
-                multi_selections = vim.tbl_extend('force', multi_selections, { selection })
-                buffers = { utils.transform_path({}, selection.filename) }
-            end
-
-            local removed = {}
-            local message = 'Selections to be removed: ' .. table.concat(buffers, ', ')
-            vim.notify(string.format('[buffers.actions.remove] %s', message), vim.log.levels.INFO,
-                { title = 'Telescope builtin' })
-
-            vim.ui.input({ prompt = 'Remove selections ? [y/n] ' }, function(input)
-                vim.cmd [[ redraw ]] -- redraw to clear out vim.ui.prompt to avoid hit-enter prompt
-                if input and input:lower() == 'y' then
-                    -- INFO: lazy loads `mini.bufremove` for handles buffer deletion
-                    require('lazy').load({ plugins = { 'mini.bufremove' } })
-
-                    current_picker:delete_selection(function(selection)
-                        local force = vim.api.nvim_get_option_value('buftype', { buf = selection.bufnr }) == 'terminal'
-                        local ok = pcall(require('mini.bufremove').delete, selection.bufnr, force)
-                        if ok then table.insert(removed, utils.transform_path({}, selection.filename)) end
-                        return ok
-                    end)
-
-                    vim.notify('[buffers.actions.remove] Removed: ' .. table.concat(removed, ', '),
-                        vim.log.levels.INFO,
-                        { title = 'Telescope builtin' })
-                else
-                    vim.notify('[buffers.actions.remove] Removing selections aborted!', vim.log.levels.INFO,
-                        { title = 'Telescope builtin' })
-                end
-            end)
-        end
-
-        map('n', telescope_keymap.action_buffer_delete.n, delete_buf)
-        map('i', telescope_keymap.action_buffer_delete.i, delete_buf)
-        return true
-    end
+        select_all = function(bufnr)
+            telescope_actions.select_all(bufnr)
+        end,
+    }
 
     local mappings_action = {
         send_to_qflist = function(bufnr)
@@ -117,9 +92,10 @@ M.opts = function()
     return {
         defaults = {
             prompt_prefix = '   ',
-            entry_prefix = '  ',
-            selection_caret = '   ',
-            results_title = '',
+            entry_prefix = '   ',
+            selection_caret = '🐥 ',
+            multi_icon = '🐣 ',
+            results_title = false,
             color_devicons = true,
             path_display = { 'tail', 'smart' },
             set_env = { ['COLORTERM'] = 'truecolor' },
@@ -169,10 +145,6 @@ M.opts = function()
                 include_current_line = true,
                 trim_text = true,
             }),
-            buffers = mergeConfig(horizontal_layout_config, {
-                sort_mru = true,
-                attach_mappings = buffers_mapping
-            }),
             quickfix = mergeConfig(vertical_layout_config, {
                 layout_config = {
                     preview_height = 0.5,
@@ -196,13 +168,13 @@ M.opts = function()
             },
         },
         extensions = {
-            ['fzf'] = {
+            fzf = {
                 fuzzy = true,                   -- false will only do exact matching
                 override_generic_sorter = true, -- override the generic sorter
                 override_file_sorter = true,    -- override the file sorter
                 case_mode = 'smart_case',       -- or 'ignore_case' or 'respect_case'
             },
-            ['file_browser'] = mergeConfig(horizontal_layout_config, {
+            file_browser = mergeConfig(horizontal_layout_config, {
                 path = '%:p:h',
                 cwd_to_path = true,
                 respect_gitignore = false,
@@ -211,6 +183,23 @@ M.opts = function()
                 hijack_netrw = true,
                 follow_symlinks = true,
             }),
+            hbac = {
+                telescope = {
+                    sort_mru = true,
+                    sort_lastused = false,
+                    use_default_mappings = true,
+                    mappings = {
+                        i = {
+                            [hbac_keymap.action_delete.i] = hbac_actions.delete_buffer,
+                            [hbac_keymap.action_toggle_pin.i] = hbac_actions.toggle_pin,
+                        },
+                        n = {
+                            [hbac_keymap.action_delete.n] = hbac_actions.delete_buffer,
+                            [hbac_keymap.action_toggle_pin.n] = hbac_actions.toggle_pin,
+                        }
+                    }
+                },
+            },
         }
     }
 end
@@ -221,6 +210,7 @@ M.config = function(_, opts)
     telescope.setup(opts)
     telescope.load_extension('fzf')
     telescope.load_extension('file_browser')
+    telescope.load_extension('hbac')
 
     local telescope_augroup = vim.api.nvim_create_augroup('UserTelescopeAugroup', { clear = true })
     vim.api.nvim_create_autocmd('FileType', {

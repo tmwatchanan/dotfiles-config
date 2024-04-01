@@ -8,7 +8,7 @@ return {
             analysis = {
                 autoImportCompletions = true,
                 autoSearchPaths = true,
-                diagnosticMode = "openFilesOnly",
+                diagnosticMode = 'openFilesOnly',
                 useLibraryCodeForTypes = true,
                 extraPaths = {
                     '~/dev/airflow2-plugin/src',

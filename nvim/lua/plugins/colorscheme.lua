@@ -463,7 +463,6 @@ M.config = function()
         local incline_highlight = {
             InclineNormal = { bg = c.none, bold = true },
             InclineNormalNC = { fg = c.base03, bg = c.none },
-            InclineModified = { fg = '#FF6F00', bg = c.none, },
         }
 
         local noice_highlight = {
@@ -477,11 +476,11 @@ M.config = function()
 
         local telescope_highlight = {
             TelescopeNormal = { fg = c.base03, bg = c.base00 },
-            TelescopeSelection = { fg = c.base04, bold = true },
-            TelescopeMultiSelection = { fg = c.base13, bold = true },
-            TelescopePromptNormal = { fg = c.base04, bg = c.base02 },
-            TelescopePromptPrefix = { fg = c.base08, bg = c.base02 },
-            TelescopePromptBorder = { bg = c.base02 },
+            TelescopeSelection = { fg = c.base06, bold = true },
+            TelescopeMultiSelection = { fg = '#ffaa00' },
+            TelescopePromptNormal = { fg = c.base04, bg = c.base01 },
+            TelescopePromptPrefix = { fg = c.base08, bg = c.base01 },
+            TelescopePromptBorder = { bg = c.base01 },
             TelescopeResultsNormal = { bg = c.base01 },
             TelescopeResultsBorder = { bg = c.base01 },
             TelescopePreviewNormal = { bg = c.base01 },
@@ -489,6 +488,10 @@ M.config = function()
             TelescopePreviewLine = { bg = c.base02 },
             TelescopeResultsTitle = { fg = c.base03 },
             TelescopeMatching = { fg = c.base12, bold = true },
+            TelescopeResultsDiffAdd = { bg = c.base01 },
+            TelescopeResultsDiffChange = { bg = c.base01 },
+            TelescopeResultsDiffDelete = { bg = c.base01 },
+            TelescopeResultsDiffUntracked = { bg = c.base01 }
         }
 
         local flit_highlight = {
@@ -580,9 +583,9 @@ M.config = function()
             SignColumn = { fg = c.base02, bg = c.none },
             CursorLine = { bg = c.base02 },
             VertSplit = { fg = c.base02, bg = c.none },
-            NormalFloat = { bg = c.base00 },
+            NormalFloat = { bg = c.base01 },
             FloatBorder = { link = 'NormalFloat' },
-            FloatTitle = { fg = c.base10, bg = c.base00, bold = true },
+            FloatTitle = { fg = c.base10, bg = c.base01, bold = true },
             Pmenu = { fg = c.base04, bg = c.base00 },
             PmenuSel = { fg = c.none, bg = c.base02 },
             Search = { fg = c.base01, bg = c.base12, bold = true },
@@ -591,6 +594,13 @@ M.config = function()
             LspReferenceText = { bg = c.base02 },
             LspReferenceRead = { link = 'LspReferenceText' },
             LspReferenceWrite = { link = 'LspReferenceText' },
+            NuiComponentsTreeSpectreIcon = { fg = c.base10 },
+            NuiComponentsTreeSpectreFileName = { fg = c.base04 },
+            NuiComponentsTreeSpectreCodeLine = { fg = c.base03 },
+            NuiComponentsTreeSpectreSearchValue = { fg = c.base04, bg = c.base03, bold = true },
+            NuiComponentsTreeSpectreSearchOldValue = { fg = c.base04, bg = c.base03, bold = true, strikethrough = true },
+            NuiComponentsTreeSpectreSearchNewValue = { fg = c.base00, bg = c.base14, bold = true },
+            NuiComponentsTreeSpectreReplaceSuccess = { fg = c.base13 },
         })
         overrideHighlightConfig(telescope_highlight)
         overrideHighlightConfig(incline_highlight)

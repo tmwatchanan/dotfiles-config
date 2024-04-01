@@ -5,11 +5,8 @@ local M = {
         -- NOTE: cmp sources
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-cmdline',
+        'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
-        {
-            'tzachar/cmp-fuzzy-buffer',
-            dependencies = { 'tzachar/fuzzy.nvim' },
-        },
 
         -- NOTE: snippet plugins
         {
@@ -34,17 +31,7 @@ local M = {
         },
 
         -- NOTE: github copilot if available
-        -- {
-        --     'zbirenbaum/copilot-cmp',
-        --     dependencies = {
-        --         'zbirenbaum/copilot.lua',
-        --         opts = {
-        --             suggestion = { enabled = false },
-        --             panel = { enabled = false },
-        --         }
-        --     },
-        --     config = true
-        -- },
+        -- 'copilot.lua',
 
         -- NOTE: misc. plugins
         'onsails/lspkind.nvim',
@@ -57,11 +44,11 @@ M.opts = function()
     local cmp = require('cmp')
     local default_border = require('config').defaults.float_border
 
+    local copilot_status, copilot_suggestion = pcall(require, 'copilot.suggestion')
+
     local lspkind_format = require('lspkind').cmp_format({
         mode = 'symbol_text',
         maxwidth = 50,
-        ellipsis_char = '...',
-        symbol_map = { Codeium = '', Copilot = '' },
     })
 
     local function has_word_before()
@@ -91,10 +78,21 @@ M.opts = function()
         ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
         ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(2), { 'i', 'c' }),
         ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-2), { 'i', 'c' }),
-        ['<C-e>'] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+        ['<C-e>'] = cmp.mapping {
+            i = function()
+                if cmp.visible() then
+                    cmp.abort()
+                elseif copilot_status and copilot_suggestion.is_visible() then
+                    copilot_suggestion.dismiss()
+                end
+            end,
+            c = cmp.mapping.close(),
+        },
         ['<CR>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+            elseif copilot_status and copilot_suggestion.is_visible() then
+                copilot_suggestion.accept()
             else
                 fallback()
             end
@@ -126,6 +124,8 @@ M.opts = function()
                 vim.schedule(function() vim.snippet.jump(1) end)
             elseif has_word_before() then
                 cmp.complete()
+            elseif copilot_status and copilot_suggestion.is_visible() then
+                copilot_suggestion.next()
             else
                 fallback()
             end
@@ -135,6 +135,8 @@ M.opts = function()
                 cmp.select_prev_item()
             elseif vim.snippet.jumpable(-1) then
                 vim.schedule(function() vim.snippet.jump(-1) end)
+            elseif copilot_status and copilot_suggestion.is_visible() then
+                copilot_suggestion.prev()
             else
                 fallback()
             end
@@ -144,9 +146,6 @@ M.opts = function()
     local cmp_sorting = {
         priority_weight = 2,
         comparators = {
-            -- require('copilot_cmp.comparators').prioritize,
-            require('cmp_fuzzy_buffer.compare'),
-
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.score,
@@ -173,24 +172,20 @@ M.opts = function()
 
     local cmp_sources = cmp.config.sources(
         {
-            -- { name = 'copilot' },
             { name = 'path' },
-            { name = 'snippets',  keyword_length = 2 },
+            { name = 'snippets', keyword_length = 2 },
             { name = 'nvim_lsp' },
+            { name = 'buffer' },
             {
                 name = 'latex_symbols',
                 option = {
-                    strategy = 0,     -- mixed
+                    strategy = 0, -- mixed
                 },
             },
-        },
-        {
-            { name = 'fuzzy_buffer', option = { min_match_length = 2 } },
         }
     )
 
     return {
-        snippet = { expand = function(args) vim.snippet.expand(args.body) end },
         mapping = cmp_mapping,
         sorting = cmp_sorting,
         sources = cmp_sources,
@@ -203,6 +198,7 @@ M.opts = function()
             },
             documentation = {
                 border = default_border,
+                winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu'
             }
         },
         experimental = {
@@ -229,7 +225,7 @@ M.config = function(_, opts)
             completeopt = 'menuone,noselect',
         },
         sources = {
-            { name = 'fuzzy_buffer', option = { min_match_length = 2 } },
+            { name = 'buffer' },
         }
     })
 
@@ -244,6 +240,15 @@ M.config = function(_, opts)
             { name = 'cmdline' }
         })
     })
+
+    -- NOTE: copilot hide suggestion when cmp opened
+    cmp.event:on('menu_opened', function()
+        vim.b.copilot_suggestion_hidden = true
+    end)
+
+    cmp.event:on('menu_closed', function()
+        vim.b.copilot_suggestion_hidden = false
+    end)
 
     -- NOTE: autopairs mapping on <CR>
     cmp.event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
