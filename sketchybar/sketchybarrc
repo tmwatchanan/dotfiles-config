@@ -104,7 +104,7 @@ sketchybar --add item weather q                         \
            --set weather "${weather[@]}"                     \
            --subscribe weather system_woke                   \
                                                              \
-           --add item media_info center                      \
+           --add item media_info e                      \
            --set media_info "${media_info[@]}"               \
            --subscribe media_info media_change
 
