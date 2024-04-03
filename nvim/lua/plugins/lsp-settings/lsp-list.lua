@@ -7,4 +7,6 @@ return {
     basedpyright = require('plugins.lsp-settings.basedpyright'),
     ruff_lsp = require('plugins.lsp-settings.ruff-lsp'),
     rust_analyzer = {},
+    helm_ls = {},
+    yamlls = {},
 }

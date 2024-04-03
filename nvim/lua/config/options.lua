@@ -87,3 +87,5 @@ opt.formatoptions = 'jrqln1' -- see :h fo-table
 vim.cmd('autocmd BufEnter * setlocal formatoptions-=o') -- ugly way to disable `o` formatoptions
 opt.shortmess     = 'fnxoOtTF'
 opt.jumpoptions   = { 'stack' }
+
+vim.cmd('autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab')

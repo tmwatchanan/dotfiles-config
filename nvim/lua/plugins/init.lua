@@ -60,6 +60,11 @@ return {
         event = { 'BufReadPost', 'BufNewFile' },
         opts = {},
     },
+    {
+        'towolf/vim-helm',
+        event = { 'BufReadPost', 'BufNewFile' },
+        ft = 'helm',
+    },
 
     -- Miscellaneous
     {
