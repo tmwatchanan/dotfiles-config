@@ -523,9 +523,6 @@ M.config = function()
             NoiceCmdlineIconCmdline = { link = 'lualine_a_command' },
             NoiceCmdlineIconSearch = { link = 'lualine_a_command' },
             NoiceCmdlineIconFilter = { link = 'lualine_a_command' },
-            NoiceMini = { bg = c.base02 },
-            NoiceCmdline = { bg = c.base01 },
-            NoiceSplit = { bg = c.base01 },
         }
 
         local telescope_highlight = {
