@@ -19,7 +19,7 @@ M.defaults = {
             lsp = '󰘸',
             git = '',
             session = '',
-            navic_separator = '   ',
+            navic_separator = '  ',
         },
         dap = {
             breakpoint = '',

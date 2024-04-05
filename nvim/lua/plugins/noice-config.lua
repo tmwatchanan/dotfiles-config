@@ -35,6 +35,7 @@ M.opts = {
             format = { ' {confirm}' },
         },
         mini = {
+            win_options = { winblend = 0 },
             timeout = 5000,
         },
     },

@@ -57,9 +57,9 @@ M.opts = function()
         prompt_title = false,
         layout_strategy = 'bottom_pane',
         layout_config = {
-            height = 0.33,
+            height = 0.3,
             preview_width = 0.4,
-            prompt_position = 'top'
+            prompt_position = 'bottom'
         }
     }
 
