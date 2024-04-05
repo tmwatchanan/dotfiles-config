@@ -33,7 +33,7 @@ done <<< "$CURRENT_SPACES"
 DISPLAY_COUNT="$(yabai -m query --displays | jq -r '. | length')"
 
 if [ "$DISPLAY_COUNT" -gt 1 ]; then
-  kitty @ --to unix:/tmp/mykitty set-font-size 13.5
+  kitty @ --to unix:/tmp/mykitty set-font-size 14.0
 else
   kitty @ --to unix:/tmp/mykitty set-font-size 13.0
 fi
