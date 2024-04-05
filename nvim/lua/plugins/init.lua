@@ -15,15 +15,6 @@ return {
         config = true
     },
     {
-        'SmiteshP/nvim-navic',
-        opts = {
-            lsp = {
-                auto_attach = true,
-                preference = { 'volar', 'jsonls' },
-            },
-        },
-    },
-    {
         'Wansmer/treesj',
         dependencies = { 'nvim-treesitter' },
         opts = {

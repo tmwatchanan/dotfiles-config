@@ -43,38 +43,6 @@ M.opts = function()
         always_visible = true,
     }
 
-    -- local diff = {
-    --     'diff',
-    --     symbols = icons.git,
-    --     cond = conditions.hide_in_width
-    -- }
-
-    local navic_location = {
-        'navic',
-        -- color_correction = 'dynamic',
-        navic_opts = {
-            separator = icons.lualine.navic_separator,
-            highlight = false,
-        }
-        -- padding = { right = 0 }
-    }
-
-    -- local filetype = {
-    --     'filetype',
-    --     icon_only = true,
-    --     separator = '',
-    --     padding = { right = 0, left = 1 }
-    -- }
-
-    -- local filename = {
-    --     'filename',
-    --     file_status = false, -- displays file status (readonly status, modified status)
-    --     path = 0, -- 0 = just filename, 1 = relative path, 2 = absolute path
-    --     color = { gui = 'bold' },
-    --     padding = { right = 0, left = 1 },
-    --     cond = conditions.buffer_not_empty
-    -- }
-
     local branch = {
         'branch',
         icons_enabled = true,
@@ -143,7 +111,7 @@ M.opts = function()
         sections = {
             lualine_a = { mode },
             lualine_b = { session_status },
-            lualine_c = { branch, spacing, navic_location },
+            lualine_c = { branch },
             lualine_x = { hbac, copilot, diagnostics },
             lualine_y = { lsp_status },
             lualine_z = { location },

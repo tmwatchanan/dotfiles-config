@@ -19,7 +19,6 @@ M.defaults = {
             lsp = '󰘸',
             git = '',
             session = '',
-            navic_separator = '   ',
         },
     },
     float_border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
