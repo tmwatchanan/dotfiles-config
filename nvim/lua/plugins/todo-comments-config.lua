@@ -23,7 +23,7 @@ M.opts = {
         before = '',
         keyword = 'wide_bg',             -- 'fg', 'bg', 'wide', 'wide_bg', 'wide_fg' or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
         after = 'fg',                    -- 'fg' or 'bg' or empty
-        pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlightng (vim regex)
+        pattern = [[.*<\[?(KEYWORDS)\]?\)?\)?\s*:]], -- pattern or table of patterns, used for highlightng (vim regex)
         comments_only = true,            -- uses treesitter to match keywords in comments only
         max_line_len = 200,              -- ignore lines longer than this
         exclude = {},                    -- list of file types to exclude highlighting
@@ -47,7 +47,7 @@ M.config = function(_, opts)
 
     -- HACK: force keyword highlight from wide_bg to bold fg style
     for kw, options in pairs(opts.keywords) do
-        vim.api.nvim_set_hl(0, 'TodoBg' .. kw, { bg = opts.colors[options.color], fg = 'white', bold = true })
+        vim.api.nvim_set_hl(0, 'TodoBg' .. kw, { fg = opts.colors[options.color], bg = 'NONE', bold = true })
     end
 end
 
