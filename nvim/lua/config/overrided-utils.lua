@@ -37,7 +37,7 @@ local function override_ui_select()
             zindex = 999,
         }
 
-        if kind == 'codeaction' then
+        if kind == 'codeaction' or 'unknown' then
             -- change position for codeaction selection
             popup_options.relative = 'cursor'
             popup_options.position = {
