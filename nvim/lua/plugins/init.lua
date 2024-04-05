@@ -48,4 +48,29 @@ return {
         ft = 'markdown',
         config = true,
     },
+    {
+        'letieu/jot.lua',
+        dependencies = 'plenary.nvim',
+        config = function()
+            local win_width = math.floor(vim.o.columns * 0.8)
+            local win_height = math.floor(vim.o.lines * 0.8)
+
+            require('jot').config = {
+                quit_key = 'q',
+                notes_dir = vim.fn.stdpath('data') .. '/jot',
+                win_opts = {
+                    relative = 'editor',
+                    width = win_width,
+                    height = win_height,
+                    row = math.floor((vim.o.lines - win_height) / 2) - 1,
+                    col = math.floor((vim.o.columns - win_width) / 2) - 1,
+                    border = 'rounded',
+                    title = ' Project Notes - ' .. vim.uv.cwd() .. ' ',
+                    footer = ' press `q` to exit ',
+                    footer_pos = 'right',
+                }
+            }
+        end,
+        keys = { { '<leader>n', function() require('jot').toggle() end } }
+    }
 }
