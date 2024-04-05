@@ -4,8 +4,6 @@ gui:
   showListFooter: false
   theme:
     selectedLineBgColor:
-      - default
-    selectedRangeBgColor:
       - '#393939'
   border: 'hidden'
 git:
