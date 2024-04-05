@@ -146,10 +146,7 @@ sketchybar  --add item clock right                              \
             --subscribe keyboard input_change
 
 
+ITEM_DIR="$HOME/.config/sketchybar/items"
+
 ##### Finalizing Setup #####
-sketchybar --update
-
-# ITEM_DIR="$HOME/.config/sketchybar/items"
-# source "$ITEM_DIR/volume.sh"
-
 sketchybar --update
