@@ -72,6 +72,13 @@ sketchybar --add event window_focus                                     \
            --subscribe front_app front_app_switched window_focus mouse.clicked
 
 # INFO: center bar components
+aqi=(
+    background.padding_right=4
+    icon=󰵃
+    icon.font="$FONT_FACE:Bold:16.0"
+    update_freq=1800
+    script="$PLUGIN_DIR/aqi.sh"
+)
 weather=(
     background.padding_right=4
     icon=
@@ -92,7 +99,11 @@ media_info=(
     updates=on
     script="$PLUGIN_DIR/media_info.sh"
 )
-sketchybar --add item weather center                         \
+sketchybar --add item aqi center                             \
+           --set aqi "${aqi[@]}"                             \
+           --subscribe aqi system_woke                       \
+                                                             \
+           --add item weather center                         \
            --set weather "${weather[@]}"                     \
            --subscribe weather system_woke                   \
                                                              \
