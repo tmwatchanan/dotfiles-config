@@ -82,6 +82,14 @@ sketchybar --add event window_focus                     \
            --subscribe front_app front_app_switched
 
 # INFO: center bar components
+aqi=(
+    background.padding_right=4
+    label="-"
+    icon=󰵃
+    icon.font="$FONT_FACE:Bold:16.0"
+    update_freq=1800
+    script="$PLUGIN_DIR/aqi.sh"
+)
 weather=(
     background.padding_right=4
     icon=
@@ -103,6 +111,9 @@ media_info=(
 sketchybar --add item weather q                         \
            --set weather "${weather[@]}"                     \
            --subscribe weather system_woke                   \
+           --add item aqi q                         \
+           --set aqi "${aqi[@]}"                     \
+           --subscribe aqi system_woke                   \
                                                              \
            --add item media_info e                      \
            --set media_info "${media_info[@]}"               \
