@@ -220,7 +220,7 @@ keymaps.treesitter = {
             ['<leader>pc'] = '@class.outer',
         },
         various_textobjs = {
-            multi_commented_lines = 'cc',
+            multi_commented_lines = 'm',
             delete_surrounding_indentation = 'dsi',
         },
     }
@@ -485,16 +485,6 @@ keymaps.spider = {
     new_w = 'w',
     new_e = 'e',
     new_b = 'b',
-}
-
--- INFO: Comment.nvim
-keymaps.comment = {
-    toggler = {
-        line = '<leader>c',
-    },
-    opleader = {
-        line = '<leader>c',
-    },
 }
 
 -- INFO: copilot keymap
