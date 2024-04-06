@@ -67,9 +67,11 @@ yabai=(
   associated_display=active
 )
 front_app=(
-  icon.drawing=off
+  display=active
+  icon.background.drawing=on
+  icon.background.image.scale=0.4
   label.font="$FONT_FACE:Bold:12.0"
-  associated_display=active
+  label.padding_left=8
   script="$PLUGIN_DIR/front_app.sh"
 )
 sketchybar --add event window_focus                     \
@@ -157,7 +159,6 @@ sketchybar  --add item clock right                              \
             --subscribe keyboard input_change
 
 
-ITEM_DIR="$HOME/.config/sketchybar/items"
-
 ##### Finalizing Setup #####
+sketchybar --hotload on
 sketchybar --update
