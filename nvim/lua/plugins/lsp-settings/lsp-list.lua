@@ -9,4 +9,5 @@ return {
     rust_analyzer = {},
     helm_ls = {},
     yamlls = {},
+    julials = {},
 }
