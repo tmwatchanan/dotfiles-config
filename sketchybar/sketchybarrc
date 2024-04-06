@@ -85,7 +85,6 @@ sketchybar --add event window_focus                     \
 # INFO: center bar components
 aqi=(
     background.padding_right=4
-    label="-"
     icon=󰵃
     icon.font="$FONT_FACE:Bold:16.0"
     update_freq=1800

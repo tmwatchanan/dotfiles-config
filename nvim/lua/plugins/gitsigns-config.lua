@@ -22,23 +22,30 @@ M.opts = {
 
         map('n', gitsigns_keymap.next_hunk,
             function()
-                if vim.wo.diff then return gitsigns_keymap.next_hunk end
-                vim.schedule(function() gitsigns_actions.next_hunk() end)
-                return '<Ignore>'
-            end, { expr = true })
+                if vim.wo.diff then
+                    vim.cmd.normal({ gitsigns_keymap.next_hunk, bang = true })
+                else
+                    gitsigns_actions.nav_hunk('next')
+                end
+            end)
 
         map('n', gitsigns_keymap.prev_hunk,
             function()
-                if vim.wo.diff then return gitsigns_keymap.prev_hunk end
-                vim.schedule(function() gitsigns_actions.prev_hunk() end)
-                return '<Ignore>'
-            end, { expr = true })
+                if vim.wo.diff then
+                    vim.cmd.normal({ gitsigns_keymap.prev_hunk, bang = true })
+                else
+                    gitsigns_actions
+                        .nav_hunk('prev')
+                end
+            end)
 
         map('n', gitsigns_keymap.stage_hunk, gitsigns_actions.stage_hunk)
-        map('v', gitsigns_keymap.stage_hunk, function() gitsigns_actions.stage_hunk { vim.fn.line('.'), vim.fn.line('v')} end)
+        map('v', gitsigns_keymap.stage_hunk,
+            function() gitsigns_actions.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
 
         map('n', gitsigns_keymap.reset_hunk, gitsigns_actions.reset_hunk)
-        map('v', gitsigns_keymap.reset_hunk, function() gitsigns_actions.reset_hunk { vim.fn.line('.'), vim.fn.line('v')} end)
+        map('v', gitsigns_keymap.reset_hunk,
+            function() gitsigns_actions.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
 
         map('n', gitsigns_keymap.preview_hunk, gitsigns_actions.preview_hunk_inline)
 

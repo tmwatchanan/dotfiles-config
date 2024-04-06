@@ -38,6 +38,9 @@ M.opts = {
             win_options = { winblend = 0 },
             timeout = 5000,
         },
+        cmdline = {
+            win_options = { winblend = 0 },
+        }
     },
     messages = {
         view_search = false,
