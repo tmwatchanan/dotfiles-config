@@ -26,5 +26,17 @@ do
   DELTA=$(($DELTA+$MISSING_SPACES))
 done <<< "$CURRENT_SPACES"
 
-sketchybar --trigger space_change --trigger windows_on_spaces
+
+yabai -m space 1 --label note
+open "obsidian://open?vault=personal"
+open "obsidian://open?vault=know-how"
+yabai -m rule --add app="^Obsidian$" space=note
+
+yabai -m space 2 --label office
+yabai -m rule --add app="^Slack$" space=office
+
+yabai -m space 3 --label code
+yabai -m rule --add app="^WezTerm$" space=code
+
+# sketchybar --trigger space_change --trigger windows_on_spaces
 

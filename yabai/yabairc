@@ -59,16 +59,4 @@ yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password
 yabai -m rule --add label="Arc Settings" app="^Arc$" title="^Peeranut$" manage=off
 yabai -m rule --add label="Arc PiP" app="^Arc$" subrole="^AXSystemDialog$" manage=off
 
-yabai -m space 1 --label note
-open "obsidian://open?vault=personal"
-open "obsidian://open?vault=know-how"
-yabai -m rule --add app="^Obsidian$" space=note
-
-yabai -m space 2 --label office
-yabai -m rule --add app="^Slack$" space=office
-
-yabai -m space 3 --label code
-yabai -m rule --add app="^WezTerm$" space=code
-
-
 echo "yabai configuration loaded.."
