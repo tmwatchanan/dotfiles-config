@@ -35,8 +35,6 @@ local M = {
 
         -- NOTE: misc. plugins
         'onsails/lspkind.nvim',
-
-        'kdheepak/cmp-latex-symbols',
     },
 }
 
