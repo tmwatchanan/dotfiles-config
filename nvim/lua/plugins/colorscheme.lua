@@ -572,16 +572,6 @@ M.config = function()
             MarkSignHL = { fg = M.colorset.bright_blue },
         }
 
-        local nui_component_highlight = {
-            NuiComponentsTreeSpectreIcon = { fg = c.base10 },
-            NuiComponentsTreeSpectreFileName = { fg = c.base04 },
-            NuiComponentsTreeSpectreCodeLine = { fg = c.base03 },
-            NuiComponentsTreeSpectreSearchValue = { fg = c.base04, bg = c.base03, bold = true },
-            NuiComponentsTreeSpectreSearchOldValue = { fg = c.base04, bg = c.base03, bold = true, strikethrough = true },
-            NuiComponentsTreeSpectreSearchNewValue = { fg = c.base00, bg = c.base14, bold = true },
-            NuiComponentsTreeSpectreReplaceSuccess = { fg = c.base13 },
-        }
-
         overrideHighlightConfig({
             Normal = { fg = c.base04, bg = c.none },
             NormalNC = { fg = c.base04, bg = c.none },
@@ -613,7 +603,6 @@ M.config = function()
         overrideHighlightConfig(hlslens_highlight)
         overrideHighlightConfig(indentscope_highlight)
         overrideHighlightConfig(marks_highlight)
-        overrideHighlightConfig(nui_component_highlight)
 
         for hl_name, hl_value in pairs(highlight_overrides) do
             vim.api.nvim_set_hl(0, hl_name, hl_value)
