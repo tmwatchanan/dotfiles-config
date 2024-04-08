@@ -12,8 +12,8 @@ bar=(
     blur_radius=30
     position=top
     sticky=on
-    padding_left=20
-    padding_right=20
+    padding_left=10
+    padding_right=4
     color=$BAR_COLOR
 )
 sketchybar --bar "${bar[@]}"
