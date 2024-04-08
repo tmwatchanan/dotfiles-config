@@ -18,13 +18,6 @@ local M = {
         'windwp/nvim-ts-autotag',
         'nvim-treesitter/nvim-treesitter-textobjects',
         {
-            'andymass/vim-matchup',
-            dependencies = 'nvim-treesitter/nvim-treesitter',
-            setup = function()
-                vim.g.matchup_matchparen_offscreen = { method = 'popup' }
-            end,
-        },
-        {
             'LiadOz/nvim-dap-repl-highlights',
             config = true,
         },
