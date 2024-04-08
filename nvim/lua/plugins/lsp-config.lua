@@ -77,7 +77,11 @@ lsp_setup_module.config = function()
                     config.cmd = new_default_config.cmd
                     -- config = vim.tbl_deep_extend('force', config, new_default_config) -- BUG: not sure why its cannot extended table, shallow copy ?
                 end
-            end)
+
+                if config.name == "julials" then
+                    require('plugins.julia-config').install_language_server()
+                end
+            end),
     })
 
     -- INFO: config lsp log with formatting
