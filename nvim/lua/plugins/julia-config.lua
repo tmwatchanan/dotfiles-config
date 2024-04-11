@@ -11,9 +11,10 @@ local function julia_run(cmd, on_exit)
         julia_program,
         '--project=~/.julia/environments/nvim-lspconfig',
         '-e',
-        ("'import Pkg; %s'"):format(cmd),
+        ("'import Pkg; %s'"):format(cmd)
     }, ' ')
-    vim.fn.jobstart(julia_lsp_cmd, { on_exit = on_exit })
+    -- vim.fn.jobstart(julia_lsp_cmd, { on_exit = vim.schedule_wrap(on_exit) })
+    vim.fn.jobstart(julia_lsp_cmd)
 end
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/julials.lua#L53-L73
@@ -25,7 +26,7 @@ M.install_language_server = function()
     end
 
     if vim.fn.executable(julia_program) == 1 then
-        local cmd = 'Pkg.add("LanguageServer"); Pkg.update("LanguageServer")'
+        local cmd = 'Pkg.add("LanguageServer");'
         julia_run(cmd, start_lsp)
     end
 end
