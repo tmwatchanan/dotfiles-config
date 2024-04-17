@@ -13,7 +13,7 @@ bar=(
     position=top
     sticky=on
     padding_left=10
-    padding_right=4
+    padding_right=12
     color=$BAR_COLOR
 )
 sketchybar --bar "${bar[@]}"
