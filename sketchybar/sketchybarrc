@@ -87,6 +87,7 @@ aqi=(
     background.padding_right=4
     icon=󰵃
     icon.font="$FONT_FACE:Bold:16.0"
+    drawing=off
     update_freq=1800
     script="$PLUGIN_DIR/aqi.sh"
 )
