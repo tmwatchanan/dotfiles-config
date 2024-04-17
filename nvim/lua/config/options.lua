@@ -78,9 +78,6 @@ opt.tabstop       = 4
 opt.scrolloff     = 8
 opt.sidescrolloff = 8
 
-opt.grepprg       = 'rg --vimgrep'
-opt.grepformat    = '%f:%l:%c:%m'
-
 opt.iskeyword:append { '-' } -- consider string-string as whole word
 opt.wildmode      = 'list:longest'
 opt.formatoptions = 'jrqln1' -- see :h fo-table
