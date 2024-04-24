@@ -209,7 +209,7 @@ end
 local formatter_module = {
     'nvimtools/none-ls.nvim',
     dependencies = {
-        'nvim-lua/plenary.nvim',
+        'plenary.nvim',
         'WhoIsSethDaniel/mason-tool-installer.nvim',
     },
     event = { 'BufReadPre', 'BufNewFile' },

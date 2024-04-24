@@ -1,7 +1,7 @@
 local M = {
     'ThePrimeagen/refactoring.nvim',
     dependencies = {
-        'nvim-lua/plenary.nvim',
+        'plenary.nvim',
         'nvim-treesitter/nvim-treesitter',
     },
     event = { 'BufReadPost', 'BufNewFile' },

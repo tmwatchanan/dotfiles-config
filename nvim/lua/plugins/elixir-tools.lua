@@ -3,7 +3,7 @@
 --     version = "*",
 --     event = { "BufReadPre", "BufNewFile" },
 --     dependencies = {
---         "nvim-lua/plenary.nvim",
+--         "plenary.nvim",
 --     },
 -- }
 

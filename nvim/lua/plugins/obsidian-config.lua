@@ -11,7 +11,7 @@ local M = {
     --   "BufNewFile path/to/my-vault/**.md",
     -- },
     dependencies = {
-        'nvim-lua/plenary.nvim',
+        'plenary.nvim',
         'hrsh7th/nvim-cmp',
         'nvim-telescope/telescope.nvim',
         'nvim-treesitter',

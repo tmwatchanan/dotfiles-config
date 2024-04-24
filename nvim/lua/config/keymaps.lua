@@ -126,6 +126,7 @@ keymaps.setup = function()
 
     -- INFO: development utility keymaps
     vim.keymap.set('n', '<leader>dpft', function() vim.print(('filetype: %s'):format(vim.bo.filetype)) end)
+    vim.keymap.set('n', '<leader>dpbt', function() vim.print(('buftype: %s'):format(vim.bo.buftype)) end)
     vim.keymap.set('n', '<leader>dpbn', function() vim.print(('buffer name: %s'):format(vim.api.nvim_buf_get_name(0))) end)
     vim.keymap.set('n', '<leader>dpwd', function() vim.print(('window: %s'):format(vim.api.nvim_get_current_win())) end)
 end
