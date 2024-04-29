@@ -66,8 +66,9 @@ M.keys = function()
                     col = math.floor(width / 4),
                     row = math.floor(height / 8),
                     border = require('config').defaults.float_border,
-                    -- title = ' Marks previewer '
+                    title = ' Marks previewer '
                 })
+                vim.keymap.set('n', 'q', ':q<cr>', { buffer = pos[1] })
                 vim.cmd('normal! `' .. mark)
                 vim.cmd('normal! zz')
             end
