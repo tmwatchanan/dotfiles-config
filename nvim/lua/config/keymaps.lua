@@ -72,8 +72,6 @@ keymaps.lsp = {
     rename           = { key = '<leader>lr', cmd = function() require 'config.rename-utils'.rename_to_qflist() end },
     rename_clean     = { key = '<leader>lR', cmd = function() require 'config.rename-utils'.rename_clean_placeholder() end },
     code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
-    diagnostic_next  = { key = ']d', cmd = function() vim.diagnostic.goto_next({ float = false }) end },
-    diagnostic_prev  = { key = '[d', cmd = function() vim.diagnostic.goto_prev({ float = false }) end },
     format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
     hover            = {
         key = 'K',
