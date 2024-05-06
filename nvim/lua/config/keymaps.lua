@@ -237,6 +237,23 @@ keymaps.copilot = {
     prev = '<m-[>',
 }
 
+-- INFO: copilot chat keymap
+keymaps.copilot_chat = {
+    explain = '<leader>ae',
+    review = '<leader>aR',
+    refactor = '<leader>ar',
+    docs = '<leader>ad',
+    test = '<leader>at',
+    fix = '<leader>af',
+    fix_diagnostic = '<leader>aF',
+    telescope_prompt = '<leader>av',
+    toggle = '<leader>aa',
+    custom_input = '<leader>ac',
+    quick_chat = '<leader>aq',
+    commit_staged = '<leader>am',
+    commit = '<leader>aM',
+}
+
 -- INFO: Hbac keymap
 keymaps.hbac = {
     toggle_pin        = '<leader>p',
