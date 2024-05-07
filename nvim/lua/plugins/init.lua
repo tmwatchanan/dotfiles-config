@@ -1,6 +1,6 @@
 return {
     { 'nvim-lua/plenary.nvim' },
-    { 'DaikyXendo/nvim-web-devicons' },
+    { 'nvim-tree/nvim-web-devicons' },
     { 'MunifTanjim/nui.nvim' },
 
     -- Utilities
