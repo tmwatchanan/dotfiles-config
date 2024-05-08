@@ -66,6 +66,7 @@ M.opts = {
         }
     },
     lsp = {
+        progress = { enabled = false },
         hover = { enabled = true, },
         signature = { enabled = true },
         override = {

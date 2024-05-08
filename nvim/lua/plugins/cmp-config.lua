@@ -118,7 +118,7 @@ M.opts = function()
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-            elseif vim.snippet.jumpable(1) then
+            elseif vim.snippet.active({ direction = 1 }) then
                 vim.schedule(function() vim.snippet.jump(1) end)
             elseif has_word_before() then
                 cmp.complete()
@@ -131,7 +131,7 @@ M.opts = function()
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif vim.snippet.jumpable(-1) then
+            elseif vim.snippet.active({ direction = -1 }) then
                 vim.schedule(function() vim.snippet.jump(-1) end)
             elseif copilot_status and copilot_suggestion.is_visible() then
                 copilot_suggestion.prev()

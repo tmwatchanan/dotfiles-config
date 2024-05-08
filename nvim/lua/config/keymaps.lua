@@ -142,9 +142,7 @@ keymaps.lsp = {
     document_symbol  = { key = '<leader>ls', cmd = '<Cmd>Telescope lsp_document_symbols<CR>' },
     rename           = { key = '<leader>lr', cmd = function() require 'config.rename-utils'.rename_to_qflist() end },
     rename_clean     = { key = '<leader>lR', cmd = function() require 'config.rename-utils'.rename_clean_placeholder() end },
-    code_action      = { key = '<leader>la', cmd = vim.lsp.buf.code_action },
-    diagnostic_next  = { key = ']d', cmd = function() vim.diagnostic.goto_next({ float = false }) end },
-    diagnostic_prev  = { key = '[d', cmd = function() vim.diagnostic.goto_prev({ float = false }) end },
+    code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
     format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
     hover            = {
         key = 'K',
@@ -494,11 +492,21 @@ keymaps.copilot = {
     prev = '<m-[>',
 }
 
--- INFO: Hbac keymap
-keymaps.hbac = {
-    toggle_pin        = '<leader>p',
-    action_delete     = { n = 'd', i = '<m-d>' },
-    action_toggle_pin = { n = 'p', i = '<m-p>' },
+-- INFO: copilot chat keymap
+keymaps.copilot_chat = {
+    explain = '<leader>ae',
+    review = '<leader>aR',
+    refactor = '<leader>ar',
+    docs = '<leader>ad',
+    test = '<leader>at',
+    fix = '<leader>af',
+    fix_diagnostic = '<leader>aF',
+    telescope_prompt = '<leader>av',
+    toggle = '<leader>aa',
+    custom_input = '<leader>ac',
+    quick_chat = '<leader>aq',
+    commit_staged = '<leader>am',
+    commit = '<leader>aM',
 }
 
 return keymaps

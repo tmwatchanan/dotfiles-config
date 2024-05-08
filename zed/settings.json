@@ -10,11 +10,12 @@
   "telemetry": {
     "metrics": true
   },
-  "theme": "Catppuccin Latte",
+  "theme": "Fleet Dark",
   "buffer_font_size": 13.5,
   "buffer_line_height": { "custom": 1.4 },
   "buffer_font_family": "Maple Mono NF",
   "ui_font_size": 15,
+  "ui_font_family": "Maple Mono NF",
   "active_pane_magnification": 1.61803398875,
   "terminal": {
     "font_family": "Maple Mono NF",
@@ -22,5 +23,26 @@
   },
   "relative_line_numbers": true,
   "vim_mode": true,
-  "vim": { "use_multiline_find": true }
+  "vim": { "use_multiline_find": true },
+  "line_indicator_format": "short",
+  "tab_bar": {
+    "show_nav_history_buttons": false
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": false
+    }
+  },
+  "lsp": {
+    "clangd": {
+      "binary": {
+        "path": "/Users/momeppkt/Developments/toolchains/esp-clang/bin/clangd",
+        "arguments": [
+          "--offset-encoding=utf-16",
+          "--background-index",
+          "--query-driver=/Users/momeppkt/.platformio/packages/toolchain-xtensa-esp32s3/bin/xtensa-esp32s3-elf-*"
+        ]
+      }
+    }
+  }
 }

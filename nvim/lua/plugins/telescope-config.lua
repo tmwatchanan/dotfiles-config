@@ -1,5 +1,4 @@
 local telescope_keymap = require('config.keymaps').telescope
-local hbac_keymap = require('config.keymaps').hbac
 
 local M = {
     'nvim-telescope/telescope.nvim',
@@ -7,25 +6,12 @@ local M = {
     dependencies = {
         { 'nvim-telescope/telescope-file-browser.nvim' },
         { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
-        {
-            'momepp/hbac.nvim',
-            opts = {
-                threshold = 20,
-                close_command = function(bufnr)
-                    local force = vim.api.nvim_get_option_value('buftype', { buf = bufnr }) == 'terminal'
-                    require('lazy').load({ plugins = { 'mini.bufremove' } })
-                    pcall(require('mini.bufremove').delete, bufnr, force)
-                end,
-            },
-            keys = { { hbac_keymap.toggle_pin, function() require('hbac').toggle_pin() end } },
-        },
     },
 }
 
 M.opts = function()
     local defaults = require('config').defaults
     local telescope_actions = require('telescope.actions')
-    local hbac_actions = require('hbac.telescope.actions')
 
     local vertical_layout_config = {
         layout_strategy = 'vertical',
@@ -108,7 +94,7 @@ M.opts = function()
             layout_config = {
                 prompt_position = 'top',
             },
-            winblend = 5
+            -- winblend = 5
         },
         pickers = {
             diagnostics = mergeConfig(bottom_layout_config, {
@@ -138,6 +124,11 @@ M.opts = function()
                 layout_config = {
                     preview_height = 0.5,
                 }
+            }),
+            buffers = mergeConfig(horizontal_layout_config, {
+                only_cwd = true,
+                sort_mru = true,
+                sort_lastused = false,
             }),
             help_tags = horizontal_layout_config,
             live_grep = vertical_layout_config,
@@ -172,23 +163,6 @@ M.opts = function()
                 hijack_netrw = true,
                 follow_symlinks = true,
             }),
-            hbac = {
-                telescope = {
-                    sort_mru = true,
-                    sort_lastused = false,
-                    use_default_mappings = true,
-                    mappings = {
-                        i = {
-                            [hbac_keymap.action_delete.i] = hbac_actions.delete_buffer,
-                            [hbac_keymap.action_toggle_pin.i] = hbac_actions.toggle_pin,
-                        },
-                        n = {
-                            [hbac_keymap.action_delete.n] = hbac_actions.delete_buffer,
-                            [hbac_keymap.action_toggle_pin.n] = hbac_actions.toggle_pin,
-                        }
-                    }
-                },
-            },
         }
     }
 end
@@ -199,7 +173,6 @@ M.config = function(_, opts)
     telescope.setup(opts)
     telescope.load_extension('fzf')
     telescope.load_extension('file_browser')
-    telescope.load_extension('hbac')
 
     local telescope_augroup = vim.api.nvim_create_augroup('UserTelescopeAugroup', { clear = true })
     vim.api.nvim_create_autocmd('FileType', {
@@ -220,7 +193,7 @@ M.keys = function()
 
     return {
         { telescope_keymap.resume,      '<Cmd>Telescope resume<CR>' },
-        { telescope_keymap.buffers,     '<Cmd>Telescope hbac buffers<CR>' },
+        { telescope_keymap.buffers,     '<Cmd>Telescope buffers<CR>' },
         { telescope_keymap.jumplist,    '<Cmd>Telescope jumplist<CR>' },
         { telescope_keymap.help_tags,   '<Cmd>Telescope help_tags<CR>' },
         { telescope_keymap.file_browse, '<Cmd>Telescope file_browser<CR>' },

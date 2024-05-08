@@ -116,13 +116,13 @@
     file-renamed-label            = [->]
     hunk-header-style             = omit
     minus-style                   = syntax "#450822"
-    minus-non-emph-style          = syntax "#450822"
     minus-emph-style              = syntax "#891044"
-    minus-empty-line-marker-style = syntax "#450822"
+    minus-non-emph-style          = minus-style
+    minus-empty-line-marker-style = minus-style
     plus-style                    = syntax "#023130"
-    plus-non-emph-style           = syntax "#023130"
     plus-emph-style               = syntax "#046260"
-    plus-empty-line-marker-style  = syntax "#023130"
+    plus-non-emph-style           = plus-style
+    plus-empty-line-marker-style  = plus-style
     line-numbers-plus-style       = "#08bdba"
     line-numbers-minus-style      = "#ee5396"
     line-numbers-zero-style       = "#525252"
