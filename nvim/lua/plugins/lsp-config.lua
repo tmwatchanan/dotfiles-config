@@ -121,8 +121,6 @@ lsp_setup_module.config = function()
                 group = inlayhint_augroup,
                 callback = function() vim.lsp.inlay_hint.enable(false, { bufnr = bufnr }) end,
             })
-
-            vim.notify_once('inlayhint enabled', vim.log.levels.INFO, { title = client.name .. ':' })
         end
     end
 
