@@ -1,7 +1,8 @@
 local M = {
     -- 'chentoast/marks.nvim',
     'MomePP/marks.nvim',
-    event = { 'BufReadPost', 'BufNewFile' }
+    event = { 'BufReadPost', 'BufNewFile' },
+    dependencies = { 'telescope.nvim' },
 }
 
 M.opts = {
@@ -12,7 +13,7 @@ M.opts = {
     -- whether movements cycle back to the beginning/end of buffer. default true
     cyclic = true,
     -- whether the shada file is updated after modifying uppercase marks. default false
-    force_write_shada = true,
+    force_write_shada = false,
     -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
     -- marks, and bookmarks.
     -- can be ither a table with all/none of the keys, or a single number, in which case
@@ -33,19 +34,20 @@ M.opts = {
 }
 
 M.keys = function()
+    local marks = require('marks')
     local marks_keymap = require('config.keymaps').marks
 
     return {
-        { marks_keymap.toggle, function() require('marks').toggle() end },
-        { marks_keymap.next,   function() require('marks').next() end },
-        { marks_keymap.prev,   function() require('marks').prev() end },
-        { marks_keymap.clear,  function() require('marks').delete_buf() end },
+        { marks_keymap.toggle, function() marks.toggle() end },
+        { marks_keymap.next,   function() marks.next() end },
+        { marks_keymap.prev,   function() marks.prev() end },
+        { marks_keymap.clear,  function() marks.delete_buf() end },
 
         -- NOTE: preview marks in current buffer
         {
             marks_keymap.preview,
             function()
-                local mark = require('marks').mark_state:get_nearest_next_mark()
+                local mark = marks.mark_state:get_nearest_next_mark()
                 if not mark then
                     vim.notify('No marks to preview -  ', vim.log.levels.WARN)
                     return
@@ -78,12 +80,22 @@ M.keys = function()
         {
             marks_keymap.list,
             function()
-                require('marks').mark_state:all_to_list('quickfixlist')
-                if vim.tbl_isempty(vim.fn.getqflist()) then
+                marks.mark_state:all_to_list('loclist')
+                if vim.tbl_isempty(vim.fn.getloclist(0)) then
                     vim.notify('There is no marks -  ', vim.log.levels.WARN)
                     return
                 end
-                vim.cmd 'Telescope quickfix'
+                require('telescope.builtin').loclist({
+                    prompt_title = 'Marks List',
+                    layout_strategy = 'vertical',
+                    layout_config = {
+                        preview_height = 0.7,
+                        prompt_position = 'bottom',
+                        width = 0.85,
+                        height = 0.8,
+                    },
+                    sorting_strategy = 'descending',
+                })
             end
         },
     }
