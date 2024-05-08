@@ -91,15 +91,6 @@ M.opts = function()
         'copilot',
     }
 
-    local hbac = {
-        function()
-            local cur_buf = vim.api.nvim_get_current_buf()
-            local _, pinned = pcall(require('hbac.state').is_pinned, cur_buf)
-            return pinned and '  pinned buffer' or ''
-        end,
-        color = { fg = '#ef5f6b', gui = 'bold' },
-    }
-
     return {
         options = {
             icons_enabled = true,
@@ -112,7 +103,7 @@ M.opts = function()
             lualine_a = { mode },
             lualine_b = { session_status },
             lualine_c = { branch },
-            lualine_x = { hbac, copilot, diagnostics },
+            lualine_x = { copilot, diagnostics },
             lualine_y = { lsp_status },
             lualine_z = { location },
         },

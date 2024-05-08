@@ -254,11 +254,4 @@ keymaps.copilot_chat = {
     commit = '<leader>aM',
 }
 
--- INFO: Hbac keymap
-keymaps.hbac = {
-    toggle_pin        = '<leader>p',
-    action_delete     = { n = 'd', i = '<m-d>' },
-    action_toggle_pin = { n = 'p', i = '<m-p>' },
-}
-
 return keymaps
