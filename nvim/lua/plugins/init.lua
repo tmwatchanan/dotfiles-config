@@ -36,11 +36,10 @@ return {
         config = true
     },
     {
-        'MomePP/hbac.nvim',
-        event = 'VeryLazy',
+        'axkirillov/hbac.nvim',
         opts = {
             opts = {
-                threshold = 25,
+                threshold = 20,
                 close_command = function(bufnr)
                     local force = vim.api.nvim_get_option_value('buftype', { buf = bufnr }) == 'terminal'
                     require('lazy').load({ plugins = { 'mini.bufremove' } })
