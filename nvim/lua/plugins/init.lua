@@ -73,6 +73,19 @@ return {
             vim.g.matchup_matchparen_offscreen = { method = 'popup' }
         end,
     },
+    {
+        'axkirillov/hbac.nvim',
+        opts = {
+            opts = {
+                threshold = 20,
+                close_command = function(bufnr)
+                    local force = vim.api.nvim_get_option_value('buftype', { buf = bufnr }) == 'terminal'
+                    require('lazy').load({ plugins = { 'mini.bufremove' } })
+                    pcall(require('mini.bufremove').delete, bufnr, force)
+                end,
+            },
+        }
+    },
 
     -- Miscellaneous
     {
