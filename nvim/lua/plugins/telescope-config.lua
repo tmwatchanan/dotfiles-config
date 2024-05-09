@@ -5,7 +5,7 @@ local M = {
     cmd = 'Telescope',
     dependencies = {
         { 'nvim-telescope/telescope-file-browser.nvim' },
-        { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
+        { 'natecraddock/telescope-zf-native.nvim' },
     },
 }
 
@@ -129,11 +129,21 @@ M.opts = function()
             current_buffer_fuzzy_find = vertical_layout_config,
         },
         extensions = {
-            fzf = {
-                fuzzy = true,                   -- false will only do exact matching
-                override_generic_sorter = true, -- override the generic sorter
-                override_file_sorter = true,    -- override the file sorter
-                case_mode = 'smart_case',       -- or 'ignore_case' or 'respect_case'
+            ["zf-native"] = {
+                file = {
+                    enable = true,
+                    highlight_results = true,
+                    match_filename = true,
+                    initial_sort = nil,
+                    smart_case = true,
+                },
+                generic = {
+                    enable = true,
+                    highlight_results = true,
+                    match_filename = false,
+                    initial_sort = nil,
+                    smart_case = true,
+                },
             },
             file_browser = mergeConfig(horizontal_layout_config, {
                 path = '%:p:h',
@@ -151,7 +161,7 @@ M.config = function(_, opts)
     local telescope = require('telescope')
 
     telescope.setup(opts)
-    telescope.load_extension('fzf')
+    telescope.load_extension('zf-native')
     telescope.load_extension('file_browser')
 
     local telescope_augroup = vim.api.nvim_create_augroup('UserTelescopeAugroup', { clear = true })
