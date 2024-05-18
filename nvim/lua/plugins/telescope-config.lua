@@ -5,7 +5,7 @@ local M = {
     cmd = 'Telescope',
     dependencies = {
         { 'nvim-telescope/telescope-file-browser.nvim' },
-        { 'nvim-telescope/telescope-fzf-native.nvim',  build = 'make' },
+        { 'natecraddock/telescope-zf-native.nvim' },
     },
 }
 
@@ -51,6 +51,43 @@ M.opts = function()
 
     local function mergeConfig(conf1, conf2)
         return vim.tbl_deep_extend('force', conf1, conf2)
+    end
+
+    local function buffers_mapping(prompt_bufnr, map)
+        local utils = require('telescope.utils')
+        local action_state = require('telescope.actions.state')
+
+        local function delete_buf()
+            local current_picker = action_state.get_current_picker(prompt_bufnr)
+            local multi_selections = current_picker:get_multi_selection()
+
+            local buffers = vim.tbl_map(function(selection)
+                return utils.transform_path({}, selection.filename)
+            end, multi_selections)
+
+            if next(buffers) == nil then
+                local selection = action_state.get_selected_entry()
+                multi_selections = vim.tbl_extend('force', multi_selections, { selection })
+                buffers = { utils.transform_path({}, selection.filename) }
+            end
+
+            local removed = {}
+            current_picker:delete_selection(function(selection)
+                local force = vim.api.nvim_get_option_value('buftype', { buf = selection.bufnr }) == 'terminal'
+                require('lazy').load({ plugins = { 'mini.bufremove' } })
+                local ok = pcall(require('mini.bufremove').delete, selection.bufnr, force)
+                if ok then table.insert(removed, (utils.transform_path({}, selection.filename))) end
+                return ok
+            end)
+
+            vim.notify('[buffers.actions.remove] Removed: ' .. table.concat(removed, ', '),
+                vim.log.levels.INFO,
+                { title = 'Telescope builtin' })
+        end
+
+        map('n', telescope_keymap.action_buffer_delete.n, delete_buf)
+        map('i', telescope_keymap.action_buffer_delete.i, delete_buf)
+        return true
     end
 
     local mappings_action = {
@@ -129,6 +166,7 @@ M.opts = function()
                 only_cwd = true,
                 sort_mru = true,
                 sort_lastused = false,
+                attach_mappings = buffers_mapping
             }),
             help_tags = horizontal_layout_config,
             live_grep = vertical_layout_config,
@@ -148,11 +186,21 @@ M.opts = function()
             },
         },
         extensions = {
-            fzf = {
-                fuzzy = true,                   -- false will only do exact matching
-                override_generic_sorter = true, -- override the generic sorter
-                override_file_sorter = true,    -- override the file sorter
-                case_mode = 'smart_case',       -- or 'ignore_case' or 'respect_case'
+            ["zf-native"] = {
+                file = {
+                    enable = true,
+                    highlight_results = true,
+                    match_filename = true,
+                    initial_sort = nil,
+                    smart_case = true,
+                },
+                generic = {
+                    enable = true,
+                    highlight_results = true,
+                    match_filename = false,
+                    initial_sort = nil,
+                    smart_case = true,
+                },
             },
             file_browser = mergeConfig(horizontal_layout_config, {
                 path = '%:p:h',
@@ -171,7 +219,7 @@ M.config = function(_, opts)
     local telescope = require('telescope')
 
     telescope.setup(opts)
-    telescope.load_extension('fzf')
+    telescope.load_extension('zf-native')
     telescope.load_extension('file_browser')
 
     local telescope_augroup = vim.api.nvim_create_augroup('UserTelescopeAugroup', { clear = true })
