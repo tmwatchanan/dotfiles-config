@@ -49,6 +49,9 @@ yabai -m config external_bar               all:34:0     \
 
 yabai -m config layout bsp
 
+# JankyBorders
+borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
+
 # Exclude problematic apps from being managed:
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 # yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off

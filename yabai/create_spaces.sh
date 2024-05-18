@@ -28,7 +28,7 @@ done <<< "$CURRENT_SPACES"
 
 
 yabai -m space 1 --label note
-open "obsidian://open?vault=personal"
+# open "obsidian://open?vault=personal"
 open "obsidian://open?vault=know-how"
 yabai -m rule --add app="^Obsidian$" space=note
 
