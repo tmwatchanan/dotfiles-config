@@ -33,3 +33,5 @@
 	path = /Users/momeppkt/.config/delta/themes.gitconfig
 [pull]
 	rebase = true
+[credential]
+	helper = osxkeychain
