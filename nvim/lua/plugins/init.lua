@@ -15,6 +15,11 @@ return {
         config = true
     },
     {
+        'folke/ts-comments.nvim',
+        event = 'VeryLazy',
+        config = true
+    },
+    {
         'Wansmer/treesj',
         dependencies = { 'nvim-treesitter' },
         opts = {
@@ -28,7 +33,7 @@ return {
         'chrishrb/gx.nvim',
         dependencies = { 'plenary.nvim' },
         keys = { { 'gx', function() require('gx').open() end, mode = { 'n', 'x' } } },
-        config = true,
+        config = true
     },
     {
         'utilyre/sentiment.nvim',
