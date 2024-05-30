@@ -26,6 +26,9 @@ M.opts = function()
         check_session_exist = function()
             return vim.v.this_session ~= ''
         end,
+        check_lsp_started = function()
+            return next(vim.lsp.get_clients()) ~= nil
+        end
     }
 
     local mode = {
@@ -63,6 +66,7 @@ M.opts = function()
             return #matching_clients > 0 and table.concat(matching_clients, ', ') or msg
         end,
         icon = icons.lualine.lsp,
+        cond = conditions.check_lsp_started
     }
 
     local session_status = {
