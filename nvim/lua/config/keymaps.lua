@@ -58,6 +58,14 @@ keymaps.setup = function()
     -- INFO: search word under cursor (recursive called `hlslens`)
     vim.keymap.set('n', ']]', '*', { remap = true })
     vim.keymap.set('n', '[[', '#', { remap = true })
+
+    -- INFO: disable ScrollWheelRight and ScrollWheelLeft in normal mode
+    vim.keymap.set('n', '<ScrollWheelRight>', '<Nop>', { remap = false, silent = true })
+    vim.keymap.set('n', '<ScrollWheelLeft>', '<Nop>', { remap = false, silent = true })
+
+    -- INFO: map Shift+ScrollWheelUp to ScrollWheelRight and Shift+ScrollWheelDown to ScrollWheelLeft in normal mode
+    vim.keymap.set('n', '<S-ScrollWheelUp>', '<ScrollWheelRight>', { remap = false, silent = true })
+    vim.keymap.set('n', '<S-ScrollWheelDown>', '<ScrollWheelLeft>', { remap = false, silent = true })
 end
 
 -- INFO: LSP keymap
