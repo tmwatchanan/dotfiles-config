@@ -49,7 +49,15 @@ return {
                 require('lazy').load({ plugins = { 'mini.bufremove' } })
                 pcall(require('mini.bufremove').delete, bufnr, force)
             end
-        }
+        },
+        keys = function()
+            local hbac_keymap = require('config.keymaps').hbac
+            local hbac = require('hbac')
+
+            return {
+                { hbac_keymap.toggle_pin, hbac.toggle_pin }
+            }
+        end
     },
 
     -- Miscellaneous

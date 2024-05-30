@@ -1,7 +1,7 @@
 local M = {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'VimEnter',
     dependencies = {
         {
             'nvim-treesitter/nvim-treesitter-context',

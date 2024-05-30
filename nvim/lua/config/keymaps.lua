@@ -193,9 +193,8 @@ keymaps.hlslens = {
     go_prev     = 'g#',
 }
 
--- INFO: session-manager keymaps
-keymaps.session_manager = {
-    load   = '<leader>sr',
+-- INFO: resession keymaps
+keymaps.resession = {
     save   = '<leader>ss',
     delete = '<leader>sd',
 }
@@ -252,6 +251,11 @@ keymaps.copilot_chat = {
     quick_chat = '<leader>aq',
     commit_staged = '<leader>am',
     commit = '<leader>aM',
+}
+
+-- INFO: hbac keymap
+keymaps.hbac = {
+    toggle_pin = '<leader>p',
 }
 
 return keymaps
