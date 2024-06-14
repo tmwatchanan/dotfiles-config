@@ -52,6 +52,7 @@ lsp_setup_module.config = function()
     --  lsp configs
     --
     local lspconfig = require('lspconfig')
+    local lsp_methods = vim.lsp.protocol.Methods
 
     local load_local_settings = function(path, server_name)
         vim.validate { path = { path, 's' } }
@@ -108,7 +109,7 @@ lsp_setup_module.config = function()
     -- INFO: config lsp inlay hints
     local function lsp_inlayhint(client, bufnr)
         -- INFO: enable inlay hints when enter insert mode and disable when leave
-        if client.supports_method('textDocument/inlayHint') then
+        if client.supports_method(lsp_methods.textDocument_inlayHint) then
             local inlayhint_augroup = vim.api.nvim_create_augroup('inlayhint_augroup', { clear = false })
 
             vim.api.nvim_create_autocmd('InsertEnter', {

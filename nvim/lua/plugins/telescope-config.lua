@@ -4,8 +4,8 @@ local M = {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     dependencies = {
-        { 'nvim-telescope/telescope-file-browser.nvim' },
-        { 'natecraddock/telescope-zf-native.nvim' },
+        'natecraddock/telescope-zf-native.nvim',
+        'nvim-telescope/telescope-file-browser.nvim',
     },
 }
 
@@ -101,8 +101,8 @@ M.opts = function()
         defaults = {
             prompt_prefix = '   ',
             entry_prefix = '   ',
-            selection_caret = '🐥 ',
-            multi_icon = '🐣 ',
+            selection_caret = '▌  ',
+            multi_icon = '▌  ',
             results_title = false,
             color_devicons = true,
             path_display = { 'tail', 'smart' },
