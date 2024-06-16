@@ -10,6 +10,7 @@ copilot.opts = function()
     return {
         suggestion = {
             auto_trigger = false,
+            hide_during_completion = true,
             keymap = {
                 accept = false,
                 dismiss = false,
