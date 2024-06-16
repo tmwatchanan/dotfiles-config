@@ -49,43 +49,6 @@ M.opts = function()
         return vim.tbl_deep_extend('force', conf1, conf2)
     end
 
-    local function buffers_mapping(prompt_bufnr, map)
-        local utils = require('telescope.utils')
-        local action_state = require('telescope.actions.state')
-
-        local function delete_buf()
-            local current_picker = action_state.get_current_picker(prompt_bufnr)
-            local multi_selections = current_picker:get_multi_selection()
-
-            local buffers = vim.tbl_map(function(selection)
-                return utils.transform_path({}, selection.filename)
-            end, multi_selections)
-
-            if next(buffers) == nil then
-                local selection = action_state.get_selected_entry()
-                multi_selections = vim.tbl_extend('force', multi_selections, { selection })
-                buffers = { utils.transform_path({}, selection.filename) }
-            end
-
-            local removed = {}
-            current_picker:delete_selection(function(selection)
-                local force = vim.api.nvim_get_option_value('buftype', { buf = selection.bufnr }) == 'terminal'
-                require('lazy').load({ plugins = { 'mini.bufremove' } })
-                local ok = pcall(require('mini.bufremove').delete, selection.bufnr, force)
-                if ok then table.insert(removed, (utils.transform_path({}, selection.filename))) end
-                return ok
-            end)
-
-            vim.notify('[buffers.actions.remove] Removed: ' .. table.concat(removed, ', '),
-                vim.log.levels.INFO,
-                { title = 'Telescope builtin' })
-        end
-
-        map('n', telescope_keymap.action_buffer_delete.n, delete_buf)
-        map('i', telescope_keymap.action_buffer_delete.i, delete_buf)
-        return true
-    end
-
     local mappings_action = {
         send_to_qflist = function(bufnr)
             telescope_actions.smart_add_to_qflist(bufnr)
@@ -159,7 +122,6 @@ M.opts = function()
                 only_cwd = true,
                 sort_mru = true,
                 sort_lastused = false,
-                attach_mappings = buffers_mapping
             }),
             help_tags = horizontal_layout_config,
             live_grep = vertical_layout_config,

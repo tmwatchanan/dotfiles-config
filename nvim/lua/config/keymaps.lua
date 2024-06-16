@@ -146,7 +146,6 @@ keymaps.telescope = {
     oldfiles              = '<leader>fr',
     file_browse           = '<leader>fb',
     help_tags             = '<leader>?',
-    action_buffer_delete  = { n = '<m-d>', i = '<m-d>' },
     action_send_to_qflist = { n = '<m-q>', i = '<m-q>' },
     action_select_all     = { n = '<m-a>', i = '<m-a>' },
 }
