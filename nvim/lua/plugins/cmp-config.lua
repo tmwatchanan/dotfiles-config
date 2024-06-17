@@ -120,10 +120,10 @@ M.opts = function()
                 cmp.select_next_item()
             elseif vim.snippet.active({ direction = 1 }) then
                 vim.schedule(function() vim.snippet.jump(1) end)
-            elseif has_word_before() then
-                cmp.complete()
             elseif copilot_status and copilot_suggestion.is_visible() then
                 copilot_suggestion.next()
+            elseif has_word_before() then
+                cmp.complete()
             else
                 fallback()
             end

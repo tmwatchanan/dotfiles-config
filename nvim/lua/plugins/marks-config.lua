@@ -2,7 +2,6 @@ local M = {
     -- 'chentoast/marks.nvim',
     'MomePP/marks.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
-    dependencies = { 'telescope.nvim' },
 }
 
 M.opts = {

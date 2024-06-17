@@ -44,15 +44,3 @@ vim.api.nvim_create_autocmd('OptionSet', {
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
     command = 'checktime'
 })
-
--- INFO: global lua func for lazygit remoted to open file
-function _OpenFile(filePath)
-    local exec_cmd = 'edit ' .. filePath
-    vim.defer_fn(function() vim.cmd(exec_cmd) end, 100)
-end
-
--- INFO: retrieve commit-id to open in gitsigns diffthis
-function _OpenDiffView(commitId)
-    local diff_cmd = 'Gitsigns diffthis ' .. commitId
-    vim.defer_fn(function() vim.cmd(diff_cmd) end, 100)
-end

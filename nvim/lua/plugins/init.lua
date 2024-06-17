@@ -29,6 +29,11 @@ return {
         },
     },
     {
+        'folke/ts-comments.nvim',
+        event = 'VeryLazy',
+        config = true
+    },
+    {
         'Wansmer/treesj',
         dependencies = { 'nvim-treesitter' },
         opts = {
@@ -42,7 +47,7 @@ return {
         'chrishrb/gx.nvim',
         dependencies = { 'plenary.nvim' },
         keys = { { 'gx', function() require('gx').open() end, mode = { 'n', 'x' } } },
-        config = true,
+        config = true
     },
     {
         'utilyre/sentiment.nvim',
@@ -76,15 +81,21 @@ return {
     {
         'axkirillov/hbac.nvim',
         opts = {
-            opts = {
-                threshold = 20,
-                close_command = function(bufnr)
-                    local force = vim.api.nvim_get_option_value('buftype', { buf = bufnr }) == 'terminal'
-                    require('lazy').load({ plugins = { 'mini.bufremove' } })
-                    pcall(require('mini.bufremove').delete, bufnr, force)
-                end,
-            },
-        }
+            threshold = 20,
+            close_command = function(bufnr)
+                local force = vim.api.nvim_get_option_value('buftype', { buf = bufnr }) == 'terminal'
+                require('lazy').load({ plugins = { 'mini.bufremove' } })
+                pcall(require('mini.bufremove').delete, bufnr, force)
+            end
+        },
+        keys = function()
+            local hbac_keymap = require('config.keymaps').hbac
+            local hbac = require('hbac')
+
+            return {
+                { hbac_keymap.toggle_pin, hbac.toggle_pin }
+            }
+        end
     },
 
     -- Miscellaneous

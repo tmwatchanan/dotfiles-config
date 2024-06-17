@@ -10,6 +10,7 @@ copilot.opts = function()
     return {
         suggestion = {
             auto_trigger = false,
+            hide_during_completion = true,
             keymap = {
                 accept = false,
                 dismiss = false,
@@ -34,9 +35,9 @@ local copilot_chat = {
 
 copilot_chat.opts = {
     window = {
-        layout = 'float',         -- 'vertical', 'horizontal', 'float', 'replace'
-        width = 1,                -- fractional width of parent, or absolute width in columns when > 1
-        height = 0.4,             -- fractional height of parent, or absolute height in rows when > 1
+        layout = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
+        width = 1,        -- fractional width of parent, or absolute width in columns when > 1
+        height = 0.4,     -- fractional height of parent, or absolute height in rows when > 1
 
         -- Options below only apply to floating windows
         relative = 'editor',      -- 'editor', 'win', 'cursor', 'mouse'
@@ -46,7 +47,12 @@ copilot_chat.opts = {
         title = ' Copilot Chat ', -- title of chat window
         footer = nil,             -- footer of chat window
         zindex = 1,               -- determines if window is on top or below other floating windows
-    }
+    },
+    mappings = {
+        complete = {
+            insert = '',
+        },
+    },
 }
 
 copilot_chat.config = function(_, opts)
@@ -66,6 +72,9 @@ copilot_chat.config = function(_, opts)
     vim.api.nvim_create_user_command('CopilotChatBuffer', function(args)
         chat.ask(args.args, { selection = select.buffer })
     end, { nargs = '*', range = true })
+
+    -- INFO: setup copilot chat cmp integrations
+    require('CopilotChat.integrations.cmp').setup()
 end
 
 
@@ -73,30 +82,9 @@ copilot_chat.keys = function()
     local copilotchat_keymap = require('config.keymaps').copilot_chat
 
     return {
-        -- Code related commands
-        { copilotchat_keymap.explain,        ':CopilotChatExplain<cr>',           mode = { 'n', 'v' },                  desc = 'CopilotChat - Explain code' },
-        { copilotchat_keymap.review,         ':CopilotChatReview<cr>',            mode = { 'n', 'v' },                  desc = 'CopilotChat - Review code' },
-        { copilotchat_keymap.refactor,       ':CopilotChatOptimize<cr>',          mode = { 'n', 'v' },                  desc = 'CopilotChat - Refactor code' },
-        { copilotchat_keymap.docs,           ':CopilotChatDocs<cr>',              mode = { 'n', 'v' },                  desc = 'CopilotChat - Document code' },
-        { copilotchat_keymap.fix,            ':CopilotChatFix<cr>',               mode = { 'n', 'v' },                  desc = 'CopilotChat - Fix Diagnostic' },
-        { copilotchat_keymap.fix_diagnostic, '<cmd>CopilotChatFixDiagnostic<cr>', desc = 'CopilotChat - Fix Diagnostic' },
-        { copilotchat_keymap.test,           '<cmd>CopilotChatTests<cr>',         desc = 'CopilotChat - Generate tests' },
-
         -- Toggle Copilot Chat Vsplit
         { copilotchat_keymap.toggle,         '<cmd>CopilotChatToggle<cr>',        desc = 'CopilotChat - Toggle' },
         { copilotchat_keymap.toggle,         ':CopilotChatVisual<cr>',            mode = 'x',                           desc = 'CopilotChat - Inline chat' },
-
-        -- Custom input for CopilotChat
-        {
-            copilotchat_keymap.custom_input,
-            function()
-                local input = vim.fn.input('Ask Copilot: ')
-                if input ~= '' then
-                    vim.cmd('CopilotChat ' .. input)
-                end
-            end,
-            desc = 'CopilotChat - Ask input',
-        },
 
         -- Quick chat with Copilot
         {
@@ -108,16 +96,6 @@ copilot_chat.keys = function()
                 end
             end,
             desc = 'CopilotChat - Quick chat',
-        },
-
-        -- Telescope integrations
-        {
-            copilotchat_keymap.telescope_prompt,
-            function()
-                local actions = require('CopilotChat.actions')
-                require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
-            end,
-            desc = 'CopilotChat - Prompt actions',
         },
 
         -- Generate commit message based on the git diff

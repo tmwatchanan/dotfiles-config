@@ -129,6 +129,14 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>dpbt', function() vim.print(('buftype: %s'):format(vim.bo.buftype)) end)
     vim.keymap.set('n', '<leader>dpbn', function() vim.print(('buffer name: %s'):format(vim.api.nvim_buf_get_name(0))) end)
     vim.keymap.set('n', '<leader>dpwd', function() vim.print(('window: %s'):format(vim.api.nvim_get_current_win())) end)
+    
+    -- INFO: disable ScrollWheelRight and ScrollWheelLeft in normal mode
+    vim.keymap.set('n', '<ScrollWheelRight>', '<Nop>', { remap = false, silent = true })
+    vim.keymap.set('n', '<ScrollWheelLeft>', '<Nop>', { remap = false, silent = true })
+
+    -- INFO: map Shift+ScrollWheelUp to ScrollWheelRight and Shift+ScrollWheelDown to ScrollWheelLeft in normal mode
+    vim.keymap.set('n', '<S-ScrollWheelUp>', '<ScrollWheelRight>', { remap = false, silent = true })
+    vim.keymap.set('n', '<S-ScrollWheelDown>', '<ScrollWheelLeft>', { remap = false, silent = true })
 end
 
 -- INFO: LSP keymap
@@ -271,9 +279,8 @@ keymaps.telescope = {
     oldfiles                  = '<leader>fo',
     file_browse               = '<leader>fb',
     help_tags                 = '<leader>?',
-    action_buffer_delete      = { n = '<m-d>', i = '<m-d>' },
-    action_send_to_qflist     = { n = '<m-q>', i = '<m-q>' },
-    action_select_all         = { n = '<m-a>', i = '<m-a>' },
+    action_send_to_qflist = { n = '<m-q>', i = '<m-q>' },
+    action_select_all     = { n = '<m-a>', i = '<m-a>' },
     current_buffer_fuzzy_find = 'g/',
     keymaps                   = '<leader>km',
     git_commits               = '<leader>fgc',
@@ -323,9 +330,8 @@ keymaps.hlslens = {
     go_prev     = 'g#',
 }
 
--- INFO: session-manager keymaps
-keymaps.session_manager = {
-    load   = '<leader>sl',
+-- INFO: resession keymaps
+keymaps.resession = {
     save   = '<leader>ss',
     delete = '<leader>sd',
 }
@@ -494,19 +500,15 @@ keymaps.copilot = {
 
 -- INFO: copilot chat keymap
 keymaps.copilot_chat = {
-    explain = '<leader>ae',
-    review = '<leader>aR',
-    refactor = '<leader>ar',
-    docs = '<leader>ad',
-    test = '<leader>at',
-    fix = '<leader>af',
-    fix_diagnostic = '<leader>aF',
-    telescope_prompt = '<leader>av',
     toggle = '<leader>aa',
-    custom_input = '<leader>ac',
     quick_chat = '<leader>aq',
     commit_staged = '<leader>am',
     commit = '<leader>aM',
+}
+
+-- INFO: hbac keymap
+keymaps.hbac = {
+    toggle_pin = '<leader>p',
 }
 
 return keymaps

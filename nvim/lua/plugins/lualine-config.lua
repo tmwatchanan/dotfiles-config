@@ -3,6 +3,7 @@ local M = {
     dependencies = {
         'nvim-colorscheme',
         'copilot-lualine',
+        'resession.nvim',
     },
     event = 'UIEnter'
 }
@@ -24,10 +25,13 @@ M.opts = function()
             return gitdir and #gitdir > 0 and #gitdir < #filepath
         end,
         check_session_exist = function()
-            return vim.v.this_session ~= ''
+            return require('resession').get_current() ~= nil
         end,
         is_python_file = function()
             return vim.bo.filetype == 'python'
+        end,
+        check_lsp_started = function()
+            return next(vim.lsp.get_clients()) ~= nil
         end,
     }
 
@@ -98,12 +102,12 @@ M.opts = function()
             return #matching_clients > 0 and table.concat(matching_clients, ', ') or msg
         end,
         icon = icons.lualine.lsp,
+        cond = conditions.check_lsp_started
     }
 
     local session_status = {
         function()
-            local fname_split = vim.split(vim.fn.fnamemodify(vim.v.this_session, ':t'), '__')
-            return fname_split[#fname_split]
+            return vim.fn.fnamemodify(require('resession').get_current(), ':t')
         end,
         icon = icons.lualine.session,
         padding = { left = 0, right = 1 },
@@ -139,6 +143,15 @@ M.opts = function()
         'copilot',
     }
 
+    local hbac = {
+        function()
+            local cur_buf = vim.api.nvim_get_current_buf()
+            local _, pinned = pcall(require('hbac.state').is_pinned, cur_buf)
+            return pinned and '  pinned buffer' or ''
+        end,
+        color = { fg = '#ef5f6b', gui = 'bold' },
+    }
+
     return {
         options = {
             icons_enabled = true,
@@ -151,7 +164,7 @@ M.opts = function()
             lualine_a = { mode },
             lualine_b = { session_status, recording_mode },
             lualine_c = { branch, spacing, navic_location },
-            lualine_x = { copilot, diagnostics },
+            lualine_x = { hbac, copilot, diagnostics },
             lualine_y = { swenv, lsp_status },
             lualine_z = { location },
         },
