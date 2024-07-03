@@ -58,6 +58,19 @@ M.opts = function()
         select_all = function(bufnr)
             telescope_actions.select_all(bufnr)
         end,
+
+        focus_preview = function(prompt_bufnr)
+            local action_state = require('telescope.actions.state')
+            local picker = action_state.get_current_picker(prompt_bufnr)
+            local prompt_win = picker.prompt_win
+            local previewer = picker.previewer
+            local winid = previewer.state.winid
+            local bufnr = previewer.state.bufnr
+            vim.keymap.set('n', '<esc>', function()
+                vim.cmd(string.format('noautocmd lua vim.api.nvim_set_current_win(%s)', prompt_win))
+            end, { buffer = bufnr })
+            vim.cmd(string.format('noautocmd lua vim.api.nvim_set_current_win(%s)', winid))
+        end
     }
 
     return {
@@ -75,12 +88,16 @@ M.opts = function()
             borderchars = defaults.float_border,
             mappings = {
                 n = {
-                    [telescope_keymap.action_send_to_qflist.n] = mappings_action.send_to_qflist,
-                    [telescope_keymap.action_select_all.n] = mappings_action.select_all,
+                    [telescope_keymap.action_send_to_qflist] = mappings_action.send_to_qflist,
+                    [telescope_keymap.action_select_all] = mappings_action.select_all,
+                    [telescope_keymap.action_focus_preview] = mappings_action.focus_preview,
+                    [telescope_keymap.action_toggle_selection] = telescope_actions.toggle_selection + telescope_actions.move_selection_worse,
                 },
                 i = {
-                    [telescope_keymap.action_send_to_qflist.i] = mappings_action.send_to_qflist,
-                    [telescope_keymap.action_select_all.i] = mappings_action.select_all,
+                    [telescope_keymap.action_send_to_qflist] = mappings_action.send_to_qflist,
+                    [telescope_keymap.action_select_all] = mappings_action.select_all,
+                    [telescope_keymap.action_focus_preview] = mappings_action.focus_preview,
+                    [telescope_keymap.action_toggle_selection] = telescope_actions.toggle_selection + telescope_actions.move_selection_worse,
                 }
             },
             sorting_strategy = 'ascending',
