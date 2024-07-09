@@ -3,8 +3,13 @@ local M = {
     dependencies = {
         'ggandor/leap.nvim',
         opts = {
-            highlight_unlabeled_phase_one_targets = true,
-        },
+            special_keys = {
+                next_target = '<enter>',
+                prev_target = '<s-enter>',
+                next_group = '<space>',
+                prev_group = '<s-space>',
+            }
+        }
     },
 }
 

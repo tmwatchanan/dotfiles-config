@@ -549,8 +549,7 @@ M.config = function()
 
         local flit_highlight = {
             LeapBackdrop = { fg = c.base03, bg = c.none },
-            LeapLabelPrimary = { fg = 'cyan', bold = true, nocombine = true },
-            LeapLabelSecondary = { fg = M.colorset.purple, bold = true, nocombine = true },
+            LeapLabel = { fg = M.colorset.purple, bold = true, nocombine = true },
             LeapMatch = { fg = 'white', bold = true, nocombine = true },
         }
 
