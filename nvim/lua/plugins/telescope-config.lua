@@ -91,13 +91,11 @@ M.opts = function()
                     [telescope_keymap.action_send_to_qflist] = mappings_action.send_to_qflist,
                     [telescope_keymap.action_select_all] = mappings_action.select_all,
                     [telescope_keymap.action_focus_preview] = mappings_action.focus_preview,
-                    [telescope_keymap.action_toggle_selection] = telescope_actions.toggle_selection + telescope_actions.move_selection_worse,
                 },
                 i = {
                     [telescope_keymap.action_send_to_qflist] = mappings_action.send_to_qflist,
                     [telescope_keymap.action_select_all] = mappings_action.select_all,
                     [telescope_keymap.action_focus_preview] = mappings_action.focus_preview,
-                    [telescope_keymap.action_toggle_selection] = telescope_actions.toggle_selection + telescope_actions.move_selection_worse,
                 }
             },
             sorting_strategy = 'ascending',

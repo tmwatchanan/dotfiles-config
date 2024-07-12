@@ -148,8 +148,7 @@ keymaps.telescope = {
     help_tags               = '<leader>?',
     action_send_to_qflist   = '<m-q>',
     action_select_all       = '<m-a>',
-    action_toggle_selection = '<m-m>',
-    action_focus_preview    = '<tab>',
+    action_focus_preview    = '<m-space>',
 }
 
 -- INFO: Todocomments keymap
