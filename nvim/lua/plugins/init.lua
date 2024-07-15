@@ -67,7 +67,7 @@ return {
         config = true,
     },
     {
-        'oxy2dev/markview.nvim',
+        'MeanderingProgrammer/markdown.nvim',
         dependencies = { 'nvim-treesitter', 'nvim-web-devicons' },
         ft = 'markdown',
         config = true,
