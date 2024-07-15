@@ -6,6 +6,8 @@ gui:
         selectedLineBgColor:
             - '#393939'
     border: 'hidden'
+    expandFocusedSidePanel: true
+    expandedSidePanelWeight: 2
 git:
     paging:
         colorArg: always
