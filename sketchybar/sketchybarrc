@@ -61,7 +61,7 @@ done
 front_app=(
   display=active
   icon.background.drawing=on
-  icon.background.image.scale=0.8
+  icon.background.image.scale=0.75
   label.font="$FONT_FACE:Bold:12.0"
   label.padding_left=8
   script="$PLUGIN_DIR/front_app.sh"
@@ -84,8 +84,8 @@ weather=(
 )
 media_info=(
     icon.background.image=media.artwork
-    icon.background.image.scale=0.8
-    icon.background.image.corner_radius=8
+    icon.background.image.scale=0.6
+    icon.background.image.corner_radius=4
     label.padding_left=8
     label.max_chars=30
     scroll_texts=yes
