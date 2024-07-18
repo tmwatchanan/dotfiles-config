@@ -83,14 +83,6 @@ sketchybar --add event window_focus                     \
            --subscribe front_app front_app_switched
 
 # INFO: center bar components
-aqi=(
-    background.padding_right=4
-    icon=󰵃
-    icon.font="$FONT_FACE:Bold:16.0"
-    drawing=off
-    update_freq=1800
-    script="$PLUGIN_DIR/aqi.sh"
-)
 weather=(
     background.padding_right=4
     icon=
@@ -101,8 +93,8 @@ weather=(
 )
 media_info=(
     icon.background.image=media.artwork
-    icon.background.image.scale=0.8
-    icon.background.image.corner_radius=8
+    icon.background.image.scale=0.6
+    icon.background.image.corner_radius=4
     label.padding_left=8
     label.max_chars=15
     scroll_texts=yes

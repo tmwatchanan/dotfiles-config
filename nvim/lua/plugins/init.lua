@@ -106,7 +106,7 @@ return {
     },
     {
         'MeanderingProgrammer/markdown.nvim',
-        dependencies = 'nvim-treesitter',
+        dependencies = { 'nvim-treesitter', 'nvim-web-devicons' },
         ft = 'markdown',
         config = true,
     },
