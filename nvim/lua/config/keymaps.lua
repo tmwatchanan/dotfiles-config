@@ -227,7 +227,6 @@ keymaps.treesitter = {
             ['<leader>pc'] = '@class.outer',
         },
         various_textobjs = {
-            multi_commented_lines = 'm',
             delete_surrounding_indentation = 'dsi',
         },
     }

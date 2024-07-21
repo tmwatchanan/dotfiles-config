@@ -49,7 +49,6 @@ local various_textobjs_module = {
         useDefaultKeymaps = true,
         disabledKeymaps = {
             'r',  -- restOfParagraph
-            'gc', -- multiCommentedLines
         },
     },
 }
@@ -76,8 +75,7 @@ end
 various_textobjs_module.keys = function()
     local keymaps = require('config.keymaps').treesitter.textobjects.various_textobjs
     return {
-        { mode = { 'o', 'x' }, keymaps.multi_commented_lines,          '<cmd>lua require("various-textobjs").multiCommentedLines()<CR>' }, -- NOTE: `gc` conflicts with comment.nvim
-        { mode = 'n',          keymaps.delete_surrounding_indentation, function() delete_surrounding_indentation() end },
+        { mode = 'n', keymaps.delete_surrounding_indentation, function() delete_surrounding_indentation() end },
     }
 end
 
