@@ -1,7 +1,6 @@
 local M = {
     'folke/flash.nvim',
     event = 'VeryLazy',
-    dev = true,
 }
 
 M.opts = {

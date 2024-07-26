@@ -7,9 +7,10 @@ M.init = function()
     local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal' }
     local ignore_extension_filetypes = { 'undotree', 'neotest-summary' }
     local dapui_filetypes = { 'dapui_breakpoints', 'dap-repl', 'dapui_console', 'dapui_scopes', 'dapui_watches', 'dapui_stacks' }
-    local filetype_widths = {
-        ['undotree'] = 40,
-        ['neotest-summary'] = 40,
+    local filetype_sizes = {
+        ['undotree'] = { width = 40 },
+        ['neotest-summary'] = { width = 40 },
+        ['neotest-output-panel'] = { height = 15 },
     }
     local ignore_filetypes = vim.tbl_extend('keep', ignore_extension_filetypes, dapui_filetypes)
 
@@ -19,30 +20,34 @@ M.init = function()
         callback = function()
             if vim.tbl_contains(ignore_buftypes, vim.bo.buftype) then
                 vim.w.focus_disable = true
-            else
-                vim.w.focus_disable = false
+            -- else
+            --     vim.w.focus_disable = false
             end
         end,
         desc = 'Disable focus autoresize for BufType',
     })
-    local fixed_width_augroup = vim.api.nvim_create_augroup('FocusFixedWidth', { clear = true })
     vim.api.nvim_create_autocmd('FileType', {
-        group = fixed_width_augroup,
+        group = augroup,
         callback = function()
             if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
                 local focus_keymaps = require('config.keymaps').focus
-                vim.keymap.set('n', focus_keymaps.split_left, '<C-w><C-h>', { buffer = true, desc = "focus left" })
-                vim.keymap.set('n', focus_keymaps.split_right, '<C-w><C-l>', { buffer = true, desc = "focus right" })
-                vim.keymap.set('n', focus_keymaps.split_up, '<C-w><C-k>', { buffer = true, desc = "focus up" })
-                vim.keymap.set('n', focus_keymaps.split_down, '<C-w><C-j>', { buffer = true, desc = "focus down" })
-                vim.w.focus_disable = true
-            else
-                vim.w.focus_disable = false
+                vim.keymap.set('n', focus_keymaps.split_left, '<C-w><C-h>', { buffer = true, desc = 'focus left' })
+                vim.keymap.set('n', focus_keymaps.split_right, '<C-w><C-l>', { buffer = true, desc = 'focus right' })
+                vim.keymap.set('n', focus_keymaps.split_up, '<C-w><C-k>', { buffer = true, desc = 'focus up' })
+                vim.keymap.set('n', focus_keymaps.split_down, '<C-w><C-j>', { buffer = true, desc = 'focus down' })
+                vim.b.focus_disable = true
+            -- else
+            --     vim.b.focus_disable = false
             end
 
-            local width = filetype_widths[vim.bo.filetype]
-            if width then
-                vim.api.nvim_win_set_width(0, width)
+            local size = filetype_sizes[vim.bo.filetype]
+            if size then
+                if size.width then
+                    vim.api.nvim_win_set_width(0, size.width)
+                end
+                if size.height then
+                    vim.api.nvim_win_set_height(0, size.height)
+                end
                 vim.b.focus_disable = true
             end
         end,
