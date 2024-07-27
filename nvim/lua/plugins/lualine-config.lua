@@ -9,7 +9,6 @@ local M = {
 }
 
 M.opts = function()
-    local colors = require('plugins.colorscheme').colorset
     local icons = require('config').defaults.icons
 
     local conditions = {
@@ -154,8 +153,8 @@ M.opts = function()
 
     return {
         options = {
+            theme = require('plugins.colorscheme').lualine(),
             icons_enabled = true,
-            theme = colors.lualine,
             section_separators = '',
             component_separators = '',
             always_divide_middle = true,

@@ -108,7 +108,9 @@ return {
         'MeanderingProgrammer/markdown.nvim',
         dependencies = { 'nvim-treesitter', 'nvim-web-devicons' },
         ft = 'markdown',
-        config = true,
+        opts = {
+            code = { left_pad = 2, border = 'thick' }
+        }
     },
     {
         'letieu/jot.lua',

@@ -15,7 +15,7 @@ opt.undolevels     = 5000
 opt.title          = true
 opt.mouse          = 'a'
 opt.shell          = 'fish'
-opt.clipboard      = 'unnamedplus'
+opt.clipboard      = vim.env.SSH_TTY and '' or 'unnamedplus'
 
 opt.sessionoptions = { 'buffers', 'curdir', 'winsize', 'folds', 'terminal' }
 opt.wildignore     = '**/node_module/*, **/.pio/*, **/.git/*'
