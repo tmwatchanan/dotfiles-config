@@ -28,7 +28,7 @@ M.opts = {
         max_line_len = 200,              -- ignore lines longer than this
         exclude = {},                    -- list of file types to exclude highlighting
     },
-    colors = require('plugins.colorscheme').colorset.todocomments,
+    colors = require('plugins.colorscheme.colorset').todocomments,
     search = {
         command = 'rg',
         args = {
