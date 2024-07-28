@@ -48,26 +48,28 @@ local various_textobjs_module = {
     opts = {
         useDefaultKeymaps = true,
         disabledKeymaps = {
-            'r',  -- restOfParagraph
+            'r', -- restOfParagraph
+            'av', -- value outer
+            'iv', -- value inner
         },
     },
 }
 
 local function delete_surrounding_indentation()
-    -- select inner indentation
-    require('various-textobjs').indentation(true, true)
+    -- select outer indentation
+    require('various-textobjs').indentation('outer', 'outer')
 
     -- plugin only switches to visual mode when a textobj has been found
-    local notOnIndentedLine = vim.fn.mode():find('V') == nil
-    if notOnIndentedLine then return end
+    local indentationFound = vim.fn.mode():find('V')
+    if not indentationFound then return end
 
     -- dedent indentation
     vim.cmd.normal { '<', bang = true }
 
     -- delete surrounding lines
-    local endBorderLn = vim.api.nvim_buf_get_mark(0, '>')[1] + 1
-    local startBorderLn = vim.api.nvim_buf_get_mark(0, '<')[1] - 1
-    vim.cmd(tostring(endBorderLn) .. ' delete') -- delete end first so line index is not shifted
+    local endBorderLn = vim.api.nvim_buf_get_mark(0, '>')[1]
+    local startBorderLn = vim.api.nvim_buf_get_mark(0, '<')[1]
+    vim.cmd(tostring(endBorderLn) .. ' delete')     -- delete end first so line index is not shifted
     vim.cmd(tostring(startBorderLn) .. ' delete')
 end
 
@@ -76,6 +78,8 @@ various_textobjs_module.keys = function()
     local keymaps = require('config.keymaps').treesitter.textobjects.various_textobjs
     return {
         { mode = 'n', keymaps.delete_surrounding_indentation, function() delete_surrounding_indentation() end },
+        { mode = {'o', 'x'}, keymaps.value_outer, '<cmd>lua require("various-textobjs").value("outer")<CR>' },
+        { mode = {'o', 'x'}, keymaps.value_inner, '<cmd>lua require("various-textobjs").value("inner")<CR>' },
     }
 end
 

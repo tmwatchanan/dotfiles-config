@@ -173,6 +173,15 @@ keymaps.treesitter = {
         node_decremental = '<S-Tab>',
     },
     textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                -- lua textobjects
+                ['il'] = '@local_variable_declaration',
+                ['iv'] = '@field_value',
+            },
+        },
         move = {
             enable = true,
             goto_next_start = {
@@ -228,6 +237,8 @@ keymaps.treesitter = {
         },
         various_textobjs = {
             delete_surrounding_indentation = 'dsi',
+            value_outer = 'aV',
+            value_inner = 'iV',
         },
     }
 }

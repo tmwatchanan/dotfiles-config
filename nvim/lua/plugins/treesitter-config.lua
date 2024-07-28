@@ -67,6 +67,7 @@ M.opts = function()
             keymaps = keymaps.incremental_selection,
         },
         textobjects = {
+            select = keymaps.textobjects.select,
             move = keymaps.textobjects.move,
             swap = keymaps.textobjects.swap,
             lsp_interop = {
