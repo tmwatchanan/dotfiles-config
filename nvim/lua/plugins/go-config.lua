@@ -11,6 +11,7 @@ local M = {
 }
 
 M.opts = {
+    diagnostic = false, -- disable `vim.diagnostic` as it's already done in `lsp-config.lua`
     lsp_cfg = true,
     test_runner = 'go',
     trouble = true,

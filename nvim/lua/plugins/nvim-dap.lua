@@ -54,7 +54,7 @@ dap_module.keys = function()
 end
 
 local function setup_dap_signs()
-    local colors = require('plugins.colorscheme').colorset
+    local colors = require('plugins.colorscheme.colorset').colors
     vim.api.nvim_set_hl(0, 'DapBreakpoint', { fg = colors.red })
     vim.api.nvim_set_hl(0, 'DapLogPoint', { fg = colors.info })
     vim.api.nvim_set_hl(0, 'DapStopped', { fg = colors.red })

@@ -1,16 +1,16 @@
 local M = {
-    'nyoom-engineering/oxocarbon.nvim',
+    'rebelot/kanagawa.nvim',
     name = 'nvim-colorscheme',
     lazy = false,
     priority = 1000,
 }
 
 M.config = function()
-    require('plugins.colorscheme.oxocarbon-config').setup()
+    require('plugins.colorscheme.kanagawa-config').setup()
 end
 
 M.lualine = function ()
-   return require('plugins.colorscheme.oxocarbon-config').lualine() or 'auto'
+   return require('plugins.colorscheme.kanagawa-config').lualine() or 'auto'
 end
 
 return M

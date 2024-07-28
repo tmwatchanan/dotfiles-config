@@ -37,7 +37,7 @@ lsp_setup_module.init = function()
     local diagnostic_config = {
         update_in_insert = false,
         severity_sort = true,
-        virtual_text = true,
+        virtual_text = false,
         signs = {
             text = { diagnostic_icons.error, diagnostic_icons.warn, diagnostic_icons.info, diagnostic_icons.hint },
         }
@@ -187,20 +187,7 @@ diagflow_module.opts = {
         info = 'DiagnosticInfo',
         hint = 'DiagnosticHint',
     },
-    show_sign = true,
 }
-
-diagflow_module.config = function(_, opts)
-    if opts.show_sign then
-        local icons = require('config').defaults.icons.diagnostics
-        for type, icon in pairs(icons) do
-            local name = ('DiagnosticSign%s'):format(type)
-            vim.fn.sign_define(name, { text = icon, texthl = name, numhl = name })
-        end
-    end
-
-    require('diagflow').setup(opts)
-end
 
 -- ----------------------------------------------------------------------
 -- INFO: formatter

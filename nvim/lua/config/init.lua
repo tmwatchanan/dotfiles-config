@@ -5,10 +5,10 @@ local M = {
 M.defaults = {
     icons = {
         diagnostics = {
-            Error = ' ',
-            Warn = ' ',
-            Info = ' ',
-            Hint = ' ',
+            error = ' ',
+            warn = ' ',
+            info = ' ',
+            hint = ' ',
         },
         git = {
             added = ' ',

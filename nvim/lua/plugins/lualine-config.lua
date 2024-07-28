@@ -134,7 +134,7 @@ M.opts = function()
     local swenv = {
         'swenv',
         icon = '󰌠',
-        color = { fg = require('plugins.colorscheme').colorset.cyan },
+        color = { fg = require('plugins.colorscheme.colorset').colors.cyan },
         cond = conditions.is_python_file,
     }
 
@@ -157,7 +157,7 @@ M.opts = function()
             icons_enabled = true,
             section_separators = '',
             component_separators = '',
-            always_divide_middle = true,
+            always_divide_middle = false,
         },
         sections = {
             lualine_a = { mode },
