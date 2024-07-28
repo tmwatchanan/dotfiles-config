@@ -9,8 +9,10 @@ M.setup = function()
         vim.opt.background = 'dark'
         vim.cmd.colorscheme 'kanagawa'
 
-        local colors = require("kanagawa.colors").setup()
+        local colors = require('kanagawa.colors').setup()
         local palette = colors.palette
+        local theme = require('kanagawa.colors').setup().theme
+
 
         local overrided_highlights = {}
 
@@ -56,11 +58,17 @@ M.setup = function()
             -- MarkVirtTextHL = { fg = colorset.bright_blue, bg = colorset.transparent, nocombine = true },
         }
 
+        local matchup_highlight = {
+            MatchParen = { fg = theme.ui.bg, bg = theme.syn.regex },
+        }
+
         overrided_highlights = utils.merge(overrided_highlights, {
             NormalNC = { bg = colorset.transparent }, -- transparent for terminal
             -- NormalFloat = { bg = colorset.transparent },
             WinSeparator = { fg = palette.springViolet1, bg = colorset.transparent },
             LspReferenceWrite = { underline = false }, -- cursor hover
+            -- NavicText = { fg = theme.ui.fg, bg = theme.ui.bg },
+            -- NavicSeparator = { fg = theme.ui.fg, bg = theme.ui.bg },
         })
         overrided_highlights = utils.merge(overrided_highlights, telescope_highlight)
         overrided_highlights = utils.merge(overrided_highlights, incline_highlight)
@@ -69,6 +77,7 @@ M.setup = function()
         overrided_highlights = utils.merge(overrided_highlights, treesitter_context_highlight)
         overrided_highlights = utils.merge(overrided_highlights, hlslens_highlight)
         overrided_highlights = utils.merge(overrided_highlights, marks_highlight)
+        overrided_highlights = utils.merge(overrided_highlights, matchup_highlight)
 
         for hl_name, hl_value in pairs(overrided_highlights) do
             vim.api.nvim_set_hl(0, hl_name, hl_value)
@@ -102,45 +111,46 @@ M.lualine = function()
     end
 
     local colorset = require('plugins.colorscheme.colorset').colors
-    local theme = require("kanagawa.colors").setup().theme
+    local theme = require('kanagawa.colors').setup().theme
 
     local kanagawa = {}
 
     kanagawa.normal = {
-        a = { bg = theme.syn.fun, fg = theme.ui.bg_m3 },
-        b = { bg = theme.diff.change, fg = theme.syn.fun },
+        a = { bg = theme.ui.bg, fg = theme.syn.fun },
+        b = { bg = colorset.transparent, fg = theme.syn.fun },
         c = { bg = colorset.transparent, fg = theme.ui.fg },
     }
 
     kanagawa.insert = {
-        a = { bg = theme.diag.ok, fg = theme.ui.bg },
-        b = { bg = theme.ui.bg, fg = theme.diag.ok },
+        a = { bg = theme.ui.bg, fg = theme.diag.ok },
+        b = { bg = colorset.transparent, fg = theme.diag.ok },
+        c = { bg = colorset.transparent },
     }
 
     kanagawa.command = {
-        a = { bg = theme.syn.operator, fg = theme.ui.bg },
-        b = { bg = theme.ui.bg, fg = theme.syn.operator },
+        a = { bg = theme.ui.bg, fg = theme.syn.operator },
+        b = { bg = colorset.transparent, fg = theme.syn.operator },
     }
 
     kanagawa.visual = {
-        a = { bg = theme.syn.keyword, fg = theme.ui.bg },
-        b = { bg = theme.ui.bg, fg = theme.syn.keyword },
+        a = { bg = theme.ui.bg, fg = theme.syn.keyword },
+        b = { bg = colorset.transparent, fg = theme.syn.keyword },
     }
 
     kanagawa.replace = {
-        a = { bg = theme.syn.constant, fg = theme.ui.bg },
-        b = { bg = theme.ui.bg, fg = theme.syn.constant },
+        a = { bg = theme.ui.bg, fg = theme.syn.constant },
+        b = { bg = colorset.transparent, fg = theme.syn.constant },
     }
 
     kanagawa.inactive = {
-        a = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-        b = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim, gui = "bold" },
+        a = { bg = theme.ui.bg, fg = theme.ui.bg_m3 },
+        b = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim, gui = 'bold' },
         c = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
     }
 
     if vim.g.kanagawa_lualine_bold then
         for _, mode in pairs(kanagawa) do
-            mode.a.gui = "bold"
+            mode.a.gui = 'bold'
         end
     end
 

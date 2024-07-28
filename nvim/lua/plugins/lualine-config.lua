@@ -62,7 +62,7 @@ M.opts = function()
             separator = icons.lualine.navic_separator,
             highlight = true,
         },
-        padding = { right = 0 }
+        padding = { right = 0 },
     }
 
     -- local filetype = {
@@ -146,7 +146,7 @@ M.opts = function()
         function()
             local cur_buf = vim.api.nvim_get_current_buf()
             local _, pinned = pcall(require('hbac.state').is_pinned, cur_buf)
-            return pinned and '  pinned buffer' or ''
+            return pinned and ' ' or ''
         end,
         color = { fg = '#ef5f6b', gui = 'bold' },
     }
