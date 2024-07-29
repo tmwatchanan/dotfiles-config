@@ -25,10 +25,10 @@ cmd + shift - j : yabai -m display --focus next || yabai -m display --focus firs
 cmd + shift - k : yabai -m display --focus prev || yabai -m display --focus last
 
 # Window + Display directional navigation
-cmd + ctrl - h : yabai -m window --focus west || yabai -m display --focus west
-cmd + ctrl - j : yabai -m window --focus south || yabai -m display --focus south
-cmd + ctrl - k : yabai -m window --focus north || yabai -m display --focus north
-cmd + ctrl - l : yabai -m window --focus east || yabai -m display --focus east
+ctrl + lalt - h : yabai -m window --focus west || yabai -m display --focus west
+ctrl + lalt - j : yabai -m window --focus south || yabai -m display --focus south
+ctrl + lalt - k : yabai -m window --focus north || yabai -m display --focus north
+ctrl + lalt - l : yabai -m window --focus east || yabai -m display --focus east
 
 # Moving windows between spaces: alt - {1, 2, 3, 4} (Assumes 4 Spaces Max per Display)
 # alt - 1 : set -l SPACES (yabai -m query --displays --display | jq '.spaces[]') && [ -n $SPACES[1] ] \
