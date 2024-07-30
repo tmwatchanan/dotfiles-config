@@ -1,16 +1,20 @@
+local utils = require('config.fn-utils')
 local M = {
-    'nyoom-engineering/oxocarbon.nvim',
     name = 'nvim-colorscheme',
     lazy = false,
     priority = 1000,
 }
 
-M.config = function()
-    require('plugins.colorscheme.oxocarbon-config').setup()
-end
+-- INFO: oxocarbon colorscheme
+local oxocarbon = require('plugins.colorscheme.oxocarbon-config')
+M = utils.merge(M, oxocarbon.info)
+M.config = oxocarbon.setup
+M.lualine = oxocarbon.lualine
 
-M.lualine = function ()
-   return require('plugins.colorscheme.oxocarbon-config').lualine() or 'auto'
-end
+-- INFO: flow colorscheme
+-- local flow = require('plugins.colorscheme.flow-config')
+-- M = utils.merge(M, flow.info)
+-- M.config = flow.setup
+-- M.lualine = flow.lualine
 
 return M
