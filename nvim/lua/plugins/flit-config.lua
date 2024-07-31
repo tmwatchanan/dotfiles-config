@@ -1,16 +1,6 @@
 local M = {
     'ggandor/flit.nvim',
-    dependencies = {
-        'ggandor/leap.nvim',
-        opts = {
-            special_keys = {
-                next_target = '<enter>',
-                prev_target = '<s-enter>',
-                next_group = '<space>',
-                prev_group = '<s-space>',
-            }
-        }
-    },
+    dependencies = 'ggandor/leap.nvim',
 }
 
 M.opts = {
