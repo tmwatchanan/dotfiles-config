@@ -86,6 +86,7 @@ alias tma "tmux attach-session || tmux new -s default"
 alias tmd "tmux detach"
 alias cat "bat"
 alias kssh "kitty +kitten ssh"
+alias ssh "TERM=xterm-256color exec ssh"
 
 pyenv init - | source
 starship init fish | source
