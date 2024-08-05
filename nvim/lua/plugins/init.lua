@@ -67,7 +67,7 @@ return {
         config = true,
     },
     {
-        'MeanderingProgrammer/markdown.nvim',
+        'MeanderingProgrammer/render-markdown.nvim',
         dependencies = { 'nvim-treesitter', 'nvim-web-devicons' },
         ft = 'markdown',
         opts = {
