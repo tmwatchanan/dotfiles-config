@@ -5,16 +5,10 @@ local M = {
     priority = 1000,
 }
 
--- INFO: oxocarbon colorscheme
-local oxocarbon = require('plugins.colorscheme.oxocarbon-config')
-M = utils.merge(M, oxocarbon.info)
-M.config = oxocarbon.setup
-M.lualine = oxocarbon.lualine
-
--- INFO: flow colorscheme
--- local flow = require('plugins.colorscheme.flow-config')
--- M = utils.merge(M, flow.info)
--- M.config = flow.setup
--- M.lualine = flow.lualine
+-- INFO: selection colorscheme
+local theme = require('plugins.colorscheme.oxocarbon-config')
+M = utils.merge(M, theme.info)
+M.config = theme.setup
+M.lualine = theme.lualine
 
 return M
