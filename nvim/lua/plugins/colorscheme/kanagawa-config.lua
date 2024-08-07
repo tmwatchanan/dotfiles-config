@@ -46,7 +46,7 @@ M.setup = function()
         }
 
         local treesitter_context_highlight = {
-            TreesitterContext = { bg = 'none', bold = true },
+            TreesitterContext = { bg = colorset.transparent, bold = true },
         }
 
         local hlslens_highlight = {
@@ -59,11 +59,11 @@ M.setup = function()
         }
 
         local matchup_highlight = {
-            MatchParen = { fg = theme.ui.bg, bg = theme.syn.regex },
+            MatchParen = { fg = colorset.transparent, bg = palette.sumiInk4 },
         }
 
         overrided_highlights = utils.merge(overrided_highlights, {
-            NormalNC = { bg = colorset.transparent }, -- transparent for terminal
+            NormalNC = { bg = colorset.transparent }, -- transparent for terminal emulator
             -- NormalFloat = { bg = colorset.transparent },
             WinSeparator = { fg = palette.springViolet1, bg = colorset.transparent },
             LspReferenceWrite = { underline = false }, -- cursor hover
@@ -117,29 +117,29 @@ M.lualine = function()
 
     kanagawa.normal = {
         a = { bg = theme.ui.bg, fg = theme.syn.fun },
-        b = { bg = colorset.transparent, fg = theme.syn.fun },
+        b = { bg = colorset.transparent, fg = theme.ui.fg },
         c = { bg = colorset.transparent, fg = theme.ui.fg },
     }
 
     kanagawa.insert = {
         a = { bg = theme.ui.bg, fg = theme.diag.ok },
-        b = { bg = colorset.transparent, fg = theme.diag.ok },
+        b = { bg = colorset.transparent, fg = theme.ui.fg },
         c = { bg = colorset.transparent },
     }
 
     kanagawa.command = {
         a = { bg = theme.ui.bg, fg = theme.syn.operator },
-        b = { bg = colorset.transparent, fg = theme.syn.operator },
+        b = { bg = colorset.transparent, fg = theme.ui.fg },
     }
 
     kanagawa.visual = {
         a = { bg = theme.ui.bg, fg = theme.syn.keyword },
-        b = { bg = colorset.transparent, fg = theme.syn.keyword },
+        b = { bg = colorset.transparent, fg = theme.ui.fg },
     }
 
     kanagawa.replace = {
         a = { bg = theme.ui.bg, fg = theme.syn.constant },
-        b = { bg = colorset.transparent, fg = theme.syn.constant },
+        b = { bg = colorset.transparent, fg = theme.ui.fg },
     }
 
     kanagawa.inactive = {
