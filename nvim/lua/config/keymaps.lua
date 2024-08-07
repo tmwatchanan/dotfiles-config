@@ -369,8 +369,8 @@ keymaps.bufremove = {
 keymaps.move = {
     move_up    = '<M-K>',
     move_down  = '<M-J>',
-    move_left  = '<',
-    move_right = '>',
+    move_left  = '<M-H>',
+    move_right = '<M-L>',
 }
 
 -- INFO: search-replace keymap
