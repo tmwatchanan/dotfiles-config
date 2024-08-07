@@ -17,8 +17,8 @@ shift + lalt - 6 : yabai -m window --space 6; sketchybar --trigger windows_on_sp
 
 
 # Window cyclic navigation
-cmd - j : yabai -m window --focus $(yabai -m query --windows --space | jq 'sort_by(.id) | .[(to_entries | .[] | select(.value."has-focus") | .key + 1) % length] | .id')
-cmd - k : yabai -m window --focus $(yabai -m query --windows --space | jq 'sort_by(.id) | .[(to_entries | .[] | select(.value."has-focus") | .key - 1) % length] | .id')
+# cmd - j : yabai -m window --focus $(yabai -m query --windows --space | jq 'sort_by(.id) | .[(to_entries | .[] | select(.value."has-focus") | .key + 1) % length] | .id')
+# cmd - k : yabai -m window --focus $(yabai -m query --windows --space | jq 'sort_by(.id) | .[(to_entries | .[] | select(.value."has-focus") | .key - 1) % length] | .id')
 
 # Display cyclic navigation
 cmd + shift - j : yabai -m display --focus next || yabai -m display --focus first
