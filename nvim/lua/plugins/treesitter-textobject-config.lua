@@ -14,25 +14,32 @@ local mini_ai_module = {
 
 mini_ai_module.opts = function()
     local ai = require('mini.ai')
+    local spec_treesitter = ai.gen_spec.treesitter
 
     return {
         n_lines = 500,
         search_method = 'cover_or_nearest',
         custom_textobjects = {
-            o = ai.gen_spec.treesitter({
-                a = { '@block.outer', '@conditional.outer', '@loop.outer' },
-                i = { '@block.inner', '@conditional.inner', '@loop.inner' },
+            o = spec_treesitter({
+                a = { '@block.outer', '@assignment.outer' },
+                i = { '@block.inner', '@assignment.inner' },
             }),
-            r = ai.gen_spec.treesitter({ a = '@return.outer', i = '@return.inner' }),
-            m = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
-            u = ai.gen_spec.treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
-            y = ai.gen_spec.treesitter({ a = '@loop.outer', i = '@loop.inner' }),
-            c = ai.gen_spec.treesitter({ a = '@comment.outer', i = '@comment.inner' }),
-            C = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
-            e = ai.gen_spec.treesitter({ a = '@assignment.outer', i = '@assignment.inner' }),
-            ['='] = ai.gen_spec.treesitter({ a = '@assignment.lhs', i = '@assignment.rhs' }),
-            x = ai.gen_spec.treesitter({ a = '@call.outer', i = '@call.inner' }),
-            d = ai.gen_spec.treesitter({ a = '@number.inner', i = '@number.inner' }),
+            f = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
+            x = spec_treesitter({ a = '@call.outer', i = '@call.inner' }),
+            r = spec_treesitter({ a = '@return.outer', i = '@return.inner' }),
+            c = spec_treesitter({ a = '@comment.outer', i = '@comment.inner' }),
+            C = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),
+            ['='] = spec_treesitter({ a = '@assignment.lhs', i = '@assignment.rhs' }),
+            e = spec_treesitter({ a = '@assignment.outer', i = '@assignment.inner' }),
+            d = spec_treesitter({ a = '@number.inner', i = '@number.inner' }),
+
+            E = spec_treesitter({ a = '@local_variable_declaration', i = '@local_variable_declaration' }),
+            v = spec_treesitter({ a = '@field_value', i = '@field_value' }),
+            y = spec_treesitter({ a = '@loop.outer', i = '@loop.inner' }),
+            Y = spec_treesitter({ a = '@for_in_clause_right', i = '@for_in_clause_left' }),
+            u = spec_treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
+            U = spec_treesitter({ a = '@if_clause', i = '@comparison_operator' }),
+            t = spec_treesitter({ a = '@type', i = '@type' }),
         },
     }
 end
@@ -47,11 +54,7 @@ local various_textobjs_module = {
     lazy = false,
     opts = {
         useDefaultKeymaps = true,
-        disabledKeymaps = {
-            'r', -- restOfParagraph
-            'av', -- value outer
-            'iv', -- value inner
-        },
+        disabledKeymaps = require('config.keymaps').treesitter.textobjects.various_textobjs.disabledKeymaps,
     },
 }
 
@@ -69,7 +72,7 @@ local function delete_surrounding_indentation()
     -- delete surrounding lines
     local endBorderLn = vim.api.nvim_buf_get_mark(0, '>')[1]
     local startBorderLn = vim.api.nvim_buf_get_mark(0, '<')[1]
-    vim.cmd(tostring(endBorderLn) .. ' delete')     -- delete end first so line index is not shifted
+    vim.cmd(tostring(endBorderLn) .. ' delete') -- delete end first so line index is not shifted
     vim.cmd(tostring(startBorderLn) .. ' delete')
 end
 
@@ -77,9 +80,11 @@ end
 various_textobjs_module.keys = function()
     local keymaps = require('config.keymaps').treesitter.textobjects.various_textobjs
     return {
-        { mode = 'n', keymaps.delete_surrounding_indentation, function() delete_surrounding_indentation() end },
-        { mode = {'o', 'x'}, keymaps.value_outer, '<cmd>lua require("various-textobjs").value("outer")<CR>' },
-        { mode = {'o', 'x'}, keymaps.value_inner, '<cmd>lua require("various-textobjs").value("inner")<CR>' },
+        { mode = 'n',          keymaps.delete_surrounding_indentation, function() delete_surrounding_indentation() end },
+        { mode = { 'o', 'x' }, keymaps.value_outer,                    '<cmd>lua require("various-textobjs").value("outer")<CR>' },
+        { mode = { 'o', 'x' }, keymaps.value_inner,                    '<cmd>lua require("various-textobjs").value("inner")<CR>' },
+        { mode = { 'o', 'x' }, keymaps.pyTripleQuotes_outer,           '<cmd>lua require("various-textobjs").pyTripleQuotes("outer")<CR>' },
+        { mode = { 'o', 'x' }, keymaps.pyTripleQuotes_inner,           '<cmd>lua require("various-textobjs").pyTripleQuotes("inner")<CR>' },
     }
 end
 

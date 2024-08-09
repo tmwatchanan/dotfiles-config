@@ -127,9 +127,10 @@ keymaps.setup = function()
     -- INFO: development utility keymaps
     vim.keymap.set('n', '<leader>dpft', function() vim.print(('filetype: %s'):format(vim.bo.filetype)) end)
     vim.keymap.set('n', '<leader>dpbt', function() vim.print(('buftype: %s'):format(vim.bo.buftype)) end)
-    vim.keymap.set('n', '<leader>dpbn', function() vim.print(('buffer name: %s'):format(vim.api.nvim_buf_get_name(0))) end)
+    vim.keymap.set('n', '<leader>dpbn',
+        function() vim.print(('buffer name: %s'):format(vim.api.nvim_buf_get_name(0))) end)
     vim.keymap.set('n', '<leader>dpwd', function() vim.print(('window: %s'):format(vim.api.nvim_get_current_win())) end)
-    
+
     -- INFO: disable ScrollWheelRight and ScrollWheelLeft in normal mode
     vim.keymap.set('n', '<ScrollWheelRight>', '<Nop>', { remap = false, silent = true })
     vim.keymap.set('n', '<ScrollWheelLeft>', '<Nop>', { remap = false, silent = true })
@@ -176,11 +177,6 @@ keymaps.treesitter = {
         select = {
             enable = true,
             lookahead = true,
-            keymaps = {
-                -- lua textobjects
-                ['il'] = '@local_variable_declaration',
-                ['iv'] = '@field_value',
-            },
         },
         move = {
             enable = true,
@@ -232,13 +228,24 @@ keymaps.treesitter = {
             },
         },
         peek_definition_code = {
-            ['<leader>pK'] = '@function.outer',
-            ['<leader>pc'] = '@class.outer',
+            ['H'] = '@function.outer',
+            ['L'] = '@class.outer',
         },
         various_textobjs = {
+            disabledKeymaps = {
+                'r', -- restOfParagraph
+                'av', -- value outer
+                'iv', -- value inner
+                'ay', -- pyTripleQuotes
+                'iy', -- pyTripleQuotes
+                'ao', -- anyBracket outer
+                'io', -- anyBracket inner
+            },
             delete_surrounding_indentation = 'dsi',
             value_outer = 'aV',
             value_inner = 'iV',
+            pyTripleQuotes_outer = 'aT',
+            pyTripleQuotes_inner = 'iT',
         },
     }
 }
@@ -278,25 +285,25 @@ keymaps.gitconflict = {
 
 -- INFO: Telescope keymap
 keymaps.telescope = {
-    grep_workspace            = 'gw',
-    search_workspace_fuzzy    = '<leader>sf',
-    search_workspace_live_grep= '<leader>sg',
-    buffers                   = '<leader><tab>',
-    find_files                = '<leader>fs',
-    find_files_hidden         = '<leader>fS',
-    resume                    = '<leader>;',
-    jumplist                  = '<leader>ju',
-    oldfiles                  = '<leader>fo',
-    file_browse               = '<leader>fb',
-    help_tags                 = '<leader>?',
-    action_send_to_qflist   = '<m-q>',
-    action_select_all       = '<m-a>',
-    action_focus_preview    = '<m-space>',
-    current_buffer_fuzzy_find = 'g/',
-    keymaps                   = '<leader>km',
-    git_commits               = '<leader>fgc',
-    git_bcommits              = '<leader>fgC',
-    git_branches              = '<leader>fgb',
+    grep_workspace             = 'gw',
+    search_workspace_fuzzy     = '<leader>sf',
+    search_workspace_live_grep = '<leader>sg',
+    buffers                    = '<leader><tab>',
+    find_files                 = '<leader>fs',
+    find_files_hidden          = '<leader>fS',
+    resume                     = '<leader>;',
+    jumplist                   = '<leader>ju',
+    oldfiles                   = '<leader>fo',
+    file_browse                = '<leader>fb',
+    help_tags                  = '<leader>?',
+    action_send_to_qflist      = '<m-q>',
+    action_select_all          = '<m-a>',
+    action_focus_preview       = '<m-space>',
+    current_buffer_fuzzy_find  = 'g/',
+    keymaps                    = '<leader>km',
+    git_commits                = '<leader>fgc',
+    git_bcommits               = '<leader>fgC',
+    git_branches               = '<leader>fgb',
 }
 
 -- INFO: Todocomments keymap

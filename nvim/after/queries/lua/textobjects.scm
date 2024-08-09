@@ -6,4 +6,4 @@
 (field
   name: (identifier) @field_name
   value: (_) @field_value)
-)
+) @field
