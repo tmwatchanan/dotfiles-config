@@ -66,7 +66,7 @@ M.keys = function()
                     height = math.floor(height / 2),
                     col = math.floor(width / 4),
                     row = math.floor(height / 8),
-                    border = require('config').defaults.float_border,
+                    border = require('config').defaults.float_border or 'rounded',
                     title = ' Marks previewer '
                 })
                 vim.keymap.set('n', 'q', ':q<cr>', { buffer = pos[1] })
