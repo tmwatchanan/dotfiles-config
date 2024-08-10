@@ -1,16 +1,14 @@
+local utils = require('config.fn-utils')
 local M = {
-    'rebelot/kanagawa.nvim',
     name = 'nvim-colorscheme',
     lazy = false,
     priority = 1000,
 }
 
-M.config = function()
-    require('plugins.colorscheme.kanagawa-config').setup()
-end
-
-M.lualine = function ()
-   return require('plugins.colorscheme.kanagawa-config').lualine() or 'auto'
-end
+-- INFO: selection colorscheme
+local theme = require('plugins.colorscheme.kanagawa-config')
+M = utils.merge(M, theme.info)
+M.config = theme.setup
+M.lualine = theme.lualine
 
 return M

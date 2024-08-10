@@ -1,5 +1,7 @@
 local M = {}
 
+M.info = { 'rebelot/kanagawa.nvim' }
+
 M.setup = function()
     local kanagawa_status, kanagawa = pcall(require, 'kanagawa')
     if kanagawa_status then

@@ -1,5 +1,7 @@
 local M = {}
 
+M.info = { 'nyoom-engineering/oxocarbon.nvim' }
+
 M.setup = function()
     local oxocarbon_status, oxocarbon = pcall(require, 'oxocarbon')
     if oxocarbon_status then

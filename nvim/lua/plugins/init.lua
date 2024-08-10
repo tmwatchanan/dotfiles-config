@@ -105,11 +105,12 @@ return {
         config = true,
     },
     {
-        'MeanderingProgrammer/markdown.nvim',
+        'MeanderingProgrammer/render-markdown.nvim',
         dependencies = { 'nvim-treesitter', 'nvim-web-devicons' },
         ft = 'markdown',
         opts = {
-            code = { left_pad = 2, border = 'thick' }
+            code = { left_pad = 2, border = 'thick' },
+            pipe_table = { preset = 'round' }
         }
     },
     {

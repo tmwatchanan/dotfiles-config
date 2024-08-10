@@ -44,12 +44,12 @@ Already configured with following keybindings
 - **Window** - follow by Ctrl-key to hold
 - **Pane** - follow by lowercase-letter
 
-|| Session | Window | Pane |
-|--- | --- | --- | --- |
-|new  | `<prefix>N` | `<prefix><C-n>` | `<prefix>n` |
-|next | `<prefix>J` or `<prefix>O` | `<prefix><C-j>` or `<prefix><C-o>` | `<prefix>j` or `<prefix>o` |
-|previous | `<prefix>K` | `<prefix><C-k>` | `<prefix>k` |
-|kill | `<prefix>X` | `<prefix><C-x>` | `<prefix>x` |
+| **Actions** | Session                    | Window                             | Pane                       |
+| :---        | ---                        | ---                                | ---                        |
+| new         | `<prefix>N`                | `<prefix><C-n>`                    | `<prefix>n`                |
+| next        | `<prefix>J` or `<prefix>O` | `<prefix><C-j>` or `<prefix><C-o>` | `<prefix>j` or `<prefix>o` |
+| previous    | `<prefix>K`                | `<prefix><C-k>`                    | `<prefix>k`                |
+| kill        | `<prefix>X`                | `<prefix><C-x>`                    | `<prefix>x`                |
 
 ##### Note about tmux terminfo
 the correct way to set up tmux terminfo on macOS, we need to compile the description by using `infocmp` from latest ncurses → [Ref. Notes](https://gist.github.com/joshuarli/247018f8617e6715e1e0b5fd2d39bb6c)
