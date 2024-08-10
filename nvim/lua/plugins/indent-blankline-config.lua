@@ -33,6 +33,7 @@ M.opts = function()
                         'call',
                         'try_statement',
                         'dictionary',
+                        'with_statement',
                     },
                     lua = {
                         'function_call',
