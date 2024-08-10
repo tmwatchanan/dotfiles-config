@@ -233,7 +233,7 @@ keymaps.treesitter = {
         },
         various_textobjs = {
             disabledKeymaps = {
-                'r', -- restOfParagraph
+                'r',  -- restOfParagraph
                 'av', -- value outer
                 'iv', -- value inner
                 'ay', -- pyTripleQuotes
@@ -363,8 +363,10 @@ keymaps.noice = {
 
 -- INFO: flash keymaps
 keymaps.flash = {
-    flash            = 's',
-    flash_treesitter = 'zs',
+    flash              = 's',
+    flash_treesitter   = 'zs',
+    flash_current_word = 'cs',
+    flash_continue = 'S',
 }
 
 -- INFO: mini.bufremove keymap
