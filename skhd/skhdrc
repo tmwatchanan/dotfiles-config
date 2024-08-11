@@ -77,10 +77,10 @@ ctrl + lalt - p : yabai -m window --toggle sticky --toggle topmost; sketchybar -
 ctrl + lalt - space : yabai -m window --toggle float; sketchybar --trigger window_focus
 
 # Make window zoom to fullscreen: ctrl + lalt + enter
-ctrl + lalt - 0x24 : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
+ctrl + lalt - 0x24 : yabai -m window --toggle windowed-fullscreen; sketchybar --trigger window_focus
 
 # Make window zoom to parent node
-ctrl + lalt + shift - 0x24 : yabai -m window --toggle zoom-parent; sketchybar --trigger window_focus
+ctrl + lalt + shift - 0x24 : yabai -m window --toggle zoom-fullscreen; sketchybar --trigger window_focus
 
 # Toggle split orientation of the selected windows node: ctrl + lalt - s
 ctrl + lalt - s : yabai -m window --toggle split
