@@ -67,12 +67,11 @@ return {
         config = true,
     },
     {
-        'MeanderingProgrammer/render-markdown.nvim',
+        'OXY2DEV/markview.nvim',
         dependencies = { 'nvim-treesitter', 'nvim-web-devicons' },
         ft = 'markdown',
         opts = {
-            code = { left_pad = 2, border = 'thick' },
-            pipe_table = { preset = 'round' }
+            list_items = { shift_width = 2, indent_size = 2 }
         }
     },
     {
