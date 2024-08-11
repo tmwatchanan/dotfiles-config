@@ -106,7 +106,7 @@ keymaps.setup = function()
     -- vim.keymap.set('n', ']]', '*', { remap = true })
     -- vim.keymap.set('n', '[[', '#', { remap = true })
 
-    -- INFO: delete a acharacter next to the cursor in INSERT mode
+    -- INFO: delete a character next to the cursor in INSERT mode
     vim.keymap.set('i', '<C-l>', '<Esc>lxi')
 
     -- INFO: search files in neovim config directory
@@ -299,11 +299,12 @@ keymaps.telescope = {
     action_send_to_qflist      = '<m-q>',
     action_select_all          = '<m-a>',
     action_focus_preview       = '<m-space>',
-    current_buffer_fuzzy_find  = 'g/',
+    current_buffer_fuzzy_find  = '<leader>/',
     keymaps                    = '<leader>km',
     git_commits                = '<leader>fgc',
     git_bcommits               = '<leader>fgC',
     git_branches               = '<leader>fgb',
+    registers                  = '<leader>fr',
 }
 
 -- INFO: Todocomments keymap
@@ -366,7 +367,7 @@ keymaps.flash = {
     flash              = 's',
     flash_treesitter   = 'zs',
     flash_current_word = 'cs',
-    flash_continue = 'S',
+    flash_continue     = 'S',
 }
 
 -- INFO: mini.bufremove keymap

@@ -246,6 +246,7 @@ M.keys = function()
         { telescope_keymap.git_commits,               '<Cmd>Telescope git_commits<CR>' },
         { telescope_keymap.git_bcommits,              '<Cmd>Telescope git_bcommits<CR>' },
         { telescope_keymap.git_branches,              '<Cmd>Telescope git_branches<CR>' },
+        { telescope_keymap.registers,                 '<Cmd>Telescope registers<CR>' },
     }
 end
 
