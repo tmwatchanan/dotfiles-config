@@ -35,6 +35,7 @@ mini_ai_module.opts = function()
 
             E = spec_treesitter({ a = '@local_variable_declaration', i = '@local_variable_declaration' }),
             v = spec_treesitter({ a = '@field_value', i = '@field_value' }),
+            F = spec_treesitter({ a = '@field', i = '@field' }),
             y = spec_treesitter({ a = '@loop.outer', i = '@loop.inner' }),
             Y = spec_treesitter({ a = '@for_in_clause_right', i = '@for_in_clause_left' }),
             u = spec_treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),

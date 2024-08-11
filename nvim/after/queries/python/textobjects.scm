@@ -6,7 +6,7 @@
   (pair
     key: (_) @field_name
     value: (_) @field_value
-  )
+  ) @field
 )
 
 (for_in_clause
