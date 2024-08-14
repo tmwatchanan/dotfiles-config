@@ -19,3 +19,18 @@
 ) @if_clause
 
 (type) @type
+
+(keyword_argument
+    name: (_) @keyword_argument_name
+    value: (_) @keyword_argument_value
+) @keyword_argument
+
+(typed_parameter
+  (identifier) @typed_parameter_identifier
+  type: (_) @typed_parameter_type
+) @typed_parameter
+
+(assignment
+    left: (_) @assignment_left
+    type: (_) @assignment_type
+) @assignment
