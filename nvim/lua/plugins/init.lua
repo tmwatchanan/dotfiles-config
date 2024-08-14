@@ -105,12 +105,11 @@ return {
         config = true,
     },
     {
-        'MeanderingProgrammer/render-markdown.nvim',
+        'OXY2DEV/markview.nvim',
         dependencies = { 'nvim-treesitter', 'nvim-web-devicons' },
         ft = 'markdown',
         opts = {
-            code = { left_pad = 2, border = 'thick' },
-            pipe_table = { preset = 'round' }
+            list_items = { shift_width = 2, indent_size = 2 }
         }
     },
     {
@@ -120,8 +119,17 @@ return {
             local win_width = math.floor(vim.o.columns * 0.8)
             local win_height = math.floor(vim.o.lines * 0.8)
 
+            local function get_file_last_modified(file_path)
+                local stat = vim.loop.fs_stat(file_path)
+                if stat then
+                    local last_modified = stat.mtime.sec
+                    return ' Updated: ' .. os.date('%d-%b-%Y %H:%M', last_modified) .. ' '
+                else
+                    return ''
+                end
+            end
+
             require('jot').config = {
-                quit_key = 'q',
                 notes_dir = vim.fn.stdpath('data') .. '/jot',
                 win_opts = {
                     relative = 'editor',
@@ -131,7 +139,7 @@ return {
                     col = math.floor((vim.o.columns - win_width) / 2) - 1,
                     border = 'rounded',
                     title = ' Project Notes - ' .. vim.uv.cwd() .. ' ',
-                    footer = ' press `q` to exit ',
+                    footer = get_file_last_modified(vim.fn.expand('%:p')),
                     footer_pos = 'right',
                 }
             }
