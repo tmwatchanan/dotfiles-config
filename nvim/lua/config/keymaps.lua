@@ -138,6 +138,11 @@ keymaps.setup = function()
     -- INFO: map Shift+ScrollWheelUp to ScrollWheelRight and Shift+ScrollWheelDown to ScrollWheelLeft in normal mode
     vim.keymap.set('n', '<S-ScrollWheelUp>', '<ScrollWheelRight>', { remap = false, silent = true })
     vim.keymap.set('n', '<S-ScrollWheelDown>', '<ScrollWheelLeft>', { remap = false, silent = true })
+
+    vim.keymap.set('n', '<leader>jf', function()
+        vim.bo.filetype = 'json'
+        vim.lsp.buf.format({ async = true })
+    end)
 end
 
 -- INFO: LSP keymap
@@ -366,8 +371,8 @@ keymaps.noice = {
 keymaps.flash = {
     flash              = 's',
     flash_treesitter   = 'zs',
-    flash_current_word = 'cs',
-    flash_continue     = 'S',
+    flash_current_word = 'S',
+    flash_continue     = '\\s',
 }
 
 -- INFO: mini.bufremove keymap
