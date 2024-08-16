@@ -1,7 +1,5 @@
 return {
-    {
-        ensure_installed = {
-            'debugpy',
-        },
-    }
+    ensure_installed = {
+        'debugpy',
+    },
 }

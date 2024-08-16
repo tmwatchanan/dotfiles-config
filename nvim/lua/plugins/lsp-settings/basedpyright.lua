@@ -5,6 +5,7 @@ return {
         },
         basedpyright = {
             typeCheckingMode = 'standard',
+            disableOrganizeImports = true,
             analysis = {
                 autoImportCompletions = true,
                 autoSearchPaths = true,
