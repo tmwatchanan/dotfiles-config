@@ -139,10 +139,14 @@ keymaps.setup = function()
     vim.keymap.set('n', '<S-ScrollWheelUp>', '<ScrollWheelRight>', { remap = false, silent = true })
     vim.keymap.set('n', '<S-ScrollWheelDown>', '<ScrollWheelLeft>', { remap = false, silent = true })
 
+    -- INFO: set JSON filetype and format
     vim.keymap.set('n', '<leader>jf', function()
         vim.bo.filetype = 'json'
         vim.lsp.buf.format({ async = true })
     end)
+
+    -- INFO: toggle window wrap
+    vim.keymap.set('n', '<leader>sw', function() vim.wo.wrap = not vim.wo.wrap end)
 end
 
 -- INFO: LSP keymap
