@@ -436,6 +436,7 @@ keymaps.codeium = {
     next     = '<M-j>',
     previous = '<M-k>',
     clear    = '<M-c>',
+    chat     = '<leader>cc',
 }
 
 -- INFO: DAP
