@@ -48,10 +48,14 @@ lalt - 6 : yabai -m space --focus 6
 
 
 # Moving windows in spaces
-ctrl + lalt + shift - h : yabai -m window --warp west || $(yabai -m window --display west && sketchybar --trigger windows_on_spaces && yabai -m display --focus west && yabai -m window --warp last) || yabai -m window --move rel:-10:0
-ctrl + lalt + shift - j : yabai -m window --warp south || $(yabai -m window --display south && sketchybar --trigger windows_on_spaces && yabai -m display --focus south) || yabai -m window --move rel:0:10
-ctrl + lalt + shift - k : yabai -m window --warp north || $(yabai -m window --display north && sketchybar --trigger windows_on_spaces && yabai -m display --focus north) || yabai -m window --move rel:0:-10
-ctrl + lalt + shift - l : yabai -m window --warp east || $(yabai -m window --display east && sketchybar --trigger windows_on_spaces && yabai -m display --focus east && yabai -m window --warp first) || yabai -m window --move rel:10:0
+ctrl + lalt + shift - h : yabai -m window --warp west || $(yabai -m window --display west && sketchybar --trigger windows_on_spaces && yabai -m display --focus west && yabai -m window --warp last)
+ctrl + lalt + shift - j : yabai -m window --warp south || $(yabai -m window --display south && sketchybar --trigger windows_on_spaces && yabai -m display --focus south)
+ctrl + lalt + shift - k : yabai -m window --warp north || $(yabai -m window --display north && sketchybar --trigger windows_on_spaces && yabai -m display --focus north)
+ctrl + lalt + shift - l : yabai -m window --warp east || $(yabai -m window --display east && sketchybar --trigger windows_on_spaces && yabai -m display --focus east && yabai -m window --warp first)
+ctrl + lalt + shift - left : yabai -m window --move rel:-50:0
+ctrl + lalt + shift - down : yabai -m window --move rel:0:50
+ctrl + lalt + shift - up : yabai -m window --move rel:0:-50
+ctrl + lalt + shift - right : yabai -m window --move rel:50:0
 
 # cycle through all windows sorted by: coordinates -> space index -> display index
 lalt - n : yabai -m window --focus "$(yabai -m query --windows | jq -re "sort_by(.display, .space, .frame.x, .frame.y, .id) | map(select(.\"is-visible\" == true and .role != \"AXUnknown\")) | reverse | nth(index(map(select(.\"has-focus\" == true))) - 1).id")"
@@ -77,8 +81,8 @@ ctrl + lalt - s : yabai -m window --toggle split
 # shift + lalt - p : yabai -m window --space prev; yabai -m space --focus prev; sketchybar --trigger windows_on_spaces
 # shift + lalt - n : yabai -m window --space next; yabai -m space --focus next; sketchybar --trigger windows_on_spaces
 
-# Mirror Space on X and Y Axis: ctrl + lalt - {-, |}
-ctrl + lalt - 0x1B : yabai -m space --mirror x-axis # -
+# Mirror Space on X and Y Axis: ctrl + lalt - {], |}
+ctrl + lalt - 0x1E : yabai -m space --mirror x-axis # ]
 ctrl + lalt - 0x2A : yabai -m space --mirror y-axis # |
 
 ## Stacks (shift + ctrl - ...)
@@ -93,11 +97,11 @@ ctrl + lalt - 0x2A : yabai -m space --mirror y-axis # |
 # shift + ctrl - p : yabai -m window --focus stack.prev
 
 ## Resize (ctrl + lalt - ...)
-# Resize windows: ctrl + lalt - {<, k, l, >}
-ctrl + lalt - 0x2B    : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
-# ctrl + lalt - j    : yabai -m window --resize bottom:0:100 || yabai -m window --resize top:0:100
-# ctrl + lalt > k    : yabai -m window --resize bottom:0:-100 || yabai -m window --resize top:0:-100
+# Resize windows: ctrl + lalt - {<, >, -, =}
+ctrl + lalt - 0x2B : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
 ctrl + lalt - 0x2F : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0
+ctrl + lalt - 0x1B : yabai -m window --resize bottom:0:-100 || yabai -m window --resize top:0:-100
+ctrl + lalt - 0x18 : yabai -m window --resize bottom:0:100 || yabai -m window --resize top:0:100
 
 # Equalize size of windows: ctrl + lalt - e
 ctrl + lalt - e : yabai -m space --balance
