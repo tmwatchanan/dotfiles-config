@@ -15,7 +15,7 @@ dap_module.config = function()
     local debuggers = require('plugins.lsp-settings.debuggers')
     require('mason-tool-installer').setup(debuggers)
     require('mason-tool-installer').check_install(false)
-    require('dap').defaults.python.exception_breakpoints = {'raised'}
+    require('dap').defaults.python.exception_breakpoints = { 'raised' }
 end
 
 dap_module.keys = function()
@@ -100,12 +100,10 @@ local dap_virtual_text_module = {
         'nvim-dap',
         'nvim-treesitter',
     },
+    opts = {},
     event = { 'VeryLazy' },
 }
 
-dap_virtual_text_module.config = function()
-    require('nvim-dap-virtual-text').setup()
-end
 
 local dap_python_module = {
     'mfussenegger/nvim-dap-python',
