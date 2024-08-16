@@ -1,15 +1,15 @@
 local mini_ai_module = {
     'echasnovski/mini.ai',
-    main = 'mini.ai',
     dependencies = {
         {
             'nvim-treesitter/nvim-treesitter-textobjects',
-            -- init = function()
-            --     -- no need to load the plugin, since we only need its queries
-            --     require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
-            -- end,
+            init = function()
+                -- no need to load the plugin, since we only need its queries
+                require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
+            end,
         },
-    }
+    },
+    event = 'VeryLazy',
 }
 
 mini_ai_module.opts = function()
@@ -17,9 +17,13 @@ mini_ai_module.opts = function()
     local spec_treesitter = ai.gen_spec.treesitter
 
     return {
-        n_lines = 500,
+        n_lines = 100,
         search_method = 'cover_or_nearest',
         custom_textobjects = {
+            -- `echasnovski/mini.nvim #366` mini.ai handles quotes worse than neovim
+            ['"'] = false,
+            ["'"] = false,
+
             o = spec_treesitter({
                 a = { '@block.outer', '@assignment.outer' },
                 i = { '@block.inner', '@assignment.inner' },
@@ -27,17 +31,18 @@ mini_ai_module.opts = function()
             f = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
             x = spec_treesitter({ a = '@call.outer', i = '@call.inner' }),
             r = spec_treesitter({ a = '@return.outer', i = '@return.inner' }),
-            c = spec_treesitter({ a = '@comment.outer', i = '@comment.inner' }),
+            c = spec_treesitter({ a = '@comment.inner', i = '@comment.outer' }),
             C = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),
             ['='] = spec_treesitter({
-                a = { '@assignment.lhs', '@keyword_argument_name' },
-                i = { '@assignment.rhs', '@keyword_argument_value' },
+                a = { '@assignment.lhs', '@keyword_argument_name', '@field_name' },
+                i = { '@assignment.rhs', '@keyword_argument_value', '@field_value' },
             }),
             e = spec_treesitter({ a = '@assignment.outer', i = '@assignment.inner' }),
             d = spec_treesitter({ a = '@number.inner', i = '@number.inner' }),
 
             E = spec_treesitter({ a = '@local_variable_declaration', i = '@local_variable_declaration' }),
             v = spec_treesitter({ a = '@field_value', i = '@field_value' }),
+            k = spec_treesitter({ a = '@field_name', i = '@field_name' }),
             F = spec_treesitter({ a = '@field', i = '@field' }),
             y = spec_treesitter({ a = '@loop.outer', i = '@loop.inner' }),
             Y = spec_treesitter({ a = '@for_in_clause_right', i = '@for_in_clause_left' }),
@@ -51,14 +56,10 @@ mini_ai_module.opts = function()
     }
 end
 
-mini_ai_module.keys = {
-    { 'a', mode = { 'x', 'o' } },
-    { 'i', mode = { 'x', 'o' } },
-}
 
 local various_textobjs_module = {
     'chrisgrieser/nvim-various-textobjs',
-    lazy = false,
+    event = 'UIEnter',
     opts = {
         useDefaultKeymaps = true,
         disabledKeymaps = require('config.keymaps').treesitter.textobjects.various_textobjs.disabledKeymaps,
@@ -90,6 +91,8 @@ various_textobjs_module.keys = function()
         { mode = 'n',          keymaps.delete_surrounding_indentation, function() delete_surrounding_indentation() end },
         { mode = { 'o', 'x' }, keymaps.value_outer,                    '<cmd>lua require("various-textobjs").value("outer")<CR>' },
         { mode = { 'o', 'x' }, keymaps.value_inner,                    '<cmd>lua require("various-textobjs").value("inner")<CR>' },
+        { mode = { 'o', 'x' }, keymaps.key_outer,                      '<cmd>lua require("various-textobjs").key("outer")<CR>' },
+        { mode = { 'o', 'x' }, keymaps.key_inner,                      '<cmd>lua require("various-textobjs").key("inner")<CR>' },
         { mode = { 'o', 'x' }, keymaps.pyTripleQuotes_outer,           '<cmd>lua require("various-textobjs").pyTripleQuotes("outer")<CR>' },
         { mode = { 'o', 'x' }, keymaps.pyTripleQuotes_inner,           '<cmd>lua require("various-textobjs").pyTripleQuotes("inner")<CR>' },
     }

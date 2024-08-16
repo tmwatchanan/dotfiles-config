@@ -222,25 +222,29 @@ keymaps.treesitter = {
         swap = {
             enable = true,
             swap_next = {
-                ['<C-s>a'] = '@parameter.inner',
-                ['<C-s>m'] = '@function.outer',
-                ['<C-s>c'] = '@class.outer',
+                ['<leader>sa'] = '@parameter.inner',
+                ['<leader>sm'] = '@function.outer',
+                ['<leader>sc'] = '@class.outer',
+                ['<leader>sf'] = '@field',
             },
             swap_previous = {
-                ['<C-s>A'] = '@parameter.inner',
-                ['<C-s>M'] = '@function.outer',
-                ['<C-s>C'] = '@class.outer',
+                ['<leader>sA'] = '@parameter.inner',
+                ['<leader>sM'] = '@function.outer',
+                ['<leader>sC'] = '@class.outer',
+                ['<leader>sf'] = '@field',
             },
         },
         peek_definition_code = {
-            ['H'] = '@function.outer',
-            ['L'] = '@class.outer',
+            ['gM'] = '@function.outer',
+            ['gC'] = '@class.outer',
         },
         various_textobjs = {
             disabledKeymaps = {
                 'r',  -- restOfParagraph
                 'av', -- value outer
                 'iv', -- value inner
+                'ak', -- key outer
+                'ik', -- key inner
                 'ay', -- pyTripleQuotes
                 'iy', -- pyTripleQuotes
                 'ao', -- anyBracket outer
@@ -249,6 +253,8 @@ keymaps.treesitter = {
             delete_surrounding_indentation = 'dsi',
             value_outer = 'aV',
             value_inner = 'iV',
+            key_outer = 'aK',
+            key_inner = 'iK',
             pyTripleQuotes_outer = 'aT',
             pyTripleQuotes_inner = 'iT',
         },
