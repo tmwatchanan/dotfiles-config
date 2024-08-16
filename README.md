@@ -8,7 +8,7 @@
 > ```
 
 ## Neovim
-<img width="2536" alt="image" src="https://github.com/MomePP/dotfiles-config/assets/13793017/8df85204-80f9-460c-8a38-081a5a7bf3a5">
+<img width="1512" alt="image" src="https://github.com/user-attachments/assets/3c865acc-d761-494e-8723-fa3d53fef634">
 
 Runs `neovim-installer.sh` script to install neovim with MomePP's configuration.
 ``` bash
