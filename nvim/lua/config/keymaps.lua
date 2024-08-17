@@ -310,7 +310,7 @@ keymaps.telescope = {
     grep_workspace             = 'gw',
     search_workspace_fuzzy     = '<leader>sf',
     search_workspace_live_grep = '<leader>sg',
-    buffers                    = '<leader><tab>',
+    buffers                    = '<leader><Tab>',
     find_files                 = '<leader>fs',
     find_files_hidden          = '<leader>fa',
     resume                     = '<leader>;',
@@ -500,11 +500,11 @@ keymaps.harpoon = {
     add_file          = '<leader><leader>`',
     nav_next          = 'L',
     nav_prev          = 'H',
-    nav_file_1        = 'm1',
-    nav_file_2        = 'm2',
-    nav_file_3        = 'm3',
-    nav_file_4        = 'm4',
-    nav_file_5        = 'm5',
+    nav_file_1        = "'1",
+    nav_file_2        = "'2",
+    nav_file_3        = "'3",
+    nav_file_4        = "'4",
+    nav_file_5        = "'5",
     go_to_terminal_1  = '<Bslash>1',
     go_to_terminal_2  = '<Bslash>2',
     go_to_terminal_3  = '<Bslash>3',
@@ -563,8 +563,8 @@ keymaps.hbac = {
 
 -- INFO: cloak keymap
 keymaps.cloak = {
-    toggle       = '<Tab><Tab>8',
-    preview_line = '<Tab>8',
+    toggle       = '<Bslash><Bslash>8',
+    preview_line = '<Bslash>8',
 }
 
 return keymaps
