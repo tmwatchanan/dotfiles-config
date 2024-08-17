@@ -146,10 +146,7 @@ keymaps.setup = function()
     end)
 
     -- INFO: toggle window wrap
-    vim.keymap.set('n', '<leader>sw', function() vim.wo.wrap = not vim.wo.wrap end)
-
-    -- INFO: focus the floating window
-    vim.keymap.set('n', 'N', '<C-w>w')
+    vim.keymap.set('n', '<leader>ww', function() vim.wo.wrap = not vim.wo.wrap end)
 end
 
 -- INFO: LSP keymap
@@ -270,6 +267,11 @@ keymaps.treesitter = {
 
 -- INFO: Lazy keymap
 keymaps.lazy = {
+    open = '<leader>L',
+}
+
+-- INFO: Mason keymap
+keymaps.mason = {
     open = '<leader>P',
 }
 
@@ -277,7 +279,7 @@ keymaps.lazy = {
 keymaps.focus = {
     toggle_enable = '<Bslash>f',
     toggle_size   = '<Bslash>F',
-    split_cycle   = '<leader><leader>',
+    split_cycle   = '<C-n>',
     split_left    = '<C-h>',
     split_right   = '<C-l>',
     split_up      = '<C-k>',
@@ -310,7 +312,7 @@ keymaps.telescope = {
     search_workspace_live_grep = '<leader>sg',
     buffers                    = '<leader><tab>',
     find_files                 = '<leader>fs',
-    find_files_hidden          = '<leader>fS',
+    find_files_hidden          = '<leader>fa',
     resume                     = '<leader>;',
     jumplist                   = '<leader>ju',
     oldfiles                   = '<leader>fo',
@@ -337,8 +339,8 @@ keymaps.todocomments = {
 -- INFO: Terminal & ToggleTerm keymap
 keymaps.toggleterm = {
     toggle = '<Bslash>t',
-    lazygit = '<leader>g',
-    lazygit_file_history = '<leader>G',
+    lazygit = '<Bslash>g',
+    lazygit_file_history = '<Bslash>G',
 }
 
 -- INFO: Marks keymap
@@ -491,18 +493,18 @@ keymaps.undotree = {
 
 -- INFO: harpoon
 keymaps.harpoon = {
-    toggle_quick_menu = '<leader>hh',
-    add_file = '<leader>ha',
-    nav_next = 'L',
-    nav_prev = 'H',
-    nav_file_1 = 'm1',
-    nav_file_2 = 'm2',
-    nav_file_3 = 'm3',
-    nav_file_4 = 'm4',
-    nav_file_5 = 'm5',
-    go_to_terminal_1 = '<Bslash>1',
-    go_to_terminal_2 = '<Bslash>2',
-    go_to_terminal_3 = '<Bslash>3',
+    toggle_quick_menu = '<leader>`',
+    add_file          = '<leader><leader>`',
+    nav_next          = 'L',
+    nav_prev          = 'H',
+    nav_file_1        = 'm1',
+    nav_file_2        = 'm2',
+    nav_file_3        = 'm3',
+    nav_file_4        = 'm4',
+    nav_file_5        = 'm5',
+    go_to_terminal_1  = '<Bslash>1',
+    go_to_terminal_2  = '<Bslash>2',
+    go_to_terminal_3  = '<Bslash>3',
 }
 
 -- INFO: flutter-tools
@@ -558,8 +560,8 @@ keymaps.hbac = {
 
 -- INFO: cloak keymap
 keymaps.cloak = {
-    toggle       = '<leader>ct',
-    preview_line = '<leader>cp',
+    toggle       = '<Tab><Tab>8',
+    preview_line = '<Tab>8',
 }
 
 return keymaps

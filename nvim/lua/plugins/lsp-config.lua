@@ -15,6 +15,14 @@ mason_module.opts = {
     },
 }
 
+mason_module.keys = {
+    {
+        require('config.keymaps').mason.open,
+        '<Cmd>Mason<CR>',
+        desc = 'Toggle terminal'
+    },
+}
+
 -- ----------------------------------------------------------------------
 -- INFO: LSP config
 --
