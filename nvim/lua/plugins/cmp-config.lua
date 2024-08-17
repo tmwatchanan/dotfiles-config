@@ -35,6 +35,25 @@ local M = {
 
         -- NOTE: misc. plugins
         'onsails/lspkind.nvim',
+
+        -- NOTE: nvim-dap
+        {
+            'rcarriga/cmp-dap',
+            config = function()
+                require("cmp").setup({
+                    enabled = function()
+                        return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= "prompt"
+                            or require("cmp_dap").is_dap_buffer()
+                    end
+                })
+
+                require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+                    sources = {
+                        { name = "dap" },
+                    },
+                })
+            end
+        },
     },
 }
 
@@ -95,26 +114,6 @@ M.opts = function()
                 fallback()
             end
         end),
-        ['<C-l>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif vim.snippet.jumpable(1) then
-                vim.schedule(function() vim.snippet.jump(1) end)
-            elseif has_word_before() then
-                cmp.complete()
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
-        ['<C-h>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif vim.snippet.jumpable(-1) then
-                vim.schedule(function() vim.snippet.jump(-1) end)
-            else
-                fallback()
-            end
-        end, { 'i', 's' }),
         ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
