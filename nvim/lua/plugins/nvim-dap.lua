@@ -119,12 +119,31 @@ local dap_python_module = {
 
 dap_python_module.config = function()
     local python_path = require('config.python').get_python_path()
-    require('dap-python').test_runner = 'pytest'
     require('dap-python').setup(python_path)
 
-    -- to launch debugger from the root of the project
-    require('dap').configurations.python[1].cwd = '${workspaceFolder}'
-    require('dap').configurations.python[2].cwd = '${workspaceFolder}'
+    -- NOTE: below might resolve the issue with frozen modules since Python 3.11
+    -- require('dap-python').resolve_python = function()
+    --     local module_flag = '-Xfrozen_modules=off'
+    --     return ('%s %s'):format(python_path, module_flag)
+    -- end
+
+    require('dap-python').test_runner = 'pytest'
+
+    local dap = require('dap')
+    local utils = require('config.fn-utils')
+    for i = 1, 2 do
+        dap.configurations.python[i] = utils.merge(
+            dap.configurations.python[i],
+            {
+                cwd = '${workspaceFolder}', -- to launch debugger from the root of the project
+                env = {
+                    -- NOTE: `pytest-cov` issue according to VS Code
+                    -- https://code.visualstudio.com/docs/python/testing#_pytest-configuration-settings
+                    ["PYTEST_ADDOPTS"] = '--no-cov',
+                },
+            }
+        )
+    end
 end
 
 return {
