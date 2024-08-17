@@ -33,6 +33,7 @@ M.opts = function()
             'lua',
             'vim',
             'vimdoc',
+            'html',
             'markdown',
             'markdown_inline',
             'bash',
