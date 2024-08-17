@@ -160,6 +160,7 @@ M.opts = function()
             json = {
                 augend.integer.alias.decimal_int,
                 augend.semver.alias.semver,
+                augend.constant.alias.bool,
             },
             lua = {
                 augend.integer.alias.decimal_int,
