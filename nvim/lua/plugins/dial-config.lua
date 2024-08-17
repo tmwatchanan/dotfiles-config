@@ -87,6 +87,15 @@ M.opts = function()
         cyclic = true,
     })
 
+    local short_us_date = augend.date.new({
+        pattern = '%b %-d, %Y',
+        default_kind = 'day',
+        -- if true, it does not match dates which does not exist, such as 2022/05/32
+        only_valid = true,
+        -- if true, it only matches dates with word boundary
+        word = false,
+    })
+
     local capitalized_boolean = augend.constant.new({
         elements = {
             'True',
@@ -146,6 +155,7 @@ M.opts = function()
             markdown = {
                 augend.misc.alias.markdown_header,
                 augend.semver.alias.semver,
+                short_us_date,
             },
             json = {
                 augend.integer.alias.decimal_int,
