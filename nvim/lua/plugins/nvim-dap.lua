@@ -1,5 +1,13 @@
 local dap_module = {
     'mfussenegger/nvim-dap',
+    dependencies = {
+        {
+            'Weissle/persistent-breakpoints.nvim',
+            opts = {
+                load_breakpoints_event = 'BufReadPost'
+            },
+        }
+    }
 }
 
 local dapui_module = {
@@ -15,22 +23,19 @@ dap_module.config = function()
     local debuggers = require('plugins.lsp-settings.debuggers')
     require('mason-tool-installer').setup(debuggers)
     require('mason-tool-installer').check_install(false)
-    require('dap').defaults.python.exception_breakpoints = { 'raised' }
+
+    require('dap').defaults.python.exception_breakpoints = { 'raised', 'uncaught' } -- debugpy
 end
 
 dap_module.keys = function()
     local keymap = require('config.keymaps').dap
     return {
-        { keymap.ui,         function() require('dapui').toggle() end,          mode = 'n' },
-        { keymap.breakpoint, function() require('dap').toggle_breakpoint() end, mode = 'n' },
-        {
-            keymap.breakpoint_condition,
-            function()
-                require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))
-            end,
-            mode = 'n'
-        },
-        { keymap.continue,         function() require('dap').continue() end,               mode = 'n' },
+        { keymap.ui,                    function() require('dapui').toggle() end,                                          mode = 'n' },
+        { keymap.breakpoint,            function() require('persistent-breakpoints.api').toggle_breakpoint() end,          mode = 'n' },
+        { keymap.breakpoint_condition,  function() require('persistent-breakpoints.api').set_conditional_breakpoint() end, mode = 'n' },
+        { keymap.clear_all_breakpoints, function() require('persistent-breakpoints.api').clear_all_breakpoints() end,      mode = 'n' },
+        { keymap.log_point,             function() require('persistent-breakpoints.api').set_log_point() end,              mode = 'n' },
+        { keymap.continue,              function() require('dap').continue() end,                                          mode = 'n' },
         {
             keymap.terminate,
             function()
@@ -39,14 +44,11 @@ dap_module.keys = function()
             end,
             mode = 'n'
         },
-        {
-            keymap.log_point,
-            function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
-            mode = 'n',
-        },
         { keymap.step_over,        function() require('dap').step_over() end,              mode = 'n' },
         { keymap.step_into,        function() require('dap').step_into() end,              mode = 'n' },
         { keymap.step_out,         function() require('dap').step_out() end,               mode = 'n' },
+        { keymap.run_to_cursor,    function() require('dap').run_to_cursor() end,          mode = 'n' },
+        { keymap.eval,             function() require('dapui').eval() end,                 mode = { 'n', 'v' } },
         { keymap.python.method,    function() require('dap-python').test_method() end,     mode = 'n' },
         { keymap.python.class,     function() require('dap-python').test_class() end,      mode = 'n' },
         { keymap.python.selection, function() require('dap-python').debug_selection() end, mode = 'v' },
