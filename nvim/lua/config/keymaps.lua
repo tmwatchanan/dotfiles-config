@@ -147,6 +147,9 @@ keymaps.setup = function()
 
     -- INFO: toggle window wrap
     vim.keymap.set('n', '<leader>sw', function() vim.wo.wrap = not vim.wo.wrap end)
+
+    -- INFO: focus the floating window
+    vim.keymap.set('n', 'N', '<C-w>w')
 end
 
 -- INFO: LSP keymap
@@ -274,7 +277,7 @@ keymaps.lazy = {
 keymaps.focus = {
     toggle_enable = '<Bslash>f',
     toggle_size   = '<Bslash>F',
-    split_cycle   = '<C-;>',
+    split_cycle   = '<leader><leader>',
     split_left    = '<C-h>',
     split_right   = '<C-l>',
     split_up      = '<C-k>',
