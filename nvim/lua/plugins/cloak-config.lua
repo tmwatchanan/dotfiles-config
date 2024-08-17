@@ -3,16 +3,19 @@ local M = {
     event = { 'BufReadPost', 'BufNewFile' },
 }
 
-M.opts =
-{
+M.opts = {
     patterns = {
         {
-            file_pattern = { '.env*' },
+            file_pattern = { '.env*', '.netrc' },
             cloak_pattern = {
+                -- NOTE: `.env*`
                 -- '=.+',
                 { '(.*KEY.*)=(.+)',      replace = '%1=' },
                 { '(.*SECRET.*)=(.+)',   replace = '%1=' },
                 { '(.*PASSWORD.*)=(.+)', replace = '%1=' },
+
+                -- NOTE: `.netrc`
+                { '(password) (.+)', replace = '%1 ' },
             },
         },
     },
