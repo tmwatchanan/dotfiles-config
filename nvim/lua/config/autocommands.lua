@@ -44,3 +44,8 @@ vim.api.nvim_create_autocmd('OptionSet', {
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
     command = 'checktime'
 })
+
+vim.api.nvim_create_autocmd({ 'CmdwinEnter' }, {
+    pattern = '*',
+    callback = function() vim.keymap.set('n', 'qq', '<C-w>c', { buffer = true }) end
+})
