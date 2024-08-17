@@ -44,6 +44,10 @@ M.opts = {
         map('v', gitsigns_keymap.stage_hunk,
             function() gitsigns_actions.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
 
+        map('n', gitsigns_keymap.undo_stage_hunk, gitsigns_actions.undo_stage_hunk)
+        map('v', gitsigns_keymap.undo_stage_hunk,
+            function() gitsigns_actions.undo_stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+
         map('n', gitsigns_keymap.reset_hunk, gitsigns_actions.reset_hunk)
         map('v', gitsigns_keymap.reset_hunk,
             function() gitsigns_actions.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
@@ -54,6 +58,8 @@ M.opts = {
         map('n', gitsigns_keymap.toggle_blame, gitsigns_actions.toggle_current_line_blame)
 
         map('n', gitsigns_keymap.diff_this, gitsigns_actions.diffthis)
+
+        map('n', gitsigns_keymap.toggle_deleted, gitsigns_actions.toggle_deleted)
     end
 }
 

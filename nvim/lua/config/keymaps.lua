@@ -283,14 +283,16 @@ keymaps.focus = {
 
 -- INFO: GitSign keymap
 keymaps.gitsigns = {
-    next_hunk    = ']h',
-    prev_hunk    = '[h',
-    stage_hunk   = '<leader>Hs',
-    reset_hunk   = '<leader>Hr',
-    preview_hunk = '<leader>Hp',
-    blame_line   = '<leader>Hb',
-    toggle_blame = '<leader>HB',
-    diff_this    = '<leader>Hd',
+    next_hunk       = ']h',
+    prev_hunk       = '[h',
+    stage_hunk      = '<leader>hs',
+    undo_stage_hunk = '<leader>hu',
+    reset_hunk      = '<leader>hr',
+    preview_hunk    = '<leader>hp',
+    blame_line      = '<leader>hb',
+    toggle_blame    = '<leader>hB',
+    diff_this       = '<leader>hd',
+    toggle_deleted  = '<leader>hx',
 }
 
 -- INFO: git-conflict keymap
@@ -483,7 +485,7 @@ keymaps.undotree = {
 
 -- INFO: harpoon
 keymaps.harpoon = {
-    toggle_quick_menu = '<leader>hp',
+    toggle_quick_menu = '<leader>hh',
     add_file = '<leader>ha',
     nav_next = 'L',
     nav_prev = 'H',
