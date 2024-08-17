@@ -427,13 +427,16 @@ keymaps.refactoring = {
 
 -- INFO: Neotest
 keymaps.neotest = {
+    watch            = '<leader>tw',
+    watch_file       = '<leader>tW',
     run_nearest      = '<leader>tn',
     stop_nearest     = '<leader>ts',
     debug_nearest    = '<leader>td',
     attach_nearest   = '<leader>ta',
     run_current_file = '<leader>tf',
     summary          = '<leader>tt',
-    output_panel     = '<leader>to',
+    output_open      = '<leader>to',
+    output_panel     = '<leader>tp',
 }
 
 -- INFO: Codeium
@@ -515,10 +518,10 @@ keymaps.flutter_tools = {
 
 -- INFO: zen-mode
 keymaps.zen_mode = {
-    toggle = '<leader>z',
-    toggle_size = '<leader>Z',
-    twilight_current_line = '<leader>tw',
-    twilight_context = '<leader>tW',
+    toggle                = '<leader>Z<leader>',
+    toggle_size           = '<leader>Z',
+    twilight_current_line = '<leader>z',
+    twilight_context      = '<leader>z<leader>',
 }
 
 -- INFO: nvim-spider
