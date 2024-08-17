@@ -550,4 +550,10 @@ keymaps.hbac = {
     toggle_pin = '<leader>p',
 }
 
+-- INFO: cloak keymap
+keymaps.cloak = {
+    toggle       = '<leader>ct',
+    preview_line = '<leader>cp',
+}
+
 return keymaps
