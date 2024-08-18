@@ -1,9 +1,13 @@
 local M = {
     'chrisgrieser/nvim-spider',
-    lazy = true,
     dependencies = {
-        "theHamsta/nvim_rocks",
-        build = 'pip install --user hererocks && python -m hererocks . -j2.1.0-beta3 -r3.0.0 && sed -i "" "s/activate/activate.fish/g" nvim_rocks.lua && cp nvim_rocks.lua lua',
+        'theHamsta/nvim_rocks',
+        build = [[
+            pip install --user hererocks && \
+            python -m hererocks . -j2.1.0-beta3 -r3.0.0 && \
+            sed -i "" "s/activate/activate.fish/g" nvim_rocks.lua && \
+            cp nvim_rocks.lua lua
+        ]],
         config = function() require("nvim_rocks").ensure_installed("luautf8") end,
     },
 }
