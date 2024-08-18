@@ -31,7 +31,7 @@ M.install_language_server = function()
     end
 end
 
-M.config = function()
+M.init = function()
     vim.g.latex_to_unicode_auto = 1
     vim.g.latex_to_unicode_tab = 'off'
 end
