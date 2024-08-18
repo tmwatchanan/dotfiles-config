@@ -59,6 +59,11 @@ M.opts = {
 
         map('n', gitsigns_keymap.diff_this, gitsigns_actions.diffthis)
 
+        map('n', gitsigns_keymap.toggle_highlight, function()
+            gitsigns_actions.toggle_numhl()
+            gitsigns_actions.toggle_linehl()
+        end)
+        map('n', gitsigns_keymap.toggle_word_diff, gitsigns_actions.toggle_word_diff)
         map('n', gitsigns_keymap.toggle_deleted, gitsigns_actions.toggle_deleted)
     end
 }

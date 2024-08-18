@@ -288,16 +288,18 @@ keymaps.focus = {
 
 -- INFO: GitSign keymap
 keymaps.gitsigns = {
-    next_hunk       = ']h',
-    prev_hunk       = '[h',
-    stage_hunk      = '<leader>hs',
-    undo_stage_hunk = '<leader>hu',
-    reset_hunk      = '<leader>hr',
-    preview_hunk    = '<leader>hp',
-    blame_line      = '<leader>hb',
-    toggle_blame    = '<leader>hB',
-    diff_this       = '<leader>hd',
-    toggle_deleted  = '<leader>hx',
+    next_hunk        = ']h',
+    prev_hunk        = '[h',
+    stage_hunk       = '<leader>hs',
+    undo_stage_hunk  = '<leader>hu',
+    reset_hunk       = '<leader>hr',
+    preview_hunk     = '<leader>hp',
+    blame_line       = '<leader>hb',
+    toggle_blame     = '<leader>hB',
+    diff_this        = '<leader>hd',
+    toggle_highlight = '<leader>hl',
+    toggle_word_diff = '<leader>hw',
+    toggle_deleted   = '<leader>hx',
 }
 
 -- INFO: git-conflict keymap
