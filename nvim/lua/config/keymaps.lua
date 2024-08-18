@@ -125,7 +125,7 @@ keymaps.setup = function()
     end)
 
     -- INFO: development utility keymaps
-    vim.keymap.set('n', '<leader>dpft', function() vim.print(('filetype: %s'):format(vim.bo.filetype)) end)
+    vim.keymap.set('n', '<leader>dpft', function() vim.print(('filetype: %s'):format(vim.bo.filetype)) end) -- :echo &ft
     vim.keymap.set('n', '<leader>dpbt', function() vim.print(('buftype: %s'):format(vim.bo.buftype)) end)
     vim.keymap.set('n', '<leader>dpbn',
         function() vim.print(('buffer name: %s'):format(vim.api.nvim_buf_get_name(0))) end)
@@ -152,14 +152,14 @@ end
 -- INFO: LSP keymap
 keymaps.lsp = {
     definitions      = { key = 'gd', cmd = '<Cmd>Telescope lsp_definitions<CR>' },
-    type_definitions = { key = 'gt', cmd = '<Cmd>Telescope lsp_type_definitions<CR>' },
+    type_definitions = { key = 'gD', cmd = '<Cmd>Telescope lsp_type_definitions<CR>' },
     reference        = { key = 'gr', cmd = '<Cmd>Telescope lsp_references<CR>' },
     implementation   = { key = 'gi', cmd = '<Cmd>Telescope lsp_implementations<CR>' },
     signature_help   = { key = 'gs', cmd = vim.lsp.buf.signature_help },
     diagnostic       = { key = '<leader>ld', cmd = '<Cmd>Telescope diagnostics<CR>' },
     document_symbol  = { key = '<leader>ls', cmd = '<Cmd>Telescope lsp_document_symbols<CR>' },
-    rename           = { key = '<leader>lr', cmd = function() require 'config.rename-utils'.rename_to_qflist() end },
-    rename_clean     = { key = '<leader>lR', cmd = function() require 'config.rename-utils'.rename_clean_placeholder() end },
+    -- rename           = { key = '<leader>lr', cmd = function() require 'config.rename-utils'.rename_to_qflist() end },
+    -- rename_clean     = { key = '<leader>lR', cmd = function() require 'config.rename-utils'.rename_clean_placeholder() end },
     code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
     format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
     hover            = {
@@ -570,6 +570,12 @@ keymaps.cloak = {
 -- INFO: oil keymap
 keymaps.oil = {
     open = '<leader>o',
+}
+
+-- INFO: inc-rename keymap
+keymaps.inc_rename = {
+    rename_current_word = '<leader>lr',
+    rename_empty        = '<leader>lR',
 }
 
 return keymaps
