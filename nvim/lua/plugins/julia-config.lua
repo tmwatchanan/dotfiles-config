@@ -1,7 +1,7 @@
-local M =
-{
+local M = {
     'JuliaEditorSupport/julia-vim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    lazy = false,
+    ft = 'julia',
 }
 
 local julia_program = 'julia'

@@ -17,10 +17,6 @@ local M = {
         },
         'windwp/nvim-ts-autotag',
         'nvim-treesitter/nvim-treesitter-textobjects',
-        {
-            'LiadOz/nvim-dap-repl-highlights',
-            config = true,
-        },
     },
     main = 'nvim-treesitter.configs'
 }

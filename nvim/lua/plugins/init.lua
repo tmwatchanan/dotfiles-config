@@ -15,18 +15,20 @@ return {
             },
         },
     },
-    { 'Bilal2453/luvit-meta', lazy = true }, -- optional `vim.uv` typings
+    {
+        'Bilal2453/luvit-meta',
+        lazy = true,
+        ft = 'lua',
+    }, -- optional `vim.uv` typings
 
     -- Utilities
     {
         'nmac427/guess-indent.nvim',
         event = { 'BufReadPost', 'BufNewFile' },
-        config = true
     },
     {
         'kylechui/nvim-surround',
         event = 'VeryLazy',
-        config = true,
         opts = {
             highlight = {
                 duration = 1000,
@@ -45,7 +47,6 @@ return {
     {
         'folke/ts-comments.nvim',
         event = 'VeryLazy',
-        config = true
     },
     {
         'Wansmer/treesj',
@@ -61,28 +62,41 @@ return {
         'chrishrb/gx.nvim',
         dependencies = { 'plenary.nvim' },
         keys = { { 'gx', function() require('gx').open() end, mode = { 'n', 'x' } } },
-        config = true
     },
     {
         'utilyre/sentiment.nvim',
+        version = '*',
         event = 'VeryLazy',
-        config = true
+        init = function()
+            -- `matchparen.vim` needs to be disabled manually in case of lazy loading
+            vim.g.loaded_matchparen = 1
+        end,
     },
     {
         'Wansmer/sibling-swap.nvim',
         requires = { 'nvim-treesitter' },
-        event = { 'BufReadPost', 'BufNewFile' },
-        config = true,
+        opts = {
+            -- (`<C-,>` and `<C-.>` may not map to control chars at system level, so are sent by certain terminals as just `,` and `.`. In this case, just add the mappings you want.)
+            keymaps = {
+                ['<C-.>'] = false,
+                ['<C-,>'] = false,
+                ['<leader>.'] = 'swap_with_right_with_opp',
+                ['<leader>,'] = 'swap_with_left_with_opp',
+            },
+        },
+        keys = {
+            { '<leader>.', mode = 'n' },
+            { '<leader>,', mode = 'n' },
+        },
     },
     {
         'towolf/vim-helm',
-        event = { 'BufReadPost', 'BufNewFile' },
         ft = 'helm',
     },
     {
         'andymass/vim-matchup',
-        dependencies = 'nvim-treesitter/nvim-treesitter',
-        event = { 'BufReadPost', 'BufNewFile' },
+        dependencies = 'nvim-treesitter',
+        lazy = false,
         init = function()
             vim.g.matchup_matchparen_offscreen = { method = 'popup' }
         end,
@@ -111,7 +125,6 @@ return {
     {
         'RaafatTurki/hex.nvim',
         cmd = { 'HexToggle', 'HexDump', 'HexAssemble' },
-        config = true,
     },
     {
         'OXY2DEV/markview.nvim',

@@ -4,7 +4,6 @@ local M = {
         'plenary.nvim',
         'nvim-treesitter/nvim-treesitter',
     },
-    event = { 'BufReadPost', 'BufNewFile' },
 }
 
 M.config = function()

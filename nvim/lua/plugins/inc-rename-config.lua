@@ -1,6 +1,5 @@
 local M = {
     'smjonas/inc-rename.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
     opts = {
         input_buffer_type = 'dressing',
     },

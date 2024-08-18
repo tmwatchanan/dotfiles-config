@@ -1,6 +1,5 @@
 local M = {
     'monaqa/dial.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
 }
 
 -- took from LazyVim

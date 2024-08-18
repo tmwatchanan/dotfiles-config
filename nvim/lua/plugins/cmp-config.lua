@@ -35,25 +35,6 @@ local M = {
 
         -- NOTE: misc. plugins
         'onsails/lspkind.nvim',
-
-        -- NOTE: nvim-dap
-        {
-            'rcarriga/cmp-dap',
-            config = function()
-                require("cmp").setup({
-                    enabled = function()
-                        return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= "prompt"
-                            or require("cmp_dap").is_dap_buffer()
-                    end
-                })
-
-                require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-                    sources = {
-                        { name = "dap" },
-                    },
-                })
-            end
-        },
     },
 }
 

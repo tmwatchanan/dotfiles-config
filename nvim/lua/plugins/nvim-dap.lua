@@ -1,22 +1,48 @@
+local dap_python_module = {
+    'mfussenegger/nvim-dap-python',
+}
+
+dap_python_module.config = function()
+    local python_path = require('config.python').get_python_path()
+    require('dap-python').setup(python_path)
+
+    -- NOTE: below might resolve the issue with frozen modules since Python 3.11
+    -- require('dap-python').resolve_python = function()
+    --     local module_flag = '-Xfrozen_modules=off'
+    --     return ('%s %s'):format(python_path, module_flag)
+    -- end
+
+    require('dap-python').test_runner = 'pytest'
+
+    local dap = require('dap')
+    local utils = require('config.fn-utils')
+    for i = 1, 2 do
+        dap.configurations.python[i] = utils.merge(
+            dap.configurations.python[i],
+            {
+                cwd = '${workspaceFolder}', -- to launch debugger from the root of the project
+                env = {
+                    -- NOTE: `pytest-cov` issue according to VS Code
+                    -- https://code.visualstudio.com/docs/python/testing#_pytest-configuration-settings
+                    ["PYTEST_ADDOPTS"] = '--no-cov',
+                },
+            }
+        )
+    end
+end
+
+
 local dap_module = {
     'mfussenegger/nvim-dap',
     dependencies = {
+        dap_python_module,
         {
             'Weissle/persistent-breakpoints.nvim',
             opts = {
                 load_breakpoints_event = 'BufReadPost'
             },
         }
-    }
-}
-
-local dapui_module = {
-    'rcarriga/nvim-dap-ui',
-    dependencies = {
-        'nvim-dap',
-        'nvim-neotest/nvim-nio',
     },
-    event = { 'VeryLazy' },
 }
 
 dap_module.config = function()
@@ -55,6 +81,7 @@ dap_module.keys = function()
     }
 end
 
+
 local function setup_dap_signs()
     local colors = require('plugins.colorscheme.colorset').colors
     vim.api.nvim_set_hl(0, 'DapBreakpoint', { fg = colors.red })
@@ -77,6 +104,38 @@ local function setup_dap_signs()
     end
 end
 
+local dapui_module = {
+    'rcarriga/nvim-dap-ui',
+    dependencies = {
+        'nvim-dap',
+        'nvim-neotest/nvim-nio',
+        {
+            'theHamsta/nvim-dap-virtual-text',
+            dependencies = {
+                'nvim-treesitter',
+            },
+        },
+        'LiadOz/nvim-dap-repl-highlights',
+        {
+            'rcarriga/cmp-dap',
+            config = function()
+                require('cmp').setup({
+                    enabled = function()
+                        return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt'
+                            or require('cmp_dap').is_dap_buffer()
+                    end
+                })
+
+                require('cmp').setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
+                    sources = {
+                        { name = 'dap' },
+                    },
+                })
+            end
+        },
+    },
+}
+
 dapui_module.config = function()
     local dap = require('dap')
     local dapui = require('dapui')
@@ -96,59 +155,8 @@ dapui_module.config = function()
     setup_dap_signs()
 end
 
-local dap_virtual_text_module = {
-    'theHamsta/nvim-dap-virtual-text',
-    dependencies = {
-        'nvim-dap',
-        'nvim-treesitter',
-    },
-    opts = {},
-    event = { 'VeryLazy' },
-}
-
-
-local dap_python_module = {
-    'mfussenegger/nvim-dap-python',
-    ft = 'python',
-    dependencies = {
-        'nvim-dap-ui',
-        'nvim-dap',
-    },
-    event = { 'VeryLazy' },
-}
-
-dap_python_module.config = function()
-    local python_path = require('config.python').get_python_path()
-    require('dap-python').setup(python_path)
-
-    -- NOTE: below might resolve the issue with frozen modules since Python 3.11
-    -- require('dap-python').resolve_python = function()
-    --     local module_flag = '-Xfrozen_modules=off'
-    --     return ('%s %s'):format(python_path, module_flag)
-    -- end
-
-    require('dap-python').test_runner = 'pytest'
-
-    local dap = require('dap')
-    local utils = require('config.fn-utils')
-    for i = 1, 2 do
-        dap.configurations.python[i] = utils.merge(
-            dap.configurations.python[i],
-            {
-                cwd = '${workspaceFolder}', -- to launch debugger from the root of the project
-                env = {
-                    -- NOTE: `pytest-cov` issue according to VS Code
-                    -- https://code.visualstudio.com/docs/python/testing#_pytest-configuration-settings
-                    ["PYTEST_ADDOPTS"] = '--no-cov',
-                },
-            }
-        )
-    end
-end
 
 return {
     dap_module,
     dapui_module,
-    dap_virtual_text_module,
-    dap_python_module,
 }
