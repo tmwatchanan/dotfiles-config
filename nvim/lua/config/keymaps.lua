@@ -567,4 +567,9 @@ keymaps.cloak = {
     preview_line = '<Bslash>8',
 }
 
+-- INFO: oil keymap
+keymaps.oil = {
+    open = '<leader>o',
+}
+
 return keymaps
