@@ -147,6 +147,9 @@ keymaps.setup = function()
 
     -- INFO: toggle window wrap
     vim.keymap.set('n', '<leader>ww', function() vim.wo.wrap = not vim.wo.wrap end)
+
+    -- INFO: add trailing comma to EOL if not exists
+    vim.keymap.set({ 'n', 'v' }, '<leader>c', [[:s/,\@<!$/,/g<CR><Cmd>nohlsearch<CR>]]) -- got unwanted highlight after replacement
 end
 
 -- INFO: LSP keymap
@@ -452,7 +455,7 @@ keymaps.codeium = {
     next     = '<M-j>',
     previous = '<M-k>',
     clear    = '<M-c>',
-    chat     = '<leader>cc',
+    chat     = '<leader>C',
 }
 
 -- INFO: DAP
