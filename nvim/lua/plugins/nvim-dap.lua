@@ -74,10 +74,10 @@ dap_module.keys = function()
         { keymap.step_into,        function() require('dap').step_into() end,              mode = 'n' },
         { keymap.step_out,         function() require('dap').step_out() end,               mode = 'n' },
         { keymap.run_to_cursor,    function() require('dap').run_to_cursor() end,          mode = 'n' },
-        { keymap.eval,             function() require('dapui').eval() end,                 mode = { 'n', 'v' } },
+        { keymap.eval,             function() require('dapui').eval() end,                 mode = { 'n', 'x' } },
         { keymap.python.method,    function() require('dap-python').test_method() end,     mode = 'n' },
         { keymap.python.class,     function() require('dap-python').test_class() end,      mode = 'n' },
-        { keymap.python.selection, function() require('dap-python').debug_selection() end, mode = 'v' },
+        { keymap.python.selection, function() require('dap-python').debug_selection() end, mode = 'x' },
     }
 end
 
