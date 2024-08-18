@@ -1,4 +1,4 @@
-; extends
+;; extends
 
 (assignment) @local_variable_declaration
 
