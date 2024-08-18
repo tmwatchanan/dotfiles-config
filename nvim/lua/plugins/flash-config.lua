@@ -26,6 +26,10 @@ M.keys = function()
     local flash_keymap = require('config.keymaps').flash
 
     return {
+        { 'f', mode = 'n' },
+        { 't', mode = 'n' },
+        { 'F', mode = 'n' },
+        { 'T', mode = 'n' },
         {
             flash_keymap.flash,
             mode = { 'n', 'o' },
