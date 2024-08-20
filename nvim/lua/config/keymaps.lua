@@ -14,6 +14,11 @@ keymaps.setup = function()
     vim.keymap.set('i', '<C-j>', '<Down>')
     vim.keymap.set('i', '<C-k>', '<Up>')
 
+    -- INFO: quit
+    vim.keymap.set('n', '<Tab>w', ':w<CR>')
+    vim.keymap.set('n', '<Tab>q', ':xall')
+    vim.keymap.set('n', '<C-q>', ':qa') -- CTRL-Q Same as CTRL-V
+
     -- INFO: move up / down by visible lines with no [count]
     vim.keymap.set({ 'n', 'x' }, 'j', [[v:count == 0 ? 'gj' : 'j']], { expr = true, silent = true })
     vim.keymap.set({ 'n', 'x' }, 'k', [[v:count == 0 ? 'gk' : 'k']], { expr = true, silent = true })
@@ -144,6 +149,14 @@ keymaps.setup = function()
 
     -- INFO: add trailing comma to EOL if not exists
     vim.keymap.set({ 'n', 'v' }, '<leader>c', [[:s/,\@<!$/,/g<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
+
+    -- INFO: source current file (shift+5 is %)
+    vim.keymap.set('n', '<leader>5', function()
+        vim.cmd('source %')
+        vim.notify('Sourced %')
+    end)
+    -- INFO: lazy.nvim reload plugin
+    vim.keymap.set('n', '<leader><leader>5', ':Lazy reload ')
 end
 
 -- INFO: LSP keymap
@@ -557,7 +570,7 @@ keymaps.copilot_chat = {
 
 -- INFO: hbac keymap
 keymaps.hbac = {
-    toggle_pin = '<leader>p',
+    toggle_pin = '<leader>fp',
 }
 
 -- INFO: cloak keymap
