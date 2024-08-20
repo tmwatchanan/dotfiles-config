@@ -102,6 +102,7 @@ M.opts = function()
                     [telescope_keymap.action_send_to_qflist] = mappings_action.send_to_qflist,
                     [telescope_keymap.action_select_all] = mappings_action.select_all,
                     [telescope_keymap.action_focus_preview] = mappings_action.focus_preview,
+                    [telescope_keymap.buffers] = telescope_actions.close,
                 }
             },
             sorting_strategy = 'ascending',
@@ -122,6 +123,16 @@ M.opts = function()
                 path_display = { 'smart' },
                 wrap_results = true,
                 follow = true,
+                mappings = {
+                    ['n'] = {
+                        [telescope_keymap.find_files] = telescope_actions.close,
+                        [telescope_keymap.find_files_hidden] = telescope_actions.close,
+                    },
+                    ['i'] = {
+                        [telescope_keymap.find_files] = telescope_actions.close,
+                        [telescope_keymap.find_files_hidden] = telescope_actions.close,
+                    },
+                }
             }),
             lsp_definitions = mergeConfig(bottom_layout_config, {
                 layout_config = {
@@ -144,10 +155,36 @@ M.opts = function()
                 only_cwd = true,
                 sort_mru = true,
                 sort_lastused = false,
+                mappings = {
+                    ['i'] = {
+                        -- INFO: change from `which_key` to `close`, only use `which_key` in Normal mode
+                        ["<C-/>"] = telescope_actions.close,
+                        ["<C-_>"] = telescope_actions.close, -- keys from pressing <C-/>
+                    },
+                },
             }),
             help_tags = horizontal_layout_config,
-            live_grep = vertical_layout_config,
-            grep_string = vertical_layout_config,
+            live_grep = mergeConfig(vertical_layout_config, {
+                mappings = {
+                    ['n'] = {
+                        [telescope_keymap.search_workspace_live_grep] = telescope_actions.close,
+                    },
+                    ['i'] = {
+                        [telescope_keymap.search_workspace_live_grep] = telescope_actions.close,
+                    },
+                },
+            }),
+            grep_string = mergeConfig(vertical_layout_config, {
+                mappings = {
+                    ['n'] = {
+                        [telescope_keymap.search_workspace_fuzzy] = telescope_actions.close,
+                        [telescope_keymap.grep_workspace] = telescope_actions.close,
+                    },
+                    ['i'] = {
+                        [telescope_keymap.search_workspace_fuzzy] = telescope_actions.close,
+                    },
+                },
+            }),
             current_buffer_fuzzy_find = {
                 borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
                 layout_strategy = 'vertical',
@@ -187,6 +224,14 @@ M.opts = function()
                 grouped = true,
                 hijack_netrw = true,
                 follow_symlinks = true,
+                mappings = {
+                    ['n'] = {
+                        [telescope_keymap.file_browse] = telescope_actions.close,
+                    },
+                    ['i'] = {
+                        [telescope_keymap.file_browse] = telescope_actions.close,
+                    },
+                },
             }),
         }
     }
