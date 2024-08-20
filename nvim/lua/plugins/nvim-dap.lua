@@ -30,58 +30,6 @@ dap_python_module.config = function()
         )
     end
 end
-
-
-local dap_module = {
-    'mfussenegger/nvim-dap',
-    dependencies = {
-        dap_python_module,
-        {
-            'Weissle/persistent-breakpoints.nvim',
-            opts = {
-                load_breakpoints_event = 'BufReadPost'
-            },
-        }
-    },
-}
-
-dap_module.config = function()
-    local debuggers = require('plugins.lsp-settings.debuggers')
-    require('mason-tool-installer').setup(debuggers)
-    require('mason-tool-installer').check_install(false)
-
-    require('dap').defaults.python.exception_breakpoints = { 'raised', 'uncaught' } -- debugpy
-end
-
-dap_module.keys = function()
-    local keymap = require('config.keymaps').dap
-    return {
-        { keymap.ui,                    function() require('dapui').toggle() end,                                          mode = 'n' },
-        { keymap.breakpoint,            function() require('persistent-breakpoints.api').toggle_breakpoint() end,          mode = 'n' },
-        { keymap.breakpoint_condition,  function() require('persistent-breakpoints.api').set_conditional_breakpoint() end, mode = 'n' },
-        { keymap.clear_all_breakpoints, function() require('persistent-breakpoints.api').clear_all_breakpoints() end,      mode = 'n' },
-        { keymap.log_point,             function() require('persistent-breakpoints.api').set_log_point() end,              mode = 'n' },
-        { keymap.continue,              function() require('dap').continue() end,                                          mode = 'n' },
-        {
-            keymap.terminate,
-            function()
-                require('dap').terminate()
-                require('dapui').close()
-            end,
-            mode = 'n'
-        },
-        { keymap.step_over,        function() require('dap').step_over() end,              mode = 'n' },
-        { keymap.step_into,        function() require('dap').step_into() end,              mode = 'n' },
-        { keymap.step_out,         function() require('dap').step_out() end,               mode = 'n' },
-        { keymap.run_to_cursor,    function() require('dap').run_to_cursor() end,          mode = 'n' },
-        { keymap.eval,             function() require('dapui').eval() end,                 mode = { 'n', 'x' } },
-        { keymap.python.method,    function() require('dap-python').test_method() end,     mode = 'n' },
-        { keymap.python.class,     function() require('dap-python').test_class() end,      mode = 'n' },
-        { keymap.python.selection, function() require('dap-python').debug_selection() end, mode = 'x' },
-    }
-end
-
-
 local function setup_dap_signs()
     local colors = require('plugins.colorscheme.colorset').colors
     vim.api.nvim_set_hl(0, 'DapBreakpoint', { fg = colors.red })
@@ -103,6 +51,35 @@ local function setup_dap_signs()
             { text = sign.text, texthl = sign.texthl, linehl = sign.linehl, numhl = sign.numhl })
     end
 end
+
+
+local persistent_breakpoints_module = {
+    'Weissle/persistent-breakpoints.nvim',
+    opts = {
+        load_breakpoints_event = 'BufReadPost'
+    },
+    event = 'BufReadPost',
+    config = function(_, opts)
+        require('persistent-breakpoints').setup(opts)
+        setup_dap_signs()
+    end
+}
+
+local dap_module = {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+        dap_python_module,
+    },
+}
+
+dap_module.config = function()
+    local debuggers = require('plugins.lsp-settings.debuggers')
+    require('mason-tool-installer').setup(debuggers)
+    require('mason-tool-installer').check_install(false)
+
+    require('dap').defaults.python.exception_breakpoints = { 'raised', 'uncaught' } -- debugpy
+end
+
 
 local dapui_module = {
     'rcarriga/nvim-dap-ui',
@@ -152,11 +129,38 @@ dapui_module.config = function()
         require('focus').setup({ autoresize = { enable = true } })
         dapui.close()
     end
-    setup_dap_signs()
 end
 
+dapui_module.keys = function()
+    local keymap = require('config.keymaps').dap
+    return {
+        { keymap.ui,                    function() require('dapui').toggle() end,                                          mode = 'n' },
+        { keymap.breakpoint,            function() require('persistent-breakpoints.api').toggle_breakpoint() end,          mode = 'n' },
+        { keymap.breakpoint_condition,  function() require('persistent-breakpoints.api').set_conditional_breakpoint() end, mode = 'n' },
+        { keymap.clear_all_breakpoints, function() require('persistent-breakpoints.api').clear_all_breakpoints() end,      mode = 'n' },
+        { keymap.log_point,             function() require('persistent-breakpoints.api').set_log_point() end,              mode = 'n' },
+        { keymap.continue,              function() require('dap').continue() end,                                          mode = 'n' },
+        {
+            keymap.terminate,
+            function()
+                require('dap').terminate()
+                require('dapui').close()
+            end,
+            mode = 'n'
+        },
+        { keymap.step_over,        function() require('dap').step_over() end,              mode = 'n' },
+        { keymap.step_into,        function() require('dap').step_into() end,              mode = 'n' },
+        { keymap.step_out,         function() require('dap').step_out() end,               mode = 'n' },
+        { keymap.run_to_cursor,    function() require('dap').run_to_cursor() end,          mode = 'n' },
+        { keymap.eval,             function() require('dapui').eval() end,                 mode = { 'n', 'x' } },
+        { keymap.python.method,    function() require('dap-python').test_method() end,     mode = 'n' },
+        { keymap.python.class,     function() require('dap-python').test_class() end,      mode = 'n' },
+        { keymap.python.selection, function() require('dap-python').debug_selection() end, mode = 'x' },
+    }
+end
 
 return {
     dap_module,
     dapui_module,
+    persistent_breakpoints_module,
 }
