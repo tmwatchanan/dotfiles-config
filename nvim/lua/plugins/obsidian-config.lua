@@ -37,12 +37,15 @@ end
 M.keys = function()
     local keymap = require('config.keymaps').obsidian
     return {
-        { keymap.search,          '<Cmd>ObsidianSearch<CR>',         desc = '[Obsidian] Search' },
-        { keymap.workspace,       '<Cmd>ObsidianWorkspace<CR>',      desc = '[Obsidian] Workspace' },
-        { keymap.quick_switch,    '<Cmd>ObsidianQuickSwitch<CR>',    desc = '[Obsidian] Quick switch' },
-        { keymap.paste_image,     ':ObsidianPasteImg ',              desc = '[Obsidian] Paste image from clipboard' },
-        { keymap.rename,          ':ObsidianRename ',                desc = '[Obsidian] Paste image from clipboard' },
-        { keymap.toggle_checkbox, '<Cmd>ObsidianToggleCheckbox<CR>', desc = '[Obsidian] Paste image from clipboard' },
+        { keymap.open_in_obsidian,       '<Cmd>ObsidianOpen<CR>',           desc = '[Obsidian] Open in the Obsidian app' },
+        { keymap.open_in_obsidian_query, ':ObsidianOpen ',                  desc = '[Obsidian] Open in the Obsidian app with query' },
+        { keymap.search,                 '<Cmd>ObsidianSearch<CR>',         desc = '[Obsidian] Search' },
+        { keymap.workspace,              '<Cmd>ObsidianWorkspace<CR>',      desc = '[Obsidian] Workspace' },
+        { keymap.quick_switch,           '<Cmd>ObsidianQuickSwitch<CR>',    desc = '[Obsidian] Quick switch' },
+        { keymap.paste_image,            ':ObsidianPasteImg ',              desc = '[Obsidian] Paste image from clipboard' },
+        { keymap.rename,                 ':ObsidianRename ',                desc = '[Obsidian] Paste image from clipboard' },
+        { keymap.toggle_checkbox,        '<Cmd>ObsidianToggleCheckbox<CR>', desc = '[Obsidian] Paste image from clipboard' },
+        { keymap.toggle_checkbox,        '<Cmd>ObsidianToggleCheckbox<CR>', desc = '[Obsidian] Paste image from clipboard' },
     }
 end
 

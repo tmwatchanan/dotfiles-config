@@ -579,12 +579,14 @@ keymaps.inc_rename = {
 
 -- INFO: obsidian keymap
 keymaps.obsidian = {
-    search          = '<leader>os',
-    workspace       = '<leader>ow',
-    quick_switch    = '<leader>ok',
-    paste_image     = '<leader>oi',
-    rename          = '<leader>or',
-    toggle_checkbox = '<leader>ot',
+    open_in_obsidian       = '<leader>oo',
+    open_in_obsidian_query = '<leader>oO',
+    search                 = '<leader>os',
+    workspace              = '<leader>ow',
+    quick_switch           = '<leader>ok',
+    paste_image            = '<leader>oi',
+    rename                 = '<leader>or',
+    toggle_checkbox        = '<leader>ot',
 }
 
 return keymaps
