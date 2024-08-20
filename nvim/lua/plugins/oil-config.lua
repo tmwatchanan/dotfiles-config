@@ -14,7 +14,7 @@ local M = {
         keymaps = {
             -- close
             ['qq'] =  'actions.close',
-            ['<leader>o'] = 'actions.close',
+            ['<leader><Tab>'] = 'actions.close',
 
             -- open tab
             ['<C-t>'] = false,

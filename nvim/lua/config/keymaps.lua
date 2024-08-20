@@ -309,7 +309,7 @@ keymaps.telescope = {
     grep_workspace             = 'gw',
     search_workspace_fuzzy     = '<leader>sf',
     search_workspace_live_grep = '<leader>sg',
-    buffers                    = '<leader><Tab>',
+    buffers                    = '<C-_>', -- `<C-_>` is actually `<C-/>`
     find_files                 = '<leader>fs',
     find_files_hidden          = '<leader>fa',
     resume                     = '<leader>;',
@@ -568,13 +568,23 @@ keymaps.cloak = {
 
 -- INFO: oil keymap
 keymaps.oil = {
-    open = '<leader>o',
+    open = '<leader><Tab>',
 }
 
 -- INFO: inc-rename keymap
 keymaps.inc_rename = {
     rename_current_word = '<leader>lr',
     rename_empty        = '<leader>lR',
+}
+
+-- INFO: obsidian keymap
+keymaps.obsidian = {
+    search          = '<leader>os',
+    workspace       = '<leader>ow',
+    quick_switch    = '<leader>ok',
+    paste_image     = '<leader>oi',
+    rename          = '<leader>or',
+    toggle_checkbox = '<leader>ot',
 }
 
 return keymaps
