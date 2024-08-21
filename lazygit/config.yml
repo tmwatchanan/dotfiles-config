@@ -36,3 +36,13 @@ keybinding:
   universal:
     confirm-alt1: <disabled>
     copyToClipboard: "y"
+customCommands:
+  - key: "#"
+    context: global
+    prompts:
+      - type: input
+        title: "Merge request #"
+        key: mr
+        initialValue: ""
+    command: git mr origin {{.Form.mr}}
+    loadingText: Checking out the MR branch
