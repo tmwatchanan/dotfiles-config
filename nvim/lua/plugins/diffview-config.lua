@@ -3,6 +3,15 @@ local M = {
     event = 'VeryLazy',
 }
 
+M.opts = {
+    file_panel = {
+        win_config = {
+            position = 'top',
+            height = 10,
+        },
+    },
+}
+
 M.keys = function()
     local keymap = require('config.keymaps').diffview
 
