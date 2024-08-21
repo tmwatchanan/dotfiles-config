@@ -49,3 +49,11 @@ vim.api.nvim_create_autocmd({ 'CmdwinEnter' }, {
     pattern = '*',
     callback = function() vim.keymap.set('n', 'qq', '<C-w>c', { buffer = true }) end
 })
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'yaml',
+    callback = function()
+        vim.opt.tabstop = 2
+        vim.opt.shiftwidth = 2
+    end
+})
