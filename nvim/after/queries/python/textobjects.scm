@@ -34,3 +34,15 @@
     left: (_) @assignment_left
     type: (_) @assignment_type
 ) @assignment
+
+(function_definition
+  "->" @return_type_arrow
+  .
+  return_type: (_) @return_type_inner
+  (#make-range! "return_type_outer" @return_type_arrow @return_type_inner)
+)
+
+(decorated_definition
+  (decorator) @decorated_outer
+  definition: (_) @decorated_inner
+)

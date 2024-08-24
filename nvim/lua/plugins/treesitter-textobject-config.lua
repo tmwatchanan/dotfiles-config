@@ -31,7 +31,7 @@ mini_ai_module.opts = function()
             c = spec_treesitter({ a = '@comment.inner', i = '@comment.outer' }),
             C = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),
             ['='] = spec_treesitter({
-                a = { '@assignment.lhs', '@keyword_argument_name', '@field_name' },
+                a = { '@assignment.lhs', '@keyword_argument_name', '@field_name.inner', '@assignment_variable_id' },
                 i = { '@assignment.rhs', '@keyword_argument_value', '@field_value' },
             }),
             e = spec_treesitter({ a = '@assignment.outer', i = '@assignment.inner' }),
@@ -49,6 +49,8 @@ mini_ai_module.opts = function()
                 a = { '@type', '@assignment_left', '@typed_parameter_identifier' },
                 i = '@type',
             }),
+            ['-'] = spec_treesitter({ a = '@return_type_outer', i = '@return_type_inner' }),
+            ['@'] = spec_treesitter({ a = '@decorated_outer', i = '@decorated_inner' }),
         },
     }
 end

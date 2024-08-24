@@ -12,3 +12,7 @@
     (#make-range! "field_name.outer" @field_name.inner @field_name.symbol)
   value: (_) @field_value
 )
+
+(assignment_statement
+    (variable_list) @assignment_variable_id
+)
