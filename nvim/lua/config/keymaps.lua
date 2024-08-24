@@ -517,9 +517,6 @@ keymaps.harpoon = {
     nav_file_3        = "'3",
     nav_file_4        = "'4",
     nav_file_5        = "'5",
-    go_to_terminal_1  = '<Bslash>1',
-    go_to_terminal_2  = '<Bslash>2',
-    go_to_terminal_3  = '<Bslash>3',
 }
 
 -- INFO: flutter-tools
