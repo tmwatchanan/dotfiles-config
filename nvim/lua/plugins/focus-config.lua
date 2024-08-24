@@ -5,7 +5,7 @@ local M = {
 
 M.init = function()
     local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal' }
-    local ignore_extension_filetypes = { 'undotree', 'neotest-summary' }
+    local ignore_extension_filetypes = { 'undotree', 'neotest-summary', 'neo-tree' }
     local dapui_filetypes = { 'dapui_breakpoints', 'dap-repl', 'dapui_console', 'dapui_scopes', 'dapui_watches', 'dapui_stacks' }
     local filetype_sizes = {
         ['undotree'] = { width = 40 },

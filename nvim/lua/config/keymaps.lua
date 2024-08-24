@@ -599,4 +599,9 @@ keymaps.obsidian = {
     toggle_checkbox        = '<leader>ot',
 }
 
+-- INFO: neo-tree keymap
+keymaps.neotree = {
+    toggle = '<leader>nt',
+}
+
 return keymaps

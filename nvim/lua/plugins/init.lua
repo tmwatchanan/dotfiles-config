@@ -166,6 +166,6 @@ return {
                 }
             }
         end,
-        keys = { { '<leader>n', function() require('jot').toggle() end } }
+        keys = { { '<leader>jn', function() require('jot').toggle() end } }
     }
 }
