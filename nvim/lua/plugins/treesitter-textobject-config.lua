@@ -1,13 +1,7 @@
 local mini_ai_module = {
     'echasnovski/mini.ai',
     dependencies = {
-        {
-            'nvim-treesitter/nvim-treesitter-textobjects',
-            init = function()
-                -- no need to load the plugin, since we only need its queries
-                require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
-            end,
-        },
+        'nvim-treesitter/nvim-treesitter-textobjects',
     },
     event = 'VeryLazy',
 }
@@ -17,7 +11,7 @@ mini_ai_module.opts = function()
     local spec_treesitter = ai.gen_spec.treesitter
 
     return {
-        n_lines = 100,
+        n_lines = 500,
         search_method = 'cover_or_nearest',
         custom_textobjects = {
             -- `echasnovski/mini.nvim #366` mini.ai handles quotes worse than neovim
@@ -51,6 +45,11 @@ mini_ai_module.opts = function()
             }),
             ['-'] = spec_treesitter({ a = '@return_type_outer', i = '@return_type_inner' }),
             ['@'] = spec_treesitter({ a = '@decorated_outer', i = '@decorated_inner' }),
+        },
+        mappings = {
+            -- nvim-treesitter-textobjects's move is better
+            goto_left = '',
+            goto_right = '',
         },
     }
 end

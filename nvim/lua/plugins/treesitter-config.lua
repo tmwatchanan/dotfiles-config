@@ -12,7 +12,7 @@ local M = {
             opts = {
                 indentexpr = function(lnum)
                     return require('nvim-treesitter.indent').get_indent(lnum)
-                end
+                end,
             }
         },
         'windwp/nvim-ts-autotag',
@@ -23,6 +23,8 @@ local M = {
 
 M.opts = function()
     local keymaps = require('config.keymaps').treesitter
+    local utils = require('config.fn-utils')
+
     return {
         ensure_installed = {
             'regex',
@@ -40,7 +42,6 @@ M.opts = function()
             'css',
             'scss',
             'python',
-            'dap_repl',
         },
         ignore_install = {
             'norg',
@@ -64,9 +65,22 @@ M.opts = function()
             keymaps = keymaps.incremental_selection,
         },
         textobjects = {
-            select = keymaps.textobjects.select,
-            move = keymaps.textobjects.move,
-            swap = keymaps.textobjects.swap,
+            select = {
+                enable = true,
+                lookahead = true,
+            },
+            move = utils.merge(
+                {
+                    enable = true,
+                },
+                keymaps.textobjects.move
+            ),
+            swap = utils.merge(
+                {
+                    enable = true,
+                },
+                keymaps.textobjects.swap
+            ),
             lsp_interop = {
                 enable = true,
                 border = 'none',

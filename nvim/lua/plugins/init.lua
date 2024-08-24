@@ -76,17 +76,14 @@ return {
         'Wansmer/sibling-swap.nvim',
         requires = { 'nvim-treesitter' },
         opts = {
-            -- (`<C-,>` and `<C-.>` may not map to control chars at system level, so are sent by certain terminals as just `,` and `.`. In this case, just add the mappings you want.)
-            keymaps = {
-                ['<C-.>'] = false,
-                ['<C-,>'] = false,
-                ['<leader>.'] = 'swap_with_right_with_opp',
-                ['<leader>,'] = 'swap_with_left_with_opp',
-            },
+            highlight_node_at_cursor = true,
         },
         keys = {
-            { '<leader>.', mode = 'n' },
-            { '<leader>,', mode = 'n' },
+            -- (`<C-,>` and `<C-.>` may not map to control chars at system level, so are sent by certain terminals as just `,` and `.`. In this case, just add the mappings you want.)
+            { '<C-.>' },
+            { '<C-,>' },
+            { '<leader>.' },
+            { '<leader>,' },
         },
     },
     {
