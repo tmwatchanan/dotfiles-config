@@ -544,8 +544,8 @@ keymaps.zen_mode = {
     twilight_context      = '<leader>z<leader>',
 }
 
--- INFO: nvim-spider
-keymaps.spider = {
+-- INFO: neowords
+keymaps.neowords = {
     old_w = 'W',
     old_e = 'E',
     old_b = 'B',
