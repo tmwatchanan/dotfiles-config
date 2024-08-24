@@ -23,9 +23,6 @@ M.opts = function()
             preview_cutoff = 0,
         },
         sorting_strategy = 'ascending',
-        mappings = {
-            i = { ["<C-f>"] = telescope_actions.to_fuzzy_refine },
-        },
     }
 
     local horizontal_layout_config = {
@@ -97,6 +94,7 @@ M.opts = function()
                     [telescope_keymap.action_focus_preview] = mappings_action.focus_preview,
                 },
                 i = {
+                    ["<C-f>"] = telescope_actions.to_fuzzy_refine,
                     ['<C-k>'] = telescope_actions.move_selection_previous,
                     ['<C-j>'] = telescope_actions.move_selection_next,
                     [telescope_keymap.action_send_to_qflist] = mappings_action.send_to_qflist,

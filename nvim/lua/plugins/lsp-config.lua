@@ -94,7 +94,7 @@ lsp_setup_module.config = function()
     })
 
     -- INFO: config lsp log with formatting
-    vim.lsp.set_log_level 'INFO' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
+    vim.lsp.set_log_level 'ERROR' --    Levels by name: 'TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'OFF'
     -- require('vim.lsp.log').set_format_func(vim.inspect)
 
     -- INFO: check if eslint is attach then enable documentFormattingProvider

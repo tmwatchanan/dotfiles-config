@@ -15,8 +15,8 @@ keymaps.setup = function()
     vim.keymap.set('i', '<C-k>', '<Up>')
 
     -- INFO: quit
-    vim.keymap.set('n', '<Tab>w', ':w<CR>')
-    vim.keymap.set('n', '<Tab>q', ':xall')
+    vim.keymap.set('n', '<CR>', ':w<CR>')
+    vim.keymap.set('n', 'ZA', ':xall')
     vim.keymap.set('n', '<C-q>', ':qa') -- CTRL-Q Same as CTRL-V
 
     -- INFO: move up / down by visible lines with no [count]
@@ -150,6 +150,8 @@ keymaps.setup = function()
     -- INFO: add trailing comma to EOL if not exists
     vim.keymap.set({ 'n', 'v' }, '<leader>c', [[:s/,\@<!$/,/g<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
 
+    -- INFO: remove blank lines and lines containing only whitespaces
+    vim.keymap.set('v', '<leader>-', [[:g/^\s*$/d<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
     -- INFO: source current file (shift+5 is %)
     vim.keymap.set('n', '<leader>5', function()
         vim.cmd('source %')
@@ -572,8 +574,8 @@ keymaps.hbac = {
 
 -- INFO: cloak keymap
 keymaps.cloak = {
-    toggle       = '<Bslash><Bslash>8',
-    preview_line = '<Bslash>8',
+    toggle       = '<leader><leader>8',
+    preview_line = '<leader>8',
 }
 
 -- INFO: oil keymap
