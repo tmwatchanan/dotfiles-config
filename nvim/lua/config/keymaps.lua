@@ -455,6 +455,7 @@ keymaps.neotest = {
     run_current_file = '<leader>tf',
     summary          = '<leader>tt',
     output_open      = '<leader>to',
+    output_last      = '<leader>tl',
     output_panel     = '<leader>tp',
 }
 
