@@ -17,7 +17,16 @@ keymaps.setup = function()
     -- INFO: quit
     vim.keymap.set('n', '<CR>', ':w<CR>')
     vim.keymap.set('n', 'ZA', ':xall')
-    vim.keymap.set('n', '<C-q>', ':qa') -- CTRL-Q Same as CTRL-V
+    vim.keymap.set('n', '<C-q>', -- CTRL-Q is same as CTRL-V, so don't need the default CTRL-Q
+        -- INFO: quit without saving
+        function()
+            if vim.bo.filetype == 'gitcommit' then
+                vim.fn.feedkeys(':cq')
+            else
+                vim.fn.feedkeys(':qa')
+            end
+        end
+    )
 
     -- INFO: move up / down by visible lines with no [count]
     vim.keymap.set({ 'n', 'x' }, 'j', [[v:count == 0 ? 'gj' : 'j']], { expr = true, silent = true })
@@ -152,6 +161,7 @@ keymaps.setup = function()
 
     -- INFO: remove blank lines and lines containing only whitespaces
     vim.keymap.set('v', '<leader>-', [[:g/^\s*$/d<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
+
     -- INFO: source current file (shift+5 is %)
     vim.keymap.set('n', '<leader>5', function()
         vim.cmd('source %')
