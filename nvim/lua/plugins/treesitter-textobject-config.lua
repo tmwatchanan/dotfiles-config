@@ -22,11 +22,11 @@ mini_ai_module.opts = function()
             f = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
             x = spec_treesitter({ a = '@call.outer', i = '@call.inner' }),
             r = spec_treesitter({ a = '@return.outer', i = '@return.inner' }),
-            c = spec_treesitter({ a = '@comment.inner', i = '@comment.outer' }),
+            c = spec_treesitter({ a = '@comment.outer', i = '@comment.inner' }),
             C = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),
             ['='] = spec_treesitter({
-                a = { '@assignment.lhs', '@keyword_argument_name', '@field_name.inner', '@assignment_variable_id' },
-                i = { '@assignment.rhs', '@keyword_argument_value', '@field_value' },
+                a = { '@assignment.lhs', '@keyword_argument_name', '@field_name.inner', '@assignment_variable_id', '@typed_default_parameter_name_type', '@assignment_left_type' },
+                i = { '@assignment.rhs', '@keyword_argument_value', '@field_value', '@typed_default_parameter_value' },
             }),
             e = spec_treesitter({ a = '@assignment.outer', i = '@assignment.inner' }),
             d = spec_treesitter({ a = '@number.inner', i = '@number.inner' }),
@@ -40,7 +40,7 @@ mini_ai_module.opts = function()
             u = spec_treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
             U = spec_treesitter({ a = '@if_clause', i = '@comparison_operator' }),
             t = spec_treesitter({
-                a = { '@type', '@assignment_left', '@typed_parameter_identifier' },
+                a = { '@assignment_left', '@typed_parameter_identifier', '@typed_default_parameter_name' },
                 i = '@type',
             }),
             ['-'] = spec_treesitter({ a = '@return_type_outer', i = '@return_type_inner' }),

@@ -1,5 +1,9 @@
 ;; extends
 
+(chunk
+  (_) @block.outer
+)
+
 (variable_declaration) @local_variable_declaration
 
 

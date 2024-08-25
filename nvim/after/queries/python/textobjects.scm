@@ -1,7 +1,5 @@
 ;; extends
 
-(assignment) @local_variable_declaration
-
 (dictionary
   (pair
     key: (_) @field_name
@@ -30,10 +28,24 @@
   type: (_) @typed_parameter_type
 ) @typed_parameter
 
+(typed_default_parameter
+  name: (_) @typed_default_parameter_name
+  .
+  [
+    type: (_)
+  ] @typed_default_parameter_type
+  value: (_) @typed_default_parameter_value
+  (#make-range! "typed_default_parameter_name_type" @typed_default_parameter_name @typed_default_parameter_type)
+)
+
 (assignment
-    left: (_) @assignment_left
-    type: (_) @assignment_type
-) @assignment
+  left: (_) @assignment_left
+  .
+  [
+    type: (_)
+  ] @assignment_type
+  (#make-range! "assignment_left_type" @assignment_left @assignment_type)
+) @assignment @local_variable_declaration
 
 (function_definition
   "->" @return_type_arrow
