@@ -35,9 +35,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 vim.api.nvim_create_autocmd('OptionSet', {
-    desc = 'assign q to quit when in diff mode',
+    desc = 'assign q to quit when in diff mode or Diffview',
     pattern = 'diff',
-    callback = function() vim.keymap.set('n', 'q', '<c-w>h:q<cr>', { buffer = true }) end
+    callback = function()
+        local diffview_status, _ = pcall(require, 'diffview')
+        if diffview_status then
+            vim.keymap.set('n', 'q', function() vim.cmd('DiffviewClose') end, { buffer = true })
+        else
+            vim.keymap.set('n', 'q', '<c-w>h:q<cr>', { buffer = true })
+        end
+    end
 })
 
 -- check if we need to reload file when it changed
@@ -46,6 +53,7 @@ vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'CmdwinEnter' }, {
+    desc = '`qq` to close command-line window',
     pattern = '*',
     callback = function() vim.keymap.set('n', 'qq', '<C-w>c', { buffer = true }) end
 })

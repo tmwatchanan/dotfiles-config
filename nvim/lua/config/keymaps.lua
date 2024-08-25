@@ -486,12 +486,14 @@ keymaps.swenv = {
 
 -- INFO: diffview
 keymaps.diffview = {
-    open         = '<leader>dv',
-    close        = '<leader>dc',
-    current_file = '<leader>df',
-    file_history = '<leader>dF',
-    toggle_files = '<leader>dt',
-    compare_head = '<leader>dh',
+    open          = '<leader>dv',
+    close         = '<leader>dc',
+    current_file  = '<leader>df',
+    file_history  = '<leader>dF',
+    toggle_files  = '<leader>dt',
+    compare_head  = '<leader>dh',
+    review_branch = '<leader>dr',
+    merge_request = '<leader>dmr',
 }
 
 -- INFO: undotree
