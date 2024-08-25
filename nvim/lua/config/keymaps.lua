@@ -205,6 +205,10 @@ keymaps.treesitter = {
         node_decremental = '<S-Tab>',
     },
     textobjects = {
+        repeat_move = {
+            repeat_last_move_next = '];',
+            repeat_last_move_previous = '[;',
+        },
         move = {
             goto_next_start = {
                 [']f'] = '@function.outer',
