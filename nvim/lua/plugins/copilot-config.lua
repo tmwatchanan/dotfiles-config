@@ -112,8 +112,9 @@ copilot_chat.keys = function()
     }
 end
 
-return {
-    copilot,
-    copilot_lualine,
-    copilot_chat,
-}
+-- return {
+--     copilot,
+--     copilot_lualine,
+--     copilot_chat,
+-- }
+return {}
