@@ -54,8 +54,8 @@ M.keys = function()
             flash_keymap.flash_current_word,
             mode = { 'n', 'o', 'x' },
             function()
-                require("flash").jump({
-                    pattern = vim.fn.expand("<cword>"),
+                require('flash').jump({
+                    pattern = vim.fn.expand('<cword>'),
                     search = { multi_window = true },
                 })
             end,
@@ -65,7 +65,7 @@ M.keys = function()
             flash_keymap.flash_continue,
             mode = { 'n', 'o', 'x' },
             function()
-                require("flash").jump({
+                require('flash').jump({
                     continue = true,
                 })
             end,

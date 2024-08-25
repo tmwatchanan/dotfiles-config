@@ -26,6 +26,7 @@ dap_python_module.config = function()
                     -- https://code.visualstudio.com/docs/python/testing#_pytest-configuration-settings
                     ["PYTEST_ADDOPTS"] = '--no-cov',
                 },
+                justMyCode = false,
             }
         )
     end
