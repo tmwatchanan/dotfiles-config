@@ -169,6 +169,9 @@ keymaps.setup = function()
     end)
     -- INFO: lazy.nvim reload plugin
     vim.keymap.set('n', '<leader><leader>5', ':Lazy reload ')
+
+    -- INFO: append '-' to EOL not exceeding 80 columns
+    vim.keymap.set('n', '<leader>-', [[:%s/\s\+$//e<CR><Cmd>noh<CR>A<space><Esc>80A-<Esc>d80|0]])
 end
 
 -- INFO: LSP keymap
@@ -269,6 +272,7 @@ keymaps.treesitter = {
                 'iy', -- pyTripleQuotes
                 'ao', -- anyBracket outer
                 'io', -- anyBracket inner
+                '|',  -- column, conflict with the origin *bar*
             },
             delete_surrounding_indentation = 'dsi',
             value_outer = 'aV',
