@@ -2,7 +2,7 @@ local M = {
     'nvim-lualine/lualine.nvim',
     dependencies = {
         'nvim-colorscheme',
-        'copilot-lualine',
+        -- 'copilot-lualine',
         'resession.nvim',
     },
     event = 'UIEnter'
