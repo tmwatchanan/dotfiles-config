@@ -5,6 +5,7 @@
 /kitty
 /tmux
 /zed
+/wezterm
 
 .gitconfig
 config-installer.sh
