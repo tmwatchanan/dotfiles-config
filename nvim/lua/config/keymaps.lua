@@ -1,5 +1,26 @@
 local keymaps = {}
 
+-- INFO: append the repeated trailing '-' not exceeding 80 columns
+local function append_repeated_trailing_characters()
+    local colorcolumn = 80
+    local current_line = vim.api.nvim_get_current_line()
+    local current_line_length = current_line:len()
+
+    -- INFO: remove the pattern if exists
+    if current_line:match('%s[-]+$') then
+        local current_line_stripped = current_line:gsub('%s[-]+$', '')
+        vim.api.nvim_set_current_line(current_line_stripped)
+        return
+    end
+
+    -- INFO: append '-' if the line length is not exceeding colorcolumn
+    if current_line_length < colorcolumn - 1 then
+        local current_line_stripped = current_line:gsub('(.-)%s*$', '%1')
+        local appending_text = string.rep('-', colorcolumn - current_line_length - 1)
+        vim.api.nvim_set_current_line(('%s %s'):format(current_line_stripped, appending_text))
+    end
+end
+
 keymaps.setup = function()
     -- INFO: disable <Space> for moving the cursor
     vim.keymap.set('n', '<Space>', '')
@@ -172,25 +193,7 @@ keymaps.setup = function()
 
     -- INFO: append the repeated trailing '-' not exceeding 80 columns
     -- vim.keymap.set('n', '<leader>-', [[:%s/\s\+$//e<CR><Cmd>noh<CR>A<space><Esc>80A-<Esc>d80|0]])
-    vim.keymap.set('n', '<leader>-', function()
-        local colorcolumn = 80
-        local current_line = vim.api.nvim_get_current_line()
-        local current_line_length = current_line:len()
-
-        -- INFO: remove the pattern if exists
-        if current_line:match('%s[-]+$') then
-            local current_line_stripped = current_line:gsub('%s[-]+$', '')
-            vim.api.nvim_set_current_line(current_line_stripped)
-            return
-        end
-
-        -- INFO: append '-' if the line length is not exceeding colorcolumn
-        if current_line_length < colorcolumn - 1 then
-            local current_line_stripped = current_line:gsub('(.-)%s*$', '%1')
-            local appending_text = string.rep('-', colorcolumn - current_line_length - 1)
-            vim.api.nvim_set_current_line(('%s %s'):format(current_line_stripped, appending_text))
-        end
-    end)
+    vim.keymap.set('n', '<leader>-', append_repeated_trailing_characters)
 end
 
 -- INFO: LSP keymap
