@@ -30,12 +30,6 @@ return {
         }
     },
     {
-        'chrishrb/gx.nvim',
-        dependencies = { 'plenary.nvim' },
-        keys = { { 'gx', function() require('gx').open() end, mode = { 'n', 'x' } } },
-        config = true
-    },
-    {
         'utilyre/sentiment.nvim',
         event = 'VeryLazy',
         config = true
