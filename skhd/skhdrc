@@ -1,7 +1,5 @@
-# disable MacOS default
+# disable MacOS default cmd - h
 cmd - h : [ ]
-alt - v : skhd -k "ctrl + alt - v"
-alt - backspace : skhd -k "ctrl + alt - backspace"
 
 # Overrided MacOS default spaces navigation
 ctrl - right : yabai -m space --focus next || yabai -m space --focus first
