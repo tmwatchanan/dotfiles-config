@@ -61,18 +61,3 @@ brew install ncurses
 sudo tic -xe tmux-256color ~/tmux-256color.info
 ```
 
-
-## fyabai : window tilling manager
-Using `yabai` forked by `FelixKratz`
-
-To remove old installed `yabai` : [issue-comment](https://github.com/FelixKratz/yabai/issues/10#issuecomment-1374409628)
-``` bash
-brew services stop yabai
-brew uninstall yabai
-killall yabai
-brew tap FelixKratz/formulae
-brew install fyabai --head
-sudo yabai --uninstall-sa # don't forgot to unload old sa
-sudo yabai --load-sa
-brew services start fyabai
-```
