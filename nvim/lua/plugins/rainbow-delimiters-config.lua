@@ -1,5 +1,6 @@
 local M = {
     'hiphish/rainbow-delimiters.nvim',
+    branch = 'fix-highlighting',
     event = { 'BufReadPre', 'BufNewFile' },
     main = 'rainbow-delimiters.setup'
 }
