@@ -14,7 +14,7 @@
       "ctrl-j": "pane::GoForward",
       "ctrl-k": "pane::GoBack",
       "\\ f w": "workspace::NewSearch",
-      "\\ f s": "file_finder::Toggle",
+      "\\ \\": "file_finder::Toggle",
       "\\ f b": "workspace::ToggleLeftDock",
       "\\ t": "terminal_panel::ToggleFocus",
       // "\\ g": [
@@ -28,7 +28,8 @@
       "[ c": "editor::GoToPrevHunk",
       "] d": "editor::GoToDiagnostic",
       "[ d": "editor::GoToPrevDiagnostic",
-      "\\ d": "diagnostics::Deploy"
+      "\\ d": "diagnostics::Deploy",
+      "w q": "pane::CloseActiveItem"
     }
   },
   {
@@ -76,7 +77,7 @@
       "enter": "project_panel::Rename",
       "space": "project_panel::Open",
       "backspace": "project_panel::Delete",
-      "alt-cmd-r": "project_panel::RevealInFinder",
+      "alt-cmd-r": "project_panel::RevealInFileManager",
       "alt-shift-f": "project_panel::NewSearchInDirectory",
       "escape": "workspace::ToggleLeftDock"
     }

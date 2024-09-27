@@ -7,11 +7,18 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-20240620"
+    },
+    "version": "2"
+  },
   "telemetry": {
     "metrics": true
   },
-  "theme": "Fleet Dark",
-  "buffer_font_size": 13.5,
+  "theme": "Oxocarbon Dark (IBM Carbon)",
+  "buffer_font_size": 13,
   "buffer_line_height": { "custom": 1.4 },
   "buffer_font_family": "Maple Mono NF",
   "ui_font_size": 15,
@@ -19,14 +26,14 @@
   "active_pane_magnification": 1.61803398875,
   "terminal": {
     "font_family": "Maple Mono NF",
-    "font_size": 12
+    "font_size": 12.5
   },
   "relative_line_numbers": true,
   "vim_mode": true,
   "vim": { "use_multiline_find": true },
   "line_indicator_format": "short",
   "tab_bar": {
-    "show_nav_history_buttons": false
+    "show": false
   },
   "git": {
     "inline_blame": {
