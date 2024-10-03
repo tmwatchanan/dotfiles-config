@@ -170,7 +170,6 @@ keymaps.marks = {
     next    = "'",
     prev    = '"',
     toggle  = "m'",
-    preview = 'm"',
     clear   = 'md',
     list    = '<leader>m',
 }
