@@ -71,7 +71,7 @@ return {
     },
     {
         'OXY2DEV/markview.nvim',
-        dependencies = { 'nvim-treesitter', 'nvim-web-devicons' },
+        dependencies = { 'nvim-treesitter', 'mini.icons' },
         ft = 'markdown',
         opts = {
             list_items = { shift_width = 2, indent_size = 2 }

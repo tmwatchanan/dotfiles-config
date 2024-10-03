@@ -38,7 +38,7 @@ Already configured with following keybindings
 - **Window** - follow by Ctrl-key to hold
 - **Pane** - follow by lowercase-letter
 
-| **Actions** | Session                    | Window                             | Pane                       |
+| **Actions**     | Session                    | Window                             | Pane                       |
 | :---        | ---                        | ---                                | ---                        |
 | new         | `<prefix>N`                | `<prefix><C-n>`                    | `<prefix>n`                |
 | next        | `<prefix>J` or `<prefix>O` | `<prefix><C-j>` or `<prefix><C-o>` | `<prefix>j` or `<prefix>o` |
