@@ -85,7 +85,7 @@ return {
             local win_height = math.floor(vim.o.lines * 0.8)
 
             local function get_file_last_modified(file_path)
-                local stat = vim.loop.fs_stat(file_path)
+                local stat = vim.uv.fs_stat(file_path)
                 if stat then
                     local last_modified = stat.mtime.sec
                     return ' Updated: ' .. os.date('%d-%b-%Y %H:%M', last_modified) .. ' '

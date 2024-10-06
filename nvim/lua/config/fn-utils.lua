@@ -204,7 +204,7 @@ function M.identity(value)
 end
 
 function M.debounce(fn, ms)
-    local timer = vim.loop.new_timer()
+    local timer = vim.uv.new_timer()
 
     local function wrapped_fn(...)
         local args = { ... }
