@@ -38,6 +38,7 @@ M.opts = function()
             'javascript',
             'css',
             'scss',
+            'latex'
         },
         ignore_install = {
             'norg',

@@ -73,9 +73,15 @@ return {
         'OXY2DEV/markview.nvim',
         dependencies = { 'nvim-treesitter', 'mini.icons' },
         ft = 'markdown',
-        opts = {
-            list_items = { shift_width = 2, indent_size = 2 }
-        }
+        opts = function()
+            local presets = require('markview.presets')
+            return {
+                list_items = { shift_width = 2, indent_size = 2 },
+                code_blocks = { icon = 'mini' },
+                checkboxes = presets.checkboxes.nerd,
+                headings = presets.headings.glow
+            }
+        end
     },
     {
         'letieu/jot.lua',
