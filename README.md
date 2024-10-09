@@ -16,7 +16,7 @@ Most of the keybindings can be modified in [keymaps.lua](nvim/lua/config/keymaps
 All the installed plugins are listed in [plugins/init.lua](nvim/lua/plugins/init.lua) or [plugins/](nvim/lua/plugins/)
 
 ## Fish shell
-Need to install `fish` and `fisher`(packages manager)
+Requires `fish` and `fisher`(packages manager)
 
 [**`fish`**](https://fishshell.com/)
 ``` bash
@@ -31,7 +31,7 @@ fisher update   # install all listed plugins in `fish_plugins`
 ```
 
 ## tmux
-Needs to install `tmux` and `tmp`(tmux plugins manager)
+Requires `tmux` and `tmp`(tmux plugins manager)
 
 Already configured with following keybindings
 - **Session** - follow by uppercase-letter

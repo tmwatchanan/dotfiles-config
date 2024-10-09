@@ -40,10 +40,7 @@ local function override_ui_select()
         if kind == 'codeaction' or 'unknown' then
             -- change position for codeaction selection
             popup_options.relative = 'cursor'
-            popup_options.position = {
-                row = 2,
-                col = 0,
-            }
+            popup_options.position = { row = 2, col = 0 }
         end
 
         local max_width = popup_options.relative == 'editor' and vim.o.columns - 4 or vim.api.nvim_win_get_width(0) - 4
