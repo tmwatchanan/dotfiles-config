@@ -1,6 +1,6 @@
 local M = {
-    'yioneko/nvim-cmp',
-    branch = 'perf',
+    'iguanacucumber/magazine.nvim',
+    name = 'nvim-cmp',
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         -- NOTE: cmp sources
