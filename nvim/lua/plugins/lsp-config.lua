@@ -17,7 +17,7 @@ mason_module.opts = {
 --
 local lsp_setup_module = {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
+    branch = 'v4.x',
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
         'mason.nvim',
@@ -28,23 +28,12 @@ local lsp_setup_module = {
 }
 
 lsp_setup_module.init = function()
-    local diagnostic_icons = require('config').defaults.icons.diagnostics
-
-    -- INFO: setup diagnostic configs
-    local diagnostic_config = {
+    vim.diagnostic.config {
         update_in_insert = false,
         severity_sort = true,
         virtual_text = false,
         virtual_lines = true,
-        signs = {
-            text = { diagnostic_icons.error, diagnostic_icons.warn, diagnostic_icons.info, diagnostic_icons.hint },
-        }
     }
-    vim.diagnostic.config(diagnostic_config)
-
-    -- INFO: setup lsp-zero configs
-    vim.g.lsp_zero_ui_float_border = 0
-    vim.g.lsp_zero_extend_cmp = 0
 end
 
 lsp_setup_module.config = function()
@@ -72,9 +61,8 @@ lsp_setup_module.config = function()
         on_new_config = lspconfig.util.add_hook_before(lspconfig.util.default_config.on_new_config,
             function(config, root_dir)
                 local new_default_config = load_local_settings(root_dir, config.name)
-                if new_default_config ~= nil then
-                    config.cmd = new_default_config.cmd
-                    -- config = vim.tbl_deep_extend('force', config, new_default_config) -- BUG: not sure why its cannot extended table, shallow copy ?
+                if new_default_config then
+                    for k, v in pairs(new_default_config) do config[k] = v end
                 end
             end)
     })
@@ -131,12 +119,19 @@ lsp_setup_module.config = function()
     --
     local lsp_zero = require('lsp-zero')
 
-    lsp_zero.on_attach(function(client, bufnr)
+    local lsp_attach = function(client, bufnr)
         lsp_zero.highlight_symbol(client, bufnr)
 
         lsp_keymap(client, bufnr, require('config.keymaps').lsp)
         lsp_inlayhint(client, bufnr)
-    end)
+    end
+
+    lsp_zero.extend_lspconfig {
+        float_border = 'rounded',
+        sign_text = require('config').defaults.icons.diagnostics,
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        lsp_attach = lsp_attach,
+    }
 
     -- INFO: config lsp servers in lsp-list
     local lsp_list = {}
@@ -147,7 +142,7 @@ lsp_setup_module.config = function()
 
     -- NOTE: manually injects unsupported lsp by mason.nvim, need to manually update lsp list to be automatically installed
     -- lsp.configure('ccls', {
-    --     on_attach = lsp_on_attach,
+    --     on_attach = lsp_attach,
     -- })
 
     -- INFO: automatically setup lsp from default config installed via mason.nvim
