@@ -135,6 +135,7 @@ M.setup = function()
             SignColumn = { fg = c.base02, bg = c.none },
             CursorLine = { bg = c.base02 },
             VertSplit = { fg = c.base02, bg = c.none },
+            StatusLine = { bg = c.none },
             NormalFloat = { bg = c.base01 },
             FloatBorder = { link = 'NormalFloat' },
             FloatTitle = { fg = c.base10, bg = c.base01, bold = true },
