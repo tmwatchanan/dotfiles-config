@@ -62,7 +62,6 @@ M.keys = function()
                     },
                     sorting_strategy = 'descending',
                     trim_text = true,
-                    initial_mode = 'normal'
                 })
             end
         },
