@@ -11,6 +11,7 @@ return {
             require('null-ls').builtins.formatting.shfmt,
             require('null-ls').builtins.diagnostics.fish,
             require('null-ls').builtins.formatting.fish_indent,
+            require('null-ls').builtins.formatting.buf,
         },
     },
 }
