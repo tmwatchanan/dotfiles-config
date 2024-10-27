@@ -1,22 +1,24 @@
 local keymaps = {}
 
 -- INFO: append the repeated trailing '-' not exceeding 80 columns
-local function append_repeated_trailing_characters()
+local function append_repeated_trailing_characters(character)
     local colorcolumn = 80
     local current_line = vim.api.nvim_get_current_line()
     local current_line_length = current_line:len()
 
     -- INFO: remove the pattern if exists
-    if current_line:match('%s[-]+$') then
-        local current_line_stripped = current_line:gsub('%s[-]+$', '')
+    local pattern = '%s[' .. character ..  ']+$'
+    if current_line:match(pattern) then
+        local current_line_stripped = current_line:gsub(pattern, '')
         vim.api.nvim_set_current_line(current_line_stripped)
         return
     end
 
     -- INFO: append '-' if the line length is not exceeding colorcolumn
     if current_line_length < colorcolumn - 1 then
-        local current_line_stripped = current_line:gsub('(.-)%s*$', '%1')
-        local appending_text = string.rep('-', colorcolumn - current_line_length - 1)
+        local stripping_pattern = '(.' .. character .. ')%s*$'
+        local current_line_stripped = current_line:gsub(stripping_pattern, '%1')
+        local appending_text = string.rep(character, colorcolumn - current_line_length - 1)
         vim.api.nvim_set_current_line(('%s %s'):format(current_line_stripped, appending_text))
     end
 end
@@ -192,8 +194,10 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader><leader>5', ':Lazy reload ')
 
     -- INFO: append the repeated trailing '-' not exceeding 80 columns
-    -- vim.keymap.set('n', '<leader>-', [[:%s/\s\+$//e<CR><Cmd>noh<CR>A<space><Esc>80A-<Esc>d80|0]])
-    vim.keymap.set('n', '<leader>-', append_repeated_trailing_characters)
+    -- vim.keymap.set('n', '<leader>--', [[:%s/\s\+$//e<CR><Cmd>noh<CR>A<space><Esc>80A-<Esc>d80|0]])
+    vim.keymap.set('n', '<leader>--', function() append_repeated_trailing_characters('-') end)
+    vim.keymap.set('n', '<leader>-=', function() append_repeated_trailing_characters('=') end)
+    vim.keymap.set('n', '<leader>-#', function() append_repeated_trailing_characters('#') end)
 end
 
 -- INFO: LSP keymap
