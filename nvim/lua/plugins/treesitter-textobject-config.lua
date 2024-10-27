@@ -32,8 +32,8 @@ mini_ai_module.opts = function()
             d = spec_treesitter({ a = '@number.inner', i = '@number.inner' }),
 
             E = spec_treesitter({ a = '@local_variable_declaration', i = '@local_variable_declaration' }),
-            v = spec_treesitter({ a = '@field_value', i = '@field_value' }),
-            k = spec_treesitter({ a = '@field_name.outer', i = '@field_name.inner' }),
+            v = spec_treesitter({ a = { '@field_value', '@value' }, i = { '@field_value', '@value' } }),
+            k = spec_treesitter({ a = { '@field_name.outer', '@key' }, i = { '@field_name.inner', '@key' } }),
             F = spec_treesitter({ a = '@field_outer', i = '@field_inner' }),
             y = spec_treesitter({ a = '@loop.outer', i = '@loop.inner' }),
             Y = spec_treesitter({ a = '@for_in_clause_right', i = '@for_in_clause_left' }),
@@ -43,7 +43,7 @@ mini_ai_module.opts = function()
                 a = { '@assignment_left', '@typed_parameter_identifier', '@typed_default_parameter_name' },
                 i = '@type',
             }),
-            ['-'] = spec_treesitter({ a = '@return_type_outer', i = '@return_type_inner' }),
+            ['-'] = spec_treesitter({ a = {'@return_type_outer', '@item_outer'}, i = { '@return_type_inner', '@item_inner' } }),
             ['@'] = spec_treesitter({ a = '@decorated_outer', i = '@decorated_inner' }),
         },
         mappings = {
