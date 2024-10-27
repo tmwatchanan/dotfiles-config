@@ -52,14 +52,4 @@ yabai -m config layout bsp
 # JankyBorders
 borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
 
-# Exclude problematic apps from being managed:
-yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
-# yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
-# yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-# yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
-yabai -m rule --add app="^(Calculator|Software Update|System Settings|System Information|zoom.us|Archive Utility|App Store|Activity Monitor|Spotify|Numi|Finder|KiCad|LINE)$" manage=off
-yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-yabai -m rule --add label="Arc Settings" app="^Arc$" title="^Peeranut$" manage=off
-yabai -m rule --add label="Arc PiP" app="^Arc$" subrole="^AXSystemDialog$" manage=off
-
 echo "yabai configuration loaded.."

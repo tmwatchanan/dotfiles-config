@@ -28,15 +28,31 @@ done <<< "$CURRENT_SPACES"
 
 
 yabai -m space 1 --label note
-# open "obsidian://open?vault=personal"
-open "obsidian://open?vault=know-how"
-yabai -m rule --add app="^Obsidian$" space=note
+yabai -m rule --add app="^Arc$" title="^Work$" space=work
 
 yabai -m space 2 --label office
-yabai -m rule --add app="^Slack$" space=office
+yabai -m rule --add app="^Arc$" title="^Personal$" space=personal
 
 yabai -m space 3 --label code
 yabai -m rule --add app="^WezTerm$" space=code
 
+yabai -m space 4 --label note
+# open "obsidian://open?vault=personal"
+open "obsidian://open?vault=know-how"
+yabai -m rule --add app="^Obsidian$" space=note
+
 # sketchybar --trigger space_change --trigger windows_on_spaces
 
+yabai -m space 6 --label slack
+yabai -m rule --add app="^Slack$" space=slack
+
+
+# Exclude problematic apps from being managed:
+yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
+# yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+# yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+# yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
+yabai -m rule --add app="^(Calculator|Software Update|System Settings|System Information|zoom.us|Archive Utility|App Store|Activity Monitor|Spotify|Numi|Finder|KiCad|LINE)$" manage=off
+yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+yabai -m rule --add label="Arc Settings" app="^Arc$" title="^Mie$" manage=off
+yabai -m rule --add label="Arc PiP" app="^Arc$" subrole="^AXSystemDialog$" manage=off
