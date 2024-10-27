@@ -65,6 +65,7 @@ M.setup = function()
         }
 
         overrided_highlights = utils.merge(overrided_highlights, {
+            StatusLine = { bg = colorset.transparent }, -- transparent for terminal emulator
             NormalNC = { bg = colorset.transparent }, -- transparent for terminal emulator
             -- NormalFloat = { bg = colorset.transparent },
             WinSeparator = { fg = palette.springViolet1, bg = colorset.transparent },
