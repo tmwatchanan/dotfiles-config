@@ -14,3 +14,4 @@ nvim/lazy-lock.json
 gh
 zed/embeddings
 zed/.tmp*
+zed/prompts/prompts-library-db.0.mdb

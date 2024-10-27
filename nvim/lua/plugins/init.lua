@@ -1,7 +1,16 @@
 return {
     { 'nvim-lua/plenary.nvim' },
-    { 'nvim-tree/nvim-web-devicons' },
     { 'MunifTanjim/nui.nvim' },
+    {
+        'echasnovski/mini.icons',
+        opts = {},
+        init = function()
+            package.preload['nvim-web-devicons'] = function()
+                require('mini.icons').mock_nvim_web_devicons()
+                return package.loaded['nvim-web-devicons']
+            end
+        end,
+    },
 
     -- Neovim config dev
     {
@@ -57,11 +66,6 @@ return {
         keys = {
             { require('config.keymaps').treesj.toggle, '<Cmd>TSJToggle<CR>' },
         }
-    },
-    {
-        'chrishrb/gx.nvim',
-        dependencies = { 'plenary.nvim' },
-        keys = { { 'gx', function() require('gx').open() end, mode = { 'n', 'x' } } },
     },
     {
         'utilyre/sentiment.nvim',
@@ -125,11 +129,17 @@ return {
     },
     {
         'OXY2DEV/markview.nvim',
-        dependencies = { 'nvim-treesitter', 'nvim-web-devicons' },
+        dependencies = { 'nvim-treesitter', 'mini.icons' },
         ft = 'markdown',
-        opts = {
-            list_items = { shift_width = 2, indent_size = 2 }
-        }
+        opts = function()
+            local presets = require('markview.presets')
+            return {
+                list_items = { shift_width = 2, indent_size = 2 },
+                code_blocks = { icon = 'mini' },
+                checkboxes = presets.checkboxes.nerd,
+                headings = presets.headings.glow
+            }
+        end
     },
     {
         'letieu/jot.lua',
@@ -139,7 +149,7 @@ return {
             local win_height = math.floor(vim.o.lines * 0.8)
 
             local function get_file_last_modified(file_path)
-                local stat = vim.loop.fs_stat(file_path)
+                local stat = vim.uv.fs_stat(file_path)
                 if stat then
                     local last_modified = stat.mtime.sec
                     return ' Updated: ' .. os.date('%d-%b-%Y %H:%M', last_modified) .. ' '

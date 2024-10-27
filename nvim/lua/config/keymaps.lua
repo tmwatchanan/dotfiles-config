@@ -396,7 +396,6 @@ keymaps.marks = {
     next    = 'mm',
     prev    = 'MM',
     toggle  = "m'",
-    preview = 'm"',
     clear   = 'md',
     list    = '<leader>m',
 }

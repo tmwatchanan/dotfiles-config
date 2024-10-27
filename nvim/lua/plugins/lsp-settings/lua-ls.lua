@@ -16,8 +16,9 @@ return {
             },
             workspace = {
                 library = {
-                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                    [vim.fn.stdpath('config') .. '/lua'] = true,
+                    vim.env.VIMRUNTIME,
+                    '${3rd}/luv/library',
+                    -- '${3rd}/busted/library',
                 },
                 maxPreload = 10000,
                 preloadFileSize = 10000,

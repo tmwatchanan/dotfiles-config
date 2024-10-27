@@ -22,7 +22,7 @@ Most of the keybindings can be modified in [keymaps.lua](nvim/lua/config/keymaps
 All the installed plugins are listed in [plugins/init.lua](nvim/lua/plugins/init.lua) or [plugins/](nvim/lua/plugins/)
 
 ## Fish shell
-Need to install `fish` and `fisher`(packages manager)
+Requires `fish` and `fisher`(packages manager)
 
 [**`fish`**](https://fishshell.com/)
 ``` bash
@@ -37,14 +37,14 @@ fisher update   # install all listed plugins in `fish_plugins`
 ```
 
 ## tmux
-Needs to install `tmux` and `tmp`(tmux plugins manager)
+Requires `tmux` and `tmp`(tmux plugins manager)
 
 Already configured with following keybindings
 - **Session** - follow by uppercase-letter
 - **Window** - follow by Ctrl-key to hold
 - **Pane** - follow by lowercase-letter
 
-| **Actions** | Session                    | Window                             | Pane                       |
+| **Actions**     | Session                    | Window                             | Pane                       |
 | :---        | ---                        | ---                                | ---                        |
 | new         | `<prefix>N`                | `<prefix><C-n>`                    | `<prefix>n`                |
 | next        | `<prefix>J` or `<prefix>O` | `<prefix><C-j>` or `<prefix><C-o>` | `<prefix>j` or `<prefix>o` |
@@ -70,20 +70,6 @@ sudo tic -xe tmux-256color ~/tmux-256color.info
 ## skhd
 - Using `skhd` with `fish` shell can cause some slowness issue. See [Long Delay before Action #42](https://github.com/koekeishiya/skhd/issues/42) for specifying the `SHELL` environment variable to be `/bin/sh` instead. Then, you'll have a much snappier reactions.
 
-## fyabai : window tilling manager
-Using `yabai` forked by `FelixKratz`
-
-To remove old installed `yabai` : [issue-comment](https://github.com/FelixKratz/yabai/issues/10#issuecomment-1374409628)
-``` bash
-brew services stop yabai
-brew uninstall yabai
-killall yabai
-brew tap FelixKratz/formulae
-brew install fyabai --head
-sudo yabai --uninstall-sa # don't forgot to unload old sa
-sudo yabai --load-sa
-brew services start fyabai
-```
 ## bat
 To install a custom theme, use the following commands:
 ```sh
