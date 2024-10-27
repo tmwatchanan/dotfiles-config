@@ -41,9 +41,7 @@
 (assignment
   left: (_) @assignment_left
   .
-  [
-    type: (_)
-  ] @assignment_type
+  type: (_) @assignment_type
   (#make-range! "assignment_left_type" @assignment_left @assignment_type)
 ) @assignment @local_variable_declaration
 
