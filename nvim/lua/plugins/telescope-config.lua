@@ -222,6 +222,7 @@ M.opts = function()
                 grouped = true,
                 hijack_netrw = true,
                 follow_symlinks = true,
+                display_stat = { size = true },
                 mappings = {
                     ['n'] = {
                         [telescope_keymap.file_browse] = telescope_actions.close,
