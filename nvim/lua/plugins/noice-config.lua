@@ -1,6 +1,7 @@
 local M = {
     'folke/noice.nvim',
     event = 'UIEnter',
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

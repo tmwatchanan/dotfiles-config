@@ -9,6 +9,7 @@ local M = {
         }
     },
     lazy = false,
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

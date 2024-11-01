@@ -5,7 +5,8 @@ local M = {
         -- 'copilot-lualine',
         'resession.nvim',
     },
-    event = 'UIEnter'
+    event = 'UIEnter',
+    cond = not vim.g.vscode,
 }
 
 M.opts = function()

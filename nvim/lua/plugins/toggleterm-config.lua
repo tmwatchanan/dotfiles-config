@@ -2,6 +2,7 @@ local toggleterm_keymap = require('config.keymaps').toggleterm
 
 local M = {
 	'akinsho/toggleterm.nvim',
+    cond = not vim.g.vscode,
 }
 
 -- M.init = function ()

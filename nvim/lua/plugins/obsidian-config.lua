@@ -14,6 +14,7 @@ local M = {
         'telescope.nvim',
         'nvim-treesitter',
     },
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

@@ -2,6 +2,7 @@ local M = {
     -- 'chentoast/marks.nvim',
     'MomePP/marks.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

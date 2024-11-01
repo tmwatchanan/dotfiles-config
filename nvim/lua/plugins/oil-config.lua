@@ -36,6 +36,7 @@ local M = {
             ['gt'] = 'actions.toggle_trash',
         },
     },
+    cond = not vim.g.vscode,
 }
 
 M.keys = function()

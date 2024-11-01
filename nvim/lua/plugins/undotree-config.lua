@@ -1,6 +1,7 @@
 local M = {
     'mbbill/undotree',
     lazy = false,
+    cond = not vim.g.vscode,
 }
 
 M.keys = function()

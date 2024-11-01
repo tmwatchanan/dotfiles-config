@@ -6,7 +6,8 @@ local M = {
         'antoinemadec/FixCursorHold.nvim',
         'nvim-treesitter',
         'nvim-neotest/neotest-python',
-    }
+    },
+    cond = not vim.g.vscode,
 }
 
 M.config = function()

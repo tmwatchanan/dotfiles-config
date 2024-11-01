@@ -2,6 +2,7 @@ local copilot = {
     'zbirenbaum/copilot.lua',
     event = 'InsertEnter',
     cmd = 'Copilot',
+    cond = not vim.g.vscode,
 }
 
 copilot.opts = function()
@@ -24,13 +25,15 @@ end
 
 local copilot_lualine = {
     'AndreM222/copilot-lualine',
+    cond = not vim.g.vscode,
 }
 
 local copilot_chat = {
     'CopilotC-Nvim/CopilotChat.nvim',
     branch = 'canary',
     dependencies = { 'copilot.lua', 'plenary.nvim' },
-    cmd = 'CopilotChat'
+    cmd = 'CopilotChat',
+    cond = not vim.g.vscode,
 }
 
 copilot_chat.opts = {

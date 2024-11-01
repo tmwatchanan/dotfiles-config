@@ -10,6 +10,7 @@ return {
                 return package.loaded['nvim-web-devicons']
             end
         end,
+        cond = not vim.g.vscode,
     },
 
     -- Neovim config dev
@@ -119,7 +120,8 @@ return {
             return {
                 { hbac_keymap.toggle_pin, hbac.toggle_pin }
             }
-        end
+        end,
+        cond = not vim.g.vscode,
     },
 
     -- Miscellaneous

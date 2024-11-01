@@ -1,5 +1,6 @@
 local dap_python_module = {
     'mfussenegger/nvim-dap-python',
+    cond = not vim.g.vscode,
 }
 
 dap_python_module.config = function()
@@ -63,7 +64,8 @@ local persistent_breakpoints_module = {
     config = function(_, opts)
         require('persistent-breakpoints').setup(opts)
         setup_dap_signs()
-    end
+    end,
+    cond = not vim.g.vscode,
 }
 
 local dap_module = {
@@ -71,6 +73,7 @@ local dap_module = {
     dependencies = {
         dap_python_module,
     },
+    cond = not vim.g.vscode,
 }
 
 dap_module.config = function()
@@ -112,6 +115,7 @@ local dapui_module = {
             end
         },
     },
+    cond = not vim.g.vscode,
 }
 
 dapui_module.config = function()

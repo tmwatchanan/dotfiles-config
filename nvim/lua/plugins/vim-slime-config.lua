@@ -2,6 +2,7 @@ local M = {
     'jam1015/vim-slime', -- 'jpalardy/vim-slime'
     branch = 'validate_config',
     ft = { 'julia' },
+    cond = not vim.g.vscode,
 }
 
 M.init = function()

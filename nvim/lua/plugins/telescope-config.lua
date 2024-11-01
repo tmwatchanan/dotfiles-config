@@ -7,6 +7,7 @@ local M = {
         'natecraddock/telescope-zf-native.nvim',
         'nvim-telescope/telescope-file-browser.nvim',
     },
+    cond = not vim.g.vscode,
 }
 
 M.opts = function()

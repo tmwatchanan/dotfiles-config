@@ -5,6 +5,7 @@ local M = {
         'plenary.nvim',
         'stevearc/dressing.nvim', -- optional for vim.ui.select
     },
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

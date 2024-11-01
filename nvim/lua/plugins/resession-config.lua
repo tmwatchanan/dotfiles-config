@@ -1,6 +1,7 @@
 local M = {
     'stevearc/resession.nvim',
     lazy = false,
+    cond = not vim.g.vscode,
 }
 
 M.opts = function()

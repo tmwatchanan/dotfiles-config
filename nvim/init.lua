@@ -1,11 +1,11 @@
 -- INFO: checking does nvim runs from `vscode-neovim` or not
-if not vim.g.vscode then
-    -- init options and load plugins
-    require 'config'.init()
+-- init options and load plugins
+require 'config'.init()
 
-    -- loads user config
-    require 'config'.setup()
-else
+-- loads user config
+require 'config'.setup()
+
+if vim.g.vscode then
     -- loads keymap for neovim-vscode
-    vim.cmd 'source $HOME/.config/nvim/vscode/init.vim'
+    require 'config.keymaps'
 end

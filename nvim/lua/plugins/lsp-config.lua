@@ -4,6 +4,7 @@
 local mason_module = {
     'williamboman/mason.nvim',
     cmd = { 'Mason', 'MasonUpdate' },
+    cond = not vim.g.vscode,
 }
 
 mason_module.opts = {
@@ -36,6 +37,7 @@ local lsp_setup_module = {
         'neovim/nvim-lspconfig',
         'williamboman/mason-lspconfig.nvim',
     },
+    cond = not vim.g.vscode,
 }
 
 lsp_setup_module.init = function()
@@ -178,6 +180,7 @@ end
 local diagflow_module = {
     'dgagn/diagflow.nvim',
     event = 'LspAttach',
+    cond = not vim.g.vscode,
 }
 
 diagflow_module.opts = {
@@ -209,6 +212,7 @@ local formatter_module = {
         require('mason-tool-installer').check_install(false)
         require('null-ls').setup(formatters.none_ls)
     end,
+    cond = not vim.g.vscode,
 }
 
 return {

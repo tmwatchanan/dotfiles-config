@@ -2,6 +2,7 @@ local M = {
     'JuliaEditorSupport/julia-vim',
     lazy = false,
     ft = 'julia',
+    cond = not vim.g.vscode,
 }
 
 local julia_program = 'julia'

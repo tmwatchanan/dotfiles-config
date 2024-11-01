@@ -8,6 +8,7 @@ local M = {
         -- '3rd/image.nvim', -- Optional image support in preview window: See `# Preview Mode` for more information
     },
     cmd = 'Neotree',
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

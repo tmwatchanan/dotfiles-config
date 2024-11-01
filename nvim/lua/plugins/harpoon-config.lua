@@ -2,6 +2,7 @@ local M = {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
     dependencies = { 'plenary.nvim' },
+    cond = not vim.g.vscode,
 }
 
 M.keys = function()

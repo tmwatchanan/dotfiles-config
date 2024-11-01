@@ -1,6 +1,7 @@
 local M = {
     'nvim-focus/focus.nvim',
     event = 'VeryLazy',
+    cond = not vim.g.vscode,
 }
 
 M.init = function()

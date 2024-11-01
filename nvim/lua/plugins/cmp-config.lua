@@ -37,6 +37,7 @@ local M = {
         -- NOTE: misc. plugins
         'onsails/lspkind.nvim',
     },
+    cond = not vim.g.vscode,
 }
 
 M.opts = function()
