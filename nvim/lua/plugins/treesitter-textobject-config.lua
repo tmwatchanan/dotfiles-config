@@ -43,7 +43,7 @@ mini_ai_module.opts = function()
                 a = { '@assignment_left', '@typed_parameter_identifier', '@typed_default_parameter_name' },
                 i = '@type',
             }),
-            ['-'] = spec_treesitter({ a = {'@return_type_outer', '@item_outer'}, i = { '@return_type_inner', '@item_inner' } }),
+            ['-'] = spec_treesitter({ a = { '@return_type_outer', '@item_outer' }, i = { '@return_type_inner', '@item_inner' } }),
             ['@'] = spec_treesitter({ a = '@decorated_outer', i = '@decorated_inner' }),
         },
         mappings = {
@@ -55,12 +55,22 @@ mini_ai_module.opts = function()
 end
 
 
+local function create_various_textobjs_disabled_keymaps()
+    local disabled_keymaps = require('config.keymaps').treesitter.textobjects.various_textobjs.disabledKeymaps
+    local utils = require('config.fn-utils')
+    if vim.g.vscode then
+        -- NOTE: for some reason, `gc` is problematic with visual selection in Windows
+        disabled_keymaps = utils.merge(disabled_keymaps, { 'gc' })
+    end
+    return disabled_keymaps
+end
+
 local various_textobjs_module = {
     'chrisgrieser/nvim-various-textobjs',
     event = 'UIEnter',
     opts = {
         useDefaultKeymaps = true,
-        disabledKeymaps = require('config.keymaps').treesitter.textobjects.various_textobjs.disabledKeymaps,
+        disabledKeymaps = create_various_textobjs_disabled_keymaps(),
     },
 }
 
