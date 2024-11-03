@@ -47,6 +47,9 @@ M.setup = function()
     local function load_user_configs()
         require 'config.autocommands'
         require 'config.keymaps'.setup()
+        if vim.g.vscode then
+            require 'config.keymaps' -- load keymap for vscode-neovim
+        end
         -- require 'config.overrided-utils'.override_ui_select()
         -- require 'config.overrided-utils'.override_floating_preview()
     end
