@@ -101,6 +101,11 @@ return {
         lazy = false,
         init = function()
             vim.g.matchup_matchparen_offscreen = { method = 'popup' }
+            if vim.g.vscode then
+                -- NOTE: there's a bug associated with this option when exit insert mode
+                -- the typed text will be replicated
+                vim.g.matchup_matchparen_enabled = 0
+            end
         end,
     },
     {
