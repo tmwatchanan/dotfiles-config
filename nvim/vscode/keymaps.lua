@@ -14,6 +14,6 @@ vim.keymap.set({ 'n', 'x' }, '<leader>hu', function() vscode.action('git.unstage
 vim.keymap.set({ 'n', 'x' }, '<leader>hr', function() vscode.action('git.revertSelectedRanges') end)
 
 vim.keymap.set({ 'n', 'x' }, ']h', function() vscode.action('workbench.action.editor.nextChange') end)
-vim.keymap.set({ 'n', 'x' }, '[h', function() vscode.action('workbench.action.editor.prevChange') end)
+vim.keymap.set({ 'n', 'x' }, '[h', function() vscode.action('workbench.action.editor.previousChange') end)
 
 vim.keymap.set({ 'n', 'x' }, '<leader>g', function() vscode.action('workbench.view.scm') end)
