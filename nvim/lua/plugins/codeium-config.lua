@@ -7,6 +7,7 @@
 --         neocodeium.setup()
 --         vim.keymap.set('i', '<A-f>', neocodeium.accept)
 --     end,
+--     cond = not vim.g.vscode,
 -- }
 local M = {
     'Exafunction/codeium.vim',
@@ -16,6 +17,7 @@ local M = {
     --     vim.g.codeium_disable_bindings = true
     --     vim.g.codeium_no_map_tab = true
     -- end,
+    cond = not vim.g.vscode,
 }
 
 M.keys = function()
