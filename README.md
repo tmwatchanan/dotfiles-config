@@ -78,3 +78,20 @@ bat cache --build
 # to check the available themes
 bat --list-themes
 ```
+
+## Windows
+
+Open Command Prompt with Administrator privileges.
+
+### neovim
+
+```sh
+mklink /D %LOCALAPPDATA%\nvim D:\dev\dotfiles-config\nvim
+```
+
+### lazygit
+
+```sh
+mkdir %APPDATA%\jesseduffield
+mklink /D %APPDATA%\jesseduffield\lazygit D:\dev\dotfiles-config\lazygit
+```
