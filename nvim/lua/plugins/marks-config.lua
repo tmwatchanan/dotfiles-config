@@ -1,5 +1,4 @@
 local M = {
-    -- 'chentoast/marks.nvim',
     'MomePP/marks.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
     cond = not vim.g.vscode,
@@ -47,22 +46,18 @@ M.keys = function()
         {
             marks_keymap.list,
             function()
-                marks.mark_state:all_to_list('loclist')
-                if vim.tbl_isempty(vim.fn.getloclist(0)) then
-                    vim.notify('There is no marks -  ', vim.log.levels.WARN)
-                    return
-                end
-                require('telescope.builtin').loclist({
+                require('lazy').load({ plugins = { 'telescope.nvim' } })
+                pcall(require('telescope').extensions.marks_nvim.marks_list_all, {
+                    path_display = { 'tail' },
                     prompt_title = 'Marks List',
-                    layout_strategy = 'vertical',
+                    layout_strategy = 'horizontal',
                     layout_config = {
-                        preview_height = 0.6,
+                        preview_width = 0.55,
                         prompt_position = 'bottom',
-                        width = 0.7,
-                        height = 0.7,
+                        width = 0.8,
+                        height = 0.75,
                     },
                     sorting_strategy = 'descending',
-                    trim_text = true,
                 })
             end
         },
