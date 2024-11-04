@@ -182,6 +182,10 @@ keymaps.setup = function()
     -- INFO: add trailing comma to EOL if not exists
     vim.keymap.set({ 'n', 'v' }, '<leader>c', [[:s/,\@<!$/,/g<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
 
+    -- INFO: swap between equal and colon
+    vim.keymap.set({ 'n', 'v' }, '<leader>s=', [[:s/: /=/g<CR><Cmd>noh<CR>]])
+    vim.keymap.set({ 'n', 'v' }, '<leader>s;', [[:s/=/: /g<CR><Cmd>noh<CR>]])
+
     -- INFO: remove blank lines and lines containing only whitespaces
     vim.keymap.set('v', '<leader>-', [[:g/^\s*$/d<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
 
