@@ -18,6 +18,8 @@ end
 
 -- populate qf list with changes (if multiple files modified)
 M.rename_to_qflist = function()
+    ---@class PositionParams : lsp.TextDocumentPositionParams
+    ---@field oldName string
     local position_params = vim.lsp.util.make_position_params()
     position_params.oldName = vim.fn.expand("<cword>")
 
@@ -29,7 +31,7 @@ M.rename_to_qflist = function()
         end
 
         position_params.newName = input
-        vim.lsp.buf_request(0, "textDocument/rename", position_params, function(err, result, ctx, config)
+        vim.lsp.buf_request(0, "textDocument/rename", position_params, function(err, result, ctx)
             -- result not provided, error at lsp end
             -- no changes made
             if not result or (not result.documentChanges and not result.changes) then
@@ -46,7 +48,7 @@ M.rename_to_qflist = function()
             end
 
             -- apply changes
-            vim.lsp.handlers["textDocument/rename"](err, result, ctx, config)
+            vim.lsp.handlers["textDocument/rename"](err, result, ctx)
 
             local notification, entries = {}, {}
             local num_files, num_updates = 0, 0
