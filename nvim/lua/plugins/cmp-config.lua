@@ -70,12 +70,6 @@ M.opts = function()
         end,
     }
 
-    local cmp_snippet = {
-        expand = function(args)
-            vim.snippet.expand(args.body)
-        end
-    }
-
     local cmp_mapping = {
         ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(2), { 'i', 'c' }),
         ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-2), { 'i', 'c' }),
@@ -161,7 +155,6 @@ M.opts = function()
     )
 
     return {
-        snippet = cmp_snippet,
         mapping = cmp_mapping,
         sorting = cmp_sorting,
         sources = cmp_sources,
