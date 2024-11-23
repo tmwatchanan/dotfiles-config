@@ -1,6 +1,6 @@
 local copilot = {
     'zbirenbaum/copilot.lua',
-    event = 'InsertEnter',
+    event = 'LspAttach',
     cmd = 'Copilot',
 }
 
@@ -21,10 +21,6 @@ copilot.opts = function()
         panel = { enabled = false },
     }
 end
-
-local copilot_lualine = {
-    'AndreM222/copilot-lualine',
-}
 
 local copilot_chat = {
     'CopilotC-Nvim/CopilotChat.nvim',
@@ -114,6 +110,5 @@ end
 
 return {
     copilot,
-    copilot_lualine,
     copilot_chat,
 }

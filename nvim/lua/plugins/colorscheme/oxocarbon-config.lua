@@ -16,7 +16,7 @@ M.setup = function()
     local c = oxocarbon.oxocarbon
 
     local incline_highlight = {
-        InclineNormal = { bg = c.none, bold = true },
+        InclineNormal = { fg = c.base04, bg = c.none },
         InclineNormalNC = { fg = c.base03, bg = c.none },
     }
 
@@ -183,12 +183,12 @@ M.lualine = function()
 
     return {
         normal = utils.deep_merge(lualine_default, {
-            a = { fg = c.base08 },
+            a = { fg = c.base10 },
             b = { fg = c.base04 },
             c = { fg = c.base04 },
         }),
         insert = utils.deep_merge(lualine_default, {
-            a = { fg = c.base10 },
+            a = { fg = c.base13 },
             b = { fg = c.base04 },
             c = { fg = c.base04 },
         }),
@@ -198,7 +198,7 @@ M.lualine = function()
             c = { fg = c.base04 },
         }),
         replace = utils.deep_merge(lualine_default, {
-            a = { fg = c.base11 },
+            a = { fg = c.base08 },
             b = { fg = c.base04 },
             c = { fg = c.base04 },
         }),
@@ -208,6 +208,13 @@ M.lualine = function()
             c = { fg = c.base04 },
         }),
     }
+end
+
+M.colors = function()
+    local oxocarbon_status, oxocarbon = pcall(require, 'oxocarbon')
+    if not oxocarbon_status then return {} end
+
+    return oxocarbon.oxocarbon
 end
 
 return M
