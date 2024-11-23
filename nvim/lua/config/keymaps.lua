@@ -84,10 +84,6 @@ keymaps.lsp = {
     hover            = {
         key = 'K',
         cmd = function()
-            local ufo_loaded, ufo = pcall(require, 'ufo')
-            if ufo_loaded then
-                if ufo.peekFoldedLinesUnderCursor() then return end
-            end
             return vim.diagnostic.open_float({ scope = 'cursor' }) or vim.lsp.buf.hover()
         end
     },
@@ -174,14 +170,6 @@ keymaps.marks = {
     list    = '<leader>m',
 }
 
--- INFO: ufo keymap
-keymaps.ufo = {
-    open_all    = 'zR',
-    open_except = 'zr',
-    close_all   = 'zM',
-    close_with  = 'zm',
-}
-
 -- INFO: hlslens keymap
 keymaps.hlslens = {
     search_next = 'n',
@@ -225,12 +213,6 @@ keymaps.move = {
     move_down  = '<m-j>',
     move_left  = '<m-h>',
     move_right = '<m-l>',
-}
-
--- INFO: muren search-replace keymap
-keymaps.muren = {
-    toggle = '<leader>r',
-    unique = '<leader>R',
 }
 
 -- INFO: treesj keymap
