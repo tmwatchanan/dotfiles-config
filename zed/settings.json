@@ -23,7 +23,10 @@
   "buffer_font_family": "Maple Mono NF",
   "ui_font_size": 15,
   "ui_font_family": "Maple Mono NF",
-  "active_pane_magnification": 1.61803398875,
+  "active_pane_modifiers": {
+    "magnification": 1.61803398875,
+    "inactive_opacity": 0.8
+  },
   "terminal": {
     "font_family": "Maple Mono NF",
     "font_size": 12.5
