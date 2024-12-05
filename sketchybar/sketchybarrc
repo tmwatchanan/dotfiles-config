@@ -135,12 +135,20 @@ weather=(
     update_freq=1800
     script="$PLUGIN_DIR/weather.sh"
 )
+aqi=(
+    background.padding_right=4
+    icon=󰵃
+    icon.font="$FONT_FACE:Bold:16.0"
+    drawing=off
+    update_freq=1800
+    script="$PLUGIN_DIR/aqi.sh"
+)
 media_info=(
     icon.background.image=media.artwork
     icon.background.image.scale=0.6
     icon.background.image.corner_radius=4
     label.padding_left=8
-    label.max_chars=15
+    label.max_chars=18
     scroll_texts=yes
     updates=on
     script="$PLUGIN_DIR/media_info.sh"
@@ -148,11 +156,11 @@ media_info=(
 sketchybar --add item weather q                         \
            --set weather "${weather[@]}"                     \
            --subscribe weather system_woke                   \
-           --add item aqi q                         \
+           --add item aqi e                         \
            --set aqi "${aqi[@]}"                     \
            --subscribe aqi system_woke                   \
                                                              \
-           --add item media_info e                      \
+           --add item media_info q                      \
            --set media_info "${media_info[@]}"               \
            --subscribe media_info media_change
 
