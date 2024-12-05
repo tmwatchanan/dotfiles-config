@@ -156,4 +156,12 @@ M.lualine = function()
     return kanagawa
 end
 
+M.colors = function()
+    local kanagawa_status, kanagawa = pcall(require, 'kanagawa')
+    if not kanagawa_status then return {} end
+
+    local colors = require('kanagawa.colors').setup()
+    return colors.theme
+end
+
 return M

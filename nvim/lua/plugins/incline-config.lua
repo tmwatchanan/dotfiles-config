@@ -30,7 +30,6 @@ M.opts = function()
                     end
                 end
             end
-            local bufname = vim.api.nvim_buf_get_name(props.buf)
             local win_width = vim.api.nvim_win_get_width(props.win)
             local path_length = win_width - first_line_length - 10
             if not props.focused then
