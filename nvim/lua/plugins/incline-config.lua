@@ -6,8 +6,6 @@ local M = {
 }
 
 M.opts = function()
-    local truncate_utils = require('plenary.strings').truncate
-
     return {
         debounce_threshold = {
             rising = 50,
@@ -43,18 +41,17 @@ M.opts = function()
             local ext = vim.fn.fnamemodify(bufname, ':e')
             local is_file = type(filename) == 'string'
             local category = is_file and 'file' or 'extension'
-            local icon, icon_hl, _ = require('mini.icons').get(category, is_file and filename or ext)
+            local icon, _, _ = require('mini.icons').get(category, is_file and filename or ext)
+            local is_modified = vim.bo[props.buf].modified
 
-            local render_icon = { ' ', icon, ' ', group = icon_hl }
-            local render_path = truncate_utils(
-                (bufname ~= '' and vim.fn.fnamemodify(bufname, ':.') or '[No Name]'),
-                path_length,
-                nil,
-                -1
-            )
             return {
-                { render_icon },
-                { render_path, gui = 'bold', guifg = vim.bo[props.buf].modified and '#ffaa00' or nil },
+                {
+                    ' ',
+                    icon,
+                    ' ',
+                    filename ~= '' and filename or '[No Name]',
+                    group = is_modified and 'DiagnosticWarn' or nil
+                }
             }
         end,
     }

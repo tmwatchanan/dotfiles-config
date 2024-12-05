@@ -33,10 +33,13 @@ opt.wrap           = false
 opt.showcmd        = false
 opt.showmode       = false
 
-opt.foldlevel      = 99
-opt.foldlevelstart = 99
 opt.foldenable     = true
--- opt.foldcolumn     = '1'
+-- opt.foldmethod     = "expr";
+-- opt.foldexpr       = "nvim_treesitter#foldexpr()";
+-- opt.foldlevel      = 99
+-- opt.foldlevelstart = 99
+-- opt.foldmethod     = 'expr'
+-- opt.foldexpr       = 'v:lua.vim.treesitter.foldexpr()'
 
 opt.fillchars:append {
     horiz     = '━',

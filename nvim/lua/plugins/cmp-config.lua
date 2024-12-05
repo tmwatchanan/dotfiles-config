@@ -4,10 +4,10 @@ local M = {
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         -- NOTE: cmp sources
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-cmdline',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
+        { 'iguanacucumber/mag-nvim-lsp', name = 'cmp-nvim-lsp', opts = {} },
+        { 'iguanacucumber/mag-buffer',   name = 'cmp-buffer' },
+        { 'iguanacucumber/mag-cmdline',  name = 'cmp-cmdline' },
+        'https://codeberg.org/FelipeLema/cmp-async-path',
 
         -- NOTE: snippet plugins
         {
@@ -152,8 +152,8 @@ M.opts = function()
 
     local cmp_sources = cmp.config.sources(
         {
-            { name = 'path' },
-            { name = 'snippets', keyword_length = 2 },
+            { name = 'async_path' },
+            { name = 'snippets',  keyword_length = 2 },
             { name = 'nvim_lsp' },
             { name = 'buffer' },
             {
@@ -219,10 +219,13 @@ M.config = function(_, opts)
             completeopt = 'menuone,noselect',
         },
         sources = cmp.config.sources({
-            { name = 'path' }
+            { name = 'async_path' }
         }, {
             { name = 'cmdline' }
-        })
+        }),
+        matching = {
+            disallow_symbol_nonprefix_matching = false,
+        }
     })
 
     -- NOTE: copilot hide suggestion when cmp opened

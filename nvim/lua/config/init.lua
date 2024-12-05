@@ -16,9 +16,10 @@ M.defaults = {
             removed = ' ',
         },
         lualine = {
-            lsp = '󰘸',
-            git = '',
-            session = '',
+            git = '󰘬',
+            session = '',
+            pinned = '',
+            location = ' ',
             navic_separator = '  ',
         },
         dap = {

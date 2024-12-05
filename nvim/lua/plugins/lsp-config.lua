@@ -57,7 +57,7 @@ lsp_setup_module.config = function()
     local lsp_methods = vim.lsp.protocol.Methods
 
     local load_local_settings = function(path, server_name)
-        vim.validate { path = { path, 's' } }
+        vim.validate { path = { path, 'string' } }
 
         local fname = string.format('%s/%s.json', path, server_name)
         local ok, result = pcall(vim.fn.readfile, fname)
