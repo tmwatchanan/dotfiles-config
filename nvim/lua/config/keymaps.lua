@@ -7,7 +7,7 @@ local function append_repeated_trailing_characters(character)
     local current_line_length = current_line:len()
 
     -- INFO: remove the pattern if exists
-    local pattern = '%s[' .. character ..  ']+$'
+    local pattern = '%s[' .. character .. ']+$'
     if current_line:match(pattern) then
         local current_line_stripped = current_line:gsub(pattern, '')
         vim.api.nvim_set_current_line(current_line_stripped)
@@ -190,10 +190,11 @@ keymaps.setup = function()
     vim.keymap.set('v', '<leader>-', [[:g/^\s*$/d<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
 
     -- INFO: source current file (shift+5 is %)
-    vim.keymap.set('n', '<leader>5', function()
+    vim.keymap.set('n', '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
+    vim.keymap.set('n', '<leader><leader>x', function()
         vim.cmd('source %')
         vim.notify('Sourced %')
-    end)
+    end, { desc = 'Execute the current file' })
     -- INFO: lazy.nvim reload plugin
     vim.keymap.set('n', '<leader><leader>5', ':Lazy reload ')
 
@@ -397,11 +398,11 @@ keymaps.toggleterm = {
 
 -- INFO: Marks keymap
 keymaps.marks = {
-    next    = 'mm',
-    prev    = 'MM',
-    toggle  = "m'",
-    clear   = 'md',
-    list    = '<leader>m',
+    next   = 'mm',
+    prev   = 'MM',
+    toggle = "m'",
+    clear  = 'md',
+    list   = '<leader>m',
 }
 
 -- INFO: ufo keymap
