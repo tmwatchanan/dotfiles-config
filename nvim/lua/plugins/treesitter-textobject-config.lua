@@ -69,8 +69,10 @@ local various_textobjs_module = {
     'chrisgrieser/nvim-various-textobjs',
     event = 'UIEnter',
     opts = {
-        useDefaultKeymaps = true,
-        disabledKeymaps = create_various_textobjs_disabled_keymaps(),
+        keymaps = {
+            useDefaults = true,
+            disabledDefaults = create_various_textobjs_disabled_keymaps(),
+        },
     },
 }
 
