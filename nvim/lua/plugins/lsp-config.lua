@@ -155,6 +155,10 @@ lsp_setup_module.config = function()
     for name, config in pairs(require('plugins.lsp-settings.lsp-list')) do
         local capabilities = lsp_zero.get_capabilities()
         capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+        capabilities.textDocument.foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+        }
         config.capabilities = capabilities
 
         lsp_zero.configure(name, config)

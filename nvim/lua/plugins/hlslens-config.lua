@@ -33,6 +33,15 @@ M.opts = {
 M.keys = function()
     local hlslens_keymap = require('config.keymaps').hlslens
 
+    local function hlsPeekKeys(char)
+        local ok, winid = require('hlslens').nNPeekWithUFO(char)
+        if ok and winid then
+            vim.keymap.set('n', '<CR>', function()
+                vim.api.nvim_feedkeys(vim.keycode('<Tab><CR>'), 'im', false)
+            end, { buffer = true })
+        end
+    end
+
     local function hlsSearchKeys(char)
         if pcall(vim.api.nvim_feedkeys, char, 'n', true) then
             require('hlslens').start()
@@ -41,8 +50,8 @@ M.keys = function()
 
     -- INFO: setup keybinding
     return {
-        { hlslens_keymap.search_next, function() hlsSearchKeys(hlslens_keymap.search_next) end, mode = { 'n', 'x' } },
-        { hlslens_keymap.search_prev, function() hlsSearchKeys(hlslens_keymap.search_prev) end, mode = { 'n', 'x' } },
+        { hlslens_keymap.search_next, function() hlsPeekKeys(hlslens_keymap.search_next) end, mode = { 'n', 'x' } },
+        { hlslens_keymap.search_prev, function() hlsPeekKeys(hlslens_keymap.search_prev) end, mode = { 'n', 'x' } },
         { hlslens_keymap.word_next,   function() hlsSearchKeys(hlslens_keymap.word_next) end },
         { hlslens_keymap.word_prev,   function() hlsSearchKeys(hlslens_keymap.word_prev) end },
         { hlslens_keymap.go_next,     function() hlsSearchKeys(hlslens_keymap.go_next) end },
