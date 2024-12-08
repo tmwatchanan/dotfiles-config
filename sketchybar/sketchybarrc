@@ -106,6 +106,11 @@ desktop_monitor=(
     [1]=2
     [2]=1
 )
+num_monitors=$(aerospace list-monitors --count)
+if [[ "$num_monitors" -eq 1 ]]; then
+    desktop_monitor[1]=1
+    weather_max_chars=15
+fi
 
 for monitor in $(aerospace list-monitors | command sort -i | awk '{print $1}'); do
     for sid in $(aerospace list-workspaces --monitor "$monitor"); do
@@ -130,7 +135,7 @@ weather=(
     icon=
     icon.color=$PINK
     icon.font="$FONT_FACE:Bold:16.0"
-    label.max_chars=30
+    label.max_chars=${weather_max_chars:-30}
     scroll_texts=yes
     update_freq=1800
     script="$PLUGIN_DIR/weather.sh"
