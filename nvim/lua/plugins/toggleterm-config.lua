@@ -39,7 +39,7 @@ M.keys = {
 			local environment_path = require('config.python').get_environment_path()
 			require('toggleterm.terminal').Terminal
 				:new({
-					cmd = ('conda activate %s ; cd $(readlink -f .) & lazygit'):format(environment_path),
+					cmd = ('mamba activate %s ; cd $(readlink -f .) & lazygit'):format(environment_path),
 					count = M.opts.size + 1,
 					hidden = false,
 					on_open = function()
