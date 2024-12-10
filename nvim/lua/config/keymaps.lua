@@ -499,11 +499,12 @@ keymaps.neotest = {
 
 -- INFO: Codeium
 keymaps.codeium = {
-    accept   = '<M-;>',
-    next     = '<M-j>',
-    previous = '<M-k>',
-    clear    = '<M-c>',
-    chat     = '<leader>C',
+    accept      = '<M-;>',
+    accept_word = "<M-'>",
+    next        = '<M-j>',
+    previous    = '<M-k>',
+    clear       = '<M-c>',
+    chat        = '<leader>C',
 }
 
 -- INFO: DAP
