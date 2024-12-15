@@ -27,8 +27,8 @@ local M = {
 
         -- NOTE: autopairs plugin
         {
-            'windwp/nvim-autopairs',
-            opts = { check_ts = true, fast_wrap = { map = '<C-e>' } },
+            'echasnovski/mini.pairs',
+            opts = true,
         },
 
         -- NOTE: github copilot if available
@@ -221,9 +221,6 @@ M.config = function(_, opts)
     cmp.event:on('menu_closed', function()
         vim.b.copilot_suggestion_hidden = false
     end)
-
-    -- NOTE: autopairs mapping on <CR>
-    cmp.event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
 end
 
 return M
