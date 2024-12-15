@@ -35,6 +35,7 @@ M.opts = function()
         fmt = function(mode_string)
             return string.format('%-7s', mode_string)
         end,
+        padding = { left = 1, right = 1 },
     }
 
     local diagnostics = {
@@ -73,6 +74,7 @@ M.opts = function()
             local names = it:totable()
             return string.format('%s', table.concat(names, ','))
         end,
+        padding = { right = 1 },
         cond = conditions.check_lsp_started
     }
 
@@ -81,7 +83,7 @@ M.opts = function()
             return vim.fn.fnamemodify(require('resession').get_current(), ':t')
         end,
         icon = icons.lualine.session,
-        padding = { left = 1, right = 2 },
+        padding = { left = 1, right = 1 },
         cond = conditions.check_session_exist
     }
 
@@ -94,7 +96,7 @@ M.opts = function()
 
             return string.format('%s / %s', content, total)
         end,
-        padding = { left = 2 },
+        padding = { left = 1, right = 1 },
         icon = icons.lualine.location
     }
 
@@ -105,7 +107,8 @@ M.opts = function()
             return pinned and 'pinned buffer' or ''
         end,
         color = 'WarningMsg',
-        icon = icons.lualine.pinned
+        icon = icons.lualine.pinned,
+        padding = { right = 1 },
     }
 
     return {
