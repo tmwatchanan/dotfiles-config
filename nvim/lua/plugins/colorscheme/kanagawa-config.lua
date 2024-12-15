@@ -10,6 +10,7 @@ M.setup = function()
 
     vim.opt.background = 'dark'
     vim.cmd.colorscheme 'kanagawa'
+    vim.g.kanagawa_lualine_bold = true
 
     local colors = require('kanagawa.colors').setup()
     local palette = colors.palette
@@ -87,6 +88,7 @@ M.setup = function()
 
     kanagawa.setup {
         compile = false,
+        undercurl = true,
         transparent = true,
         globalStatus = true,
         dimInactive = true,
