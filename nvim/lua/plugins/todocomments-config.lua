@@ -1,7 +1,7 @@
 local M = {
     'folke/todo-comments.nvim',
     cmd = { 'TodoTelescope' },
-    event = { 'BufReadPost', 'BufNewFile' }
+    event = { 'BufEnter', 'BufNewFile' }
 }
 
 M.opts = {
