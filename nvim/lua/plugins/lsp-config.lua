@@ -16,13 +16,11 @@ mason_module.opts = {
 -- INFO: LSP config
 --
 local lsp_setup_module = {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v4.x',
+    'neovim/nvim-lspconfig',
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
         'mason.nvim',
         'cmp-nvim-lsp',
-        'neovim/nvim-lspconfig',
         'williamboman/mason-lspconfig.nvim',
     },
 }
@@ -33,13 +31,11 @@ lsp_setup_module.init = function()
         severity_sort = true,
         virtual_text = false,
         virtual_lines = true,
+        signs = { text = require('config').defaults.icons.diagnostics }
     }
 end
 
 lsp_setup_module.config = function()
-    -- ----------------------------------------------------------------------
-    --  lsp configs
-    --
     local lspconfig = require('lspconfig')
     local lsp_methods = vim.lsp.protocol.Methods
 
@@ -55,7 +51,7 @@ lsp_setup_module.config = function()
         return result
     end
 
-    -- INFO:  inject `esp-clang`, use specific fork clang from espressif
+    -- NOTE:  inject `esp-clang`, use specific fork clang from espressif
     --  also add `query-driver` for specific toolchains not from builtin binary
     lspconfig.util.default_config = vim.tbl_extend('force', lspconfig.util.default_config, {
         on_new_config = lspconfig.util.add_hook_before(lspconfig.util.default_config.on_new_config,
@@ -113,42 +109,68 @@ lsp_setup_module.config = function()
         end
     end
 
+    -- INFO: lsp highlight symbols
+    local function lsp_highlight_symbol(client, bufnr)
+        if client == nil
+            or client.supports_method('textDocument/documentHighlight') == false
+        then
+            return
+        end
 
-    -- ----------------------------------------------------------------------
-    --  lsp-zero configs
-    --
-    local lsp_zero = require('lsp-zero')
+        if bufnr == nil or bufnr == 0 then
+            bufnr = vim.api.nvim_get_current_buf()
+        end
 
-    local lsp_attach = function(client, bufnr)
-        lsp_zero.highlight_symbol(client, bufnr)
+        local augroup = vim.api.nvim_create_augroup('lsp_highlight_symbol', { clear = false })
+        vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup })
 
-        lsp_keymap(client, bufnr, require('config.keymaps').lsp)
-        lsp_inlayhint(client, bufnr)
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = vim.lsp.buf.document_highlight,
+        })
+
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+            group = augroup,
+            buffer = bufnr,
+            callback = vim.lsp.buf.clear_references,
+        })
     end
 
-    lsp_zero.extend_lspconfig {
-        float_border = 'rounded',
-        sign_text = require('config').defaults.icons.diagnostics,
-        capabilities = require('cmp_nvim_lsp').default_capabilities(),
-        lsp_attach = lsp_attach,
-    }
+    -- NOTE: lsp attach callback
+    vim.api.nvim_create_autocmd('LspAttach', {
+        desc = 'LSP actions',
+        callback = function(event)
+            local bufnr = event.buf
+            local id = vim.tbl_get(event, 'data', 'client_id')
+            local client = id and vim.lsp.get_client_by_id(id) or {}
 
-    -- INFO: config lsp servers in lsp-list
+            lsp_keymap(client, bufnr, require('config.keymaps').lsp)
+            lsp_inlayhint(client, bufnr)
+            lsp_highlight_symbol(client, bufnr);
+        end
+    })
+
+
+    -- NOTE: config lsp servers in lsp-list
     local lsp_list = {}
-    for name, config in pairs(require('plugins.lsp-settings.lsp-list')) do
-        lsp_zero.configure(name, config)
+    local lsp_user_opts = require('plugins.lsp-settings.lsp-list')
+    for name, _ in pairs(lsp_user_opts) do
         table.insert(lsp_list, name)
     end
 
-    -- NOTE: manually injects unsupported lsp by mason.nvim, need to manually update lsp list to be automatically installed
-    -- lsp.configure('ccls', {
-    --     on_attach = lsp_attach,
-    -- })
-
     -- INFO: automatically setup lsp from default config installed via mason.nvim
+    local utils = require('config.fn-utils')
+    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
     require('mason-lspconfig').setup {
         ensure_installed = lsp_list,
-        handlers = { lsp_zero.default_setup }
+        handlers = {
+            function(server_name)
+                local lsp_config = { capabilities = lsp_capabilities }
+                lsp_config = utils.deep_merge(lsp_config, lsp_user_opts[server_name])
+                lspconfig[server_name].setup(lsp_config)
+            end,
+        },
     }
 end
 
