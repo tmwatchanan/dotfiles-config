@@ -179,13 +179,13 @@ lsp_setup_module.config = function()
     -- INFO: automatically setup lsp from default config installed via mason.nvim
     local utils = require('config.fn-utils')
     local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-    lsp_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
     lsp_capabilities.textDocument.foldingRange = { -- INFO: nvim-ufo
         dynamicRegistration = false,
         lineFoldingOnly = true,
     }
     require('mason-lspconfig').setup {
         ensure_installed = lsp_list,
+        automatic_installation=false,
         handlers = {
             function(server_name)
                 local lsp_config = { capabilities = lsp_capabilities }
