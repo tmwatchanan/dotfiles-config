@@ -129,7 +129,7 @@ M.opts = function()
             local content = (cur == 1 and 'Top') or (cur == total and 'Bot') or
                 string.format('%2d%%%%', math.floor(cur / total * 100))
 
-            return string.format('%s / %s', content, total)
+            return string.format('[%s / %s]', content, total) .. ' :%2v'
         end,
         padding = { left = 1, right = 1 },
         icon = icons.lualine.location
