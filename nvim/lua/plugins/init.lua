@@ -128,6 +128,11 @@ return {
         end,
         cond = not vim.g.vscode,
     },
+    {
+        'echasnovski/mini.pairs',
+        event = { 'InsertEnter', 'CmdlineEnter' },
+        opts = true
+    },
 
     -- Miscellaneous
     {

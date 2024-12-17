@@ -31,9 +31,9 @@ local lsp_setup_module = {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
-        'mason.nvim',
-        'cmp-nvim-lsp',
         'williamboman/mason-lspconfig.nvim',
+        'mason.nvim',
+        'blink.cmp'
     },
     cond = not vim.g.vscode,
 }
@@ -170,27 +170,27 @@ lsp_setup_module.config = function()
 
 
     -- NOTE: config lsp servers in lsp-list
-    local lsp_list = {}
-    local lsp_user_opts = require('plugins.lsp-settings.lsp-list')
-    for name, _ in pairs(lsp_user_opts) do
-        table.insert(lsp_list, name)
+    local lsp_names = {}
+    local lsp_configs = require('plugins.lsp-settings.lsp-list')
+    for name, _ in pairs(lsp_configs) do
+        table.insert(lsp_names, name)
     end
 
-    -- INFO: automatically setup lsp from default config installed via mason.nvim
-    local utils = require('config.fn-utils')
-    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- NOTE: automatically setup lsp from default config installed via mason.nvim
+    local lsp_capabilities = require('blink.cmp').get_lsp_capabilities()
     lsp_capabilities.textDocument.foldingRange = { -- INFO: nvim-ufo
         dynamicRegistration = false,
         lineFoldingOnly = true,
     }
     require('mason-lspconfig').setup {
-        ensure_installed = lsp_list,
-        automatic_installation=false,
+        ensure_installed = lsp_names,
         handlers = {
             function(server_name)
-                local lsp_config = { capabilities = lsp_capabilities }
-                lsp_config = utils.deep_merge(lsp_config, lsp_user_opts[server_name])
-                lspconfig[server_name].setup(lsp_config)
+                if not lsp_configs[server_name] then
+                    lsp_configs[server_name] = {}
+                end
+                lsp_configs[server_name].capabilities = lsp_capabilities
+                lspconfig[server_name].setup(lsp_configs[server_name])
             end,
         },
     }
