@@ -62,6 +62,11 @@ return {
             }
         end
     },
+    {
+        'echasnovski/mini.pairs',
+        event = { 'InsertEnter', 'CmdlineEnter' },
+        opts = true
+    },
 
     -- Miscellaneous
     {
