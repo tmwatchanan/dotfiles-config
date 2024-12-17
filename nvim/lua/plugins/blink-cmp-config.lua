@@ -5,8 +5,12 @@ local M = {
     dependencies = {
         { 'rafamadriz/friendly-snippets' },
 
-        'copilot.lua' -- github copilot if available
+        {
+            'copilot.lua',
+            optional = true,
+        }, -- github copilot if available
     },
+    cond = not vim.g.vscode,
 }
 
 M.opts = function()
@@ -47,6 +51,28 @@ M.opts = function()
                 'fallback'
             },
             ['<S-Tab>'] = {
+                function(_)
+                    if is_copilot_available then
+                        copilot_suggestion.prev()
+                        return true
+                    end
+                end,
+                'select_prev',
+                'snippet_backward',
+                'fallback',
+            },
+            ['<C-j>'] = {
+                function(_)
+                    if is_copilot_available then
+                        copilot_suggestion.next()
+                        return true
+                    end
+                end,
+                'select_next',
+                'snippet_forward',
+                'fallback'
+            },
+            ['<C-k>'] = {
                 function(_)
                     if is_copilot_available then
                         copilot_suggestion.prev()
@@ -98,6 +124,7 @@ M.opts = function()
             nerd_font_variant = 'mono'
         },
         sources = {
+            default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
             -- TODO: cmdline cmp still not working..
             cmdline = function()
                 local type = vim.fn.getcmdtype()
@@ -107,6 +134,11 @@ M.opts = function()
                 if type == ':' then return { 'cmdline' } end
                 return {}
             end,
+            providers = {
+                -- dont show LuaLS require statements when lazydev has items
+                lsp = { fallback_for = { 'lazydev' } },
+                lazydev = { name = 'LazyDev', module = 'lazydev.integrations.blink' },
+            },
         }
     }
 end
