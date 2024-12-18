@@ -58,7 +58,7 @@ M.opts = {
         }
     },
     popupmenu = {
-        enabled = false,
+        enabled = true,
     },
     commands = {
         history = {

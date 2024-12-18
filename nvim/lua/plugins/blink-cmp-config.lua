@@ -1,10 +1,9 @@
 local M = {
     'saghen/blink.cmp',
     version = 'v0.*',
-    lazy = false, -- internally lazy loaded
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
-        { 'rafamadriz/friendly-snippets' },
-
+        'rafamadriz/friendly-snippets',
         'copilot.lua' -- github copilot if available
     },
 }
@@ -97,17 +96,7 @@ M.opts = function()
             use_nvim_cmp_as_default = true,
             nerd_font_variant = 'mono'
         },
-        sources = {
-            -- TODO: cmdline cmp still not working..
-            cmdline = function()
-                local type = vim.fn.getcmdtype()
-                -- Search forward and backward
-                if type == '/' or type == '?' then return { 'buffer' } end
-                -- Commands
-                if type == ':' then return { 'cmdline' } end
-                return {}
-            end,
-        }
+        sources = { cmdline = {} } -- NOTE: disable cmdline, use the built-in for now
     }
 end
 
