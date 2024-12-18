@@ -24,11 +24,6 @@ return {
         config = true
     },
     {
-        'folke/ts-comments.nvim',
-        event = 'VeryLazy',
-        config = true
-    },
-    {
         'Wansmer/treesj',
         dependencies = { 'nvim-treesitter' },
         opts = {
