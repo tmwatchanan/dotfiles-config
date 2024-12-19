@@ -1,6 +1,6 @@
 local M = {
     'saghen/blink.cmp',
-    version = 'v0.*',
+    build = 'cargo build --release',
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         'rafamadriz/friendly-snippets',
@@ -11,6 +11,24 @@ local M = {
 M.opts = function()
     local copilot_status, copilot_suggestion = pcall(require, 'copilot.suggestion')
     local is_copilot_available = copilot_status and copilot_suggestion.is_visible()
+
+    -- INFO: override list.selection to manual for cmdline
+    local orig_list_selection
+    vim.api.nvim_create_autocmd('CmdlineEnter', {
+        callback = function()
+            local list = require 'blink.cmp.completion.list'
+            orig_list_selection = list.config.selection
+            list.config.selection = 'manual'
+        end,
+    })
+    vim.api.nvim_create_autocmd('CmdlineLeave', {
+        callback = function()
+            if orig_list_selection then
+                local list = require 'blink.cmp.completion.list'
+                list.config.selection = orig_list_selection
+            end
+        end,
+    })
 
     return {
         keymap = {
@@ -96,7 +114,15 @@ M.opts = function()
             use_nvim_cmp_as_default = true,
             nerd_font_variant = 'mono'
         },
-        sources = { cmdline = {} } -- NOTE: disable cmdline, use the built-in for now
+        sources = {
+            -- INFO: only enable cmp for cmdline not with search
+            cmdline = function()
+                local type = vim.fn.getcmdtype()
+                if type == ':' then return { 'cmdline' } end
+                -- if type == '/' or type == '?' then return { 'buffer' } end
+                return {}
+            end,
+        }
     }
 end
 
