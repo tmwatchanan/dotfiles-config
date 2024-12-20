@@ -24,7 +24,8 @@ end
 
 local copilot_chat = {
     'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'canary',
+    branch = 'main',
+    build = 'make tiktoken',
     dependencies = { 'copilot.lua', 'plenary.nvim' },
     cmd = 'CopilotChat'
 }
@@ -49,6 +50,7 @@ copilot_chat.opts = {
             insert = '',
         },
     },
+    chat_autocomplete = true,
 }
 
 copilot_chat.config = function(_, opts)
@@ -68,9 +70,6 @@ copilot_chat.config = function(_, opts)
     vim.api.nvim_create_user_command('CopilotChatBuffer', function(args)
         chat.ask(args.args, { selection = select.buffer })
     end, { nargs = '*', range = true })
-
-    -- INFO: setup copilot chat cmp integrations
-    require('CopilotChat.integrations.cmp').setup()
 end
 
 
