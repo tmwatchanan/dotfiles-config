@@ -13,20 +13,16 @@ M.opts = function()
     local is_copilot_available = copilot_status and copilot_suggestion.is_visible()
 
     -- INFO: override list.selection to manual for cmdline
-    local orig_list_selection
+    local list = require 'blink.cmp.completion.list'
+    local orig_list_selection = list.config.selection
     vim.api.nvim_create_autocmd('CmdlineEnter', {
         callback = function()
-            local list = require 'blink.cmp.completion.list'
-            orig_list_selection = list.config.selection
             list.config.selection = 'manual'
         end,
     })
     vim.api.nvim_create_autocmd('CmdlineLeave', {
         callback = function()
-            if orig_list_selection then
-                local list = require 'blink.cmp.completion.list'
-                list.config.selection = orig_list_selection
-            end
+            list.config.selection = orig_list_selection
         end,
     })
 
