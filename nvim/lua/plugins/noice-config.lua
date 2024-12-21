@@ -55,7 +55,7 @@ M.opts = {
             filter = { icon = ' TERMINAL ', lang = 'fish' },
             calculator = { icon = ' CALCULATOR ', icon_hl_group = 'NoiceCmdlineIconFilter' },
             help = { icon = ' HELP  ' },
-            lua = false,
+            lua = { icon = ' Lua  '},
         }
     },
     popupmenu = {
