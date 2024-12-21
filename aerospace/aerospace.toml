@@ -116,6 +116,7 @@ ctrl-alt-shift-l = 'move right'
 ctrl-alt-minus = 'resize smart -100'
 ctrl-alt-equal = 'resize smart +100'
 ctrl-alt-0 = 'balance-sizes'
+ctrl-alt-space = 'layout floating'
 
 ctrl-alt-f = 'fullscreen'
 ctrl-alt-backspace = 'close'

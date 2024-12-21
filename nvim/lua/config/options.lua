@@ -62,7 +62,7 @@ opt.signcolumn    = 'yes'
 
 opt.pumheight     = 10 -- Make popup menu smaller
 opt.pumblend      = 8  -- Make builtin completion menus slightly transparent
--- opt.winblend      = 5 -- Make floating windows slightly transparent
+opt.winblend      = 5 -- Make floating windows slightly transparent
 
 -- Editing
 opt.ignorecase    = true -- Ignore case when searching (use `\C` to force not doing that)
@@ -81,7 +81,6 @@ opt.scrolloff     = 8
 opt.sidescrolloff = 8
 
 opt.iskeyword:append { '-' } -- consider string-string as whole word
-opt.wildmode      = 'list:longest'
 opt.formatoptions = 'jrqln1' -- see :h fo-table
 -- vim.cmd('autocmd BufEnter * setlocal formatoptions-=o') -- ugly way to disable `o` formatoptions
 -- opt.formatoptions:remove "o"

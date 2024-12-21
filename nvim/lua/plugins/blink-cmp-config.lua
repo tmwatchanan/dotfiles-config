@@ -1,14 +1,10 @@
 local M = {
     'saghen/blink.cmp',
-    version = 'v0.*',
-    lazy = false, -- internally lazy loaded
+    build = 'cargo build --release',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
-        { 'rafamadriz/friendly-snippets' },
-
-        {
-            'copilot.lua',
-            optional = true,
-        }, -- github copilot if available
+        'rafamadriz/friendly-snippets',
+        { 'copilot.lua', optional = true }, -- github copilot if available
     },
     cond = not vim.g.vscode,
 }
@@ -16,6 +12,20 @@ local M = {
 M.opts = function()
     local copilot_status, copilot_suggestion = pcall(require, 'copilot.suggestion')
     local is_copilot_available = copilot_status and copilot_suggestion.is_visible()
+
+    -- INFO: override list.selection to manual for cmdline
+    local list = require 'blink.cmp.completion.list'
+    local orig_list_selection = list.config.selection
+    vim.api.nvim_create_autocmd('CmdlineEnter', {
+        callback = function()
+            list.config.selection = 'manual'
+        end,
+    })
+    vim.api.nvim_create_autocmd('CmdlineLeave', {
+        callback = function()
+            list.config.selection = orig_list_selection
+        end,
+    })
 
     return {
         keymap = {
@@ -93,6 +103,7 @@ M.opts = function()
                 selection = 'preselect',
             },
             menu = {
+                winblend = vim.o.pumblend,
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
                 scrollbar = false,
                 draw = {
@@ -125,13 +136,11 @@ M.opts = function()
         },
         sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
-            -- TODO: cmdline cmp still not working..
+            -- INFO: only enable cmp for cmdline not with search
             cmdline = function()
                 local type = vim.fn.getcmdtype()
-                -- Search forward and backward
-                if type == '/' or type == '?' then return { 'buffer' } end
-                -- Commands
                 if type == ':' then return { 'cmdline' } end
+                -- if type == '/' or type == '?' then return { 'buffer' } end
                 return {}
             end,
             providers = {

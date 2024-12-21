@@ -1,11 +1,15 @@
 local M = {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = 'VimEnter',
+    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
         {
             'nvim-treesitter/nvim-treesitter-context',
             opts = { zindex = 5, max_lines = 3 },
+        },
+        {
+            'folke/ts-comments.nvim',
+            opts = true
         },
         {
             'vidocqh/auto-indent.nvim',

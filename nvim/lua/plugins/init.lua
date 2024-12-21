@@ -55,10 +55,6 @@ return {
         },
     },
     {
-        'folke/ts-comments.nvim',
-        event = 'VeryLazy',
-    },
-    {
         'Wansmer/treesj',
         dependencies = { 'nvim-treesitter' },
         opts = {

@@ -1,6 +1,6 @@
 local M = {
     'b0o/incline.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'VeryLazy',
     dependencies = { 'mini.icons' },
     cond = not vim.g.vscode,
 }
