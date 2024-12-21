@@ -15,9 +15,13 @@ M.setup = function()
     local overrided_highlights = {}
     local c = oxocarbon.oxocarbon
 
+    -- INFO: extends new colors
+    c.float_bg = '#232323'
+    c.gold = '#ffaa00'
+
     local incline_highlight = {
-        InclineNormal = { fg = c.base04, bg = c.none },
-        InclineNormalNC = { fg = c.base03, bg = c.none },
+        InclineNormal = { fg = c.base04, bg = c.none, blend = 0 },
+        InclineNormalNC = { fg = c.base03, bg = c.none, blend = 0 },
     }
 
     local noice_highlight = {
@@ -30,16 +34,16 @@ M.setup = function()
         TelescopeNormal = { fg = c.base03, bg = c.base00 },
         TelescopeSelection = { fg = c.base06, bold = true },
         TelescopeSelectionCaret = { fg = c.base10, bold = true },
-        TelescopeMultiSelection = { fg = '#ffaa00' },
-        TelescopeMultiIcon = { fg = '#ffaa00' },
-        TelescopePromptNormal = { fg = c.base04, bg = c.base01 },
-        TelescopePromptPrefix = { fg = c.base08, bg = c.base01 },
-        TelescopePromptBorder = { bg = c.base01 },
-        TelescopeResultsNormal = { bg = c.base01 },
-        TelescopeResultsBorder = { bg = c.base01 },
-        TelescopePreviewNormal = { bg = c.base01 },
-        TelescopePreviewBorder = { bg = c.base01 },
-        TelescopePreviewLine = { bg = c.base02 },
+        TelescopeMultiSelection = { fg = c.gold },
+        TelescopeMultiIcon = { fg = c.gold },
+        TelescopePromptNormal = { fg = c.base04, bg = c.float_bg },
+        TelescopePromptPrefix = { fg = c.base08, bg = c.float_bg },
+        TelescopePromptBorder = { bg = c.float_bg },
+        TelescopeResultsNormal = { bg = c.float_bg },
+        TelescopeResultsBorder = { bg = c.float_bg },
+        TelescopePreviewNormal = { bg = c.base00 },
+        TelescopePreviewBorder = { bg = c.base00 },
+        TelescopePreviewLine = { bg = c.float_bg },
         TelescopeResultsTitle = { fg = c.base03 },
         TelescopeMatching = { fg = c.base12, bold = true },
         TelescopeResultsDiffAdd = { bg = c.base01 },
@@ -51,7 +55,7 @@ M.setup = function()
     local flit_highlight = {
         LeapBackdrop = { fg = c.base03, bg = c.none },
         LeapLabel = { fg = colorset.purple, bold = true, nocombine = true },
-        LeapMatch = { fg = 'white', bold = true, nocombine = true },
+        LeapMatch = { fg = c.base04, bold = true, nocombine = true },
     }
 
     local diagnostic_highlight = {
@@ -80,7 +84,7 @@ M.setup = function()
     }
 
     local treesitter_context_highlight = {
-        TreesitterContext = { bg = c.none, bold = true },
+        TreesitterContext = { bg = c.base01, bold = true, blend = 0 },
         TreesitterContextLineNumber = { link = 'TreesitterContext' },
     }
 
@@ -137,7 +141,7 @@ M.setup = function()
         CursorLine = { bg = c.base02 },
         VertSplit = { fg = c.base02, bg = c.none },
         StatusLine = { bg = c.none },
-        NormalFloat = { bg = c.base01 },
+        NormalFloat = { bg = c.float_bg },
         FloatBorder = { link = 'NormalFloat' },
         FloatTitle = { fg = c.base10, bg = c.base01, bold = true },
         Pmenu = { fg = c.base04, bg = c.base00 },

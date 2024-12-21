@@ -80,6 +80,7 @@ M.opts = function()
                 selection = 'preselect',
             },
             menu = {
+                winblend = vim.o.pumblend,
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
                 scrollbar = false,
                 draw = {
