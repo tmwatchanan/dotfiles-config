@@ -77,7 +77,7 @@ M.opts = function()
             cmdline = {
                 ['<CR>'] = {
                     function(cmp)
-                        return cmp.select_and_accept({
+                        return cmp.accept({
                             callback = function()
                                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'n', true)
                             end,
