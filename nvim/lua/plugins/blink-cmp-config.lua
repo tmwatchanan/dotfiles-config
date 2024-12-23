@@ -1,6 +1,6 @@
 local M = {
     'saghen/blink.cmp',
-    build = 'cargo build --release',
+    version = '*',
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         'rafamadriz/friendly-snippets',
