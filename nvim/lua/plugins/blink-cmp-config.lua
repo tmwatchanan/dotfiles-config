@@ -73,6 +73,22 @@ M.opts = function()
             ['<M-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
             ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
             ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+
+            cmdline = {
+                ['<CR>'] = {
+                    function(cmp)
+                        return cmp.select_and_accept({
+                            callback = function()
+                                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'n', true)
+                            end,
+                        })
+                    end,
+                    'fallback',
+                },
+                ['<C-e>'] = { 'hide', 'fallback' },
+                ['<Tab>'] = { 'select_next', 'fallback' },
+                ['<S-Tab>'] = { 'select_prev', 'fallback' },
+            }
         },
         completion = {
             list = {
