@@ -25,6 +25,7 @@ opt.termguicolors  = true
 opt.number         = true
 opt.relativenumber = true
 opt.ruler          = false
+opt.cursorline     = true
 
 opt.breakindent    = true
 opt.linebreak      = true
