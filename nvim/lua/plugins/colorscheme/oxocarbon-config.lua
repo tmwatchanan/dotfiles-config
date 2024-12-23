@@ -124,10 +124,6 @@ M.setup = function()
         HlSearchLens = { link = 'PmenuSel' },
     }
 
-    local indentscope_highlight = {
-        MiniIndentscopeSymbol = { fg = c.base04, bg = c.none },
-    }
-
     local marks_highlight = {
         MarkSignHL = { fg = colorset.bright_blue },
     }
@@ -162,7 +158,6 @@ M.setup = function()
     overrided_highlights = utils.merge(overrided_highlights, treesitter_context_highlight)
     overrided_highlights = utils.merge(overrided_highlights, cmp_highlight)
     overrided_highlights = utils.merge(overrided_highlights, hlslens_highlight)
-    overrided_highlights = utils.merge(overrided_highlights, indentscope_highlight)
     overrided_highlights = utils.merge(overrided_highlights, marks_highlight)
 
     for hl_name, hl_value in pairs(overrided_highlights) do
