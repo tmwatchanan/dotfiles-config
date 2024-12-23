@@ -22,9 +22,10 @@ M.setup = function()
         InclineNormal = {
             fg = vim.o.background ~= 'dark' and colorset.black or colorset.white,
             bg = colorset.transparent,
-            bold = true
+            bold = true,
+            blend = 0,
         },
-        InclineNormalNC = { fg = colorset.gray, bg = colorset.transparent, },
+        InclineNormalNC = { fg = colorset.gray, bg = colorset.transparent, blend = 0 },
     }
 
     local noice_highlight = {
@@ -34,7 +35,8 @@ M.setup = function()
     }
 
     local telescope_highlight = {
-        TelescopeBorder = { bg = colorset.transparent },
+        TelescopeBorder = { fg = theme.ui.float.fg_border, bg = theme.ui.bg },
+        TelescopeNormal = { bg = theme.ui.bg },
     }
 
     local rainbow_delimiter_highlight = {
@@ -48,7 +50,8 @@ M.setup = function()
     }
 
     local treesitter_context_highlight = {
-        TreesitterContext = { bg = colorset.transparent, bold = true },
+        TreesitterContext = { link = 'Folded' },
+        TreesitterContextLineNumber = { fg = theme.ui.special, bg = theme.ui.bg_gutter },
     }
 
     local hlslens_highlight = {
@@ -66,7 +69,7 @@ M.setup = function()
 
     overrided_highlights = utils.merge(overrided_highlights, {
         StatusLine = { bg = colorset.transparent }, -- transparent for terminal emulator
-        NormalNC = { bg = colorset.transparent }, -- transparent for terminal emulator
+        NormalNC = { bg = colorset.transparent },   -- transparent for terminal emulator
         -- NormalFloat = { bg = colorset.transparent },
         WinSeparator = { fg = palette.springViolet1, bg = colorset.transparent },
         LspReferenceWrite = { underline = false }, -- cursor hover
