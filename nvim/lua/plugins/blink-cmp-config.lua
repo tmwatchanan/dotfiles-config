@@ -13,20 +13,6 @@ M.opts = function()
     local copilot_status, copilot_suggestion = pcall(require, 'copilot.suggestion')
     local is_copilot_available = copilot_status and copilot_suggestion.is_visible()
 
-    -- INFO: override list.selection to manual for cmdline
-    local list = require 'blink.cmp.completion.list'
-    local orig_list_selection = list.config.selection
-    vim.api.nvim_create_autocmd('CmdlineEnter', {
-        callback = function()
-            list.config.selection = 'manual'
-        end,
-    })
-    vim.api.nvim_create_autocmd('CmdlineLeave', {
-        callback = function()
-            list.config.selection = orig_list_selection
-        end,
-    })
-
     return {
         keymap = {
             ['<CR>'] = {
@@ -109,16 +95,21 @@ M.opts = function()
                     'fallback',
                 },
                 ['<C-e>'] = { 'hide', 'fallback' },
-                ['<Tab>'] = { 'select_next', 'fallback' },
+                ['<Tab>'] = { 'show', 'select_next', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'fallback' },
             }
         },
         completion = {
             list = {
                 max_items = 100,
-                selection = 'preselect',
+                selection = function(ctx)
+                    return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
+                end
             },
             menu = {
+                auto_show = function(ctx)
+                    return ctx.mode ~= 'cmdline'
+                end,
                 winblend = vim.o.pumblend,
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
                 scrollbar = false,

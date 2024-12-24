@@ -1,6 +1,6 @@
 local M = {
     'nvim-focus/focus.nvim',
-    event = 'VeryLazy',
+    event = { 'BufReadPost', 'BufNewFile' },
     cond = not vim.g.vscode,
 }
 
