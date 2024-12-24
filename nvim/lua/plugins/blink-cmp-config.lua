@@ -79,9 +79,7 @@ M.opts = function()
         completion = {
             list = {
                 max_items = 100,
-                selection = function(ctx)
-                    return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
-                end
+                selection = 'preselect',
             },
             menu = {
                 auto_show = function(ctx)
