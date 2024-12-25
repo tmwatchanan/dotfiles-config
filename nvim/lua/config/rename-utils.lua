@@ -1,4 +1,4 @@
--- NOTE: this function are came from
+-- NOTE: these function are came from
 --     https://github.com/ViRu-ThE-ViRuS/configs/blob/master/nvim/lua/lsp-setup/handlers.lua
 --     https://github.com/axieax/dotconfig/blob/main/nvim/lua/axie/plugins/lsp/rename.lua
 local M = {}

@@ -10,13 +10,13 @@ local M = {
 
 M.opts = function()
     local copilot_status, copilot_suggestion = pcall(require, 'copilot.suggestion')
-    local is_copilot_available = copilot_status and copilot_suggestion.is_visible()
+    local is_copilot_visible = copilot_status and copilot_suggestion.is_visible()
 
     return {
         keymap = {
             ['<CR>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.accept()
                         return true -- NOTE: must return true, skip fallback case
                     end
@@ -26,7 +26,7 @@ M.opts = function()
             },
             ['<C-e>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.dismiss()
                         return true
                     end
@@ -36,7 +36,7 @@ M.opts = function()
             },
             ['<Tab>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.next()
                         return true
                     end
@@ -47,7 +47,7 @@ M.opts = function()
             },
             ['<S-Tab>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.prev()
                         return true
                     end
