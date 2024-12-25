@@ -180,7 +180,13 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>ww', function() vim.wo.wrap = not vim.wo.wrap end)
 
     -- INFO: add trailing comma to EOL if not exists
-    vim.keymap.set({ 'n', 'v' }, '<leader>c', [[:s/,\@<!$/,/g<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
+    -- NOTE: `<Cmd>noh<CR>` for removing unwanted highlight after replacement
+    vim.keymap.set({ 'n', 'v' }, '<leader>ct', [[:s/,\@<!$/,/ge<CR><Cmd>noh<CR>]])
+    vim.keymap.set({ 'n', 'v' }, '<leader>cT', [[:s/,$//ge<CR><Cmd>noh<CR>]])
+
+    -- INFO: convert whitespaces between words to commas and surround each word by double quotes
+    vim.keymap.set({ 'n', 'v' }, '<leader>cc', [[:s/\v(\s*)(\S+)(\s|$)/\1"\2",\3/ge | s/,$//ge<CR><Cmd>noh<CR>]])
+    vim.keymap.set({ 'n', 'v' }, '<leader>cC', [[:s/[",]//ge<CR><Cmd>noh<CR>]])
 
     -- INFO: swap between equal and colon
     vim.keymap.set({ 'n', 'v' }, '<leader>s=', [[:s/: /=/g<CR><Cmd>noh<CR>]])
