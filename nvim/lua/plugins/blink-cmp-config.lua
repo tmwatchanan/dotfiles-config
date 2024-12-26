@@ -83,7 +83,7 @@ M.opts = function()
             },
             menu = {
                 auto_show = function(ctx)
-                    return ctx.mode ~= 'cmdline'
+                    return ctx.mode ~= 'cmdline' and not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
                 end,
                 winblend = vim.o.pumblend,
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
@@ -116,15 +116,6 @@ M.opts = function()
             use_nvim_cmp_as_default = true,
             nerd_font_variant = 'mono'
         },
-        sources = {
-            -- INFO: only enable cmp for cmdline not with search
-            cmdline = function()
-                local type = vim.fn.getcmdtype()
-                if type == ':' then return { 'cmdline' } end
-                -- if type == '/' or type == '?' then return { 'buffer' } end
-                return {}
-            end,
-        }
     }
 end
 
