@@ -209,6 +209,10 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>--', function() append_repeated_trailing_characters('-') end)
     vim.keymap.set('n', '<leader>-=', function() append_repeated_trailing_characters('=') end)
     vim.keymap.set('n', '<leader>-#', function() append_repeated_trailing_characters('#') end)
+
+    -- INFO: toggle between double quote and single quotes
+    vim.keymap.set({ 'n', 'v' }, [[<leader>']], [[:s/"/'/g<CR><Cmd>noh<CR>]])
+    vim.keymap.set({ 'n', 'v' }, [[<leader>"]], [[:s/'/"/g<CR><Cmd>noh<CR>]])
 end
 
 -- INFO: LSP keymap
