@@ -39,7 +39,7 @@ M.keys = {
 			local environment_path = require('config.python').get_environment_path()
 			require('toggleterm.terminal').Terminal
 				:new({
-					cmd = ('mamba activate %s ; cd $(readlink -f .) & lazygit'):format(environment_path),
+					cmd = ('mamba activate %s ; cd $(readlink -f .) & lg'):format(environment_path),
 					count = M.opts.size + 1,
 					hidden = false,
 					on_open = function()
@@ -57,7 +57,7 @@ M.keys = {
 			local resolved_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
 			require('toggleterm.terminal').Terminal
 				:new({
-					cmd = ('cd $(readlink -f .) & lazygit -f %s'):format(resolved_path),
+					cmd = ('cd $(readlink -f .) & lg -f %s'):format(resolved_path),
 					count = M.opts.size + 2,
 					hidden = false,
 					on_open = function()
