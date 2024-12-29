@@ -2,9 +2,9 @@
 > Requires `Homebrew` to be installed
 
 > [!TIP]
-> Use [GNU Stow](https://www.gnu.org/software/stow/) for managing config files with a symlink farm
+> Use [GNU Stow](https://www.gnu.org/software/stow/) for managing config files with a symlink farm with [tmwatchanan/dotfiles/.config/just/justfile](https://github.com/tmwatchanan/dotfiles/blob/main/.config/just/justfile)
 > ```sh
-> stow . --target="$HOME/.config"
+> just -g stow
 > ```
 
 ## Neovim
