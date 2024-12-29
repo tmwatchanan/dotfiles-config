@@ -85,7 +85,7 @@ M.opts = function()
             color_devicons = true,
             path_display = { 'tail', 'smart' },
             set_env = { ['COLORTERM'] = 'truecolor' },
-            file_ignore_patterns = { 'node_modules', '%.ipynb', '%.csv' },
+            file_ignore_patterns = { 'node_modules', '%.ipynb' },
             dynamic_preview_title = true,
             borderchars = defaults.float_border,
             mappings = {
@@ -119,6 +119,8 @@ M.opts = function()
                 theme = 'cursor'
             },
             find_files = mergeConfig(horizontal_layout_config, {
+                hidden = true,
+                file_ignore_patterns = require('config.ignore').file_ignore_patterns,
                 path_display = { 'smart' },
                 wrap_results = true,
                 follow = true,
