@@ -19,4 +19,5 @@
 
 (assignment_statement
     (variable_list) @assignment_variable_id
-)
+    (expression_list) @assignment_expression
+) @assignment.outer
