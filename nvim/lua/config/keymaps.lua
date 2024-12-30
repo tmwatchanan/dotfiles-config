@@ -195,14 +195,19 @@ keymaps.setup = function()
     -- INFO: remove blank lines and lines containing only whitespaces
     vim.keymap.set('v', '<leader>-', [[:g/^\s*$/d<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
 
-    -- INFO: source current file (shift+5 is %)
-    vim.keymap.set('n', '<leader>x', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
+    -- INFO: source current config line/file
+    vim.keymap.set('n', '<leader>xn', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
     vim.keymap.set('n', '<leader><leader>x', function()
         vim.cmd('source %')
         vim.notify('Sourced %')
     end, { desc = 'Execute the current file' })
-    -- INFO: lazy.nvim reload plugin
+    -- INFO: lazy.nvim reload plugin (shift+5 is %)
     vim.keymap.set('n', '<leader><leader>5', ':Lazy reload ')
+    -- INFO: execute the selected line(s) in the shell
+    vim.keymap.set('n', '<leader>xt', [[:.w !sh<CR>]],
+        { desc = 'Execute the current line in the `sh` shell', silent = true })
+    vim.keymap.set('v', '<leader>xt', [[:w !sh<CR>]],
+        { desc = 'Execute the selected line(s) in the `sh` shell', silent = true })
 
     -- INFO: append the repeated trailing '-' not exceeding 80 columns
     -- vim.keymap.set('n', '<leader>--', [[:%s/\s\+$//e<CR><Cmd>noh<CR>A<space><Esc>80A-<Esc>d80|0]])
