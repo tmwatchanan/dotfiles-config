@@ -1,27 +1,5 @@
 local keymaps = {}
-
--- INFO: append the repeated trailing '-' not exceeding 80 columns
-local function append_repeated_trailing_characters(character)
-    local colorcolumn = 80
-    local current_line = vim.api.nvim_get_current_line()
-    local current_line_length = current_line:len()
-
-    -- INFO: remove the pattern if exists
-    local pattern = '%s[' .. character .. ']+$'
-    if current_line:match(pattern) then
-        local current_line_stripped = current_line:gsub(pattern, '')
-        vim.api.nvim_set_current_line(current_line_stripped)
-        return
-    end
-
-    -- INFO: append '-' if the line length is not exceeding colorcolumn
-    if current_line_length < colorcolumn - 1 then
-        local stripping_pattern = '(.' .. character .. ')%s*$'
-        local current_line_stripped = current_line:gsub(stripping_pattern, '%1')
-        local appending_text = string.rep(character, colorcolumn - current_line_length - 1)
-        vim.api.nvim_set_current_line(('%s %s'):format(current_line_stripped, appending_text))
-    end
-end
+local commands = require('config.commands')
 
 keymaps.setup = function()
     -- INFO: disable <Space> for moving the cursor
@@ -213,27 +191,25 @@ keymaps.setup = function()
         end
     end, { desc = 'Execute the current line or selected lines in the shell', silent = true })
     vim.keymap.set({ 'n', 'x' }, '<leader>xt', function()
-        local run_tmux_expr = require('config.commands').run_tmux_expr
-
         local mode = vim.fn.mode()
         if mode == 'n' then
-            run_tmux_expr('.')
+            commands.run_tmux_expr('.')
         elseif mode == 'V' then
             vim.cmd([[ execute "normal! \<ESC>" ]])
             local start_line = vim.fn.getpos("'<")[2]
             local end_line = vim.fn.getpos("'>")[2]
 
             for line_num = start_line, end_line do
-                run_tmux_expr(line_num)
+                commands.run_tmux_expr(line_num)
             end
         end
     end, { desc = 'Execute the current line or selected lines with `tmux ` prepended in the shell', silent = true })
 
     -- INFO: append the repeated trailing '-' not exceeding 80 columns
     -- vim.keymap.set('n', '<leader>--', [[:%s/\s\+$//e<CR><Cmd>noh<CR>A<space><Esc>80A-<Esc>d80|0]])
-    vim.keymap.set('n', '<leader>--', function() append_repeated_trailing_characters('-') end)
-    vim.keymap.set('n', '<leader>-=', function() append_repeated_trailing_characters('=') end)
-    vim.keymap.set('n', '<leader>-#', function() append_repeated_trailing_characters('#') end)
+    vim.keymap.set('n', '<leader>--', function() commands.append_repeated_trailing_characters('-') end)
+    vim.keymap.set('n', '<leader>-=', function() commands.append_repeated_trailing_characters('=') end)
+    vim.keymap.set('n', '<leader>-#', function() commands.append_repeated_trailing_characters('#') end)
 
     -- INFO: toggle between double quote and single quotes
     vim.keymap.set({ 'n', 'v' }, [[<leader>']], [[:s/"/'/g<CR><Cmd>noh<CR>]])
