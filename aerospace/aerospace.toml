@@ -65,10 +65,10 @@ exec-on-workspace-change = [
 [gaps]
 inner.horizontal = 10
 inner.vertical = 10
-outer.left = 10
-outer.bottom = 10
-outer.top = [{ monitor."mi" = 40 }, { monitor."DELL" = 40 }, 10]
-outer.right = 10
+outer.left = 5
+outer.bottom = 5
+outer.top = [{ monitor."mi" = 40 }, { monitor."DELL" = 40 }, 5]
+outer.right = 5
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
