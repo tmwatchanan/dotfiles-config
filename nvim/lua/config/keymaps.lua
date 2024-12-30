@@ -204,10 +204,30 @@ keymaps.setup = function()
     -- INFO: lazy.nvim reload plugin (shift+5 is %)
     vim.keymap.set('n', '<leader><leader>5', ':Lazy reload ')
     -- INFO: execute the selected line(s) in the shell
-    vim.keymap.set('n', '<leader>xt', [[:.w !sh<CR>]],
-        { desc = 'Execute the current line in the `sh` shell', silent = true })
-    vim.keymap.set('v', '<leader>xt', [[:w !sh<CR>]],
-        { desc = 'Execute the selected line(s) in the `sh` shell', silent = true })
+    vim.keymap.set({ 'n', 'x' }, '<leader>xs', function()
+        local mode = vim.fn.mode()
+        if mode == 'n' then
+            vim.cmd('.w !sh')
+        elseif mode == 'V' then
+            vim.cmd('w !sh')
+        end
+    end, { desc = 'Execute the current line or selected lines in the shell', silent = true })
+    vim.keymap.set({ 'n', 'x' }, '<leader>xt', function()
+        local run_tmux_expr = require('config.commands').run_tmux_expr
+
+        local mode = vim.fn.mode()
+        if mode == 'n' then
+            run_tmux_expr('.')
+        elseif mode == 'V' then
+            vim.cmd([[ execute "normal! \<ESC>" ]])
+            local start_line = vim.fn.getpos("'<")[2]
+            local end_line = vim.fn.getpos("'>")[2]
+
+            for line_num = start_line, end_line do
+                run_tmux_expr(line_num)
+            end
+        end
+    end, { desc = 'Execute the current line or selected lines with `tmux ` prepended in the shell', silent = true })
 
     -- INFO: append the repeated trailing '-' not exceeding 80 columns
     -- vim.keymap.set('n', '<leader>--', [[:%s/\s\+$//e<CR><Cmd>noh<CR>A<space><Esc>80A-<Esc>d80|0]])
