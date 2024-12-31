@@ -110,6 +110,7 @@ num_monitors=$(aerospace list-monitors --count)
 if [[ "$num_monitors" -eq 1 ]]; then
     desktop_monitor[1]=1
     weather_max_chars=15
+    media_max_chars=$weather_max_chars
 fi
 
 for monitor in $(aerospace list-monitors | command sort -i | awk '{print $1}'); do
@@ -153,7 +154,7 @@ media_info=(
     icon.background.image.scale=0.6
     icon.background.image.corner_radius=4
     label.padding_left=8
-    label.max_chars=18
+    label.max_chars=${media_max_chars:-30}
     scroll_texts=yes
     updates=on
     script="$PLUGIN_DIR/media_info.sh"
