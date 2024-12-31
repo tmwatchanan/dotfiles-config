@@ -644,4 +644,10 @@ keymaps.neotree = {
     toggle = '<leader>nt',
 }
 
+-- INFO: snacks keymap
+keymaps.snacks = {
+    gitbrowse      = '<leader>gb',
+    git_blame_line = '<leader>gB',
+}
+
 return keymaps
