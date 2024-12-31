@@ -23,6 +23,22 @@ M.append_repeated_trailing_characters = function(character)
     end
 end
 
+M.apply_function = function(fn)
+    return function()
+        local mode = vim.fn.mode()
+        if mode == 'n' then
+            fn('.')
+        elseif mode == 'V' then
+            vim.cmd([[ execute "normal! \<ESC>" ]])
+            local start_line = vim.fn.getpos("'<")[2]
+            local end_line = vim.fn.getpos("'>")[2]
+
+            for line_num = start_line, end_line do
+                fn(line_num)
+            end
+        end
+    end
+end
 
 M.run_tmux_expr = function(line_num)
     local line = vim.fn.getline(line_num)

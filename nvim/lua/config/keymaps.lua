@@ -174,7 +174,8 @@ keymaps.setup = function()
     vim.keymap.set('v', '<leader>-', [[:g/^\s*$/d<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
 
     -- INFO: source current config line/file
-    vim.keymap.set('n', '<leader>xn', '<cmd>.lua<CR>', { desc = 'Execute the current line' })
+    vim.keymap.set('n', '<leader>xn', ':.lua<CR>', { desc = 'Execute the current line' })
+    vim.keymap.set('x', '<leader>xn', ':lua<CR>', { desc = 'Execute the selected visual lines' })
     vim.keymap.set('n', '<leader><leader>x', function()
         vim.cmd('source %')
         vim.notify('Sourced %')
@@ -182,28 +183,12 @@ keymaps.setup = function()
     -- INFO: lazy.nvim reload plugin (shift+5 is %)
     vim.keymap.set('n', '<leader><leader>5', ':Lazy reload ')
     -- INFO: execute the selected line(s) in the shell
-    vim.keymap.set({ 'n', 'x' }, '<leader>xs', function()
-        local mode = vim.fn.mode()
-        if mode == 'n' then
-            vim.cmd('.w !sh')
-        elseif mode == 'V' then
-            vim.cmd('w !sh')
-        end
-    end, { desc = 'Execute the current line or selected lines in the shell', silent = true })
-    vim.keymap.set({ 'n', 'x' }, '<leader>xt', function()
-        local mode = vim.fn.mode()
-        if mode == 'n' then
-            commands.run_tmux_expr('.')
-        elseif mode == 'V' then
-            vim.cmd([[ execute "normal! \<ESC>" ]])
-            local start_line = vim.fn.getpos("'<")[2]
-            local end_line = vim.fn.getpos("'>")[2]
-
-            for line_num = start_line, end_line do
-                commands.run_tmux_expr(line_num)
-            end
-        end
-    end, { desc = 'Execute the current line or selected lines with `tmux ` prepended in the shell', silent = true })
+    vim.keymap.set('n', '<leader>xs', ':.w !sh<CR>', { desc = 'Execute the current line in the shell', silent = true })
+    vim.keymap.set('x', '<leader>xs', ':w !sh<CR>',
+        { desc = 'Execute the current line or selected lines in the shell', silent = true })
+    -- INFO: execute the selected line(s) with the tmux command
+    vim.keymap.set({ 'n', 'x' }, '<leader>xt', commands.apply_function(commands.run_tmux_expr),
+        { desc = 'Execute the current line or selected lines with `tmux ` prepended in the shell', silent = true })
 
     -- INFO: append the repeated trailing '-' not exceeding 80 columns
     -- vim.keymap.set('n', '<leader>--', [[:%s/\s\+$//e<CR><Cmd>noh<CR>A<space><Esc>80A-<Esc>d80|0]])
