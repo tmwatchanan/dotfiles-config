@@ -39,7 +39,8 @@ M.keys = {
 			local environment_path = require('config.python').get_environment_path()
 			require('toggleterm.terminal').Terminal
 				:new({
-					cmd = ('mamba activate %s ; cd $(readlink -f .) & lg'):format(environment_path),
+					cmd = ('lg'):format(environment_path),
+                    dir = vim.fn.getcwd(),
 					count = M.opts.size + 1,
 					hidden = false,
 					on_open = function()
@@ -57,7 +58,8 @@ M.keys = {
 			local resolved_path = vim.fn.fnamemodify(vim.fn.expand('%'), ':p')
 			require('toggleterm.terminal').Terminal
 				:new({
-					cmd = ('cd $(readlink -f .) & lg -f %s'):format(resolved_path),
+					cmd = ('lg -f %s'):format(resolved_path),
+                    dir = vim.fn.getcwd(),
 					count = M.opts.size + 2,
 					hidden = false,
 					on_open = function()
