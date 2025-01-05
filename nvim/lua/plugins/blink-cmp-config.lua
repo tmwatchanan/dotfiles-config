@@ -63,7 +63,7 @@ M.opts = function()
             cmdline = {
                 ['<CR>'] = {
                     function(cmp)
-                        return cmp.accept({
+                        return cmp.select_and_accept({
                             callback = function()
                                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'n', true)
                             end,
@@ -79,11 +79,13 @@ M.opts = function()
         completion = {
             list = {
                 max_items = 100,
-                selection = 'preselect',
+                selection = function(ctx)
+                    return ctx.mode == 'cmdline' and not vim.tbl_contains({ '/', '/?' }, vim.fn.getcmdtype()) and 'auto_insert' or 'preselect'
+                end
             },
             menu = {
                 auto_show = function(ctx)
-                    return ctx.mode ~= 'cmdline' and not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype())
+                    return ctx.mode ~= 'cmdline'
                 end,
                 winblend = vim.o.pumblend,
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
