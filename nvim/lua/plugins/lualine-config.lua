@@ -146,7 +146,7 @@ M.opts = function()
         function()
             local cur_buf = vim.api.nvim_get_current_buf()
             local _, pinned = pcall(require('hbac.state').is_pinned, cur_buf)
-            return pinned and 'pinned buffer' or ''
+            return pinned and 'pinned' or ''
         end,
         color = 'WarningMsg',
         icon = icons.lualine.pinned,

@@ -1,4 +1,4 @@
--- NOTE: this function are came from
+-- NOTE: these function are came from
 --     https://github.com/ViRu-ThE-ViRuS/configs/blob/master/nvim/lua/lsp-setup/handlers.lua
 --     https://github.com/axieax/dotconfig/blob/main/nvim/lua/axie/plugins/lsp/rename.lua
 local M = {}
@@ -7,8 +7,10 @@ local M = {}
 M.rename_clean_placeholder = function()
     -- Override vim.ui.input function to remove default text
     local original_ui_input = vim.ui.input
+
+    ---@diagnostic disable-next-line: duplicate-set-field
     vim.ui.input = function(opts, on_confirm)
-        opts.default = ""
+        opts.default = ''
         original_ui_input(opts, on_confirm)
         vim.ui.input = original_ui_input
     end
@@ -18,10 +20,13 @@ end
 
 -- populate qf list with changes (if multiple files modified)
 M.rename_to_qflist = function()
+    local lsp_client = vim.lsp.get_clients({ bufnr = 0 })[1]
+    local offset_encoding = lsp_client and lsp_client.offset_encoding or 'utf-16'
+
     ---@class PositionParams : lsp.TextDocumentPositionParams
     ---@field oldName string
-    local position_params = vim.lsp.util.make_position_params()
-    position_params.oldName = vim.fn.expand("<cword>")
+    local position_params = vim.lsp.util.make_position_params(0, offset_encoding)
+    position_params.oldName = vim.fn.expand('<cword>')
 
     vim.ui.input({ prompt = 'Rename > ', default = position_params.oldName }, function(input)
         -- exit no changes

@@ -41,7 +41,10 @@ M.opts = {
         },
         cmdline = {
             win_options = { winblend = 0 },
-        }
+        },
+        cmdline_input = {
+            win_options = { winblend = 0 },
+        },
     },
     messages = {
         view_search = false,

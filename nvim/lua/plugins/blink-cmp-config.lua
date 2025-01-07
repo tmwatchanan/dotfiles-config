@@ -11,13 +11,13 @@ local M = {
 
 M.opts = function()
     local copilot_status, copilot_suggestion = pcall(require, 'copilot.suggestion')
-    local is_copilot_available = copilot_status and copilot_suggestion.is_visible()
+    local is_copilot_visible = copilot_status and copilot_suggestion.is_visible()
 
     return {
         keymap = {
             ['<CR>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.accept()
                         return true -- NOTE: must return true, skip fallback case
                     end
@@ -27,7 +27,7 @@ M.opts = function()
             },
             ['<C-e>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.dismiss()
                         return true
                     end
@@ -37,7 +37,7 @@ M.opts = function()
             },
             ['<Tab>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.next()
                         return true
                     end
@@ -48,7 +48,7 @@ M.opts = function()
             },
             ['<S-Tab>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.prev()
                         return true
                     end
@@ -86,7 +86,7 @@ M.opts = function()
             cmdline = {
                 ['<CR>'] = {
                     function(cmp)
-                        return cmp.accept({
+                        return cmp.select_and_accept({
                             callback = function()
                                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR>', true, true, true), 'n', true)
                             end,
@@ -103,7 +103,7 @@ M.opts = function()
             list = {
                 max_items = 100,
                 selection = function(ctx)
-                    return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
+                    return ctx.mode == 'cmdline' and not vim.tbl_contains({ '/', '/?' }, vim.fn.getcmdtype()) and 'auto_insert' or 'preselect'
                 end
             },
             menu = {
@@ -143,13 +143,6 @@ M.opts = function()
         },
         sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
-            -- INFO: only enable cmp for cmdline not with search
-            cmdline = function()
-                local type = vim.fn.getcmdtype()
-                if type == ':' then return { 'cmdline' } end
-                -- if type == '/' or type == '?' then return { 'buffer' } end
-                return {}
-            end,
             providers = {
                 lazydev = {
                     name = 'LazyDev',
@@ -158,7 +151,7 @@ M.opts = function()
                     score_offset = 100,
                 },
             },
-        }
+        },
     }
 end
 

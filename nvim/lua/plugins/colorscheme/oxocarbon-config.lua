@@ -84,7 +84,7 @@ M.setup = function()
     }
 
     local treesitter_context_highlight = {
-        TreesitterContext = { bg = c.base01, bold = true, blend = 0 },
+        TreesitterContext = { bg = c.base00, bold = true, blend = 0 },
         TreesitterContextLineNumber = { link = 'TreesitterContext' },
     }
 
@@ -140,7 +140,7 @@ M.setup = function()
         NormalFloat = { bg = c.float_bg },
         FloatBorder = { link = 'NormalFloat' },
         FloatTitle = { fg = c.base10, bg = c.base01, bold = true },
-        Pmenu = { fg = c.base04, bg = c.base00 },
+        Pmenu = { fg = c.base04, bg = c.float_bg, blend = vim.opt.pumblend:get() },
         PmenuSel = { fg = c.none, bg = c.base02 },
         Search = { fg = c.base01, bg = c.base12, bold = true },
         WinSeparator = { fg = c.base03, bg = c.none },
@@ -164,12 +164,24 @@ M.setup = function()
         vim.api.nvim_set_hl(0, hl_name, hl_value)
     end
 
-    -- INFO: overrided some terminal colors
+    -- INFO: overrided terminal colors
+    vim.g['terminal_color_0'] = c.base01
+    vim.g['terminal_color_1'] = c.base07
+    vim.g['terminal_color_2'] = c.base11
     vim.g['terminal_color_3'] = c.base10
-    vim.g['terminal_color_5'] = '#ffab91'
-    vim.g['terminal_color_9'] = c.base15
+    vim.g['terminal_color_4'] = c.base13
+    vim.g['terminal_color_5'] = c.base14
+    vim.g['terminal_color_6'] = c.base10
+    vim.g['terminal_color_7'] = c.base05
+
+    vim.g['terminal_color_8'] = c.base03
+    vim.g['terminal_color_9'] = c.base08
+    vim.g['terminal_color_10'] = c.base15
     vim.g['terminal_color_11'] = c.base12
-    vim.g['terminal_color_13'] = '#ff6f00'
+    vim.g['terminal_color_12'] = c.base13
+    vim.g['terminal_color_13'] = c.base14
+    vim.g['terminal_color_14'] = c.base12
+    vim.g['terminal_color_15'] = c.base06
 end
 
 M.lualine = function()
