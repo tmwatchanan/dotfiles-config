@@ -1,0 +1,132 @@
+[
+    {
+        "key": "ctrl+j",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.quickOpenSelectNext",
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.quickOpenSelectPrevious",
+        "when": "inQuickOpen"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.navigateLeft",
+        "when": "sideBarFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.navigateRight",
+        "when": "sideBarFocus"
+    },
+    {
+        "key": "ctrl+shift+k",
+        "command": "workbench.action.navigateUp",
+        "when": "panelFocus"
+    },
+    {
+        "key": "ctrl+shift+j",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "ctrl+shift+h",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.navigateRight"
+    },
+    {
+        "key": "ctrl+=",
+        "command": "workbench.action.increaseViewWidth",
+        "when": "textInputFocus && neovim.mode == normal"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "workbench.action.decreaseViewWidth",
+        "when": "textInputFocus && neovim.mode == normal"
+    },
+    {
+        "key": "ctrl+shift+=",
+        "command": "workbench.action.increaseViewHeight"
+    },
+    {
+        "key": "ctrl+shift+-",
+        "command": "workbench.action.decreaseViewHeight"
+    },
+    {
+        "key": "ctrl+shift+=",
+        "command": "workbench.action.terminal.resizePaneDown",
+        "when": "panelFocus"
+    },
+    {
+        "key": "ctrl+w h",
+        "command": "workbench.action.moveActiveEditorGroupLeft",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+w j",
+        "command": "workbench.action.moveActiveEditorGroupDown",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+w k",
+        "command": "workbench.action.moveActiveEditorGroupUp",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+w l",
+        "command": "workbench.action.moveActiveEditorGroupRight",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+w space",
+        "command": "workbench.action.toggleMaximizeEditorGroup",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+tab shift+h",
+        "command": "workbench.action.splitEditorLeft",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+tab shift+j",
+        "command": "workbench.action.splitEditorDown",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+tab shift+k",
+        "command": "workbench.action.splitEditorUp",
+        "when": "editorFocus"
+    },
+    {
+        "key": "shift+tab shift+l",
+        "command": "workbench.action.splitEditorRight",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "-workbench.action.navigateBack",
+        "when": "canNavigateBack"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "-deleteAllRight",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "cursorUp",
+        "when": "textInputFocus && !editorReadonly && neovim.mode == insert"
+    }
+]
