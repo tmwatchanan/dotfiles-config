@@ -21,7 +21,6 @@ local lsp_setup_module = {
     dependencies = {
         'williamboman/mason-lspconfig.nvim',
         'mason.nvim',
-        'blink.cmp'
     },
 }
 
@@ -160,15 +159,11 @@ lsp_setup_module.config = function()
     end
 
     -- NOTE: automatically setup lsp from default config installed via mason.nvim
-    local lsp_capabilities = require('blink.cmp').get_lsp_capabilities()
     require('mason-lspconfig').setup {
         ensure_installed = lsp_names,
         handlers = {
             function(server_name)
-                if not lsp_configs[server_name] then
-                    lsp_configs[server_name] = {}
-                end
-                lsp_configs[server_name].capabilities = lsp_capabilities
+                lsp_configs[server_name] = lsp_configs[server_name] or {}
                 lspconfig[server_name].setup(lsp_configs[server_name])
             end,
         },
