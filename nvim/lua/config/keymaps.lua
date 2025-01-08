@@ -77,8 +77,6 @@ keymaps.lsp = {
     signature_help   = { key = 'gs', cmd = vim.lsp.buf.signature_help },
     diagnostic       = { key = '<leader>ld', cmd = '<Cmd>Telescope diagnostics<CR>' },
     document_symbol  = { key = '<leader>ls', cmd = '<Cmd>Telescope lsp_document_symbols<CR>' },
-    rename           = { key = '<leader>lr', cmd = function() require 'config.rename-utils'.rename_to_qflist() end },
-    rename_clean     = { key = '<leader>lR', cmd = function() require 'config.rename-utils'.rename_clean_placeholder() end },
     code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
     format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
     hover            = {
@@ -87,6 +85,12 @@ keymaps.lsp = {
             return vim.diagnostic.open_float({ scope = 'cursor' }) or vim.lsp.buf.hover()
         end
     },
+}
+
+-- INFO: live-rename keymap
+keymaps.rename = {
+    rename = '<leader>lr',
+    rename_clean = '<leader>lR',
 }
 
 -- INFO: Treesitter
