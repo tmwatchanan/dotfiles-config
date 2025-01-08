@@ -6,6 +6,10 @@ yabai -m signal --add event=window_focused action="sketchybar --trigger window_f
 yabai -m signal --add event=display_added action="sleep 2 && $HOME/.config/yabai/display_changed.sh"
 yabai -m signal --add event=display_removed action="$HOME/.config/yabai/display_changed.sh"
 
+# INFO: workaround for ghostty terminal
+yabai -m signal --add  app='^Ghostty$' event=window_created action='yabai -m space --layout bsp'
+yabai -m signal --add  app='^Ghostty$' event=window_destroyed action='yabai -m space --layout bsp'
+
 $HOME/.config/yabai/display_changed.sh
 
 yabai -m config external_bar               all:36:0     \
