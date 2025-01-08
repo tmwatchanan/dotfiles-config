@@ -11,14 +11,6 @@ local M = {
             'folke/ts-comments.nvim',
             opts = true
         },
-        {
-            'vidocqh/auto-indent.nvim',
-            opts = {
-                indentexpr = function(lnum)
-                    return require('nvim-treesitter.indent').get_indent(lnum)
-                end
-            }
-        },
         'windwp/nvim-ts-autotag',
         'nvim-treesitter-textobjects',
     },
