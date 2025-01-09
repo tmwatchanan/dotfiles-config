@@ -102,9 +102,14 @@ M.opts = function()
         completion = {
             list = {
                 max_items = 100,
-                selection = function(ctx)
-                    return ctx.mode == 'cmdline' and not vim.tbl_contains({ '/', '/?' }, vim.fn.getcmdtype()) and 'auto_insert' or 'preselect'
-                end
+                selection = {
+                    preselect = function(ctx)
+                        return ctx.mode ~= 'cmdline' or vim.tbl_contains({ '/', '/?' }, vim.fn.getcmdtype())
+                    end,
+                    auto_insert = function(ctx)
+                        return ctx.mode == 'cmdline' and not vim.tbl_contains({ '/', '/?' }, vim.fn.getcmdtype())
+                    end
+                }
             },
             menu = {
                 auto_show = function(ctx)
@@ -122,7 +127,6 @@ M.opts = function()
                 auto_show = true,
                 auto_show_delay_ms = 250,
                 window = {
-                    max_width = 80,
                     winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,BlinkCmpDocSeparator:Pmenu',
                 }
             },

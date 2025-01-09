@@ -33,7 +33,6 @@ local lsp_setup_module = {
     dependencies = {
         'williamboman/mason-lspconfig.nvim',
         'mason.nvim',
-        'blink.cmp'
     },
     cond = not vim.g.vscode,
 }
@@ -186,9 +185,7 @@ lsp_setup_module.config = function()
         ensure_installed = lsp_names,
         handlers = {
             function(server_name)
-                if not lsp_configs[server_name] then
-                    lsp_configs[server_name] = {}
-                end
+                lsp_configs[server_name] = lsp_configs[server_name] or {}
                 lsp_configs[server_name].capabilities = lsp_capabilities
                 lspconfig[server_name].setup(lsp_configs[server_name])
             end,

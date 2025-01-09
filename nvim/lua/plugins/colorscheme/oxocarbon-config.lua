@@ -84,7 +84,7 @@ M.setup = function()
     }
 
     local treesitter_context_highlight = {
-        TreesitterContext = { bg = c.base00, bold = true, blend = 0 },
+        TreesitterContext = { bg = c.none, bold = true, blend = 0 },
         TreesitterContextLineNumber = { link = 'TreesitterContext' },
     }
 

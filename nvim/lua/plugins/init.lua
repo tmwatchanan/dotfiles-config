@@ -129,6 +129,19 @@ return {
         event = { 'InsertEnter', 'CmdlineEnter' },
         opts = true
     },
+    {
+        'saecki/live-rename.nvim',
+        opts = {},
+        keys = function()
+            local rename_keymap = require('config.keymaps').rename
+            local live_rename = require('live-rename')
+
+            return {
+                { rename_keymap.rename,       live_rename.map({ insert = true }) },
+                { rename_keymap.rename_clean, live_rename.map({ text = '', insert = true }) },
+            }
+        end
+    },
 
     -- Miscellaneous
     {
