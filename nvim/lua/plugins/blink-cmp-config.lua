@@ -90,7 +90,7 @@ M.opts = function()
                 auto_show = function(ctx)
                     return ctx.mode ~= 'cmdline'
                 end,
-                winblend = vim.o.pumblend,
+                winblend = vim.opt.pumblend:get(),
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
                 scrollbar = false,
                 draw = {
