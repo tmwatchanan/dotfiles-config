@@ -59,7 +59,7 @@ M.opts = function()
             },
             ['<C-j>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.next()
                         return true
                     end
@@ -70,7 +70,7 @@ M.opts = function()
             },
             ['<C-k>'] = {
                 function(_)
-                    if is_copilot_available then
+                    if is_copilot_visible then
                         copilot_suggestion.prev()
                         return true
                     end
