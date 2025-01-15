@@ -168,7 +168,9 @@ keymaps.setup = function()
 
     -- INFO: swap between equal and colon
     vim.keymap.set({ 'n', 'v' }, '<leader>s=', [[:s/: /=/g<CR><Cmd>noh<CR>]])
+    vim.keymap.set({ 'n', 'v' }, '<leader>s+', [[:s/\v"(\w+)": "([^"]+)",?/\1=\2/g<CR><Cmd>noh<CR>]])
     vim.keymap.set({ 'n', 'v' }, '<leader>s;', [[:s/=/: /g<CR><Cmd>noh<CR>]])
+    vim.keymap.set({ 'n', 'v' }, '<leader>s:', [[:s/\v(\w+)\=([^ ]+)/"\1": "\2",/g<CR><Cmd>noh<CR>]])
 
     -- INFO: remove blank lines and lines containing only whitespaces
     vim.keymap.set('v', '<leader>-', [[:g/^\s*$/d<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
