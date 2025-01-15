@@ -42,9 +42,6 @@ M.opts = {
         cmdline = {
             win_options = { winblend = 0 },
         },
-        cmdline_input = {
-            win_options = { winblend = 0 },
-        },
     },
     messages = {
         view_search = false,
@@ -58,6 +55,7 @@ M.opts = {
             filter = { icon = ' TERMINAL ', lang = 'fish' },
             calculator = { icon = ' CALCULATOR ', icon_hl_group = 'NoiceCmdlineIconFilter' },
             help = { icon = ' HELP  ' },
+            input = { view = 'cmdline' },
             lua = { icon = ' Lua  '},
         }
     },

@@ -103,9 +103,7 @@ M.opts = function()
             list = {
                 max_items = 100,
                 selection = {
-                    preselect = function(ctx)
-                        return ctx.mode ~= 'cmdline' or vim.tbl_contains({ '/', '/?' }, vim.fn.getcmdtype())
-                    end,
+                    preselect = true,
                     auto_insert = function(ctx)
                         return ctx.mode == 'cmdline' and not vim.tbl_contains({ '/', '/?' }, vim.fn.getcmdtype())
                     end
@@ -115,7 +113,7 @@ M.opts = function()
                 auto_show = function(ctx)
                     return ctx.mode ~= 'cmdline'
                 end,
-                winblend = vim.o.pumblend,
+                winblend = vim.opt.pumblend:get(),
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
                 scrollbar = false,
                 draw = {

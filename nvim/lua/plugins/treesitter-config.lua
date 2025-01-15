@@ -11,7 +11,7 @@ local M = {
             'folke/ts-comments.nvim',
             opts = true
         },
-        'windwp/nvim-ts-autotag',
+        'nvim-treesitter-textobjects',
         'nvim-treesitter/nvim-treesitter-textobjects',
     },
     main = 'nvim-treesitter.configs'
@@ -52,9 +52,6 @@ M.opts = function()
         indent = {
             enable = true,
             disable = { 'cpp' }
-        },
-        autotag = {
-            enable = true,
         },
         incremental_selection = {
             enable = true,
