@@ -85,7 +85,7 @@ M.opts = function()
             color_devicons = true,
             path_display = { 'tail', 'smart' },
             set_env = { ['COLORTERM'] = 'truecolor' },
-            file_ignore_patterns = { 'node_modules', '%.ipynb' },
+            file_ignore_patterns = require('config.ignore').file_ignore_patterns,
             dynamic_preview_title = true,
             borderchars = defaults.float_border,
             mappings = {

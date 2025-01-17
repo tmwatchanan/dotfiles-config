@@ -45,7 +45,6 @@ return {
         '.vscode/',
         '__pycache__/*',
         'build/',
-        'docs/',
         'env/',
         'gradle/',
         'target/',
