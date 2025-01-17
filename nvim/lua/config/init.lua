@@ -42,6 +42,7 @@ end
 M.setup = function()
     local function load_user_configs()
         require 'config.autocommands'
+        require 'config.filetypes'
         require 'config.keymaps'.setup()
         if vim.g.vscode then
             require 'config.keymaps' -- load keymap for vscode-neovim
