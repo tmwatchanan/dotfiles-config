@@ -172,6 +172,10 @@ keymaps.setup = function()
     vim.keymap.set({ 'n', 'v' }, '<leader>s;', [[:s/=/: /g<CR><Cmd>noh<CR>]])
     vim.keymap.set({ 'n', 'v' }, '<leader>s:', [[:s/\v(\w+)\=([^ ]+)/"\1": "\2",/g<CR><Cmd>noh<CR>]])
 
+    -- INFO: change between dot and double quotes
+    vim.keymap.set({ 'n', 'v' }, '<leader>s.', [[:s/\(\w\+\)\["\(\w\+\)"\]/\1.\2/g<CR><Cmd>noh<CR>]])
+    vim.keymap.set({ 'n', 'v' }, '<leader>s>', [[:s/\(\w\+\)\.\(\w\+\)/\1\["\2"\]/g<CR><Cmd>noh<CR>]])
+
     -- INFO: remove blank lines and lines containing only whitespaces
     vim.keymap.set('v', '<leader>-', [[:g/^\s*$/d<CR><Cmd>noh<CR>]]) -- got unwanted highlight after replacement
 
@@ -197,6 +201,7 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>--', function() commands.append_repeated_trailing_characters('-') end)
     vim.keymap.set('n', '<leader>-=', function() commands.append_repeated_trailing_characters('=') end)
     vim.keymap.set('n', '<leader>-#', function() commands.append_repeated_trailing_characters('#') end)
+    vim.keymap.set('n', '<leader>-_', function() commands.append_repeated_trailing_characters('_') end)
 
     -- INFO: toggle between double quote and single quotes
     vim.keymap.set({ 'n', 'v' }, [[<leader>']], [[:s/"/'/g<CR><Cmd>noh<CR>]])
