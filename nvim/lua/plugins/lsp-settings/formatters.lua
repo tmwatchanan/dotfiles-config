@@ -12,7 +12,7 @@ return {
             require('null-ls').builtins.diagnostics.fish,
             require('null-ls').builtins.formatting.fish_indent,
             require('null-ls').builtins.formatting.buf,
-            require('null-ls').builtins.formatting.sqruff,
+            require('null-ls').builtins.formatting.sqlfluff,
         },
     },
 }
