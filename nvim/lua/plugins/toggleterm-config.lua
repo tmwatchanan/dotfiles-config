@@ -39,7 +39,7 @@ M.keys = {
 			local environment_path = require('config.python').get_environment_path()
 			require('toggleterm.terminal').Terminal
 				:new({
-					cmd = ('lg'):format(environment_path),
+					cmd = 'lg',
                     dir = vim.fn.getcwd(),
 					count = M.opts.size + 1,
 					hidden = false,
