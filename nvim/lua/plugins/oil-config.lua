@@ -42,7 +42,7 @@ local M = {
 M.keys = function()
     local keymap = require('config.keymaps').oil
     return {
-        { keymap.open, '<Cmd>Oil<CR>', desc = '[oil.nvim] open parent directory' },
+        { keymap.open, '<Cmd>Oil --float<CR>', desc = '[oil.nvim] open parent directory' },
     }
 end
 
