@@ -106,7 +106,7 @@ M.opts = function()
                 }
             },
             ghost_text = {
-                enabled = false,
+                enabled = true,
             }
         },
         signature = {
