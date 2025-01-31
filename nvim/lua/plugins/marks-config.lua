@@ -35,6 +35,11 @@ M.keys = function()
     local marks = require('marks')
     local marks_keymap = require('config.keymaps').marks
 
+    -- NOTE: refresh marks after written buffer
+    vim.api.nvim_create_autocmd('BufWritePost', {
+        callback = function() marks.refresh(true) end
+    })
+
     return {
         { marks_keymap.toggle, function() marks.toggle() end },
         { marks_keymap.next,   function() marks.next() end },

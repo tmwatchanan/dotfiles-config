@@ -26,3 +26,8 @@ vim.api.nvim_create_autocmd('OptionSet', {
 vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
     command = 'checktime'
 })
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+    desc = 'update diagnostics when written buffer',
+    callback = function() vim.diagnostic.show() end
+})
