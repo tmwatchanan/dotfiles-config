@@ -4,7 +4,9 @@ local M = {
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         'rafamadriz/friendly-snippets',
-        'copilot.lua' -- github copilot if available
+        'copilot.lua', -- github copilot if available
+
+        { 'windwp/nvim-autopairs', opts = { check_ts = true, fast_wrap = { map = '<C-e>' } } }
     },
 }
 
