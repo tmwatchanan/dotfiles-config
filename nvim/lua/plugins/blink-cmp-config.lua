@@ -109,11 +109,7 @@ M.opts = function()
             }
         },
         signature = {
-            enabled = true,
-            window = {
-                max_width = 60,
-                winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,BlinkCmpDocSeparator:Pmenu',
-            }
+            enabled = false,
         },
         appearance = {
             use_nvim_cmp_as_default = true,
