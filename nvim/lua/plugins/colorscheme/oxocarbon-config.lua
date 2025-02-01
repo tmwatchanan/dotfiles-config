@@ -50,6 +50,11 @@ M.setup = function()
         TelescopeResultsDiffChange = { bg = c.base01 },
         TelescopeResultsDiffDelete = { bg = c.base01 },
         TelescopeResultsDiffUntracked = { bg = c.base01 }
+    local oil_highlight = {
+        OilTitle = { fg = c.base00, bg = c.base12, bold = true },
+        OilPreviewNormal = { bg = c.base00 },
+        OilPreviewBorder = { bg = c.base00 },
+        OilPreviewTitle = { fg = c.base00, bg = c.base10, bold = true }
     }
 
     local flit_highlight = {
@@ -159,6 +164,7 @@ M.setup = function()
     overrided_highlights = utils.merge(overrided_highlights, cmp_highlight)
     overrided_highlights = utils.merge(overrided_highlights, hlslens_highlight)
     overrided_highlights = utils.merge(overrided_highlights, marks_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, oil_highlight)
 
     for hl_name, hl_value in pairs(overrided_highlights) do
         vim.api.nvim_set_hl(0, hl_name, hl_value)

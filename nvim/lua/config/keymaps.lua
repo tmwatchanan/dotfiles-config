@@ -144,11 +144,14 @@ keymaps.telescope = {
     resume                  = '<leader>;',
     jumplist                = '<leader>j',
     oldfiles                = '<leader>fr',
-    file_browse             = '<leader>fb',
     help_tags               = '<leader>?',
     action_send_to_qflist   = '<m-q>',
     action_select_all       = '<m-a>',
     action_focus_preview    = '<m-space>',
+-- INFO: Oil keymap
+keymaps.oil = {
+    open_float = '<leader>fb',
+
 }
 
 -- INFO: Todocomments keymap
