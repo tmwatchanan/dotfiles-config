@@ -135,6 +135,7 @@ return {
             end
 
             require('jot').config = {
+                quit_key = 'q',
                 notes_dir = vim.fn.stdpath('data') .. '/jot',
                 win_opts = {
                     relative = 'editor',
@@ -149,6 +150,11 @@ return {
                 }
             }
         end,
-        keys = { { '<leader>n', function() require('jot').toggle() end } }
+        keys = function()
+            local jot_keymap = require('config.keymaps').jot
+            return {
+                { jot_keymap.toggle, function() require('jot').toggle() end }
+            }
+        end
     }
 }

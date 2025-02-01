@@ -107,6 +107,11 @@ keymaps.lazy = {
     open = '<leader>P',
 }
 
+-- INFO: Jot keymap
+keymaps.jot = {
+    toggle = '<leader>n',
+}
+
 -- INFO: Focus keymap
 keymaps.focus = {
     toggle_enable = '<leader><space>',
