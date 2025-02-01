@@ -28,6 +28,15 @@ M.setup = function()
         NoiceCmdlineIconCmdline = { link = 'lualine_a_command' },
         NoiceCmdlineIconSearch = { link = 'lualine_a_command' },
         NoiceCmdlineIconFilter = { link = 'lualine_a_command' },
+
+    local markview_highlight = {
+        markdownH1 = { fg = '#f38ba8' },
+        markdownH2 = { fg = '#f9b387' },
+        markdownH3 = { fg = '#f9e2af' },
+        markdownH4 = { fg = '#a6e3a1' },
+        markdownH5 = { fg = '#74c7ec' },
+        markdownH6 = { fg = '#b4befe' },
+        markdownH7 = { fg = '#cba6f7' },
     }
 
     local telescope_highlight = {
@@ -165,6 +174,7 @@ M.setup = function()
     overrided_highlights = utils.merge(overrided_highlights, hlslens_highlight)
     overrided_highlights = utils.merge(overrided_highlights, marks_highlight)
     overrided_highlights = utils.merge(overrided_highlights, oil_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, markview_highlight)
 
     for hl_name, hl_value in pairs(overrided_highlights) do
         vim.api.nvim_set_hl(0, hl_name, hl_value)

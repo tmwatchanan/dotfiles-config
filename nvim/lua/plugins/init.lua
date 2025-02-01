@@ -84,36 +84,14 @@ return {
         opts = function()
             local presets = require('markview.presets')
             return {
-                highlight_groups = {
-                    {
-                        group_name = "Heading1",
-                        value = { fg = "#FF186D", bg = "#581F34" }
-                    },
-                    {
-                        group_name = "Heading2",
-                        value = { fg = "#FF9B00", bg = "#583321" }
-                    },
-                    {
-                        group_name = "Heading3",
-                        value = { fg = "#FFE100", bg = "#584A21" }
-                    },
-                    {
-                        group_name = "Heading4",
-                        value = { fg = "#42FF00", bg = "#255131" }
-                    },
-                    {
-                        group_name = "Heading5",
-                        value = { fg = "#00FFC9", bg = "#1D5150" }
-                    },
-                    {
-                        group_name = "Heading6",
-                        value = { fg = "#9000FF", bg = "#2C1F58" }
-                    },
+                markdown = {
+                    list_items = { shift_width = 2, indent_size = 2 },
+                    code_blocks = { icon = 'mini' },
+                    headings = presets.headings.glow
                 },
-                list_items = { shift_width = 2, indent_size = 2 },
-                code_blocks = { icon = 'mini' },
-                checkboxes = presets.checkboxes.nerd,
-                headings = presets.headings.glow
+                markdown_inline = {
+                    checkboxes = presets.checkboxes.nerd,
+                }
             }
         end
     },
