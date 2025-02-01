@@ -52,7 +52,7 @@ keymaps.setup = function()
     vim.keymap.set('n', '<C-k>', '<C-o>')
 
     -- INFO: quickfix keys
-    vim.keymap.set('n', '<leader>q', '<Cmd>Telescope quickfix<CR>')
+    vim.keymap.set('n', '<leader>q', function() require 'snacks'.picker.qflist() end)
     vim.keymap.set('n', '<leader>Q', '<Cmd>cexpr []<CR>')
 
     -- INFO: search word under cursor (recursive called `hlslens`)
@@ -70,13 +70,13 @@ end
 
 -- INFO: LSP keymap
 keymaps.lsp = {
-    definitions      = { key = 'gd', cmd = '<Cmd>Telescope lsp_definitions<CR>' },
-    type_definitions = { key = 'gt', cmd = '<Cmd>Telescope lsp_type_definitions<CR>' },
-    reference        = { key = 'gr', cmd = '<Cmd>Telescope lsp_references<CR>' },
-    implementation   = { key = 'gi', cmd = '<Cmd>Telescope lsp_implementations<CR>' },
+    definitions      = { key = 'gd', cmd = function() require 'snacks'.picker.lsp_definitions() end },
+    type_definitions = { key = 'gt', cmd = function() require 'snacks'.picker.lsp_type_definitions() end },
+    reference        = { key = 'gr', cmd = function() require 'snacks'.picker.lsp_references() end },
+    implementation   = { key = 'gi', cmd = function() require 'snacks'.picker.lsp_implementations() end },
     signature_help   = { key = 'gs', cmd = vim.lsp.buf.signature_help },
-    diagnostic       = { key = '<leader>ld', cmd = '<Cmd>Telescope diagnostics<CR>' },
-    document_symbol  = { key = '<leader>ls', cmd = '<Cmd>Telescope lsp_document_symbols<CR>' },
+    diagnostic       = { key = '<leader>ld', cmd = function() require 'snacks'.picker.diagnostics() end },
+    document_symbol  = { key = '<leader>ls', cmd = function() require 'snacks'.picker.lsp_symbols() end },
     code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
     format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
     hover            = {
@@ -140,19 +140,34 @@ keymaps.gitconflict = {
     toggle_qflist = '<leader>x',
 }
 
--- INFO: Telescope keymap
-keymaps.telescope = {
-    grep_workspace          = 'gw',
-    search_workspace        = '<leader>fw',
-    buffers                 = '<leader>\\',
-    find_files              = '<leader>fs',
-    resume                  = '<leader>;',
-    jumplist                = '<leader>j',
-    oldfiles                = '<leader>fr',
-    help_tags               = '<leader>?',
-    action_send_to_qflist   = '<m-q>',
-    action_select_all       = '<m-a>',
-    action_focus_preview    = '<m-space>',
+-- INFO: Snacks picker keymap
+keymaps.snacks = {
+    picker = {
+        grep_workspace        = 'gw',
+        search_workspace      = '<leader>fw',
+        search_buffers        = '<leader>/',
+        buffers               = '<leader>\\',
+        find_files            = '<leader>fs',
+        resume                = '<leader>;',
+        jumplist              = '<leader>j',
+        oldfiles              = '<leader>fr',
+        help_tags             = '<leader>?',
+        action_select_all     = '<m-a>',
+        action_focus_preview  = '<m-space>',
+        action_send_to_qflist = '<C-q>',
+        action_scroll_up      = '<C-u>',
+        action_scroll_down    = '<C-d>',
+    },
+    bufdelete = {
+        delete = 'wQ',
+    },
+    terminal = {
+        toggle = '<leader>t',
+        lazygit = '<leader>g',
+        lazygit_file_history = '<leader>G',
+    }
+}
+
 -- INFO: Oil keymap
 keymaps.oil = {
     open_float = '<leader>fb',
@@ -166,20 +181,13 @@ keymaps.todocomments = {
     prev_todo = '[t',
 }
 
--- INFO: Terminal & ToggleTerm keymap
-keymaps.toggleterm = {
-    toggle = '<leader>t',
-    lazygit = '<leader>g',
-    lazygit_file_history = '<leader>G',
-}
-
 -- INFO: Marks keymap
 keymaps.marks = {
-    next    = "'",
-    prev    = '"',
-    toggle  = "m'",
-    clear   = 'md',
-    list    = '<leader>m',
+    next   = "'",
+    prev   = '"',
+    toggle = "m'",
+    clear  = 'md',
+    list   = '<leader>m',
 }
 
 -- INFO: hlslens keymap
@@ -212,11 +220,6 @@ keymaps.flit = {
     till     = 't',
     backtill = 'T',
     leap     = 's',
-}
-
--- INFO: mini.bufremove keymap
-keymaps.bufremove = {
-    delete = 'wQ',
 }
 
 -- INFO: mini.move keymap

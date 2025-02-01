@@ -24,12 +24,11 @@ M.opts = {
         'lspinfo',
         'terminal',
         'help',
-        'TelescopePrompt',
-        'TelescopeResults',
     },
     -- extra options modified by `MomePP/marks.nvim`
     marks_sign = '',
 }
+
 
 M.keys = function()
     local marks = require('marks')
@@ -50,18 +49,35 @@ M.keys = function()
         {
             marks_keymap.list,
             function()
-                require('lazy').load({ plugins = { 'telescope.nvim' } })
-                pcall(require('telescope').extensions.marks_nvim.marks_list_all, {
-                    path_display = { 'tail' },
-                    prompt_title = 'Marks List',
-                    layout_strategy = 'horizontal',
-                    layout_config = {
-                        preview_width = 0.55,
-                        prompt_position = 'bottom',
-                        width = 0.8,
-                        height = 0.75,
-                    },
-                    sorting_strategy = 'descending',
+                local gen_items = function(marks_tbl)
+                    local items = {}
+                    for _, mark in ipairs(marks_tbl) do
+                        local path = mark.path
+                        local buf = mark.bufnr
+                        local line = mark.line
+                        local label = mark.mark
+                        items[#items + 1] = {
+                            text = table.concat({ label, path, line }, " "),
+                            label = label,
+                            buf = buf,
+                            file = path,
+                            pos = { mark.lnum, mark.col },
+                        }
+                    end
+                    table.sort(items, function(a, b)
+                        if a.file == b.file then
+                            return a.label < b.label
+                        else
+                            return a.file < b.file
+                        end
+                    end)
+                    return items
+                end
+
+                require('snacks').picker.pick({
+                    source = 'marks.nvim',
+                    format = 'file',
+                    items = gen_items(marks.mark_state:get_all_list() or {}),
                 })
             end
         },

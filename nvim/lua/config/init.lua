@@ -48,9 +48,6 @@ M.setup = function()
         })
     else
         load_user_configs()
-
-        -- loads `telescope-file-browser` to handles in case of directory args
-        require('lazy').load({ plugins = { 'telescope.nvim' } })
     end
 end
 
