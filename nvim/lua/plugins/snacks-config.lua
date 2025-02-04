@@ -3,7 +3,9 @@ local M = {
     lazy = false
 }
 
-local terminal_last_id = vim.v.count1
+local terminal_ids = {}
+local prev_term_id = vim.v.count1
+local term_created = false
 
 M.opts = function()
     local float_border = require('config').defaults.float_border
@@ -134,14 +136,49 @@ M.opts = function()
                 bo       = {
                     filetype = 'snacks_terminal',
                 },
+                on_buf   = function(self)
+                    -- NOTE: `on_buf` called before `on_win`
+                    prev_term_id = vim.b[self.buf].snacks_terminal.id
+                end,
                 on_win   = function(self)
-                    terminal_last_id = vim.b[self.buf].snacks_terminal.id
-
+                    -- INFO: show footer messages
                     local footer_msg = self.cmd and
                         ('Running command: ' .. self.cmd) or
-                        ('Terminal ID: ' .. terminal_last_id)
-
+                        ('Terminal ID: ' .. prev_term_id)
                     vim.api.nvim_win_set_config(self.win, { footer = footer_msg })
+
+                    -- INFO: assign event for TermClose
+                    if not term_created then return end
+                    -- vim.print('-- assign termclose event: ' .. prev_term_id)
+                    term_created = false
+
+                    vim.api.nvim_create_autocmd('TermClose', {
+                        once = true,
+                        buffer = self.buf,
+                        callback = function()
+                            local term_id = vim.b[self.buf].snacks_terminal.id
+                            local term_exist = vim.tbl_contains(terminal_ids, term_id)
+                            -- vim.print('term close [' .. term_id .. ']: ' .. tostring(term_exist))
+                            if not term_exist then return end
+
+                            -- HACK: manually detele term buffer before destroy win
+                            if vim.api.nvim_buf_is_loaded(self.buf) then
+                                vim.api.nvim_buf_delete(self.buf, { force = true })
+                            end
+                            self:destroy()
+                            vim.cmd.checktime()
+
+                            -- INFO: remove term from handle list and update next toggle id
+                            for i = #terminal_ids, 1, -1 do
+                                if terminal_ids[i] == term_id then
+                                    table.remove(terminal_ids, i)
+                                    prev_term_id = terminal_ids[i - 1] or terminal_ids[i] or vim.v.count1
+                                    -- vim.print('removed term:', terminal_ids)
+                                    break
+                                end
+                            end
+                        end,
+                    })
                 end,
             }
         }
@@ -181,9 +218,20 @@ M.keys = function()
         {
             terminal_keymap.toggle,
             function()
-                -- NOTE: no id input from user -> feeds previous term id
-                if vim.v.count == 0 then
-                    vim.api.nvim_feedkeys(tostring(terminal_last_id), 'nx', false)
+                -- NOTE: check prev_term_id exist in terminal_ids
+                local check_term_id = vim.v.count == 0 and prev_term_id or vim.v.count1
+                local term_exist = vim.tbl_contains(terminal_ids, check_term_id)
+                -- vim.print('term[' .. check_term_id .. '] exist: ' .. tostring(term_exist))
+
+                if term_exist then
+                    if vim.v.count == 0 then
+                        vim.api.nvim_feedkeys(tostring(prev_term_id), 'nx', false)
+                    end
+                else
+                    -- INFO: update current term to list
+                    terminal_ids[#terminal_ids + 1] = vim.v.count1
+                    -- vim.print('add term:', terminal_ids)
+                    term_created = true
                 end
                 snacks.terminal.toggle(nil, terminal_toggle_opts)
             end
