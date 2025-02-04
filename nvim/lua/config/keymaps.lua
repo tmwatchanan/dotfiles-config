@@ -27,6 +27,9 @@ keymaps.setup = function()
     -- vim.keymap.set('n', '<S-Tab>', '<Cmd>bprev<CR>')
     vim.keymap.set('n', 'wq', '<C-w>q')
 
+    -- INFO: enter command mode with lua prefix
+    vim.keymap.set('n', '<leader>:', ':lua ')
+
     -- INFO: misc. keymap
     vim.keymap.set({ 'n', 'i' }, '<Esc>', '<Cmd>noh<CR><Esc>')
     vim.keymap.set({ 'n', 'i' }, '<C-l>', '<Cmd>noh<CR>')
