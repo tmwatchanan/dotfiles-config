@@ -7,7 +7,7 @@ vim.api.nvim_create_autocmd('InsertLeave', {
 vim.api.nvim_create_autocmd('FileType', {
     desc = 'open help docs in vertical split',
     pattern = 'help',
-    command = ':wincmd L | :vert'
+    command = ':wincmd L | :FocusAutoresize'
 })
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -56,4 +56,9 @@ vim.api.nvim_create_autocmd({ 'CmdwinEnter' }, {
     desc = '`qq` to close command-line window',
     pattern = '*',
     callback = function() vim.keymap.set('n', 'qq', '<C-w>c', { buffer = true }) end
+})
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+    desc = 'update diagnostics when written buffer',
+    callback = function() vim.diagnostic.show() end
 })

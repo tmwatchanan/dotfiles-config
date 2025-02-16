@@ -42,8 +42,21 @@ lsp_setup_module.init = function()
         update_in_insert = false,
         severity_sort = true,
         virtual_text = false,
-        virtual_lines = true,
-        signs = { text = require('config').defaults.icons.diagnostics }
+        virtual_lines = false,
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = '',
+                [vim.diagnostic.severity.WARN] = '',
+                [vim.diagnostic.severity.INFO] = '',
+                [vim.diagnostic.severity.HINT] = '',
+            },
+            numhl = {
+                [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
+                [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
+                [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+                [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+            },
+        }
     }
 end
 

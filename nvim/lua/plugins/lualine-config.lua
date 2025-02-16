@@ -170,7 +170,7 @@ M.opts = function()
             lualine_z = { location },
         },
         tabline = {},
-        extensions = { 'toggleterm', 'lazy', 'mason' }
+        extensions = { 'lazy', 'mason', 'oil' }
     }
 end
 

@@ -6,7 +6,7 @@ local M = {
 
 M.init = function()
     local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal' }
-    local ignore_extension_filetypes = { 'undotree', 'neotest-summary', 'neo-tree' }
+    local ignore_extension_filetypes = { 'undotree', 'neotest-summary', 'neo-tree', 'oil' }
     local dapui_filetypes = { 'dapui_breakpoints', 'dap-repl', 'dapui_console', 'dapui_scopes', 'dapui_watches', 'dapui_stacks' }
     local filetype_sizes = {
         ['undotree'] = { width = 40 },
@@ -18,7 +18,7 @@ M.init = function()
     local augroup = vim.api.nvim_create_augroup('FocusDisable', { clear = true })
     vim.api.nvim_create_autocmd('WinEnter', {
         group = augroup,
-        callback = function()
+        callback = function(_)
             if vim.tbl_contains(ignore_buftypes, vim.bo.buftype) then
                 vim.w.focus_disable = true
             -- else

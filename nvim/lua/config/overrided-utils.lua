@@ -85,7 +85,7 @@ local function override_ui_select()
 
         if select_ui then
             -- ensure single ui.select operation
-            vim.api.nvim_err_writeln('busy: another select is pending!')
+            vim.notify('busy: another select is pending..', vim.log.levels.WARN)
             return
         end
 

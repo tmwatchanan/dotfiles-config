@@ -10,6 +10,10 @@ M.setup = function()
     vim.cmd.colorscheme = 'flatwhite'
 end
 
+M.colors = function ()
+    return {}
+end
+
 M.lualine = function()
     local flatwhite_status, _ = pcall(require, 'flatwhite')
     if not flatwhite_status then return end

@@ -110,8 +110,7 @@ return {
             threshold = 20,
             close_command = function(bufnr)
                 local force = vim.api.nvim_get_option_value('buftype', { buf = bufnr }) == 'terminal'
-                require('lazy').load({ plugins = { 'mini.bufremove' } })
-                pcall(require('mini.bufremove').delete, bufnr, force)
+                pcall(require('snacks').bufdelete.delete, { buf = bufnr, force = force })
             end
         },
         keys = function()
@@ -123,12 +122,6 @@ return {
             }
         end,
         cond = not vim.g.vscode,
-    },
-    {
-        'echasnovski/mini.pairs',
-        event = { 'InsertEnter', 'CmdlineEnter' },
-        opts = true,
-        enabled = false,
     },
     {
         'saecki/live-rename.nvim',
@@ -156,36 +149,14 @@ return {
         opts = function()
             local presets = require('markview.presets')
             return {
-                highlight_groups = {
-                    {
-                        group_name = "Heading1",
-                        value = { fg = "#FF186D", bg = "#581F34" }
-                    },
-                    {
-                        group_name = "Heading2",
-                        value = { fg = "#FF9B00", bg = "#583321" }
-                    },
-                    {
-                        group_name = "Heading3",
-                        value = { fg = "#FFE100", bg = "#584A21" }
-                    },
-                    {
-                        group_name = "Heading4",
-                        value = { fg = "#42FF00", bg = "#255131" }
-                    },
-                    {
-                        group_name = "Heading5",
-                        value = { fg = "#00FFC9", bg = "#1D5150" }
-                    },
-                    {
-                        group_name = "Heading6",
-                        value = { fg = "#9000FF", bg = "#2C1F58" }
-                    },
+                markdown = {
+                    list_items = { shift_width = 2, indent_size = 2 },
+                    code_blocks = { icon = 'mini' },
+                    headings = presets.headings.glow
                 },
-                list_items = { shift_width = 2, indent_size = 2 },
-                code_blocks = { icon = 'mini' },
-                checkboxes = presets.checkboxes.nerd,
-                headings = presets.headings.glow
+                markdown_inline = {
+                    checkboxes = presets.checkboxes.nerd,
+                }
             }
         end
     },
@@ -207,6 +178,7 @@ return {
             end
 
             require('jot').config = {
+                quit_key = 'q',
                 notes_dir = vim.fn.stdpath('data') .. '/jot',
                 win_opts = {
                     relative = 'editor',
@@ -221,6 +193,11 @@ return {
                 }
             }
         end,
-        keys = { { '<leader>jn', function() require('jot').toggle() end } }
+        keys = function()
+            local jot_keymap = require('config.keymaps').jot
+            return {
+                { jot_keymap.toggle, function() require('jot').toggle() end }
+            }
+        end
     }
 }

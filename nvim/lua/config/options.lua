@@ -14,6 +14,7 @@ opt.undolevels     = 5000
 
 opt.title          = true
 opt.mouse          = 'a'
+opt.mousemodel     = 'extend'
 opt.shell          = 'fish'
 opt.clipboard      = vim.env.SSH_TTY and '' or 'unnamedplus'
 
@@ -63,7 +64,7 @@ opt.signcolumn    = 'yes'
 
 opt.pumheight     = 10 -- Make popup menu smaller
 opt.pumblend      = 8  -- Make builtin completion menus slightly transparent
-opt.winblend      = 5 -- Make floating windows slightly transparent
+opt.winblend      = 5  -- Make floating windows slightly transparent
 
 -- Editing
 opt.ignorecase    = true -- Ignore case when searching (use `\C` to force not doing that)

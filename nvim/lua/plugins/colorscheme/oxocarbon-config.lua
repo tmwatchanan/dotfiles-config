@@ -14,6 +14,7 @@ M.setup = function()
 
     local overrided_highlights = {}
     local c = oxocarbon.oxocarbon
+    local winblend = vim.opt.winblend:get()
 
     -- INFO: extends new colors
     c.float_bg = '#232323'
@@ -28,28 +29,41 @@ M.setup = function()
         NoiceCmdlineIconCmdline = { link = 'lualine_a_command' },
         NoiceCmdlineIconSearch = { link = 'lualine_a_command' },
         NoiceCmdlineIconFilter = { link = 'lualine_a_command' },
+        NoiceSplit = { link = 'Normal' },
+        NoiceSplitBorder = { link = 'NoiceSplit' },
     }
 
-    local telescope_highlight = {
-        TelescopeNormal = { fg = c.base03, bg = c.base00 },
-        TelescopeSelection = { fg = c.base06, bold = true },
-        TelescopeSelectionCaret = { fg = c.base10, bold = true },
-        TelescopeMultiSelection = { fg = c.gold },
-        TelescopeMultiIcon = { fg = c.gold },
-        TelescopePromptNormal = { fg = c.base04, bg = c.float_bg },
-        TelescopePromptPrefix = { fg = c.base08, bg = c.float_bg },
-        TelescopePromptBorder = { bg = c.float_bg },
-        TelescopeResultsNormal = { bg = c.float_bg },
-        TelescopeResultsBorder = { bg = c.float_bg },
-        TelescopePreviewNormal = { bg = c.base00 },
-        TelescopePreviewBorder = { bg = c.base00 },
-        TelescopePreviewLine = { bg = c.float_bg },
-        TelescopeResultsTitle = { fg = c.base03 },
-        TelescopeMatching = { fg = c.base12, bold = true },
-        TelescopeResultsDiffAdd = { bg = c.base01 },
-        TelescopeResultsDiffChange = { bg = c.base01 },
-        TelescopeResultsDiffDelete = { bg = c.base01 },
-        TelescopeResultsDiffUntracked = { bg = c.base01 }
+    local snacks_highlight = {
+        SnacksPicker = { bg = c.float_bg, blend = winblend },
+        SnacksPickerBorder = { bg = c.float_bg, blend = winblend },
+        SnacksPickerTitle = { fg = c.float_bg, bg = c.base12, bold = true, blend = winblend },
+        SnacksPickerPreview = { bg = c.base00, blend = winblend },
+        SnacksPickerPreviewBorder = { bg = c.base00, blend = winblend },
+        SnacksPickerPreviewTitle = { fg = c.base00, bg = c.base10, bold = true, blend = winblend },
+        SnacksPickerDir = { fg = c.base03 },
+        SnacksPickerTotals = { fg = c.base03 },
+        SnacksPickerSelected = { fg = c.gold },
+        SnacksPickerMatch = { fg = c.base12, bold = true },
+        SnacksTerminalNormal = { bg = c.none },
+        SnacksTerminalBorder = { link = 'SnacksTerminalNormal' },
+        SnacksTerminalFooter = { fg = c.base10, bg = c.none, bold = true }
+    }
+
+    local markview_highlight = {
+        markdownH1 = { fg = '#f38ba8' },
+        markdownH2 = { fg = '#f9b387' },
+        markdownH3 = { fg = '#f9e2af' },
+        markdownH4 = { fg = '#a6e3a1' },
+        markdownH5 = { fg = '#74c7ec' },
+        markdownH6 = { fg = '#b4befe' },
+        markdownH7 = { fg = '#cba6f7' },
+    }
+
+    local oil_highlight = {
+        OilTitle = { fg = c.base00, bg = c.base12, bold = true },
+        OilPreviewNormal = { bg = c.base00 },
+        OilPreviewBorder = { bg = c.base00 },
+        OilPreviewTitle = { fg = c.base00, bg = c.base10, bold = true }
     }
 
     local flit_highlight = {
@@ -93,6 +107,7 @@ M.setup = function()
         CmpItemAbbrMatch = { fg = c.base05, bg = c.none, bold = true },
         CmpItemAbbrMatchFuzzy = { fg = c.base05, bg = c.none, bold = true },
         CmpItemMenu = { fg = c.base10, bg = c.none, italic = true },
+        CmpGhostText = { fg = c.base03 },
         CmpItemKindInterface = { fg = c.base08, bg = c.none },
         CmpItemKindColor = { fg = c.base08, bg = c.none },
         CmpItemKindTypeParameter = { fg = c.base08, bg = c.none },
@@ -139,7 +154,7 @@ M.setup = function()
         StatusLine = { bg = c.none },
         NormalFloat = { bg = c.float_bg },
         FloatBorder = { link = 'NormalFloat' },
-        FloatTitle = { fg = c.base10, bg = c.base01, bold = true },
+        FloatTitle = { fg = c.base10, bg = c.float_bg, bold = true },
         Pmenu = { fg = c.base04, bg = c.float_bg, blend = vim.opt.pumblend:get() },
         PmenuSel = { fg = c.none, bg = c.base02 },
         Search = { fg = c.base01, bg = c.base12, bold = true },
@@ -149,7 +164,6 @@ M.setup = function()
         LspReferenceRead = { link = 'LspReferenceText' },
         LspReferenceWrite = { link = 'LspReferenceText' },
     })
-    overrided_highlights = utils.merge(overrided_highlights, telescope_highlight)
     overrided_highlights = utils.merge(overrided_highlights, incline_highlight)
     overrided_highlights = utils.merge(overrided_highlights, noice_highlight)
     overrided_highlights = utils.merge(overrided_highlights, flit_highlight)
@@ -159,6 +173,9 @@ M.setup = function()
     overrided_highlights = utils.merge(overrided_highlights, cmp_highlight)
     overrided_highlights = utils.merge(overrided_highlights, hlslens_highlight)
     overrided_highlights = utils.merge(overrided_highlights, marks_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, oil_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, snacks_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, markview_highlight)
 
     for hl_name, hl_value in pairs(overrided_highlights) do
         vim.api.nvim_set_hl(0, hl_name, hl_value)

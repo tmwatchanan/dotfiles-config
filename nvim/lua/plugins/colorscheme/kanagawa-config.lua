@@ -12,6 +12,7 @@ M.setup = function()
     vim.cmd.colorscheme 'kanagawa'
     vim.g.kanagawa_lualine_bold = true
 
+    local winblend = vim.opt.winblend:get()
     local colors = require('kanagawa.colors').setup()
     local palette = colors.palette
     local theme = colors.theme
@@ -34,9 +35,30 @@ M.setup = function()
         NoiceCmdlineIconFilter = { link = 'lualine_a_command' },
     }
 
-    local telescope_highlight = {
-        TelescopeBorder = { fg = theme.ui.float.fg_border, bg = theme.ui.bg },
-        TelescopeNormal = { bg = theme.ui.bg },
+    local snacks_highlight = {
+        -- SnacksPicker = { link = 'Normal' },
+        -- SnacksPickerBorder = { link = 'FloatBorder' },
+        -- SnacksPickerTitle = { link = 'FloatTitle' },
+        -- SnacksPicker = { bg = theme.ui.float.bg, blend = winblend },
+        -- SnacksPickerBorder = { bg = theme.ui.float.bg_border, blend = winblend },
+        -- SnacksPickerTitle = { fg = theme.ui.float.fg, bg = theme.ui.float.bg, bold = true, blend = winblend },
+        -- SnacksPickerPreview = { bg = c.base00, blend = winblend },
+        -- SnacksPickerPreviewBorder = { bg = c.base00, blend = winblend },
+        -- SnacksPickerPreviewTitle = { fg = c.base00, bg = c.base10, bold = true, blend = winblend },
+        -- SnacksPickerDir = { fg = c.base03 },
+        -- SnacksPickerTotals = { fg = c.base03 },
+        -- SnacksPickerSelected = { fg = c.gold },
+        -- SnacksPickerMatch = { fg = c.base12, bold = true },
+        -- SnacksTerminalNormal = { bg = c.none },
+        -- SnacksTerminalBorder = { link = 'SnacksTerminalNormal' },
+        -- SnacksTerminalFooter = { fg = c.base10, bg = c.none, bold = true }
+    }
+
+    local oil_highlight = {
+        -- OilTitle = { link = 'FloatTitle' },
+        -- OilPreviewNormal = { link = 'NormalFloat'},
+        -- OilPreviewBorder = { link = 'FloatermBorder' },
+        -- OilPreviewTitle = { link = 'FloatTitle' },
     }
 
     local rainbow_delimiter_highlight = {
@@ -76,13 +98,14 @@ M.setup = function()
         -- NavicText = { fg = theme.ui.fg, bg = theme.ui.bg },
         -- NavicSeparator = { fg = theme.ui.fg, bg = theme.ui.bg },
     })
-    overrided_highlights = utils.merge(overrided_highlights, telescope_highlight)
     overrided_highlights = utils.merge(overrided_highlights, incline_highlight)
     overrided_highlights = utils.merge(overrided_highlights, noice_highlight)
     overrided_highlights = utils.merge(overrided_highlights, rainbow_delimiter_highlight)
     overrided_highlights = utils.merge(overrided_highlights, treesitter_context_highlight)
     overrided_highlights = utils.merge(overrided_highlights, hlslens_highlight)
     overrided_highlights = utils.merge(overrided_highlights, marks_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, oil_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, snacks_highlight)
     overrided_highlights = utils.merge(overrided_highlights, matchup_highlight)
 
     for hl_name, hl_value in pairs(overrided_highlights) do
