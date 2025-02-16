@@ -127,7 +127,8 @@ return {
     {
         'echasnovski/mini.pairs',
         event = { 'InsertEnter', 'CmdlineEnter' },
-        opts = true
+        opts = true,
+        enabled = false,
     },
     {
         'saecki/live-rename.nvim',
