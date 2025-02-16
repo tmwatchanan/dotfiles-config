@@ -83,8 +83,9 @@ M.opts = function()
             ['<M-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
             ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
             ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-
-            cmdline = {
+        },
+        cmdline = {
+            keymap = {
                 ['<CR>'] = {
                     function(cmp)
                         return cmp.select_and_accept({
@@ -98,7 +99,7 @@ M.opts = function()
                 ['<C-e>'] = { 'hide', 'fallback' },
                 ['<Tab>'] = { 'show_and_insert', 'select_next', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'fallback' },
-            }
+            },
         },
         completion = {
             list = {
