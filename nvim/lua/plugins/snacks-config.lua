@@ -50,6 +50,24 @@ M.opts = function()
         }
     }
 
+    local select_layout = {
+        preview = false,
+        layout = {
+            backdrop = false,
+            width = 0.3,
+            min_width = 40,
+            height = 0.4,
+            min_height = 3,
+            box = 'vertical',
+            border = 'vpad',
+            title = '{title}',
+            title_pos = 'center',
+            { win = 'input',   height = 1,          border = 'bottom' },
+            { win = 'list',    border = 'none' },
+            { win = 'preview', title = '{preview}', height = 0.4,     border = 'top' },
+        },
+    }
+
     return {
         picker = {
             layout = horizontal_layout,
@@ -60,6 +78,7 @@ M.opts = function()
                 lsp_implementations = { layout = bottom_layout },
                 lsp_references = { layout = bottom_layout },
                 lsp_symbols = { layout = bottom_layout },
+                select = { layout = select_layout },
                 -- grep = { layout = 'vscode' },
                 -- grep_buffers = { layout = 'vscode' },
             },
