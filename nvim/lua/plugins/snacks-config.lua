@@ -159,19 +159,29 @@ M.opts = function()
                 end,
                 on_win   = function(self)
                     -- INFO: show footer messages
-                    local footer_msg = self.cmd and
-                        ('Running command: ' .. self.cmd) or
-                        ('Terminal ID: ' .. target_term_id)
+                    local footer_msg = 'Running command: '
+                    if type(self.cmd) == 'table' then
+                        footer_msg = footer_msg .. table.concat(self.cmd, ' ')
+                    else
+                        footer_msg = self.cmd and
+                            (footer_msg .. self.cmd) or
+                            ('Terminal ID: ' .. target_term_id)
+                    end
                     vim.api.nvim_win_set_config(self.win, { footer = footer_msg })
 
-                    -- INFO: assign event for TermClose
-                    self:on('TermClose', function()
-                        -- HACK: manually detele term buffer before destroy win
-                        if vim.api.nvim_buf_is_loaded(self.buf) then
-                            vim.api.nvim_buf_delete(self.buf, { force = true })
+                    -- HACK: manually delete term buffer before destroy win
+                    local function cleanup_term(terminal)
+                        if vim.api.nvim_buf_is_loaded(terminal.buf) then
+                            vim.api.nvim_buf_delete(terminal.buf, { force = true })
                         end
-                        self:destroy()
+                        terminal:destroy()
                         vim.cmd.checktime()
+                    end
+
+                    -- INFO: if we have cmd finished clean up after close
+                    local event = self.cmd and 'WinClosed' or 'TermClose'
+                    self:on(event, function()
+                        cleanup_term(self)
                     end, { buf = true })
                 end,
             }
