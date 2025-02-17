@@ -50,6 +50,24 @@ M.opts = function()
         }
     }
 
+    local select_layout = {
+        preview = false,
+        layout = {
+            backdrop = false,
+            width = 0.3,
+            min_width = 40,
+            height = 0.4,
+            min_height = 3,
+            box = 'vertical',
+            border = 'vpad',
+            title = '{title}',
+            title_pos = 'center',
+            { win = 'input',   height = 1,          border = 'bottom' },
+            { win = 'list',    border = 'none' },
+            { win = 'preview', title = '{preview}', height = 0.4,     border = 'top' },
+        },
+    }
+
     return {
         picker = {
             layout = horizontal_layout,
@@ -60,6 +78,7 @@ M.opts = function()
                 lsp_implementations = { layout = bottom_layout },
                 lsp_references = { layout = bottom_layout },
                 lsp_symbols = { layout = bottom_layout },
+                select = { layout = select_layout },
                 -- grep = { layout = 'vscode' },
                 -- grep_buffers = { layout = 'vscode' },
             },
@@ -139,21 +158,31 @@ M.opts = function()
                     target_term_id = vim.b[self.buf].snacks_terminal.id
                 end,
                 on_win   = function(self)
-                    -- -- INFO: show footer messages
-                    -- local footer_msg = self.cmd and
-                    --     ('Running command: ' .. self.cmd) or
-                    --     ('Terminal ID: ' .. target_term_id)
-                    -- vim.api.nvim_win_set_config(self.win, { footer = footer_msg })
+                    -- INFO: show footer messages
+                    local footer_msg = 'Running command: '
+                    if type(self.cmd) == 'table' then
+                        footer_msg = footer_msg .. table.concat(self.cmd, ' ')
+                    else
+                        footer_msg = self.cmd and
+                            (footer_msg .. self.cmd) or
+                            ('Terminal ID: ' .. target_term_id)
+                    end
+                    vim.api.nvim_win_set_config(self.win, { footer = footer_msg })
 
-                    -- -- INFO: assign event for TermClose
-                    -- self:on('TermClose', function()
-                    --     -- HACK: manually detele term buffer before destroy win
-                    --     if vim.api.nvim_buf_is_loaded(self.buf) then
-                    --         vim.api.nvim_buf_delete(self.buf, { force = true })
-                    --     end
-                    --     self:destroy()
-                    --     vim.cmd.checktime()
-                    -- end, { buf = true })
+                    -- HACK: manually delete term buffer before destroy win
+                    local function cleanup_term(terminal)
+                        if vim.api.nvim_buf_is_loaded(terminal.buf) then
+                            vim.api.nvim_buf_delete(terminal.buf, { force = true })
+                        end
+                        terminal:destroy()
+                        vim.cmd.checktime()
+                    end
+
+                    -- INFO: if we have cmd finished clean up after close
+                    local event = self.cmd and 'WinClosed' or 'TermClose'
+                    self:on(event, function()
+                        cleanup_term(self)
+                    end, { buf = true })
                 end,
             }
         },
