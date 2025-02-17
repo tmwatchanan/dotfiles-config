@@ -60,7 +60,7 @@ M.opts = function()
             },
             ['<C-j>'] = {
                 function(_)
-                    if is_copilot_visible then
+                    if copilot_status and copilot_suggestion.is_visible() then
                         copilot_suggestion.next()
                         return true
                     end
@@ -71,7 +71,7 @@ M.opts = function()
             },
             ['<C-k>'] = {
                 function(_)
-                    if is_copilot_visible then
+                    if copilot_status and copilot_suggestion.is_visible() then
                         copilot_suggestion.prev()
                         return true
                     end
@@ -99,6 +99,8 @@ M.opts = function()
                 ['<C-e>'] = { 'hide', 'fallback' },
                 ['<Tab>'] = { 'show_and_insert', 'select_next', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'fallback' },
+                ['<C-j>'] = { 'show_and_insert', 'select_next', 'fallback' },
+                ['<C-k>'] = { 'select_prev', 'fallback' },
             },
         },
         completion = {
