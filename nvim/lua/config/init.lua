@@ -32,8 +32,6 @@ M.setup = function()
     local function load_user_configs()
         require 'config.autocommands'
         require 'config.keymaps'.setup()
-        require 'config.overrided-utils'.override_ui_select()
-        require 'config.overrided-utils'.override_floating_preview()
     end
 
     if vim.fn.argc(-1) == 0 then
