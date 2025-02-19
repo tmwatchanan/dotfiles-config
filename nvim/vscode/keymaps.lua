@@ -17,3 +17,10 @@ vim.keymap.set({ 'n', 'x' }, ']h', function() vscode.action('workbench.action.ed
 vim.keymap.set({ 'n', 'x' }, '[h', function() vscode.action('workbench.action.editor.previousChange') end)
 
 vim.keymap.set({ 'n', 'x' }, '<leader>g', function() vscode.action('workbench.view.scm') end)
+
+vim.keymap.set({ 'n', 'x' }, '<leader>dbc', function() vscode.action('workbench.debug.action.toggleRepl') end)
+vim.keymap.set({ 'n', 'x' }, '<leader>dbe', function()
+    vscode.action('editor.debug.action.selectionToRepl')
+    vscode.action('vscode-neovim.escape')
+end)
+
