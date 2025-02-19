@@ -46,8 +46,6 @@ M.setup = function()
         if vim.g.vscode then
             require 'config.keymaps' -- load keymap for vscode-neovim
         end
-        -- require 'config.overrided-utils'.override_ui_select()
-        -- require 'config.overrided-utils'.override_floating_preview()
     end
 
     if vim.fn.argc(-1) == 0 then
