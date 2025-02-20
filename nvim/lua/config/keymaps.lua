@@ -244,12 +244,10 @@ keymaps.copilot = {
     prev = '<m-[>',
 }
 
--- INFO: copilot chat keymap
-keymaps.copilot_chat = {
-    toggle = '<leader>aa',
-    quick_chat = '<leader>aq',
-    commit_staged = '<leader>am',
-    commit = '<leader>aM',
+-- INFO: codecompanion keymap
+keymaps.codecompanion = {
+    chat = '<leader>A',
+    toggle = '<leader>a',
 }
 
 -- INFO: hbac keymap
