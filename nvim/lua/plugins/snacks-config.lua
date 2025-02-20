@@ -1,6 +1,7 @@
 local M = {
     'folke/snacks.nvim',
-    lazy = false
+    lazy = false,
+    priority = 1000
 }
 
 local target_term_id = vim.v.count1
@@ -68,6 +69,7 @@ M.opts = function()
 
     return {
         picker = {
+            ui_select = true,
             layout = horizontal_layout,
             sources = {
                 diagnostics = { layout = bottom_layout },
