@@ -123,30 +123,28 @@ lsp_setup_module.config = function()
 
     -- INFO: lsp highlight symbols
     local function lsp_highlight_symbol(client, bufnr)
-        if client == nil
-            or client.supports_method('textDocument/documentHighlight') == false
-        then
+        if not (client and client.supports_method('textDocument/documentHighlight')) then
             return
         end
 
-        if bufnr == nil or bufnr == 0 then
-            bufnr = vim.api.nvim_get_current_buf()
-        end
+        bufnr = bufnr and bufnr ~= 0 and bufnr or vim.api.nvim_get_current_buf()
 
         local augroup = vim.api.nvim_create_augroup('lsp_highlight_symbol', { clear = false })
-        vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup })
+        local autocmd_opts = { group = augroup, buffer = bufnr }
 
-        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-            group = augroup,
-            buffer = bufnr,
-            callback = vim.lsp.buf.document_highlight,
-        })
+        vim.api.nvim_clear_autocmds(autocmd_opts)
 
-        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-            group = augroup,
-            buffer = bufnr,
-            callback = vim.lsp.buf.clear_references,
-        })
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' },
+            vim.tbl_extend('force', autocmd_opts, {
+                callback = vim.lsp.buf.document_highlight,
+            })
+        )
+
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' },
+            vim.tbl_extend('force', autocmd_opts, {
+                callback = vim.lsp.buf.clear_references,
+            })
+        )
     end
 
     -- NOTE: lsp attach callback
