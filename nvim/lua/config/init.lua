@@ -16,7 +16,6 @@ M.defaults = {
             location = ' '
         },
     },
-    float_border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
 }
 
 M.init = function()

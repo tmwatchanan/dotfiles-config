@@ -23,7 +23,7 @@ require('lazy').setup {
         colorscheme = { 'nvim-colorscheme' }
     },
     ui = {
-        border = require('config').defaults.float_border,
+        border = 'solid',
         backdrop = 100,
     },
     performance = {

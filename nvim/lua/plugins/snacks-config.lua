@@ -6,8 +6,6 @@ local M = {
 local target_term_id = vim.v.count1
 
 M.opts = function()
-    local float_border = require('config').defaults.float_border
-
     local keymaps = require('config.keymaps').snacks
     local picker_keymap = keymaps.picker
 
@@ -20,14 +18,14 @@ M.opts = function()
             border = 'none',
             {
                 box = 'vertical',
-                { win = 'input', height = 1,     border = float_border, title = '{source} {live} {flags}', title_pos = 'center' },
+                { win = 'input', height = 1,     border = 'solid', title = '{source} {live} {flags}', title_pos = 'center' },
                 { win = 'list',  border = 'hpad' },
             },
             {
                 win = 'preview',
                 title = '{preview:Preview}',
                 width = 0.55,
-                border = float_border,
+                border = 'solid',
                 title_pos = 'center',
             },
         },
@@ -145,7 +143,7 @@ M.opts = function()
                 width    = 0,
                 relative = 'editor',
                 position = 'float',
-                border   = float_border,
+                border   = 'solid',
                 wo       = {
                     winhighlight =
                     'Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormal,FloatBorder:SnacksTerminalBorder,FloatFooter:SnacksTerminalFooter',

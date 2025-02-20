@@ -8,7 +8,7 @@ local mason_module = {
 
 mason_module.opts = {
     ui = {
-        border = require('config').defaults.float_border
+        border = 'solid',
     }
 }
 

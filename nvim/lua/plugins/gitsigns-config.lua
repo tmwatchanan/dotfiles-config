@@ -7,7 +7,7 @@ M.opts = {
     _new_sign_calc = true,
     signcolumn = true,
     preview_config = {
-        border = require('config').defaults.float_border,
+        border = 'solid',
         row    = 1,
         col    = -1,
     },
