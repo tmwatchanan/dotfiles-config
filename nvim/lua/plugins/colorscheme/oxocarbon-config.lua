@@ -49,14 +49,14 @@ M.setup = function()
         SnacksTerminalFooter = { fg = c.base10, bg = c.none, bold = true }
     }
 
-    local markview_highlight = {
-        markdownH1 = { fg = '#f38ba8' },
-        markdownH2 = { fg = '#f9b387' },
-        markdownH3 = { fg = '#f9e2af' },
-        markdownH4 = { fg = '#a6e3a1' },
-        markdownH5 = { fg = '#74c7ec' },
-        markdownH6 = { fg = '#b4befe' },
-        markdownH7 = { fg = '#cba6f7' },
+    local markdown_highlight = {
+        ['@markup.heading.1.markdown'] = { fg = '#f38ba8' },
+        ['@markup.heading.2.markdown'] = { fg = '#f9b387' },
+        ['@markup.heading.3.markdown'] = { fg = '#f9e2af' },
+        ['@markup.heading.4.markdown'] = { fg = '#a6e3a1' },
+        ['@markup.heading.5.markdown'] = { fg = '#74c7ec' },
+        ['@markup.heading.6.markdown'] = { fg = '#b4befe' },
+        ['@markup.heading.7.markdown'] = { fg = '#cba6f7' },
     }
 
     local oil_highlight = {
@@ -175,7 +175,7 @@ M.setup = function()
     overrided_highlights = utils.merge(overrided_highlights, marks_highlight)
     overrided_highlights = utils.merge(overrided_highlights, oil_highlight)
     overrided_highlights = utils.merge(overrided_highlights, snacks_highlight)
-    overrided_highlights = utils.merge(overrided_highlights, markview_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, markdown_highlight)
 
     for hl_name, hl_value in pairs(overrided_highlights) do
         vim.api.nvim_set_hl(0, hl_name, hl_value)

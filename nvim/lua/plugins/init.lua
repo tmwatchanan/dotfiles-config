@@ -1,4 +1,5 @@
 return {
+    -- Core Dependencies
     { 'nvim-lua/plenary.nvim' },
     { 'MunifTanjim/nui.nvim' },
     {
@@ -145,13 +146,17 @@ return {
     {
         'OXY2DEV/markview.nvim',
         dependencies = { 'nvim-treesitter', 'mini.icons' },
-        ft = 'markdown',
+        ft = { 'markdown', 'codecompanion' },
         opts = function()
             local presets = require('markview.presets')
             return {
+                preview = {
+                    icon_provider = 'mini',
+                    filetypes = { 'markdown', 'codecompanion' },
+                    ignore_buftypes = {},
+                },
                 markdown = {
                     list_items = { shift_width = 2, indent_size = 2 },
-                    code_blocks = { icon = 'mini' },
                     headings = presets.headings.glow
                 },
                 markdown_inline = {

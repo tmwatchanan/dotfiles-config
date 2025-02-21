@@ -16,7 +16,7 @@ M.opts = {
     },
     delete_to_trash = true,
     float = {
-        border = require('config').defaults.float_border,
+        border = 'solid',
         max_width = 0.85,
         max_height = 0.79, -- to equalize to snacks float win height
         win_options = {

@@ -24,7 +24,6 @@ M.defaults = {
             stopped = '',
         },
     },
-    float_border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
 }
 
 M.init = function()
