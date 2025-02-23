@@ -6,7 +6,6 @@ local M = {
 M.opts = {
     columns = {
         'permissions',
-        'mtime',
         'size',
         'icon',
     },
