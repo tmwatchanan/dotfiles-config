@@ -3,6 +3,7 @@
 --
 local mason_module = {
     'williamboman/mason.nvim',
+    branch = 'v2.x',
     cmd = { 'Mason', 'MasonUpdate' },
 }
 
