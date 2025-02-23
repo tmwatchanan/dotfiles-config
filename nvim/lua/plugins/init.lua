@@ -50,23 +50,19 @@ return {
         },
         keys = function()
             local hbac_keymap = require('config.keymaps').hbac
-            local hbac = require('hbac')
-
             return {
-                { hbac_keymap.toggle_pin, hbac.toggle_pin }
+                { hbac_keymap.toggle_pin, require('hbac').toggle_pin }
             }
         end
     },
     {
         'saecki/live-rename.nvim',
-        opts = {},
+        opts = true,
         keys = function()
             local rename_keymap = require('config.keymaps').rename
-            local live_rename = require('live-rename')
-
             return {
-                { rename_keymap.rename,       live_rename.map({ insert = true }) },
-                { rename_keymap.rename_clean, live_rename.map({ text = '', insert = true }) },
+                { rename_keymap.rename,       require('live-rename').map({ insert = true }) },
+                { rename_keymap.rename_clean, require('live-rename').map({ text = '', insert = true }) },
             }
         end
     },
