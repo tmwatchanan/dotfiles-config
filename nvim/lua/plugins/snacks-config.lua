@@ -273,8 +273,8 @@ M.keys = function()
                 snacks.terminal.toggle(nil, terminal_toggle_opts)
             end
         },
-        { terminal_keymap.lazygit,              function() snacks.terminal.toggle('lazygit') end },
-        { terminal_keymap.lazygit_file_history, function() snacks.terminal.toggle('lazygit -f ' .. vim.fn.expand('%')) end },
+        { terminal_keymap.lazygit,              function() snacks.terminal.toggle('lg') end },
+        { terminal_keymap.lazygit_file_history, function() snacks.terminal.toggle('lg -f ' .. vim.fn.expand('%')) end },
 
         { keymaps.gitbrowse,      function() snacks.gitbrowse() end,      desc = 'Snacks: Git Browse',    mode = { 'n', 'v' } },
         { keymaps.git_blame_line, function() snacks.git.blame_line() end, desc = 'Snacks: Git Blame Line' },
