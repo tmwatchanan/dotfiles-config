@@ -17,8 +17,16 @@ M.setup = function()
     local winblend = vim.opt.winblend:get()
 
     -- INFO: extends new colors
+    c.pink = '#f38ba8'
+    c.orange = '#f9b387'
+    c.yellow = '#f9e2af'
+    c.green = '#a6e3a1'
+    c.blue = '#74c7ec'
+    c.periwinkle = '#b4befe'
+    c.lavender = '#cba6f7'
+
     c.float_bg = '#232323'
-    c.gold = '#ffaa00'
+    c.ghost = '#808080'
 
     local incline_highlight = {
         InclineNormal = { fg = c.base04, bg = c.none, blend = 0 },
@@ -42,7 +50,7 @@ M.setup = function()
         SnacksPickerPreviewTitle = { fg = c.base00, bg = c.base10, bold = true, blend = winblend },
         SnacksPickerDir = { fg = c.base03 },
         SnacksPickerTotals = { fg = c.base03 },
-        SnacksPickerSelected = { fg = c.gold },
+        SnacksPickerSelected = { fg = c.orange },
         SnacksPickerMatch = { fg = c.base12, bold = true },
         SnacksTerminalNormal = { bg = c.none },
         SnacksTerminalBorder = { link = 'SnacksTerminalNormal' },
@@ -50,13 +58,13 @@ M.setup = function()
     }
 
     local markdown_highlight = {
-        ['@markup.heading.1.markdown'] = { fg = '#f38ba8' },
-        ['@markup.heading.2.markdown'] = { fg = '#f9b387' },
-        ['@markup.heading.3.markdown'] = { fg = '#f9e2af' },
-        ['@markup.heading.4.markdown'] = { fg = '#a6e3a1' },
-        ['@markup.heading.5.markdown'] = { fg = '#74c7ec' },
-        ['@markup.heading.6.markdown'] = { fg = '#b4befe' },
-        ['@markup.heading.7.markdown'] = { fg = '#cba6f7' },
+        ['@markup.heading.1.markdown'] = { fg = c.pink },
+        ['@markup.heading.2.markdown'] = { fg = c.orange },
+        ['@markup.heading.3.markdown'] = { fg =  c.yellow },
+        ['@markup.heading.4.markdown'] = { fg = c.green },
+        ['@markup.heading.5.markdown'] = { fg = c.blue },
+        ['@markup.heading.6.markdown'] = { fg =  c.periwinkle},
+        ['@markup.heading.7.markdown'] = { fg =  c.lavender },
     }
 
     local oil_highlight = {
@@ -107,7 +115,7 @@ M.setup = function()
         CmpItemAbbrMatch = { fg = c.base05, bg = c.none, bold = true },
         CmpItemAbbrMatchFuzzy = { fg = c.base05, bg = c.none, bold = true },
         CmpItemMenu = { fg = c.base10, bg = c.none, italic = true },
-        CmpGhostText = { fg = c.base03 },
+        CmpGhostText = { fg = c.ghost },
         CmpItemKindInterface = { fg = c.base08, bg = c.none },
         CmpItemKindColor = { fg = c.base08, bg = c.none },
         CmpItemKindTypeParameter = { fg = c.base08, bg = c.none },
