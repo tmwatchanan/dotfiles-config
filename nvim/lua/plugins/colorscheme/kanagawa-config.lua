@@ -92,7 +92,7 @@ M.setup = function()
     overrided_highlights = utils.merge(overrided_highlights, {
         StatusLine = { bg = colorset.transparent }, -- transparent for terminal emulator
         NormalNC = { bg = colorset.transparent },   -- transparent for terminal emulator
-        -- NormalFloat = { bg = colorset.transparent },
+        -- NormalFloat = { bg = theme.ui.float.bg },
         WinSeparator = { fg = palette.springViolet1, bg = colorset.transparent },
         LspReferenceWrite = { underline = false }, -- cursor hover
         -- NavicText = { fg = theme.ui.fg, bg = theme.ui.bg },
