@@ -25,6 +25,7 @@ return {
                 { path = "${3rd}/luv/library", words = { "vim%.uv" } },
             },
         },
+        cond = not vim.g.vscode,
     },
     {
         'Bilal2453/luvit-meta',
@@ -54,6 +55,7 @@ return {
                 preference = { 'volar', 'jsonls' },
             },
         },
+        cond = not vim.g.vscode,
     },
     {
         'Wansmer/treesj',

@@ -1,7 +1,8 @@
 local M = {
     'kevinhwang91/nvim-ufo',
     event = { 'BufReadPost', 'BufNewFile' },
-    dependencies = { 'kevinhwang91/promise-async' }
+    dependencies = { 'kevinhwang91/promise-async' },
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

@@ -1,7 +1,8 @@
 local M = {
     'folke/snacks.nvim',
     lazy = false,
-    priority = 1000
+    priority = 1000,
+    cond = not vim.g.vscode,
 }
 
 local target_term_id = vim.v.count1
