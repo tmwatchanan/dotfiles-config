@@ -209,6 +209,9 @@ keymaps.setup = function()
     -- INFO: toggle between double quote and single quotes
     vim.keymap.set({ 'n', 'v' }, [[<leader>']], [[:s/"/'/g<CR><Cmd>noh<CR>]])
     vim.keymap.set({ 'n', 'v' }, [[<leader>"]], [[:s/'/"/g<CR><Cmd>noh<CR>]])
+
+    vim.keymap.set('x', '<leader>em', 's<C-r>=eval(@")<CR><ESC>', { desc = 'Evaluate expression in visual' })
+    vim.keymap.set('n', '<leader>em', 'Vs<C-r>=eval(@")<CR><ESC>', { desc = 'Evaluate expression in normal' })
 end
 
 -- INFO: LSP keymap
