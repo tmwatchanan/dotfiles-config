@@ -23,4 +23,4 @@ M.keys = function()
     }
 end
 
-return M
+return {}
