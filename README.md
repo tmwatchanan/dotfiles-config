@@ -2,7 +2,7 @@
 > Requires `Homebrew` to be installed
 
 ## Neovim
-<img width="2536" alt="image" src="https://github.com/MomePP/dotfiles-config/assets/13793017/8df85204-80f9-460c-8a38-081a5a7bf3a5">
+<img width="1672" alt="Image" src="https://github.com/user-attachments/assets/4031c96c-a562-4d4f-8946-9565a7aff63f" />
 
 Runs `neovim-installer.sh` script to install neovim with MomePP's configuration.
 ``` bash
