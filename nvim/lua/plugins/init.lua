@@ -86,8 +86,13 @@ return {
                     ignore_buftypes = {},
                 },
                 markdown = {
-                    list_items = { shift_width = 2, indent_size = 2 },
-                    headings = presets.headings.glow
+                    list_items = {
+                        marker_minus = { add_padding = false },
+                        marker_plus = { add_padding = false },
+                        marker_star = { add_padding = false }
+                    },
+                    headings = presets.headings.glow,
+                    horizontal_rules = presets.horizontal_rules.thick,
                 },
                 markdown_inline = {
                     checkboxes = presets.checkboxes.nerd,
