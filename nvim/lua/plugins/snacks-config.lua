@@ -10,6 +10,8 @@ M.opts = function()
     local keymaps = require('config.keymaps').snacks
     local picker_keymap = keymaps.picker
 
+    local upad = { '', '', '', ' ', ' ', ' ', ' ', ' ' }
+
     local horizontal_layout = {
         layout = {
             box = 'horizontal',
@@ -29,6 +31,21 @@ M.opts = function()
                 border = 'solid',
                 title_pos = 'center',
             },
+        },
+    }
+
+    local vertical_layout = {
+        layout = {
+            box = 'vertical',
+            backdrop = false,
+            width = 0.5,
+            min_width = 80,
+            height = 0.8,
+            min_height = 30,
+            border = 'none',
+            { win = 'input',   height = 1,   border = 'solid', title = '{title} {live} {flags}' },
+            { win = 'list',    border = upad },
+            { win = 'preview', height = 0.4, border = 'vpad',  title = '{preview}' },
         },
     }
 
@@ -52,18 +69,17 @@ M.opts = function()
     local select_layout = {
         preview = false,
         layout = {
+            box = 'vertical',
             backdrop = false,
             width = 0.3,
             min_width = 40,
             height = 0.4,
             min_height = 3,
-            box = 'vertical',
             border = 'vpad',
             title = '{title}',
             title_pos = 'center',
-            { win = 'input',   height = 1,          border = 'bottom' },
-            { win = 'list',    border = 'none' },
-            { win = 'preview', title = '{preview}', height = 0.4,     border = 'top' },
+            { win = 'input', height = 1,     border = 'bottom' },
+            { win = 'list',  border = 'none' },
         },
     }
 
@@ -79,8 +95,8 @@ M.opts = function()
                 lsp_references = { layout = bottom_layout },
                 lsp_symbols = { layout = bottom_layout },
                 select = { layout = select_layout },
-                -- grep = { layout = 'vscode' },
-                -- grep_buffers = { layout = 'vscode' },
+                grep = { layout = vertical_layout },
+                grep_buffers = { layout = vertical_layout },
             },
             formatters = {
                 file = { filename_first = true },
