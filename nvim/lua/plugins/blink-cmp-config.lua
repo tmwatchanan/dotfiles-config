@@ -37,47 +37,31 @@ M.opts = function()
                 'fallback',
             },
             ['<Tab>'] = {
-                function(_)
-                    if copilot_status and copilot_suggestion.is_visible() then
-                        copilot_suggestion.next()
-                        return true
-                    end
-                end,
                 'select_next',
                 'snippet_forward',
                 'fallback'
             },
             ['<S-Tab>'] = {
+                'select_prev',
+                'snippet_backward',
+                'fallback',
+            },
+            ['<C-h>'] = {
                 function(_)
                     if copilot_status and copilot_suggestion.is_visible() then
                         copilot_suggestion.prev()
                         return true
                     end
                 end,
-                'select_prev',
-                'snippet_backward',
                 'fallback',
             },
-            ['<C-j>'] = {
+            ['<C-l>'] = {
                 function(_)
                     if copilot_status and copilot_suggestion.is_visible() then
                         copilot_suggestion.next()
                         return true
                     end
                 end,
-                'select_next',
-                'snippet_forward',
-                'fallback'
-            },
-            ['<C-k>'] = {
-                function(_)
-                    if copilot_status and copilot_suggestion.is_visible() then
-                        copilot_suggestion.prev()
-                        return true
-                    end
-                end,
-                'select_prev',
-                'snippet_backward',
                 'fallback',
             },
             ['<M-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
@@ -91,8 +75,6 @@ M.opts = function()
                 ['<C-e>'] = { 'hide', 'fallback' },
                 ['<Tab>'] = { 'show_and_insert', 'select_next', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'fallback' },
-                ['<C-j>'] = { 'show_and_insert', 'select_next', 'fallback' },
-                ['<C-k>'] = { 'select_prev', 'fallback' },
             },
         },
         completion = {

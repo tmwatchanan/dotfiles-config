@@ -106,7 +106,6 @@ keymaps.setup = function()
 
     -- INFO: remap jump keys
     vim.keymap.set('n', '<M-o>', '<C-i>') -- <C-i> is <Tab>, so we need to replace it with another
-    -- vim.keymap.set('n', '<C-k>', '<C-o>')
 
     -- INFO: quickfix keys
     vim.keymap.set('n', '<leader>q', function() require 'snacks'.picker.qflist() end)
