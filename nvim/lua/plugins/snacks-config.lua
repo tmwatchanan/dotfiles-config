@@ -71,7 +71,7 @@ M.opts = function()
     return {
         picker = {
             ui_select = true,
-            layout = horizontal_layout,
+            -- layout = horizontal_layout,
             sources = {
                 diagnostics = { layout = bottom_layout },
                 lsp_definitions = { layout = bottom_layout },
@@ -84,7 +84,7 @@ M.opts = function()
                 -- grep_buffers = { layout = 'vscode' },
             },
             formatters = {
-                file = { filename_first = true },
+                file = { filename_first = false },
                 selected = { show_always = true }
             },
             icons = {
