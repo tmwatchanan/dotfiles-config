@@ -38,6 +38,7 @@ M.opts = {
         ['<C-d>'] = 'actions.preview_scroll_down',
 
         -- close
+        ['<Esc>'] =  'actions.close',
         ['qq'] =  'actions.close',
         ['<leader><Tab>'] = 'actions.close',
 
