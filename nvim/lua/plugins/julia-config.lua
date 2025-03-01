@@ -1,4 +1,5 @@
 local M = {
+    enabled = false,
     'JuliaEditorSupport/julia-vim',
     lazy = false,
     ft = 'julia',
