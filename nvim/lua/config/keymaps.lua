@@ -12,8 +12,8 @@ keymaps.setup = function()
     vim.keymap.set('i', 'jj', '<Esc>')
     vim.keymap.set('i', 'jk', '<Esc>')
 
-    -- vim.keymap.set('i', '<C-j>', '<Down>')
-    -- vim.keymap.set('i', '<C-k>', '<Up>')
+    vim.keymap.set('i', '<C-j>', '<Down>')
+    vim.keymap.set('i', '<C-k>', '<Up>')
 
     -- INFO: quit
     vim.keymap.set('n', '<CR>', ':w<CR>')
@@ -106,6 +106,7 @@ keymaps.setup = function()
 
     -- INFO: remap jump keys
     vim.keymap.set('n', '<M-o>', '<C-i>') -- <C-i> is <Tab>, so we need to replace it with another
+    -- vim.keymap.set('n', '<C-k>', '<C-o>')
 
     -- INFO: quickfix keys
     vim.keymap.set('n', '<leader>q', function() require 'snacks'.picker.qflist() end)
