@@ -248,6 +248,7 @@ keymaps.copilot = {
 keymaps.codecompanion = {
     chat = '<leader>A',
     toggle = '<leader>a',
+    inline = 'ga',
 }
 
 -- INFO: hbac keymap

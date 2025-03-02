@@ -7,6 +7,20 @@ local copilot = {
 copilot.opts = function()
     local copilot_keymap = require('config.keymaps').copilot
 
+    -- INFO: hide copilot suggestion if blink cmp is visible
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'BlinkCmpShow',
+        callback = function()
+            vim.b.copilot_suggestion_hidden = true
+        end,
+    })
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'BlinkCmpHide',
+        callback = function()
+            vim.b.copilot_suggestion_hidden = false
+        end,
+    })
+
     return {
         suggestion = {
             auto_trigger = false,
@@ -88,6 +102,7 @@ codecompanion.keys = function()
         { codecompanion_keymap.chat,   '<Cmd>CodeCompanionChat<CR>',        mode = { 'n' }, desc = 'CodeCompanion - New Chat' },
         { codecompanion_keymap.toggle, '<Cmd>CodeCompanionChat Toggle<CR>', mode = { 'n' }, desc = 'CodeCompanion - Toggle Chat' },
         { codecompanion_keymap.toggle, '<Cmd>CodeCompanionChat Add<CR>',    mode = { 'v' }, desc = 'CodeCompanion - Add to Chat' },
+        { codecompanion_keymap.inline, ':CodeCompanion ',                   mode = { 'v' }, desc = 'CodeCompanion - Inline Chat' },
     }
 end
 
