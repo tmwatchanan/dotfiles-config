@@ -68,15 +68,6 @@ return {
         }
     },
     {
-        'utilyre/sentiment.nvim',
-        version = '*',
-        event = 'VeryLazy',
-        init = function()
-            -- `matchparen.vim` needs to be disabled manually in case of lazy loading
-            vim.g.loaded_matchparen = 1
-        end,
-    },
-    {
         'Wansmer/sibling-swap.nvim',
         requires = { 'nvim-treesitter' },
         opts = {
@@ -105,6 +96,15 @@ return {
                 -- the typed text will be replicated
                 vim.g.matchup_matchparen_enabled = 0
             end
+        end,
+    },
+    {
+        'MomePP/sentiment.nvim',
+        event = 'BufReadPost',
+        config = true,
+        init = function()
+            -- `matchparen.vim` needs to be disabled manually in case of lazy loading
+            vim.g.loaded_matchparen = 1
         end,
     },
     {
@@ -154,8 +154,13 @@ return {
                     ignore_buftypes = {},
                 },
                 markdown = {
-                    list_items = { shift_width = 2, indent_size = 2 },
-                    headings = presets.headings.glow
+                    list_items = {
+                        marker_minus = { add_padding = false },
+                        marker_plus = { add_padding = false },
+                        marker_star = { add_padding = false }
+                    },
+                    headings = presets.headings.glow,
+                    horizontal_rules = presets.horizontal_rules.thick,
                 },
                 markdown_inline = {
                     checkboxes = presets.checkboxes.nerd,

@@ -6,7 +6,7 @@ local M = {
         'rafamadriz/friendly-snippets',
         { 'copilot.lua', optional = true }, -- github copilot if available
 
-        { 'windwp/nvim-autopairs', opts = { check_ts = true, fast_wrap = { map = '<C-e>' } } }
+        { 'windwp/nvim-autopairs', opts = { check_ts = true, fast_wrap = { map = '<C-l>' } } }
     },
     cond = not vim.g.vscode,
 }
@@ -33,16 +33,24 @@ M.opts = function()
                         return true
                     end
                 end,
-                'hide',
+                'cancel',
                 'fallback',
             },
             ['<Tab>'] = {
-                'select_next',
+                function(cmp)
+                    if not cmp.is_visible() then return end
+                    vim.schedule(function() require('blink.cmp.completion.list').select_next() end)
+                    return true
+                end,
                 'snippet_forward',
                 'fallback'
             },
             ['<S-Tab>'] = {
-                'select_prev',
+                function(cmp)
+                    if not cmp.is_visible() then return end
+                    vim.schedule(function() require('blink.cmp.completion.list').select_prev() end)
+                    return true
+                end,
                 'snippet_backward',
                 'fallback',
             },
@@ -67,15 +75,6 @@ M.opts = function()
             ['<M-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
             ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
             ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-
-        },
-        cmdline = {
-            keymap = {
-                ['<CR>'] = { 'accept_and_enter', 'fallback' },
-                ['<C-e>'] = { 'hide', 'fallback' },
-                ['<Tab>'] = { 'show_and_insert', 'select_next', 'fallback' },
-                ['<S-Tab>'] = { 'select_prev', 'fallback' },
-            },
         },
         completion = {
             list = {
@@ -88,9 +87,7 @@ M.opts = function()
                 }
             },
             menu = {
-                auto_show = function(ctx)
-                    return ctx.mode ~= 'cmdline'
-                end,
+                auto_show = false,
                 winblend = vim.opt.pumblend:get(),
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
                 scrollbar = false,
@@ -126,6 +123,18 @@ M.opts = function()
                     -- make lazydev completions top priority (see `:h blink.cmp`)
                     score_offset = 100,
                 },
+            },
+        },
+        cmdline = {
+            keymap = {
+                ['<CR>'] = { 'accept_and_enter', 'fallback' },
+                ['<C-e>'] = { 'hide', 'fallback' },
+                ['<Tab>'] = { 'show_and_insert', 'select_next', 'fallback' },
+                ['<S-Tab>'] = { 'select_prev', 'fallback' },
+            },
+            completion = {
+                menu = { auto_show = false },
+                ghost_text = { enabled = false },
             },
         },
     }

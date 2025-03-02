@@ -6,7 +6,7 @@ function M.kpairs(t)
         local value
         while true do
             index, value = next(t, index)
-            if type(index) ~= "number" or math.floor(index) ~= index then
+            if type(index) ~= 'number' or math.floor(index) ~= index then
                 break
             end
         end
@@ -23,7 +23,7 @@ end
 
 function M.kreduce(tbl, func, acc)
     for i, v in pairs(tbl) do
-        if type(i) == "string" then
+        if type(i) == 'string' then
             acc = func(acc, v, i)
         end
     end
@@ -183,12 +183,12 @@ function M.switch(param, t)
     if case then
         return case()
     end
-    local defaultFn = t["default"]
+    local defaultFn = t['default']
     return defaultFn and defaultFn() or nil
 end
 
 function M.trim(str)
-    return (str:gsub("^%s*(.-)%s*$", "%1"))
+    return (str:gsub('^%s*(.-)%s*$', '%1'))
 end
 
 function M.ignore() end
@@ -223,7 +223,7 @@ function M.debounce(fn, ms)
 end
 
 M.pack = table.pack or function(...)
-    return { n = select("#", ...), ... }
+    return { n = select('#', ...), ... }
 end
 
 ---@diagnostic disable-next-line: deprecated
@@ -247,7 +247,7 @@ function M.isa(object, class)
     local mt = getmetatable(object)
 
     if mt and object then
-        return type(object) == "table" and mt.__index == class
+        return type(object) == 'table' and mt.__index == class
     end
 
     return false
@@ -258,11 +258,11 @@ function M.default_to(value, default_value)
 end
 
 function M.merge(fst, snd)
-    return vim.tbl_extend("force", fst, snd)
+    return vim.tbl_extend('force', fst, snd)
 end
 
 function M.deep_merge(fst, snd)
-    return vim.tbl_deep_extend("force", fst, snd)
+    return vim.tbl_deep_extend('force', fst, snd)
 end
 
 function M.preserve_cursor_position(fn)
@@ -271,7 +271,7 @@ function M.preserve_cursor_position(fn)
     fn()
 
     vim.schedule(function()
-        local lastline = vim.fn.line("$")
+        local lastline = vim.fn.line('$')
 
         if line > lastline then
             line = lastline
@@ -281,15 +281,9 @@ function M.preserve_cursor_position(fn)
     end)
 end
 
-function M.log(...)
-    local is_fidget_installed, fidget = pcall(require, "fidget")
-    local debug_value = vim.inspect({ ... })
-
-    if is_fidget_installed then
-        return fidget.notify(debug_value)
-    end
-
-    vim.notify(debug_value)
+function M.is_loaded(name)
+    local config = require('lazy.core.config')
+    return config.plugins[name] and config.plugins[name]._.loaded
 end
 
 return M
