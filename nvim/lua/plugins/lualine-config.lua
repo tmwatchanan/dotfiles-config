@@ -2,13 +2,13 @@ local M = {
     'nvim-lualine/lualine.nvim',
     dependencies = {
         'nvim-colorscheme',
-        'resession.nvim',
     },
     event = 'UIEnter',
 }
 
 M.opts = function()
     local icons = require('config').defaults.icons
+    local utils = require('config.fn-utils')
 
     local conditions = {
         buffer_not_empty = function()
@@ -22,12 +22,18 @@ M.opts = function()
             local gitdir = vim.fn.finddir('.git', filepath .. ';')
             return gitdir and #gitdir > 0 and #gitdir < #filepath
         end,
-        check_session_exist = function()
-            return require('resession').get_current() ~= nil
-        end,
         check_lsp_started = function()
             return next(vim.lsp.get_clients()) ~= nil
-        end
+        end,
+        check_session_exist = function()
+            return utils.is_loaded('resession.nvim') and require('resession').get_current() ~= nil
+        end,
+        check_cmp_visible = function()
+            return utils.is_loaded('blink.cmp') and require('blink.cmp').is_visible()
+        end,
+        check_hbac_loaded = function()
+            return utils.is_loaded('hbac.nvim') ~= nil
+        end,
     }
 
     local mode = {
@@ -60,7 +66,7 @@ M.opts = function()
             end
             return path
         end,
-        color = 'SpecialKey',
+        color = 'CmpGhostText',
     }
 
     local lsp_status = {
@@ -74,7 +80,7 @@ M.opts = function()
             local names = it:totable()
             return string.format('%s', table.concat(names, ','))
         end,
-        padding = { right = 1 },
+        padding = { right = 2 },
         cond = conditions.check_lsp_started
     }
 
@@ -96,7 +102,7 @@ M.opts = function()
 
             return string.format('%s / %s', content, total)
         end,
-        padding = { left = 1, right = 1 },
+        padding = { right = 1 },
         icon = icons.lualine.location
     }
 
@@ -108,7 +114,32 @@ M.opts = function()
         end,
         color = 'WarningMsg',
         icon = icons.lualine.pinned,
+        cond = conditions.check_hbac_loaded
+    }
+
+    local blink_info = { source_name = '', kind = 0 }
+    local blink_kinds = {}
+    local cmp_kind = {
+        function()
+            blink_kinds = require('blink.cmp.types').CompletionItemKind
+            return '⌊' .. blink_info.source_name .. '⌉'
+        end,
+        color = function()
+            return ('BlinkCmpKind' .. ((blink_kinds[blink_info.kind]) or 'Unknown'))
+        end,
         padding = { right = 1 },
+        cond = conditions.check_cmp_visible
+    }
+    local cmp_label = {
+        function()
+            local info = require('blink.cmp').get_selected_item()
+            blink_info.kind = info.kind
+            blink_info.source_name = info.source_name
+
+            return info.label
+        end,
+        padding = { right = 0 },
+        cond = conditions.check_cmp_visible
     }
 
     return {
@@ -123,8 +154,8 @@ M.opts = function()
             lualine_a = { mode },
             lualine_b = { session_status },
             lualine_c = { branch, path },
-            lualine_x = { hbac, diagnostics },
-            lualine_y = { lsp_status, },
+            lualine_x = { cmp_label, cmp_kind, hbac },
+            lualine_y = { diagnostics, lsp_status, },
             lualine_z = { location },
         },
         tabline = {},

@@ -32,7 +32,7 @@ M.opts = function()
                         return true
                     end
                 end,
-                'hide',
+                'cancel',
                 'fallback',
             },
             ['<Tab>'] = {
@@ -42,7 +42,11 @@ M.opts = function()
                         return true
                     end
                 end,
-                'select_next',
+                function(cmp)
+                    if not cmp.is_visible() then return end
+                    vim.schedule(function() require('blink.cmp.completion.list').select_next() end)
+                    return true
+                end,
                 'snippet_forward',
                 'fallback'
             },
@@ -53,22 +57,17 @@ M.opts = function()
                         return true
                     end
                 end,
-                'select_prev',
+                function(cmp)
+                    if not cmp.is_visible() then return end
+                    vim.schedule(function() require('blink.cmp.completion.list').select_prev() end)
+                    return true
+                end,
                 'snippet_backward',
                 'fallback',
             },
             ['<M-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
             ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
             ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
-
-        },
-        cmdline = {
-            keymap = {
-                ['<CR>'] = { 'accept_and_enter', 'fallback' },
-                ['<C-e>'] = { 'hide', 'fallback' },
-                ['<Tab>'] = { 'show_and_insert', 'select_next', 'fallback' },
-                ['<S-Tab>'] = { 'select_prev', 'fallback' },
-            },
         },
         completion = {
             list = {
@@ -81,9 +80,7 @@ M.opts = function()
                 }
             },
             menu = {
-                auto_show = function(ctx)
-                    return ctx.mode ~= 'cmdline'
-                end,
+                auto_show = false,
                 winblend = vim.opt.pumblend:get(),
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
                 scrollbar = false,
@@ -109,6 +106,18 @@ M.opts = function()
         appearance = {
             use_nvim_cmp_as_default = true,
             nerd_font_variant = 'mono'
+        },
+        cmdline = {
+            keymap = {
+                ['<CR>'] = { 'accept_and_enter', 'fallback' },
+                ['<C-e>'] = { 'hide', 'fallback' },
+                ['<Tab>'] = { 'show_and_insert', 'select_next', 'fallback' },
+                ['<S-Tab>'] = { 'select_prev', 'fallback' },
+            },
+            completion = {
+                menu = { auto_show = false },
+                ghost_text = { enabled = false },
+            },
         },
     }
 end
