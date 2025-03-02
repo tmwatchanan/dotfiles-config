@@ -35,8 +35,8 @@ return {
         }
     },
     {
-        'utilyre/sentiment.nvim',
-        event = 'VeryLazy',
+        'MomePP/sentiment.nvim',
+        event = 'BufReadPost',
         config = true
     },
     {
