@@ -53,7 +53,7 @@ lsp_setup_module.config = function()
     local lsp_methods = vim.lsp.protocol.Methods
 
     local load_local_settings = function(path, server_name)
-        vim.validate { path = { path, 'string' } }
+        vim.validate('path', path, 'string')
 
         local fname = string.format('%s/%s.json', path, server_name)
         local ok, result = pcall(vim.fn.readfile, fname)
@@ -106,7 +106,7 @@ lsp_setup_module.config = function()
     -- INFO: config lsp inlay hints
     local function lsp_inlayhint(client, bufnr)
         -- INFO: enable inlay hints when enter insert mode and disable when leave
-        if client.supports_method(lsp_methods.textDocument_inlayHint) then
+        if client:supports_method(lsp_methods.textDocument_inlayHint) then
             local inlayhint_augroup = vim.api.nvim_create_augroup('inlayhint_augroup', { clear = false })
 
             vim.api.nvim_create_autocmd('InsertEnter', {
@@ -124,7 +124,7 @@ lsp_setup_module.config = function()
 
     -- INFO: lsp highlight symbols
     local function lsp_highlight_symbol(client, bufnr)
-        if not (client and client.supports_method('textDocument/documentHighlight')) then
+        if not (client and client:supports_method('textDocument/documentHighlight')) then
             return
         end
 
