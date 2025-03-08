@@ -236,9 +236,9 @@ M.keys = function()
         { picker_keymap.help_tags,        function() snacks.picker.help() end },
         { picker_keymap.find_files,       function() snacks.picker.files({ hidden = true }) end },
         { picker_keymap.oldfiles,         function() snacks.picker.recent() end },
-        { picker_keymap.search_workspace, function() snacks.picker.grep() end },
-        { picker_keymap.search_buffers,   function() snacks.picker.grep_buffers() end },
-        { picker_keymap.grep_workspace,   function() snacks.picker.grep_word() end,   mode = { 'n', 'x' } },
+        { picker_keymap.search_workspace, function() snacks.picker.grep({ hidden = true }) end },
+        { picker_keymap.search_buffers,   function() snacks.picker.grep_buffers({ hidden = true }) end },
+        { picker_keymap.grep_workspace,   function() snacks.picker.grep_word({ hidden = true }) end,   mode = { 'n', 'x' } },
 
         { bufdetele_keymap.delete,        function() snacks.bufdelete.delete() end },
 
