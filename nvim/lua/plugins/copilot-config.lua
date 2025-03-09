@@ -77,6 +77,7 @@ codecompanion.opts = {
     },
     display = {
         chat = {
+            intro_message = '',
             show_settings = true,
             window = {
                 layout = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
@@ -101,7 +102,7 @@ codecompanion.keys = function()
     return {
         { codecompanion_keymap.chat,   '<Cmd>CodeCompanionChat<CR>',        mode = { 'n' }, desc = 'CodeCompanion - New Chat' },
         { codecompanion_keymap.toggle, '<Cmd>CodeCompanionChat Toggle<CR>', mode = { 'n' }, desc = 'CodeCompanion - Toggle Chat' },
-        { codecompanion_keymap.toggle, '<Cmd>CodeCompanionChat Add<CR>',    mode = { 'v' }, desc = 'CodeCompanion - Add to Chat' },
+        { codecompanion_keymap.toggle, ':CodeCompanionChat Add<CR>',        mode = { 'v' }, desc = 'CodeCompanion - Add to Chat' },
         { codecompanion_keymap.inline, ':CodeCompanion ',                   mode = { 'v' }, desc = 'CodeCompanion - Inline Chat' },
     }
 end
