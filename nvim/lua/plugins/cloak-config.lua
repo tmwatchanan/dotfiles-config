@@ -10,9 +10,9 @@ M.opts = {
             cloak_pattern = {
                 -- NOTE: `.env*`
                 -- '=.+',
-                { '(.*KEY.*)=(.+)',      replace = '%1=' },
-                { '(.*SECRET.*)=(.+)',   replace = '%1=' },
-                { '(.*PASSWORD.*)=(.+)', replace = '%1=' },
+                { '[#]?[ ]?(.*KEY.*)=(.+)',      replace = '%1=' },
+                { '[#]?[ ]?(.*SECRET.*)=(.+)',   replace = '%1=' },
+                { '[#]?[ ]?(.*PASSWORD.*)=(.+)', replace = '%1=' },
 
                 -- NOTE: `.netrc`
                 { '(password) (.+)', replace = '%1 ' },
