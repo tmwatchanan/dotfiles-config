@@ -33,6 +33,7 @@ opt.wrap           = false
 
 opt.showcmd        = false
 opt.showmode       = false
+opt.splitright     = true
 
 opt.foldenable     = true
 -- opt.foldmethod     = "expr";
