@@ -153,7 +153,7 @@ M.setup = function()
 
     overrided_highlights = utils.merge(overrided_highlights, {
         Normal = { fg = c.base04, bg = c.none },
-        NormalNC = { fg = c.base04, bg = c.none },
+        NormalNC = { link = 'Normal' },
         LineNr = { fg = c.base03, bg = c.none },
         FoldColumn = { fg = c.base02, bg = c.none },
         SignColumn = { fg = c.base02, bg = c.none },
@@ -161,6 +161,7 @@ M.setup = function()
         VertSplit = { fg = c.base02, bg = c.none },
         StatusLine = { bg = c.none },
         NormalFloat = { bg = c.float_bg },
+        NormalFloatNC = { link = 'NormalFloat' },
         FloatBorder = { link = 'NormalFloat' },
         FloatTitle = { fg = c.base10, bg = c.float_bg, bold = true },
         Pmenu = { fg = c.base04, bg = c.float_bg, blend = vim.opt.pumblend:get() },

@@ -90,6 +90,9 @@ codecompanion.opts = {
                 row = vim.o.lines - (math.floor(0.45 * vim.o.lines)) - 3, -- INFO: `-3` is from -1 statusline and -2 from border top-bottom
                 -- col = vim.o.columns,
                 title = ' Code Companion ',
+                opts = {
+                    winhighlight = 'Normal:NormalFloat,NormalNC:NormalFloatNC',
+                }
             },
         },
         diff = { provider = 'mini_diff' },
