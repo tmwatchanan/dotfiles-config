@@ -39,7 +39,7 @@ end
 local codecompanion = {
     'olimorris/codecompanion.nvim',
     dependencies = { 'plenary.nvim', 'nvim-treesitter', { 'echasnovski/mini.diff', opts = {} } },
-    cmd = { 'CodeCompanion', 'CodeCompanionChat' },
+    cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions' },
 }
 
 codecompanion.opts = {
