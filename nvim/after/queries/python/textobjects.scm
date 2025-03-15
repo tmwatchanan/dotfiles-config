@@ -16,7 +16,10 @@
   (comparison_operator) @comparison_operator
 ) @if_clause
 
-(type) @type
+(pair
+  key: (_) @key
+  value: (_) @value
+)
 
 (keyword_argument
     name: (_) @keyword_argument_name
@@ -25,7 +28,10 @@
 
 (typed_parameter
   (identifier) @typed_parameter_identifier
-  type: (_) @typed_parameter_type
+  ":" @typed_parameter_colon
+  .
+  type: (_) @type_inner
+  (#make-range! "type_outer" @typed_parameter_colon @type_inner)
 ) @typed_parameter
 
 (typed_default_parameter
@@ -40,9 +46,9 @@
 
 (assignment
   left: (_) @assignment_left
-  .
-  type: (_) @assignment_type
-  (#make-range! "assignment_left_type" @assignment_left @assignment_type)
+  ":" @assignment_colon
+  type: (_) @typer_inner
+  (#make-range! "type_outer" @assignment_colon @typer_inner)
 ) @assignment @local_variable_declaration
 
 (function_definition

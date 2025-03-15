@@ -41,8 +41,8 @@ mini_ai_module.opts = function()
             u = spec_treesitter({ a = '@conditional.outer', i = '@conditional.inner' }),
             U = spec_treesitter({ a = '@if_clause', i = '@comparison_operator' }),
             t = spec_treesitter({
-                a = { '@assignment_left', '@typed_parameter_identifier', '@typed_default_parameter_name' },
-                i = '@type',
+                a = { '@type_outer', '@typed_parameter_identifier', '@typed_default_parameter_name' },
+                i = '@type_inner',
             }),
             ['-'] = spec_treesitter({ a = { '@return_type_outer', '@item_outer' }, i = { '@return_type_inner', '@item_inner' } }),
             ['@'] = spec_treesitter({ a = '@decorated_outer', i = '@decorated_inner' }),
