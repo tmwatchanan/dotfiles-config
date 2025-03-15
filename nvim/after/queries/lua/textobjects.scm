@@ -21,3 +21,8 @@
     (variable_list) @assignment_variable_id
     (expression_list) @assignment_expression
 ) @assignment.outer
+
+(variable_list
+  name: (identifier) @variable_list_inner . "," @variable_list_comma
+  (#make-range! "variable_list_outer" @variable_list_inner @variable_list_comma)
+)
