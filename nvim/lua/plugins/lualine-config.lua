@@ -44,9 +44,13 @@ M.opts = function()
         padding = { left = 1, right = 1 },
     }
 
-    local diagnostics = {
-        'diagnostics',
-        update_in_insert = false,
+    local session_status = {
+        function()
+            return vim.fn.fnamemodify(require('resession').get_current(), ':t')
+        end,
+        icon = icons.lualine.session,
+        padding = { left = 1, right = 1 },
+        cond = conditions.check_session_exist
     }
 
     local branch = {
@@ -69,6 +73,37 @@ M.opts = function()
         color = 'CmpGhostText',
     }
 
+    local blink_info = { source_name = '', kind = 0 }
+    local blink_kinds = {}
+    local cmp_kind = {
+        function()
+            blink_kinds = require('blink.cmp.types').CompletionItemKind
+            return '⌊' .. blink_info.source_name .. '⌉'
+        end,
+        color = function()
+            return ('BlinkCmpKind' .. ((blink_kinds[blink_info.kind]) or 'Unknown'))
+        end,
+        padding = { right = 1 },
+        cond = conditions.check_cmp_visible
+    }
+
+    local cmp_label = {
+        function()
+            local info = require('blink.cmp').get_selected_item()
+            blink_info.kind = info.kind
+            blink_info.source_name = info.source_name
+
+            return info.label
+        end,
+        padding = { right = 0 },
+        cond = conditions.check_cmp_visible
+    }
+
+    local diagnostics = {
+        'diagnostics',
+        update_in_insert = false,
+    }
+
     local lsp_status = {
         function()
             local attached_clients = vim.lsp.get_clients { bufnr = 0 }
@@ -78,19 +113,11 @@ M.opts = function()
                 return name
             end)
             local names = it:totable()
-            return string.format('%s', table.concat(names, ','))
+            return string.format('%s', table.concat(names, ' '))
         end,
+        icon = icons.lualine.lsp,
         padding = { right = 2 },
         cond = conditions.check_lsp_started
-    }
-
-    local session_status = {
-        function()
-            return vim.fn.fnamemodify(require('resession').get_current(), ':t')
-        end,
-        icon = icons.lualine.session,
-        padding = { left = 1, right = 1 },
-        cond = conditions.check_session_exist
     }
 
     local location = {
@@ -115,31 +142,6 @@ M.opts = function()
         color = 'WarningMsg',
         icon = icons.lualine.pinned,
         cond = conditions.check_hbac_loaded
-    }
-
-    local blink_info = { source_name = '', kind = 0 }
-    local blink_kinds = {}
-    local cmp_kind = {
-        function()
-            blink_kinds = require('blink.cmp.types').CompletionItemKind
-            return '⌊' .. blink_info.source_name .. '⌉'
-        end,
-        color = function()
-            return ('BlinkCmpKind' .. ((blink_kinds[blink_info.kind]) or 'Unknown'))
-        end,
-        padding = { right = 1 },
-        cond = conditions.check_cmp_visible
-    }
-    local cmp_label = {
-        function()
-            local info = require('blink.cmp').get_selected_item()
-            blink_info.kind = info.kind
-            blink_info.source_name = info.source_name
-
-            return info.label
-        end,
-        padding = { right = 0 },
-        cond = conditions.check_cmp_visible
     }
 
     return {

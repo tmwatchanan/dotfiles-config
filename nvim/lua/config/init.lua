@@ -13,7 +13,8 @@ M.defaults = {
             git = '󰘬',
             session = '',
             pinned = '',
-            location = ' '
+            location = ' ',
+            lsp = ' '
         },
     },
 }
