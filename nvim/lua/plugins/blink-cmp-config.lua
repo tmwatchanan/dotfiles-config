@@ -71,7 +71,7 @@ M.opts = function()
         },
         completion = {
             list = {
-                max_items = 100,
+                max_items = 50,
                 selection = {
                     preselect = true,
                     auto_insert = function(ctx)
