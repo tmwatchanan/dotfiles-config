@@ -81,9 +81,9 @@ M.opts = function()
             return '⌊' .. blink_info.source_name .. '⌉'
         end,
         color = function()
-            return ('BlinkCmpKind' .. ((blink_kinds[blink_info.kind]) or 'Unknown'))
+            return ('BlinkCmpKind' .. ((blink_kinds[blink_info.kind]) or ''))
         end,
-        padding = { right = 1 },
+        padding = { right = 8 },
         cond = conditions.check_cmp_visible
     }
 
@@ -101,7 +101,8 @@ M.opts = function()
 
     local diagnostics = {
         'diagnostics',
-        update_in_insert = false,
+        sections = { 'error', 'warn' },
+        always_visible = true,
     }
 
     local lsp_status = {
