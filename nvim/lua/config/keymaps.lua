@@ -87,7 +87,7 @@ keymaps.setup = function()
     vim.keymap.set('n', 'C', '"_C')
     vim.keymap.set('x', 's', '"_s')
     vim.keymap.set('n', 'x', '"_x')
-    vim.keymap.set('x', 'p', '"_c<C-r>+<Esc>') -- replace-paste without yank
+    vim.keymap.set('x', 'p', 'P') -- replace-paste without yank
     vim.keymap.set('i', '<S-Tab>', '<C-d>')    -- de-tab while in insert mode
     vim.keymap.set('n', 'Y', 'y$')             -- Yank line after cursor
     -- vim.keymap.set('n', 'P', '<cmd>pu<CR>') -- Paste on new line
