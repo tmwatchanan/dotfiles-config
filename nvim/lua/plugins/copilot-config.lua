@@ -40,7 +40,7 @@ end
 local codecompanion = {
     'olimorris/codecompanion.nvim',
     dependencies = { 'plenary.nvim', 'nvim-treesitter', { 'echasnovski/mini.diff', opts = {} } },
-    cmd = { 'CodeCompanion', 'CodeCompanionChat' },
+    cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions' },
 }
 
 codecompanion.opts = {
@@ -81,16 +81,22 @@ codecompanion.opts = {
             intro_message = '',
             show_settings = true,
             window = {
-                layout = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
-                width = 1,        -- fractional width of parent, or absolute width in columns when > 1
-                height = 0.45,    -- fractional height of parent, or absolute height in rows when > 1
+                layout   = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
+                -- width = 1,
+                -- height = 0.45,
+                width    = 0.3,
+                height   = vim.o.lines - 3,
 
                 -- Options below only apply to floating windows
-                relative = 'editor',                                      -- 'editor', 'win', 'cursor', 'mouse'
-                border = 'solid',
-                row = vim.o.lines - (math.floor(0.45 * vim.o.lines)) - 3, -- INFO: `-3` is from -1 statusline and -2 from border top-bottom
-                -- col = vim.o.columns,
-                title = ' Code Companion ',
+                relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
+                border   = 'solid',
+                -- row = vim.o.lines - (math.floor(0.45 * vim.o.lines)) - 3, -- INFO: `-3` is from -1 statusline and -2 from border top-bottom
+                row      = 0,
+                col      = vim.o.columns,
+                title    = ' Code Companion ',
+                opts     = {
+                    winhighlight = 'Normal:NormalFloat,NormalNC:NormalFloatNC',
+                }
             },
         },
         diff = { provider = 'mini_diff' },

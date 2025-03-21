@@ -22,18 +22,17 @@ else
 fi
 
 # INFO: -- add edit and open commands for lazygit config if config not exists
-lazygit_config=~/Library/Application\ Support/lazygit/config.yml
 update_lazygit_config="y"
 found_lazygit_config=false
-if [[ -f "$lazygit_config" || -L "$lazygit_config" ]]; then
+if [ -d "$config_path/lazygit" ]; then
     found_lazygit_config=true
     read -p "found exist lazygit config.. overwrite (y) or (n) ? : " update_lazygit_config
 fi
 if [ $update_lazygit_config = "y" ]; then
     if $found_lazygit_config; then
-        rm "$lazygit_config" # remove old symlink or old config file
+        rm -rf "$config_path/lazygit"
     fi
-    ln -s "${config_path}/lazygit/config.yml" "$lazygit_config"
+    cp -r lazygit "$config_path"
     echo "added lazygit config !"
 else
     echo "skipped lazygit config.."

@@ -42,6 +42,9 @@ M.opts = {
         cmdline = {
             win_options = { winblend = 0 },
         },
+        split = {
+            size = '30%'
+        }
     },
     messages = {
         view_search = false,
@@ -64,7 +67,16 @@ M.opts = {
     },
     commands = {
         history = {
-            filter_opts = { reverse = true }
+            filter_opts = { reverse = true },
+            filter = {
+                any = {
+                    { warning = true },
+                    { error = true },
+                    { event = 'notify' },
+                    { event = 'msg_show' },
+                    { event = 'lsp',     kind = 'message' },
+                },
+            },
         }
     },
     lsp = {

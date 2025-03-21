@@ -207,7 +207,6 @@ diagflow_module.opts = {
     scope = 'cursor',
     padding_top = 2,
     toggle_event = { 'InsertEnter', 'InsertLeave' },
-    update_event = { 'DiagnosticChanged', 'BufEnter' },
     severity_colors = {
         error = 'DiagnosticError',
         warn = 'DiagnosticWarn',
