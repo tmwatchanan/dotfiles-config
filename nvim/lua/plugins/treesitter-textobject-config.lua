@@ -26,7 +26,7 @@ mini_ai_module.opts = function()
             C = spec_treesitter({ a = '@class.outer', i = '@class.inner' }),
             a = spec_treesitter({ a = {'@parameter.outer', '@variable_list_outer'}, i = {'@parameter.inner', '@variable_list_inner'} }),
             ['='] = spec_treesitter({
-                a = { '@assignment.lhs', '@keyword_argument_name', '@field_name.inner', '@assignment_variable_id', '@typed_default_parameter_name_type', '@assignment_left_type', '@key' },
+                a = { '@assignment.lhs', '@keyword_argument_name', '@field_name.outer', '@assignment_variable_id', '@typed_default_parameter_name_type', '@assignment_left_type', '@key' },
                 i = { '@assignment.rhs', '@keyword_argument_value', '@field_value', '@assignment_expression', '@typed_default_parameter_value', '@value' },
             }),
             e = spec_treesitter({ a = '@assignment.outer', i = '@assignment.inner' }),

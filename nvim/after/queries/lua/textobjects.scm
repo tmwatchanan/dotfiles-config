@@ -12,8 +12,19 @@
 )
 
 (field
-  name: (_) @field_name.inner . "=" @field_name.symbol
-    (#make-range! "field_name.outer" @field_name.inner @field_name.symbol)
+  (
+    "[" @field_name.outer.start
+    name: _ @field_name.symbol
+    "]" @field_name.outer.end
+  )
+  (#make-range! "field_name.outer" @field_name.outer.start @field_name.outer.end)
+  "=" @equal
+  value: _ @asdasda
+)
+
+(field
+  name: (_) @field_name.inner
+  . "=" @field_name.symbol
   value: (_) @field_value
 )
 
