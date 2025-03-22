@@ -211,6 +211,12 @@ keymaps.setup = function()
 
     vim.keymap.set('x', '<leader>em', 's<C-r>=eval(@")<CR><ESC>', { desc = 'Evaluate expression in visual' })
     vim.keymap.set('n', '<leader>em', 'Vs<C-r>=eval(@")<CR><ESC>', { desc = 'Evaluate expression in normal' })
+
+    -- INFO: toggle global show_inlay_hint
+    vim.keymap.set('n', '<leader>ih', function()
+        vim.g.show_inlay_hint = not vim.g.show_inlay_hint
+        vim.lsp.inlay_hint.enable(vim.g.show_inlay_hint)
+    end, { noremap = true, silent = false })
 end
 
 -- INFO: LSP keymap
