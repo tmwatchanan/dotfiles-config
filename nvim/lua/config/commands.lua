@@ -45,4 +45,9 @@ M.run_tmux_expr = function(line_num)
     vim.fn.system('tmux ' .. line)
 end
 
+M.GetHighlightGroupUnderCursor = function()
+    local result = vim.treesitter.get_captures_at_cursor(0)
+    print(vim.inspect(result))
+end
+
 return M

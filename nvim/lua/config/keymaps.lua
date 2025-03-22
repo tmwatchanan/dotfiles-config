@@ -139,6 +139,7 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>dpbn',
         function() vim.print(('buffer name: %s'):format(vim.api.nvim_buf_get_name(0))) end)
     vim.keymap.set('n', '<leader>dpwd', function() vim.print(('window: %s'):format(vim.api.nvim_get_current_win())) end)
+    vim.keymap.set('n', '<leader>dphl', commands.GetHighlightGroupUnderCursor, { noremap = true, silent = false })
 
     -- INFO: disable ScrollWheelRight and ScrollWheelLeft in normal mode
     vim.keymap.set('n', '<ScrollWheelRight>', '<Nop>', { remap = false, silent = true })
