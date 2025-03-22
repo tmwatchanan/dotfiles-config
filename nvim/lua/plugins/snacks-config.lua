@@ -39,14 +39,14 @@ M.opts = function()
         layout = {
             box = 'vertical',
             backdrop = false,
-            width = 0.5,
+            width = 0.85,
             min_width = 80,
             height = 0.8,
             min_height = 30,
-            border = 'none',
-            { win = 'input',   height = 1,   border = 'solid', title = '{title} {live} {flags}' },
+            border = 'rounded',
+            { win = 'input',   height = 1,   border = 'rounded', title = '{title} {live} {flags}' },
             { win = 'list',    border = upad },
-            { win = 'preview', height = 0.4, border = 'vpad',  title = '{preview}' },
+            { win = 'preview', height = 0.4, border = 'rounded',  title = '{preview}' },
         },
     }
 
