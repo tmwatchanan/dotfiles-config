@@ -35,32 +35,6 @@ M.setup = function()
         NoiceCmdlineIconFilter = { link = 'lualine_a_command' },
     }
 
-    local snacks_highlight = {
-        -- SnacksPicker = { link = 'Normal' },
-        -- SnacksPickerBorder = { link = 'FloatBorder' },
-        -- SnacksPickerTitle = { link = 'FloatTitle' },
-        -- SnacksPicker = { bg = theme.ui.float.bg, blend = winblend },
-        -- SnacksPickerBorder = { bg = theme.ui.float.bg_border, blend = winblend },
-        -- SnacksPickerTitle = { fg = theme.ui.float.fg, bg = theme.ui.float.bg, bold = true, blend = winblend },
-        -- SnacksPickerPreview = { bg = c.base00, blend = winblend },
-        -- SnacksPickerPreviewBorder = { bg = c.base00, blend = winblend },
-        -- SnacksPickerPreviewTitle = { fg = c.base00, bg = c.base10, bold = true, blend = winblend },
-        -- SnacksPickerDir = { fg = c.base03 },
-        -- SnacksPickerTotals = { fg = c.base03 },
-        -- SnacksPickerSelected = { fg = c.gold },
-        -- SnacksPickerMatch = { fg = c.base12, bold = true },
-        -- SnacksTerminalNormal = { bg = c.none },
-        -- SnacksTerminalBorder = { link = 'SnacksTerminalNormal' },
-        -- SnacksTerminalFooter = { fg = c.base10, bg = c.none, bold = true }
-    }
-
-    local oil_highlight = {
-        -- OilTitle = { link = 'FloatTitle' },
-        -- OilPreviewNormal = { link = 'NormalFloat'},
-        -- OilPreviewBorder = { link = 'FloatermBorder' },
-        -- OilPreviewTitle = { link = 'FloatTitle' },
-    }
-
     local rainbow_delimiter_highlight = {
         RainbowDelimiterRed = { fg = palette.springViolet2 },
         RainbowDelimiterYellow = { fg = palette.dragonBlue },
@@ -71,6 +45,10 @@ M.setup = function()
         RainbowDelimiterCyan = { fg = palette.waveRed },
     }
 
+    local treesitter_lsp_highlight = {
+        ['@keyword.return'] = { link = '@keyword' },
+        ['@string']         = { fg = palette.sakuraPink },
+    }
     local treesitter_context_highlight = {
         TreesitterContext = { link = 'Folded' },
         TreesitterContextLineNumber = { fg = theme.ui.special, bg = theme.ui.bg_gutter },
@@ -101,11 +79,10 @@ M.setup = function()
     overrided_highlights = utils.merge(overrided_highlights, incline_highlight)
     overrided_highlights = utils.merge(overrided_highlights, noice_highlight)
     overrided_highlights = utils.merge(overrided_highlights, rainbow_delimiter_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, treesitter_lsp_highlight)
     overrided_highlights = utils.merge(overrided_highlights, treesitter_context_highlight)
     overrided_highlights = utils.merge(overrided_highlights, hlslens_highlight)
     overrided_highlights = utils.merge(overrided_highlights, marks_highlight)
-    overrided_highlights = utils.merge(overrided_highlights, oil_highlight)
-    overrided_highlights = utils.merge(overrided_highlights, snacks_highlight)
     overrided_highlights = utils.merge(overrided_highlights, matchup_highlight)
 
     for hl_name, hl_value in pairs(overrided_highlights) do
