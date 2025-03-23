@@ -24,3 +24,6 @@ vim.keymap.set({ 'n', 'x' }, '<leader>dbe', function()
     vscode.action('vscode-neovim.escape')
 end)
 
+vim.keymap.set({ 'n', 'x' }, '<leader>sf', function() vscode.action('workbench.action.quickOpen') end)
+vim.keymap.set({ 'n', 'x' }, '<leader>ss', function() vscode.action('workbench.action.gotoSymbol') end)
+vim.keymap.set({ 'n', 'x' }, '<leader>sa', function() vscode.action('workbench.action.showAllSymbols') end)
