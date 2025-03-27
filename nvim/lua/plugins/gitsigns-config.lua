@@ -2,6 +2,7 @@ local M = {
     'lewis6991/gitsigns.nvim',
     dependencies = 'plenary.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

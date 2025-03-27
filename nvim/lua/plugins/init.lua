@@ -166,7 +166,7 @@ return {
                     checkboxes = presets.checkboxes.nerd,
                 }
             }
-        end
+        end,
     },
     {
         'letieu/jot.lua',
@@ -206,6 +206,7 @@ return {
             return {
                 { jot_keymap.toggle, function() require('jot').toggle() end }
             }
-        end
+        end,
+        cond = not vim.g.vscode,
     }
 }

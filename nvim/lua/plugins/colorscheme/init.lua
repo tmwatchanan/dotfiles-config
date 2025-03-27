@@ -3,6 +3,7 @@ local M = {
     name = 'nvim-colorscheme',
     lazy = false,
     priority = 1000,
+    cond = not vim.g.vscode,
 }
 
 -- INFO: selection colorscheme
