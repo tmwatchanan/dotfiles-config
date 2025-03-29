@@ -15,7 +15,14 @@ opt.undolevels     = 5000
 opt.title          = true
 opt.mouse          = 'a'
 opt.mousemodel     = 'extend'
-opt.shell          = 'fish'
+if vim.fn.executable('pwsh') then
+    opt.shell = 'pwsh'
+    opt.shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command '
+    opt.shellquote = '"'
+    opt.shellxquote = ''
+else
+    opt.shell = 'fish'
+end
 opt.clipboard      = vim.env.SSH_TTY and '' or 'unnamedplus'
 
 opt.sessionoptions = { 'buffers', 'curdir', 'winsize', 'folds', 'terminal' }
