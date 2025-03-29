@@ -1,21 +1,28 @@
-local opt          = vim.opt
+local opt        = vim.opt
 
 -- General
-opt.syntax         = 'on'
-opt.spelloptions   = 'noplainbuffer'
+opt.syntax       = 'on'
+opt.spelloptions = 'noplainbuffer'
 
-opt.undofile       = true
-opt.backup         = false
-opt.writebackup    = false
-opt.swapfile       = false
-opt.updatetime     = 250
-opt.timeoutlen     = 400
-opt.undolevels     = 5000
+opt.undofile     = true
+opt.backup       = false
+opt.writebackup  = false
+opt.swapfile     = false
+opt.updatetime   = 250
+opt.timeoutlen   = 400
+opt.undolevels   = 5000
 
-opt.title          = true
-opt.mouse          = 'a'
-opt.mousemodel     = 'extend'
-opt.shell          = 'fish'
+opt.title        = true
+opt.mouse        = 'a'
+opt.mousemodel   = 'extend'
+if vim.fn.executable('fish') == 1 then
+    opt.shell = 'fish'
+elseif vim.fn.executable('pwsh') == 1 then
+    opt.shell = 'pwsh'
+    opt.shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command '
+    opt.shellquote = '"'
+    opt.shellxquote = ''
+end
 opt.clipboard      = vim.env.SSH_TTY and '' or 'unnamedplus'
 
 opt.sessionoptions = { 'buffers', 'curdir', 'winsize', 'folds', 'terminal' }
