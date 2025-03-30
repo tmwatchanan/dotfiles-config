@@ -87,7 +87,7 @@ done
 
 # INFO: center bar components --------------------------------------------------
 weather=(
-    background.padding_right=4
+    background.padding_right=50
     icon=
     icon.color=$PINK
     icon.font="$FONT_FACE:Bold:16.0"
@@ -96,20 +96,9 @@ weather=(
     update_freq=1800
     script="$PLUGIN_DIR/weather.sh"
 )
-aqi=(
-    background.padding_right=4
-    icon=󰵃
-    icon.font="$FONT_FACE:Bold:16.0"
-    drawing=off
-    update_freq=1800
-    script="$PLUGIN_DIR/aqi.sh"
-)
 sketchybar --add item weather q                         \
            --set weather "${weather[@]}"                     \
-           --subscribe weather system_woke                   \
-           --add item aqi e                         \
-           --set aqi "${aqi[@]}"                     \
-           --subscribe aqi system_woke
+           --subscribe weather system_woke
 
 
 # INFO: right-side bar components ----------------------------------------------
