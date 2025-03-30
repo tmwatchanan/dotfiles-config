@@ -1,6 +1,7 @@
 CONFIG_DIR="$HOME/.config/sketchybar"
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 FONT_FACE="Maple Mono NF"
+ICON_FONT_FACE="SF Pro"
 
 source "$CONFIG_DIR/colors.sh"
 
@@ -8,10 +9,11 @@ source "$CONFIG_DIR/colors.sh"
 # https://felixkratz.github.io/SketchyBar/config/bar
 
 bar=(
-    height=36
-    blur_radius=30
-    corner_radius=8
-    margin=4
+    height=38
+    blur_radius=0
+    corner_radius=0
+    margin=0
+    notch_width=240
     position=top
     sticky=on
     padding_left=12
@@ -27,7 +29,7 @@ default=(
     background.corner_radius=5
     background.height=24
     icon.color=$ICON_COLOR
-    icon.font="$FONT_FACE:Bold:17.0"
+    icon.font="$ICON_FONT_FACE:Regular:14.0"
     icon.padding_left=8
     icon.padding_right=7
     label.font="$FONT_FACE:Bold:12.0"
@@ -71,58 +73,40 @@ sketchybar --add event window_focus                                     \
            --set front_app "${front_app[@]}"                            \
            --subscribe front_app front_app_switched window_focus mouse.clicked
 
-# INFO: center bar components
-weather=(
-    background.padding_right=4
-    icon=
-    icon.color=$PINK
-    icon.font="$FONT_FACE:Bold:16.0"
-    label.max_chars=80
-    scroll_texts=yes
-    update_freq=1800
-    script="$PLUGIN_DIR/weather.sh"
-)
-media_info=(
-    icon.background.image=media.artwork
-    icon.background.image.scale=0.6
-    icon.background.image.corner_radius=4
-    label.padding_left=8
-    label.max_chars=80
-    scroll_texts=yes
-    updates=on
-    script="$PLUGIN_DIR/media_info.sh"
-)
-sketchybar --add item weather center                         \
-           --set weather "${weather[@]}"                     \
-           --subscribe weather system_woke                   \
-                                                             \
-           --add item media_info center                      \
-           --set media_info "${media_info[@]}"               \
-           --subscribe media_info media_change
-
 # INFO: right-side bar components
 clock=(
-    icon=󰨲
-    icon.color=$RED
+    icon.drawing=off
     update_freq=10
     script="$PLUGIN_DIR/clock.sh"
+    click_script="$PLUGIN_DIR/click.sh 'Control Center' 'Clock'"
+)
+control_center=(
+    icon=􀜊
+    click_script="$PLUGIN_DIR/click.sh 'Control Center' 'Control Center'"
 )
 battery=(
-    icon.y_offset=1
     update_freq=120
     script="$PLUGIN_DIR/battery.sh"
+    click_script="$PLUGIN_DIR/click.sh 'Control Center' 'Battery'"
 )
 wifi=(
+    icon=󰤫
+    label='Not Connected'
     script="$PLUGIN_DIR/wifi.sh"
+    click_script="$PLUGIN_DIR/click.sh 'Control Center' 'Wi‑Fi'"
 )
 KEYBOARD_EVENT="AppleSelectedInputSourcesChangedNotification"
 keyboard=(
-    icon=󰧹
-    icon.y_offset=-1
+    icon.drawing=off
     script="$PLUGIN_DIR/keyboard.sh"
+    click_script="osascript -e 'tell application \"System Events\" to tell process \"TextInputMenuAgent\" to perform action \"AXPress\" of menu bar item 1 of menu bar 2'"
 )
+
 sketchybar  --add item clock right                              \
             --set clock "${clock[@]}"                           \
+                                                                \
+            --add item control_center right                     \
+            --set control_center "${control_center[@]}"         \
                                                                 \
             --add item battery right                            \
             --set battery "${battery[@]}"                       \
