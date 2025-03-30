@@ -36,6 +36,19 @@ M.opts = {
     keymaps = {
         ['<C-u>'] = 'actions.preview_scroll_up',
         ['<C-d>'] = 'actions.preview_scroll_down',
+        ['<C-y>'] = 'actions.copy_to_system_clipboard',
+        ['<C-p>'] = 'actions.paste_from_system_clipboard',
+        ['<C-o>'] = {
+            callback = function()
+                local dir = require('oil').get_current_dir()
+                if not dir or not vim.ui.open then
+                    return
+                end
+
+                vim.ui.open(dir)
+            end,
+            desc = 'Reveal directory'
+        },
 
         -- close
         ['<Esc>'] =  'actions.close',
@@ -60,7 +73,7 @@ M.opts = {
 
         -- trash
         ['gt'] = 'actions.toggle_trash',
-    },
+    }
 }
 
 M.keys = function()
