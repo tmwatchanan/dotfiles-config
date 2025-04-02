@@ -2,7 +2,7 @@ set fish_greeting ""
 
 # by default, this var was set by terminal program itself
 # set -gx TERM xterm-256color
-set -q XDG_CONFIG_HOME || set -U XDG_CONFIG_HOME $HOME/.config
+set -gx XDG_CONFIG_HOME $HOME/.config
 
 if status is-interactive
   # Commands to run in interactive sessions can go here
@@ -14,7 +14,7 @@ if status is-interactive
 
   # >>> conda initialize >>>
   # !! Contents within this block are managed by 'conda init' !!
-  eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source
+  # eval /opt/homebrew/Caskroom/miniforge/base/bin/conda "shell.fish" "hook" $argv | source
 
   # setup pyenv root
   set -Ux PYENV_ROOT $HOME/.pyenv
@@ -57,9 +57,9 @@ set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/ruby/lib/pkgconfig"
 fish_add_path (ruby -e "print Gem.user_dir")/bin
 
 # config rust tools for esp32
-fish_add_path $HOME/.cargo/bin
-set -x MENUCONFIG_STYLE "monochrome"
-alias export-esp ". $HOME/export-esp.sh"
+# fish_add_path $HOME/.cargo/bin
+# set -x MENUCONFIG_STYLE "monochrome"
+# alias export-esp ". $HOME/export-esp.sh"
 
 # config llvm arm64
 fish_add_path /opt/homebrew/opt/llvm/bin
