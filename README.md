@@ -61,3 +61,13 @@ brew install ncurses
 sudo tic -xe tmux-256color ~/tmux-256color.info
 ```
 
+## SKHD
+update service plist file to runs skhd using `/bin/bash`
+
+`~/Library/LaunchAgents/com.koekeishiya.skhd.plist`
+
+- Add `SHELL` key to env dict
+    ``` xml
+        <key>SHELL</key>
+        <string>/bin/bash</string>
+    ```
