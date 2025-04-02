@@ -41,7 +41,7 @@ sketchybar --default "${default[@]}"
 
 # INFO: left-side bar components
 # INFO: add space config at maximum for 8 spaces
-for i in {0..7};
+for i in {0..11};
 do
     sid=$(($i+1))
     space=(
