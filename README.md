@@ -30,6 +30,24 @@ curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher   
 fisher update   # install all listed plugins in `fish_plugins`
 ```
 
+## nushell
+Requires `nu` to be installed
+``` bash
+brew install nushell
+sudo echo "$(which nu)" >> /etc/shells
+chsh -s $(which nu)
+```
+
+### setup nu config files to source from XDG_CONFIG_HOME
+
+``` Library/Application Support/nushell/config.nu
+source ~/.config/nushell/config.nu
+```
+
+``` Library/Application Support/nushell/env.nu
+source ~/.config/nushell/env.nu
+```
+
 ## tmux
 Requires `tmux` and `tmp`(tmux plugins manager)
 
