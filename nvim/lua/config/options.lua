@@ -15,7 +15,6 @@ opt.undolevels     = 5000
 opt.title          = true
 opt.mouse          = 'a'
 opt.mousemodel     = 'extend'
-opt.shell          = 'fish'
 opt.clipboard      = vim.env.SSH_TTY and '' or 'unnamedplus'
 
 opt.sessionoptions = { 'buffers', 'curdir', 'winsize', 'folds', 'terminal' }
