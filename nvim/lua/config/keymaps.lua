@@ -222,16 +222,16 @@ end
 
 -- INFO: LSP keymap
 keymaps.lsp = {
-    definitions      = { key = 'gd', cmd = function() require 'snacks'.picker.lsp_definitions() end },
-    type_definitions = { key = 'gt', cmd = function() require 'snacks'.picker.lsp_type_definitions() end },
-    reference        = { key = 'gr', cmd = function() require 'snacks'.picker.lsp_references() end },
-    implementation   = { key = 'gi', cmd = function() require 'snacks'.picker.lsp_implementations() end },
-    signature_help   = { key = 'gs', cmd = vim.lsp.buf.signature_help },
-    diagnostic       = { key = '<leader>ld', cmd = function() require 'snacks'.picker.diagnostics() end },
-    document_symbol  = { key = '<leader>ls', cmd = function() require 'snacks'.picker.lsp_symbols() end },
-    code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
-    format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
-    hover            = {
+    definitions         = { key = 'gd', cmd = function() require 'snacks'.picker.lsp_definitions() end },
+    type_definitions    = { key = 'gt', cmd = function() require 'snacks'.picker.lsp_type_definitions() end },
+    reference           = { key = 'gr', cmd = function() require 'snacks'.picker.lsp_references() end },
+    implementation      = { key = 'gi', cmd = function() require 'snacks'.picker.lsp_implementations() end },
+    signature_help      = { key = 'gs', cmd = vim.lsp.buf.signature_help },
+    diagnostic          = { key = '<leader>ld', cmd = function() require 'snacks'.picker.diagnostics() end },
+    document_symbol     = { key = '<leader>ls', cmd = function() require 'snacks'.picker.lsp_symbols() end },
+    code_action         = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
+    format              = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
+    hover               = {
         key = 'K',
         cmd = function()
             local ufo_loaded, ufo = pcall(require, 'ufo')
@@ -241,7 +241,9 @@ keymaps.lsp = {
             return vim.diagnostic.open_float({ scope = 'cursor' }) or vim.lsp.buf.hover()
         end
     },
-    jump_to_context  = { key = '[C', cmd = function() require('treesitter-context').go_to_context() end },
+    jump_to_context     = { key = '[C', cmd = function() require('treesitter-context').go_to_context() end },
+    next_diagnostic     = { key = 'zn', cmd = function() require('plugins.lsp-config')[2].jumpWithVirtLineDiags(1) end },
+    previous_diagnostic = { key = 'zN', cmd = function() require('plugins.lsp-config')[2].jumpWithVirtLineDiags(-1) end },
 }
 
 -- INFO: live-rename keymap
