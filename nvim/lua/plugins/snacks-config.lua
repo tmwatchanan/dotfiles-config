@@ -46,7 +46,7 @@ M.opts = function()
             border = 'rounded',
             { win = 'input',   height = 1,   border = 'rounded', title = '{title} {live} {flags}' },
             { win = 'list',    border = upad },
-            { win = 'preview', height = 0.4, border = 'rounded',  title = '{preview}' },
+            { win = 'preview', height = 0.4, border = 'rounded', title = '{preview}' },
         },
     }
 
@@ -255,6 +255,7 @@ M.keys = function()
         { picker_keymap.search_workspace, function() snacks.picker.grep({ hidden = true }) end },
         { picker_keymap.search_buffers,   function() snacks.picker.grep_buffers({ hidden = true }) end },
         { picker_keymap.grep_workspace,   function() snacks.picker.grep_word({ hidden = true }) end,   mode = { 'n', 'x' } },
+        { picker_keymap.keymaps,          function() snacks.picker.keymaps() end },
 
         { bufdetele_keymap.delete,        function() snacks.bufdelete.delete() end },
 
@@ -293,8 +294,8 @@ M.keys = function()
         { terminal_keymap.lazygit,              function() snacks.terminal.toggle('lg') end },
         { terminal_keymap.lazygit_file_history, function() snacks.terminal.toggle('lg -f ' .. vim.fn.expand('%')) end },
 
-        { keymaps.gitbrowse,      function() snacks.gitbrowse() end,      desc = 'Snacks: Git Browse',    mode = { 'n', 'v' } },
-        { keymaps.git_blame_line, function() snacks.git.blame_line() end, desc = 'Snacks: Git Blame Line' },
+        { keymaps.gitbrowse,                    function() snacks.gitbrowse() end,                                    desc = 'Snacks: Git Browse',    mode = { 'n', 'v' } },
+        { keymaps.git_blame_line,               function() snacks.git.blame_line() end,                               desc = 'Snacks: Git Blame Line' },
     }
 end
 

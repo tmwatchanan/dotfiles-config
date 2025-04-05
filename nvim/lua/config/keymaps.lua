@@ -87,9 +87,9 @@ keymaps.setup = function()
     vim.keymap.set('n', 'C', '"_C')
     vim.keymap.set('x', 's', '"_s')
     vim.keymap.set('n', 'x', '"_x')
-    vim.keymap.set('x', 'p', 'P') -- replace-paste without yank
-    vim.keymap.set('i', '<S-Tab>', '<C-d>')    -- de-tab while in insert mode
-    vim.keymap.set('n', 'Y', 'y$')             -- Yank line after cursor
+    vim.keymap.set('x', 'p', 'P')           -- replace-paste without yank
+    vim.keymap.set('i', '<S-Tab>', '<C-d>') -- de-tab while in insert mode
+    vim.keymap.set('n', 'Y', 'y$')          -- Yank line after cursor
     -- vim.keymap.set('n', 'P', '<cmd>pu<CR>') -- Paste on new line
     -- vim.keymap.set('v', '<', '<gv')
     -- vim.keymap.set('v', '>', '>gv')
@@ -120,7 +120,7 @@ keymaps.setup = function()
 
     -- INFO: search files in neovim config directory
     vim.keymap.set('n', '<leader>fnv', '<Cmd>Telescope find_files search_dirs={"~/.config/nvim"}<CR>')
-    vim.keymap.set('n', '<leader>kM', function()
+    vim.keymap.set('n', '<leader>fK', function()
         local keymaps_file_path = '~/.config/nvim/lua/config/keymaps.lua'
         vim.cmd.edit(keymaps_file_path)
         vim.api.nvim_buf_set_keymap(vim.fn.bufnr(), 'n', 'qq', '<Cmd>bdelete<CR>', { noremap = true })
@@ -356,7 +356,7 @@ keymaps.jot = {
 keymaps.focus = {
     toggle_enable = '<Bslash>f',
     toggle_size   = '<Bslash>F',
-    split_cycle   = '<C-n>',
+    split_cycle   = '<C-;>',
     split_left    = '<C-h>',
     split_right   = '<C-l>',
     split_up      = '<C-k>',
@@ -386,9 +386,9 @@ keymaps.gitconflict = {
 
 -- INFO: Snacks picker keymap
 keymaps.snacks = {
-    picker = {
+    picker         = {
         grep_workspace        = 'gw',
-        search_workspace      = '<leader>sf',
+        search_workspace      = '<leader>fw',
         search_buffers        = '<leader>/',
         buffers               = '<C-_>', -- `<C-_>` is actually `<C-/>`
         find_files            = '<leader>fs',
@@ -396,16 +396,17 @@ keymaps.snacks = {
         jumplist              = '<leader>ju',
         oldfiles              = '<leader>fo',
         help_tags             = '<leader>?',
+        keymaps               = '<leader>fk',
         action_select_all     = '<m-a>',
         action_focus_preview  = '<m-space>',
         action_send_to_qflist = '<C-q>',
         action_scroll_up      = '<C-u>',
         action_scroll_down    = '<C-d>',
     },
-    bufdelete = {
+    bufdelete      = {
         delete = '<leader>wQ',
     },
-    terminal = {
+    terminal       = {
         toggle = '<leader>t',
         lazygit = '<leader>g',
         lazygit_file_history = '<leader>G',
@@ -665,6 +666,12 @@ keymaps.obsidian = {
 -- INFO: neo-tree keymap
 keymaps.neotree = {
     toggle = '<leader>nt',
+}
+
+-- INFO: vim-visual-multi keymap
+keymaps.vim_visual_multi = {
+    find_under         = '<C-n>',
+    find_subword_under = '<C-n>',
 }
 
 return keymaps
