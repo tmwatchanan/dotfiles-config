@@ -22,10 +22,10 @@ cmd + shift - j : yabai -m display --focus next || yabai -m display --focus firs
 cmd + shift - k : yabai -m display --focus prev || yabai -m display --focus last
 
 # Window + Display directional navigation
-cmd + ctrl - h : yabai -m window --focus west || yabai -m display --focus west
+cmd + ctrl - h : yabai -m window --focus  west || yabai -m display --focus west
 cmd + ctrl - j : yabai -m window --focus south || yabai -m display --focus south
 cmd + ctrl - k : yabai -m window --focus north || yabai -m display --focus north
-cmd + ctrl - l : yabai -m window --focus east || yabai -m display --focus east
+cmd + ctrl - l : yabai -m window --focus  east || yabai -m display --focus east
 
 # Moving windows between spaces: alt - {1, 2, 3, 4}
 alt - 1 : yabai -m window --space $(yabai -m query --displays --display | jq -r '.spaces[0]') --focus
@@ -52,10 +52,10 @@ alt + shift - 4 : yabai -m window --space $(yabai -m query --displays \
                    --focus
 
 # Moving windows in spaces
-ctrl + lalt - h : yabai -m window --warp west || (yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last)
+ctrl + lalt - h : yabai -m window --warp  west || (yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last)
 ctrl + lalt - j : yabai -m window --warp south || (yabai -m window --display south && yabai -m display --focus south)
 ctrl + lalt - k : yabai -m window --warp north || (yabai -m window --display north && yabai -m display --focus north)
-ctrl + lalt - l : yabai -m window --warp east  || (yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first)
+ctrl + lalt - l : yabai -m window --warp  east || (yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first)
 
 ## Stacks (ctrl + shift - ...)
 # Add the active window to the window or stack to the {direction}: shift + ctrl - {h, j, k, l}
@@ -107,3 +107,4 @@ ctrl + lalt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 # Toggle sketchybar
 # ctrl + lalt - space : sketchybar --bar hidden=toggle
 ctrl + lalt - r : sketchybar --remove '/.*/' && sh -c '$HOME/.config/sketchybar/sketchybarrc'
+ctrl + cmd - r : yabai -m config menubar_opacity "$(printf "%.1f" "$((1 - $(yabai -m config menubar_opacity | cut -d. -f1)))")"
