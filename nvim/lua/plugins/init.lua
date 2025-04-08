@@ -20,7 +20,8 @@ return {
         config = true
     },
     {
-        'kylechui/nvim-surround',
+        'echasnovski/mini.surround',
+        main = 'mini.surround',
         event = 'VeryLazy',
         config = true
     },
@@ -33,11 +34,6 @@ return {
         keys = {
             { require('config.keymaps').treesj.toggle, '<Cmd>TSJToggle<CR>' },
         }
-    },
-    {
-        'MomePP/sentiment.nvim',
-        event = 'BufReadPost',
-        config = true
     },
     {
         'axkirillov/hbac.nvim',
