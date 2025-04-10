@@ -222,7 +222,7 @@ keymaps.flit = {
     backward = 'F',
     till     = 't',
     backtill = 'T',
-    leap     = 's',
+    leap     = 'S',
 }
 
 -- INFO: mini.move keymap
