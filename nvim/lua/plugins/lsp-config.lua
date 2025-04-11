@@ -20,8 +20,8 @@ local lsp_setup_module = {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
-        'williamboman/mason-lspconfig.nvim',
-        'mason.nvim',
+        { 'williamboman/mason-lspconfig.nvim', branch = '2.x' },
+        { 'mason.nvim' },
     },
 }
 
