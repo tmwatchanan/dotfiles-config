@@ -64,16 +64,23 @@ lsp_setup_module.config = function()
         return result
     end
 
-    -- NOTE:  inject `esp-clang`, use specific fork clang from espressif
-    --  also add `query-driver` for specific toolchains not from builtin binary
+    -- NOTE: check local config if available and injected before lsp enabled
+    local original_on_new_config = lspconfig.util.default_config.on_new_config
+
     lspconfig.util.default_config = vim.tbl_extend('force', lspconfig.util.default_config, {
-        on_new_config = lspconfig.util.add_hook_before(lspconfig.util.default_config.on_new_config,
-            function(config, root_dir)
-                local new_default_config = load_local_settings(root_dir, config.name)
-                if new_default_config then
-                    for k, v in pairs(new_default_config) do config[k] = v end
+        on_new_config = function(config, root_dir)
+            local new_default_config = load_local_settings(root_dir, config.name)
+            if new_default_config then
+                for k, v in pairs(new_default_config) do
+                    config[k] = v
                 end
-            end)
+            end
+
+            -- INFO: we have overrided config before lsp enabled
+            if original_on_new_config then
+                return original_on_new_config(config, root_dir)
+            end
+        end
     })
 
     -- INFO: config lsp log with formatting
