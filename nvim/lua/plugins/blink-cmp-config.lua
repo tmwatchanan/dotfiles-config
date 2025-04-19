@@ -4,7 +4,7 @@ local M = {
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         'rafamadriz/friendly-snippets',
-        { 'copilot.lua', optional = true }, -- github copilot if available
+        { 'copilot.lua',           optional = true }, -- github copilot if available
 
         { 'windwp/nvim-autopairs', opts = { check_ts = true, fast_wrap = { map = '<C-l>' } } }
     },
@@ -116,6 +116,9 @@ M.opts = function()
         },
         sources = {
             default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
+            per_filetype = {
+                sql = { 'snippets', 'dadbod', 'buffer' },
+            },
             providers = {
                 lazydev = {
                     name = 'LazyDev',
@@ -123,6 +126,7 @@ M.opts = function()
                     -- make lazydev completions top priority (see `:h blink.cmp`)
                     score_offset = 100,
                 },
+                dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
             },
         },
         cmdline = {
