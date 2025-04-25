@@ -272,13 +272,13 @@ $env.config = {
         pre_execution: [{ null }] # run before the repl input is run
         env_change: {
             # run if the PWD environment is different since the last repl input
-            PWD: [{
-                |before, after| 
-                # check node version or nvmrc, then changes node version using fnm
-                if (($after | path join .node-version | path exists) or ($after | path join .nvmrc | path exists)) {
-                    fnm use --silent-if-unchanged
-                }
-            }]
+            # PWD: [{
+            #     |before, after| 
+            #     # check node version or nvmrc, then changes node version using fnm
+            #     if (($after | path join .node-version | path exists) or ($after | path join .nvmrc | path exists)) {
+            #         fnm use --silent-if-unchanged
+            #     }
+            # }]
         }
         display_output: "if (term size).columns >= 100 { table -e } else { table }" # run to display the output of a pipeline
         command_not_found: { null } # return an error message when a command is not found
