@@ -49,7 +49,6 @@ lsp_setup_module.init = function()
 end
 
 lsp_setup_module.config = function()
-    local lspconfig = require('lspconfig')
     local lsp_methods = vim.lsp.protocol.Methods
 
     local load_local_settings = function(path, server_name)
@@ -57,31 +56,19 @@ lsp_setup_module.config = function()
 
         local fname = string.format('%s/%s.json', path, server_name)
         local ok, result = pcall(vim.fn.readfile, fname)
-        if not ok then return nil end
+        if not ok or #result == 0 then return nil end
 
         result = table.concat(result)
-        result = vim.json.decode(result)
-        return result
-    end
+        if result == "" then return nil end
 
-    -- NOTE: check local config if available and injected before lsp enabled
-    local original_on_new_config = lspconfig.util.default_config.on_new_config
-
-    lspconfig.util.default_config = vim.tbl_extend('force', lspconfig.util.default_config, {
-        on_new_config = function(config, root_dir)
-            local new_default_config = load_local_settings(root_dir, config.name)
-            if new_default_config then
-                for k, v in pairs(new_default_config) do
-                    config[k] = v
-                end
-            end
-
-            -- INFO: we have overrided config before lsp enabled
-            if original_on_new_config then
-                return original_on_new_config(config, root_dir)
-            end
+        local json_ok, decoded = pcall(vim.json.decode, result)
+        if not json_ok then
+            vim.notify("Failed to parse JSON from " .. fname .. ": " .. decoded, vim.log.levels.ERROR)
+            return nil
         end
-    })
+
+        return decoded
+    end
 
     -- INFO: config lsp log with formatting
     vim.lsp.set_log_level 'off' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
@@ -131,7 +118,7 @@ lsp_setup_module.config = function()
 
     -- INFO: lsp highlight symbols
     local function lsp_highlight_symbol(client, bufnr)
-        if not (client and client:supports_method('textDocument/documentHighlight')) then
+        if not (client and client:supports_method(lsp_methods.textDocument_documentHighlight)) then
             return
         end
 
@@ -155,6 +142,13 @@ lsp_setup_module.config = function()
         )
     end
 
+    -- INFO: lsp document color -- nvim 0.11 nightly
+    local function lsp_document_color(client, bufnr)
+        if client:supports_method(lsp_methods.textDocument_documentColor) then
+            vim.lsp.document_color.enable(true, bufnr)
+        end
+    end
+
     -- NOTE: lsp attach callback
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
@@ -165,7 +159,8 @@ lsp_setup_module.config = function()
 
             lsp_keymap(client, bufnr, require('config.keymaps').lsp)
             lsp_inlayhint(client, bufnr)
-            lsp_highlight_symbol(client, bufnr);
+            lsp_highlight_symbol(client, bufnr)
+            lsp_document_color(client, bufnr)
         end
     })
 
@@ -173,19 +168,26 @@ lsp_setup_module.config = function()
     -- NOTE: config lsp servers in lsp-list
     local lsp_names = {}
     local lsp_configs = require('plugins.lsp-settings.lsp-list')
-    for name, _ in pairs(lsp_configs) do
-        table.insert(lsp_names, name)
+    for lsp_name, lsp_config in pairs(lsp_configs) do
+        table.insert(lsp_names, lsp_name)
+
+        -- NOTE: check local config if available and injected before lsp enabled
+        local new_default_config = load_local_settings(vim.uv.cwd(), lsp_name)
+        if new_default_config then
+            for k, v in pairs(new_default_config) do
+                lsp_config[k] = v
+            end
+        end
+
+        vim.lsp.config(lsp_name, lsp_config)
+        vim.lsp.enable(lsp_name)
     end
 
     -- NOTE: automatically setup lsp from default config installed via mason.nvim
+    -- BUG: currently, `ensure_installed` is broken
     require('mason-lspconfig').setup {
-        ensure_installed = lsp_names,
-        handlers = {
-            function(server_name)
-                lsp_configs[server_name] = lsp_configs[server_name] or {}
-                lspconfig[server_name].setup(lsp_configs[server_name])
-            end,
-        },
+        -- ensure_installed = lsp_names,
+        automatic_enable = false,
     }
 end
 
