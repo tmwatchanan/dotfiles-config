@@ -16,3 +16,4 @@ zed/.tmp*
 zed/prompts/prompts-library-db.0.mdb
 nushell/history.txt
 carapace/bridge
+.nuxtrc
