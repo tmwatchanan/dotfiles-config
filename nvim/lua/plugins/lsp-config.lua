@@ -2,55 +2,16 @@
 -- INFO: lsp server manager config
 --
 local mason_module = {
-    'williamboman/mason.nvim',
-    branch = 'v2.x',
-    cmd = { 'Mason', 'MasonUpdate' },
-}
-
-mason_module.opts = {
-    ui = {
-        border = 'solid',
-    }
-}
-
--- ----------------------------------------------------------------------
--- INFO: LSP config
---
-local lsp_setup_module = {
-    'neovim/nvim-lspconfig',
-    event = { 'BufReadPost', 'BufNewFile' },
+    'williamboman/mason-lspconfig.nvim',
+    branch = '2.x',
     dependencies = {
-        { 'williamboman/mason-lspconfig.nvim', branch = '2.x' },
-        { 'mason.nvim' },
+        { 'williamboman/mason.nvim', branch = 'v2.x', opts = { ui = { border = 'solid' } } },
+        { 'nvim-lspconfig' }
     },
+    event = { 'BufReadPost', 'BufNewFile' },
 }
 
-lsp_setup_module.init = function()
-    vim.diagnostic.config {
-        update_in_insert = false,
-        severity_sort = true,
-        virtual_text = false,
-        virtual_lines = false,
-        signs = {
-            text = {
-                [vim.diagnostic.severity.ERROR] = '',
-                [vim.diagnostic.severity.WARN] = '',
-                [vim.diagnostic.severity.INFO] = '',
-                [vim.diagnostic.severity.HINT] = '',
-            },
-            numhl = {
-                [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
-                [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
-                [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
-                [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
-            },
-        }
-    }
-end
-
-lsp_setup_module.config = function()
-    local lsp_methods = vim.lsp.protocol.Methods
-
+mason_module.config = function()
     local load_local_settings = function(path, server_name)
         vim.validate('path', path, 'string')
 
@@ -59,16 +20,50 @@ lsp_setup_module.config = function()
         if not ok or #result == 0 then return nil end
 
         result = table.concat(result)
-        if result == "" then return nil end
+        if result == '' then return nil end
 
         local json_ok, decoded = pcall(vim.json.decode, result)
         if not json_ok then
-            vim.notify("Failed to parse JSON from " .. fname .. ": " .. decoded, vim.log.levels.ERROR)
+            vim.notify('Failed to parse JSON from ' .. fname .. ': ' .. decoded, vim.log.levels.ERROR)
             return nil
         end
 
         return decoded
     end
+
+    -- INFO: load LSP configurations from individual files in ~/.config/nvim/lsp directory
+    local lsp_names = {}
+    local lsp_dir = vim.fn.stdpath('config') .. '/lsp'
+
+    for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
+        local lsp_name = file:gsub('%.lua$', '')
+        table.insert(lsp_names, lsp_name)
+
+        -- NOTE: check local config if available and injected before lsp enabled
+        local user_local_config = load_local_settings(vim.uv.cwd(), lsp_name)
+        if user_local_config then
+            vim.lsp.config(lsp_name, user_local_config)
+        end
+
+        vim.lsp.enable(lsp_name)
+    end
+
+    -- NOTE: automatically setup lsp from default config installed via mason.nvim
+    require('mason-lspconfig').setup {
+        ensure_installed = lsp_names,
+        automatic_enable = true,
+    }
+end
+
+-- ----------------------------------------------------------------------
+-- INFO: LSP config
+--
+local lspconfig_module = {
+    'neovim/nvim-lspconfig'
+}
+
+lspconfig_module.config = function()
+    local lsp_methods = vim.lsp.protocol.Methods
 
     -- INFO: config lsp log with formatting
     vim.lsp.set_log_level 'off' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
@@ -163,40 +158,41 @@ lsp_setup_module.config = function()
             lsp_document_color(client, bufnr)
         end
     })
-
-
-    -- NOTE: config lsp servers in lsp-list
-    local lsp_names = {}
-    local lsp_configs = require('plugins.lsp-settings.lsp-list')
-    for lsp_name, lsp_config in pairs(lsp_configs) do
-        table.insert(lsp_names, lsp_name)
-
-        -- NOTE: check local config if available and injected before lsp enabled
-        local new_default_config = load_local_settings(vim.uv.cwd(), lsp_name)
-        if new_default_config then
-            for k, v in pairs(new_default_config) do
-                lsp_config[k] = v
-            end
-        end
-
-        vim.lsp.config(lsp_name, lsp_config)
-        vim.lsp.enable(lsp_name)
-    end
-
-    -- NOTE: automatically setup lsp from default config installed via mason.nvim
-    -- BUG: currently, `ensure_installed` is broken
-    require('mason-lspconfig').setup {
-        -- ensure_installed = lsp_names,
-        automatic_enable = false,
-    }
 end
 
-local diagflow_module = {
+
+-- ----------------------------------------------------------------------
+-- INFO: Diagnostics config
+--
+local diagnostic_module = {
     'dgagn/diagflow.nvim',
     event = 'LspAttach',
 }
 
-diagflow_module.opts = {
+diagnostic_module.init = function()
+    vim.diagnostic.config {
+        update_in_insert = false,
+        severity_sort = true,
+        virtual_text = false,
+        virtual_lines = false,
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = '',
+                [vim.diagnostic.severity.WARN] = '',
+                [vim.diagnostic.severity.INFO] = '',
+                [vim.diagnostic.severity.HINT] = '',
+            },
+            numhl = {
+                [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
+                [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
+                [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+                [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+            },
+        }
+    }
+end
+
+diagnostic_module.opts = {
     scope = 'line',
     padding_top = 2,
     toggle_event = { 'InsertEnter', 'InsertLeave' },
@@ -210,6 +206,6 @@ diagflow_module.opts = {
 
 return {
     mason_module,
-    lsp_setup_module,
-    diagflow_module,
+    lspconfig_module,
+    diagnostic_module,
 }
