@@ -117,7 +117,7 @@ cmd - h : [ ]
 
 # Toggle sketchybar
 shift + lalt - space : sketchybar --bar hidden=toggle
-shift + lalt - r : sketchybar --remove '/.*/' && sh -c '$HOME/.config/sketchybar/sketchybarrc'
+ctrl + shift + lalt - r : sketchybar --remove '/.*/' && sh -c '$HOME/.config/sketchybar/sketchybarrc'
 
 # Toggle margin of sketchybar
 shift + lalt - m : CURRENT="$(sketchybar --query bar | jq -r '.y_offset')"; \
