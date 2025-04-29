@@ -2,10 +2,14 @@ local M = {
     'AckslD/swenv.nvim',
     ft = { 'python' },
     cond = not vim.g.vscode,
+    dev = true,
 }
 
 M.opts = {
     post_set_venv = function()
+        local client = vim.lsp.get_clients({ name = "basedpyright" })[1]
+        if not client then return end
+
         local python_path = require('config.python').get_python_path()
         vim.cmd('PyrightSetPythonPath ' .. python_path)
         local venv = require('swenv.api').get_current_venv()

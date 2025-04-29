@@ -151,6 +151,10 @@ M.setup = function()
         MarkSignHL = { fg = colorset.bright_blue },
     }
 
+    local surround_highlight = {
+        MiniSurround = { link = 'MatchParen' },
+    }
+
     overrided_highlights = utils.merge(overrided_highlights, {
         Normal = { fg = c.base04, bg = c.none },
         NormalNC = { link = 'Normal' },
@@ -185,6 +189,7 @@ M.setup = function()
     overrided_highlights = utils.merge(overrided_highlights, oil_highlight)
     overrided_highlights = utils.merge(overrided_highlights, snacks_highlight)
     overrided_highlights = utils.merge(overrided_highlights, markdown_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, surround_highlight)
 
     for hl_name, hl_value in pairs(overrided_highlights) do
         vim.api.nvim_set_hl(0, hl_name, hl_value)

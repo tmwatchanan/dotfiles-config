@@ -16,16 +16,16 @@ M.opts = function()
 
     return {
         keymap = {
-            ['<CR>'] = {
-                function(_)
-                    if copilot_status and copilot_suggestion.is_visible() then
-                        copilot_suggestion.accept()
-                        return true -- NOTE: must return true, skip fallback case
-                    end
-                end,
-                'accept',
-                'fallback',
-            },
+            -- ['<CR>'] = {
+            --     function(_)
+            --         if copilot_status and copilot_suggestion.is_visible() then
+            --             copilot_suggestion.accept()
+            --             return true -- NOTE: must return true, skip fallback case
+            --         end
+            --     end,
+            --     'accept',
+            --     'fallback',
+            -- },
             ['<C-e>'] = {
                 function(_)
                     if copilot_status and copilot_suggestion.is_visible() then
@@ -38,10 +38,15 @@ M.opts = function()
             },
             ['<Tab>'] = {
                 function(cmp)
-                    if not cmp.is_visible() then return end
-                    vim.schedule(function() require('blink.cmp.completion.list').select_next() end)
-                    return true
+                    if copilot_status and copilot_suggestion.is_visible() then
+                        copilot_suggestion.accept()
+                        return true -- NOTE: must return true, skip fallback case
+                    end
+                    -- if not cmp.is_visible() then return end
+                    -- vim.schedule(function() require('blink.cmp.completion.list').select_next() end)
+                    -- return true
                 end,
+                'accept',
                 'snippet_forward',
                 'fallback'
             },

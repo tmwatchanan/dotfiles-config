@@ -8,6 +8,7 @@ M.opts = {
     columns = {
         'permissions',
         'size',
+        'mtime',
         'icon',
     },
     view_options = {

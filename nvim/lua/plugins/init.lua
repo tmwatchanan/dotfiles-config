@@ -99,15 +99,6 @@ return {
         end,
     },
     {
-        'MomePP/sentiment.nvim',
-        event = 'BufReadPost',
-        config = true,
-        init = function()
-            -- `matchparen.vim` needs to be disabled manually in case of lazy loading
-            vim.g.loaded_matchparen = 1
-        end,
-    },
-    {
         'axkirillov/hbac.nvim',
         opts = {
             threshold = 20,

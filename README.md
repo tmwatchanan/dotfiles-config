@@ -36,6 +36,24 @@ curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher   
 fisher update   # install all listed plugins in `fish_plugins`
 ```
 
+## nushell
+Requires `nu` to be installed
+``` bash
+brew install nushell
+sudo echo "$(which nu)" >> /etc/shells
+chsh -s $(which nu)
+```
+
+### setup nu config files to source from XDG_CONFIG_HOME
+
+``` Library/Application Support/nushell/config.nu
+source ~/.config/nushell/config.nu
+```
+
+``` Library/Application Support/nushell/env.nu
+source ~/.config/nushell/env.nu
+```
+
 ## tmux
 Requires `tmux` and `tmp`(tmux plugins manager)
 
@@ -67,8 +85,18 @@ brew install ncurses
 sudo tic -xe tmux-256color ~/tmux-256color.info
 ```
 
-## skhd
+## SKHD
 - Using `skhd` with `fish` shell can cause some slowness issue. See [Long Delay before Action #42](https://github.com/koekeishiya/skhd/issues/42) for specifying the `SHELL` environment variable to be `/bin/sh` instead. Then, you'll have a much snappier reactions.
+
+update service plist file to runs skhd using `/bin/bash`
+
+`~/Library/LaunchAgents/com.koekeishiya.skhd.plist`
+
+- Add `SHELL` key to env dict
+    ``` xml
+        <key>SHELL</key>
+        <string>/bin/bash</string>
+    ```
 
 ## bat
 To install a custom theme, use the following commands:

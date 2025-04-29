@@ -2,88 +2,76 @@
 -- INFO: lsp server manager config
 --
 local mason_module = {
-    'williamboman/mason.nvim',
-    branch = 'v2.x',
-    cmd = { 'Mason', 'MasonUpdate' },
+    'williamboman/mason-lspconfig.nvim',
+    branch = '2.x',
+    dependencies = {
+        {
+            'williamboman/mason.nvim',
+            branch = 'v2.x',
+            opts = { ui = { border = 'solid' }, pip = { upgrade_pip = true } },
+        },
+        { 'nvim-lspconfig' }
+    },
     cond = not vim.g.vscode,
+    event = { 'BufReadPost', 'BufNewFile' },
 }
 
 mason_module.opts = {
-    ui = {
-        border = 'solid',
-    },
-    pip = {
-        upgrade_pip = true,
-    },
 }
 
--- ----------------------------------------------------------------------
--- INFO: LSP config
---
-local lsp_setup_module = {
-    'neovim/nvim-lspconfig',
-    event = { 'BufReadPost', 'BufNewFile' },
-    dependencies = {
-        'williamboman/mason-lspconfig.nvim',
-        'mason.nvim',
-    },
-    cond = not vim.g.vscode,
-}
-
-lsp_setup_module.init = function()
-    vim.diagnostic.config {
-        update_in_insert = false,
-        severity_sort = true,
-        virtual_text = false,
-        virtual_lines = false,
-        signs = {
-            text = {
-                [vim.diagnostic.severity.ERROR] = '',
-                [vim.diagnostic.severity.WARN] = '',
-                [vim.diagnostic.severity.INFO] = '',
-                [vim.diagnostic.severity.HINT] = '',
-            },
-            numhl = {
-                [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
-                [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
-                [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
-                [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
-            },
-        }
-    }
-end
-
-lsp_setup_module.config = function()
-    local lspconfig = require('lspconfig')
-    local lsp_methods = vim.lsp.protocol.Methods
-
+mason_module.config = function()
     local load_local_settings = function(path, server_name)
         vim.validate('path', path, 'string')
 
         local fname = string.format('%s/%s.json', path, server_name)
         local ok, result = pcall(vim.fn.readfile, fname)
-        if not ok then return nil end
+        if not ok or #result == 0 then return nil end
 
         result = table.concat(result)
-        result = vim.json.decode(result)
-        return result
+        if result == '' then return nil end
+
+        local json_ok, decoded = pcall(vim.json.decode, result)
+        if not json_ok then
+            vim.notify('Failed to parse JSON from ' .. fname .. ': ' .. decoded, vim.log.levels.ERROR)
+            return nil
+        end
+
+        return decoded
     end
 
-    -- NOTE:  inject `esp-clang`, use specific fork clang from espressif
-    --  also add `query-driver` for specific toolchains not from builtin binary
-    lspconfig.util.default_config = vim.tbl_extend('force', lspconfig.util.default_config, {
-        on_new_config = lspconfig.util.add_hook_before(lspconfig.util.default_config.on_new_config,
-            function(config, root_dir)
-                local new_default_config = load_local_settings(root_dir, config.name)
-                if new_default_config then
-                    for k, v in pairs(new_default_config) do config[k] = v end
-                end
+    -- INFO: load LSP configurations from individual files in ~/.config/nvim/lsp directory
+    local lsp_names = {}
+    local lsp_dir = vim.fn.stdpath('config') .. '/lsp'
 
-                if config.name == "julials" then
-                    require('plugins.julia-config').install_language_server()
-                end
-            end),
-    })
+    for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
+        local lsp_name = file:gsub('%.lua$', '')
+        table.insert(lsp_names, lsp_name)
+
+        -- NOTE: check local config if available and injected before lsp enabled
+        local user_local_config = load_local_settings(vim.uv.cwd(), lsp_name)
+        if user_local_config then
+            vim.lsp.config(lsp_name, user_local_config)
+        end
+
+        vim.lsp.enable(lsp_name)
+    end
+
+    -- NOTE: automatically setup lsp from default config installed via mason.nvim
+    require('mason-lspconfig').setup {
+        ensure_installed = lsp_names,
+        automatic_enable = true,
+    }
+end
+
+-- ----------------------------------------------------------------------
+-- INFO: LSP config
+--
+local lspconfig_module = {
+    'neovim/nvim-lspconfig'
+}
+
+lspconfig_module.config = function()
+    local lsp_methods = vim.lsp.protocol.Methods
 
     -- INFO: config lsp log with formatting
     vim.lsp.set_log_level 'ERROR' --    Levels by name: 'TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'OFF'
@@ -138,7 +126,7 @@ lsp_setup_module.config = function()
 
     -- INFO: lsp highlight symbols
     local function lsp_highlight_symbol(client, bufnr)
-        if not (client and client:supports_method('textDocument/documentHighlight')) then
+        if not (client and client:supports_method(lsp_methods.textDocument_documentHighlight)) then
             return
         end
 
@@ -162,6 +150,13 @@ lsp_setup_module.config = function()
         )
     end
 
+    -- INFO: lsp document color -- nvim 0.11 nightly
+    local function lsp_document_color(client, bufnr)
+        if client:supports_method(lsp_methods.textDocument_documentColor) then
+            vim.lsp.document_color.enable(true, bufnr)
+        end
+    end
+
     -- NOTE: lsp attach callback
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
@@ -173,70 +168,72 @@ lsp_setup_module.config = function()
             lsp_keymap(client, bufnr, require('config.keymaps').lsp)
             vim.lsp.inlay_hint.enable(vim.g.show_inlay_hint, { bufnr = bufnr })
             lsp_inlayhint(client, bufnr)
-            lsp_highlight_symbol(client, bufnr);
+            lsp_highlight_symbol(client, bufnr)
+            lsp_document_color(client, bufnr)
         end
     })
-
-
-    -- NOTE: config lsp servers in lsp-list
-    local lsp_names = {}
-    local lsp_configs = require('plugins.lsp-settings.lsp-list')
-    for name, _ in pairs(lsp_configs) do
-        table.insert(lsp_names, name)
-    end
-
-    -- NOTE: automatically setup lsp from default config installed via mason.nvim
-    local lsp_capabilities = require('blink.cmp').get_lsp_capabilities()
-    lsp_capabilities.textDocument.foldingRange = { -- INFO: nvim-ufo
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-    }
-    require('mason-lspconfig').setup {
-        ensure_installed = lsp_names,
-        handlers = {
-            function(server_name)
-                lsp_configs[server_name] = lsp_configs[server_name] or {}
-                lsp_configs[server_name].capabilities = lsp_capabilities
-                lspconfig[server_name].setup(lsp_configs[server_name])
-            end,
-        },
-    }
 end
 
 -- ref: https://www.reddit.com/r/neovim/comments/1jm5atz/comment/mk9w6v0/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 ---@param jumpCount number
-lsp_setup_module.jumpWithVirtLineDiags = function(jumpCount)
-	pcall(vim.api.nvim_del_augroup_by_name, 'jumpWithVirtLineDiags') -- prevent autocmd for repeated jumps
+lspconfig_module.jumpWithVirtLineDiags = function(jumpCount)
+    pcall(vim.api.nvim_del_augroup_by_name, 'jumpWithVirtLineDiags') -- prevent autocmd for repeated jumps
 
-	vim.diagnostic.jump { count = jumpCount }
+    vim.diagnostic.jump { count = jumpCount }
 
-	local initialVirtTextConf = vim.diagnostic.config().virtual_text
-	vim.diagnostic.config {
-		virtual_text = false,
-		virtual_lines = { current_line = true },
-	}
+    local initialVirtTextConf = vim.diagnostic.config().virtual_text
+    vim.diagnostic.config {
+        virtual_text = false,
+        virtual_lines = { current_line = true },
+    }
 
-	vim.defer_fn(function() -- deferred to not trigger by jump itself
-		vim.api.nvim_create_autocmd('CursorMoved', {
-			desc = 'User(once): Reset diagnostics virtual lines',
-			once = true,
-			group = vim.api.nvim_create_augroup('jumpWithVirtLineDiags', {}),
-			callback = function()
-				vim.diagnostic.config { virtual_lines = false, virtual_text = initialVirtTextConf }
-			end,
-		})
-	end, 1)
+    vim.defer_fn(function() -- deferred to not trigger by jump itself
+        vim.api.nvim_create_autocmd('CursorMoved', {
+            desc = 'User(once): Reset diagnostics virtual lines',
+            once = true,
+            group = vim.api.nvim_create_augroup('jumpWithVirtLineDiags', {}),
+            callback = function()
+                vim.diagnostic.config { virtual_lines = false, virtual_text = initialVirtTextConf }
+            end,
+        })
+    end, 1)
 end
 
 
-local diagflow_module = {
+-- ----------------------------------------------------------------------
+-- INFO: Diagnostics config
+--
+local diagnostic_module = {
     'dgagn/diagflow.nvim',
     event = 'LspAttach',
     cond = not vim.g.vscode,
 }
 
-diagflow_module.opts = {
-    scope = 'cursor',
+diagnostic_module.init = function()
+    vim.diagnostic.config {
+        update_in_insert = false,
+        severity_sort = true,
+        virtual_text = false,
+        virtual_lines = false,
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = '',
+                [vim.diagnostic.severity.WARN] = '',
+                [vim.diagnostic.severity.INFO] = '',
+                [vim.diagnostic.severity.HINT] = '',
+            },
+            numhl = {
+                [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
+                [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
+                [vim.diagnostic.severity.INFO] = 'DiagnosticInfo',
+                [vim.diagnostic.severity.HINT] = 'DiagnosticHint',
+            },
+        }
+    }
+end
+
+diagnostic_module.opts = {
+    scope = 'line',
     padding_top = 2,
     toggle_event = { 'InsertEnter', 'InsertLeave' },
     severity_colors = {
@@ -258,7 +255,24 @@ local formatter_module = {
     },
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-        local formatters = require('plugins.lsp-settings.formatters')
+        local formatters = {
+            mason_tool_installer = {
+                ensure_installed = {
+                    'prettierd',
+                },
+            },
+            none_ls = {
+                sources = {
+                    require('null-ls').builtins.formatting.prettierd,
+
+                    require('null-ls').builtins.formatting.shfmt,
+                    require('null-ls').builtins.diagnostics.fish,
+                    require('null-ls').builtins.formatting.fish_indent,
+                    require('null-ls').builtins.formatting.buf,
+                    require('null-ls').builtins.formatting.sqlfluff,
+                },
+            },
+        }
         require('mason-tool-installer').setup(formatters.mason_tool_installer)
         require('mason-tool-installer').check_install(false)
         require('null-ls').setup(formatters.none_ls)
@@ -268,7 +282,7 @@ local formatter_module = {
 
 return {
     mason_module,
-    lsp_setup_module,
-    diagflow_module,
+    lspconfig_module,
+    diagnostic_module,
     formatter_module,
 }

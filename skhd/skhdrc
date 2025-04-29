@@ -128,3 +128,4 @@ shift + lalt - m : CURRENT="$(sketchybar --query bar | jq -r '.y_offset')"; \
                     yabai -m config external_bar all:36:0; \
                     sketchybar --animate sin 15 --bar margin=0 y_offset=0 corner_radius=0; \
                   fi \
+# ctrl + cmd - r : yabai -m config menubar_opacity "$(printf "%.1f" "$((1 - $(yabai -m config menubar_opacity | cut -d. -f1)))")"

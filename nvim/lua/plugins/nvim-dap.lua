@@ -77,7 +77,11 @@ local dap_module = {
 }
 
 dap_module.config = function()
-    local debuggers = require('plugins.lsp-settings.debuggers')
+    local debuggers = {
+        ensure_installed = {
+            'debugpy',
+        },
+    }
     require('mason-tool-installer').setup(debuggers)
     require('mason-tool-installer').check_install(false)
 

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # WARN: must have brew installed
-brew install wget luarocks neovim lazygit git-flow-avh git-delta ripgrep fd jq eza
+# brew install wget luarocks neovim lazygit git-flow-avh git-delta ripgrep fd jq eza
+brew install wget lazygit git-flow-avh git-delta ripgrep fd eza fnm neovim nushell gh bat pyenv tmux yabai skhd sketchybar starship
 
 # INFO: -- move nvim config files to local config directory
 config_path=~/.config
@@ -19,23 +20,6 @@ if [ $update_nvim_config = "y" ]; then
     echo "added neovim config !"
 else
     echo "skipped neovim config.."
-fi
-
-# INFO: -- add edit and open commands for lazygit config if config not exists
-update_lazygit_config="y"
-found_lazygit_config=false
-if [ -d "$config_path/lazygit" ]; then
-    found_lazygit_config=true
-    read -p "found exist lazygit config.. overwrite (y) or (n) ? : " update_lazygit_config
-fi
-if [ $update_lazygit_config = "y" ]; then
-    if $found_lazygit_config; then
-        rm -rf "$config_path/lazygit"
-    fi
-    cp -r lazygit "$config_path"
-    echo "added lazygit config !"
-else
-    echo "skipped lazygit config.."
 fi
 
 # INFO: -- symlink gitconfig file

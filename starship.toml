@@ -1,26 +1,14 @@
+command_timeout = 1000
+
 [character]
-success_symbol = "[](cyan)"
-error_symbol = "[](yellow)"
-vicmd_symbol = "[](cyan)"
-vimcmd_replace_one_symbol = "[](magenta)"
-vimcmd_replace_symbol = "[](magenta)"
-vimcmd_visual_symbol = "[](green)"
+success_symbol = "[➜](cyan)"
+error_symbol = "[➜](green)"
 
 [directory]
 read_only = " "
 truncation_length = 10
 truncate_to_repo = true # truncates directory to root folder if in github repo
 style = "bold blue"
-
-[[battery.display]]
-threshold = 10
-style = "bold red"
-discharging_symbol = "􀛪  "
-
-[[battery.display]]
-threshold = 30
-style = "bold yellow"
-discharging_symbol = "􀛩  "
 
 [git_branch]
 symbol = " "
@@ -91,4 +79,3 @@ symbol = "🅢 "
 
 [rust]
 symbol = " "
-
