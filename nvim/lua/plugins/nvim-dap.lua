@@ -72,21 +72,19 @@ local dap_module = {
     'mfussenegger/nvim-dap',
     dependencies = {
         dap_python_module,
+        'jay-babu/mason-nvim-dap.nvim',
     },
     cond = not vim.g.vscode,
+    config = function()
+        require('mason-nvim-dap').setup({
+            ensure_installed = {
+                'python', -- debugpy
+            },
+        })
+
+        require('dap').defaults.python.exception_breakpoints = { 'raised', 'uncaught' } -- debugpy
+    end,
 }
-
-dap_module.config = function()
-    local debuggers = {
-        ensure_installed = {
-            'debugpy',
-        },
-    }
-    require('mason-tool-installer').setup(debuggers)
-    require('mason-tool-installer').check_install(false)
-
-    require('dap').defaults.python.exception_breakpoints = { 'raised', 'uncaught' } -- debugpy
-end
 
 
 local dapui_module = {

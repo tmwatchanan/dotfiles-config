@@ -16,9 +16,6 @@ local mason_module = {
     event = { 'BufReadPost', 'BufNewFile' },
 }
 
-mason_module.opts = {
-}
-
 mason_module.config = function()
     local load_local_settings = function(path, server_name)
         vim.validate('path', path, 'string')
@@ -251,31 +248,33 @@ local formatter_module = {
     'nvimtools/none-ls.nvim',
     dependencies = {
         'plenary.nvim',
-        'WhoIsSethDaniel/mason-tool-installer.nvim',
+        {
+            'jay-babu/mason-null-ls.nvim',
+            dependencies = {
+                'williamboman/mason.nvim',
+                'WhoIsSethDaniel/mason-tool-installer.nvim',
+            },
+        },
     },
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-        local formatters = {
-            mason_tool_installer = {
-                ensure_installed = {
-                    'prettierd',
-                },
+        require('mason-null-ls').setup({
+            ensure_installed = {
+                'prettierd',
             },
-            none_ls = {
-                sources = {
-                    require('null-ls').builtins.formatting.prettierd,
+        })
+        local none_ls_config = {
+            sources = {
+                require('null-ls').builtins.formatting.prettierd,
 
-                    require('null-ls').builtins.formatting.shfmt,
-                    require('null-ls').builtins.diagnostics.fish,
-                    require('null-ls').builtins.formatting.fish_indent,
-                    require('null-ls').builtins.formatting.buf,
-                    require('null-ls').builtins.formatting.sqlfluff,
-                },
+                require('null-ls').builtins.formatting.shfmt,
+                require('null-ls').builtins.diagnostics.fish,
+                require('null-ls').builtins.formatting.fish_indent,
+                require('null-ls').builtins.formatting.buf,
+                require('null-ls').builtins.formatting.sqlfluff,
             },
         }
-        require('mason-tool-installer').setup(formatters.mason_tool_installer)
-        require('mason-tool-installer').check_install(false)
-        require('null-ls').setup(formatters.none_ls)
+        require('null-ls').setup(none_ls_config)
     end,
     cond = not vim.g.vscode,
 }
