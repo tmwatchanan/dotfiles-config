@@ -8,7 +8,7 @@ local mason_module = {
         { 'williamboman/mason.nvim', branch = 'v2.x', opts = { ui = { border = 'solid' } } },
         { 'nvim-lspconfig' }
     },
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
 }
 
 mason_module.config = function()
@@ -31,9 +31,13 @@ mason_module.config = function()
         return decoded
     end
 
+    -- INFO: config lsp log with formatting
+    vim.lsp.set_log_level 'off' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
+    -- require('vim.lsp.log').set_format_func(vim.inspect)
+
     -- INFO: load LSP configurations from individual files in ~/.config/nvim/lsp directory
     local lsp_names = {}
-    local lsp_dir = vim.fn.stdpath('config') .. '/lsp'
+    local lsp_dir = vim.fn.stdpath('config') .. '/after/lsp'
 
     for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
         local lsp_name = file:gsub('%.lua$', '')
@@ -44,8 +48,6 @@ mason_module.config = function()
         if user_local_config then
             vim.lsp.config(lsp_name, user_local_config)
         end
-
-        vim.lsp.enable(lsp_name)
     end
 
     -- NOTE: automatically setup lsp from default config installed via mason.nvim
@@ -53,6 +55,8 @@ mason_module.config = function()
         ensure_installed = lsp_names,
         automatic_enable = true,
     }
+
+    vim.lsp.enable(lsp_names)
 end
 
 -- ----------------------------------------------------------------------
@@ -65,27 +69,9 @@ local lspconfig_module = {
 lspconfig_module.config = function()
     local lsp_methods = vim.lsp.protocol.Methods
 
-    -- INFO: config lsp log with formatting
-    vim.lsp.set_log_level 'off' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
-    -- require('vim.lsp.log').set_format_func(vim.inspect)
-
-    -- INFO: check if eslint is attach then enable documentFormattingProvider
-    local function check_eslint(client)
-        if client.name == 'eslint' then
-            client.server_capabilities.documentFormattingProvider = true
-            return true
-        end
-        return false
-    end
-
     -- INFO: config lsp keymaps
-    local function lsp_keymap(client, bufnr, mapping)
+    local function lsp_keymap(bufnr, mapping)
         local opts = { buffer = bufnr, silent = true, noremap = true }
-
-        -- INFO: always call formatting with restrict to eslint if found
-        if check_eslint(client) then
-            mapping.format.cmd = function() vim.lsp.buf.format({ async = true, name = client.name }) end
-        end
 
         for _, keymap in pairs(mapping) do
             vim.keymap.set('n', keymap.key, keymap.cmd, opts)
@@ -146,13 +132,13 @@ lspconfig_module.config = function()
 
     -- NOTE: lsp attach callback
     vim.api.nvim_create_autocmd('LspAttach', {
-        desc = 'LSP actions',
+        desc = 'LSP features',
         callback = function(event)
             local bufnr = event.buf
             local id = vim.tbl_get(event, 'data', 'client_id')
             local client = id and vim.lsp.get_client_by_id(id) or {}
 
-            lsp_keymap(client, bufnr, require('config.keymaps').lsp)
+            lsp_keymap(bufnr, require('config.keymaps').lsp)
             lsp_inlayhint(client, bufnr)
             lsp_highlight_symbol(client, bufnr)
             lsp_document_color(client, bufnr)
