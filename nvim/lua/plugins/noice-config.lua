@@ -1,6 +1,6 @@
 local M = {
     'folke/noice.nvim',
-    event = 'UIEnter',
+    lazy = false,
 }
 
 M.opts = {
@@ -29,9 +29,6 @@ M.opts = {
                 height = 'auto',
                 width = '100%',
             },
-            border = {
-                style = 'none',
-            },
             format = { ' {confirm}' },
         },
         mini = {
@@ -43,7 +40,12 @@ M.opts = {
         },
         split = {
             size = '30%'
-        }
+        },
+        popup = {
+            border = {
+                style = 'solid',
+            },
+        },
     },
     messages = {
         view_search = false,
@@ -66,14 +68,25 @@ M.opts = {
     },
     commands = {
         history = {
+            opts = {
+                format = {
+                    '{date} ',
+                    '{event}', { '{kind} ', before = { '.', hl_group = 'NoiceFormatKind' } },
+                    '{title} ',
+                    '{cmdline}',
+                    '\n',
+                    '{level} ',
+                    '{message}\n',
+                },
+            },
             filter_opts = { reverse = true },
             filter = {
                 any = {
                     { warning = true },
                     { error = true },
                     { event = 'notify' },
-                    { event = 'msg_show' },
-                    { event = 'lsp',     kind = 'message' },
+                    { event = 'msg_show', kind = { '' } },
+                    { event = 'lsp',      kind = 'message' },
                 },
             },
         }

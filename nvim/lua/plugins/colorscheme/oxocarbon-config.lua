@@ -39,6 +39,9 @@ M.setup = function()
         NoiceCmdlineIconFilter = { link = 'lualine_a_command' },
         NoiceSplit = { link = 'Normal' },
         NoiceSplitBorder = { link = 'NoiceSplit' },
+        NoiceFormatDate = { fg = c.pink },
+        NoiceFormatEvent = { fg = c.orange },
+        NoiceFormatKind = { fg = c.green },
     }
 
     local snacks_highlight = {
@@ -115,7 +118,6 @@ M.setup = function()
         CmpItemAbbrMatch = { fg = c.base05, bg = c.none, bold = true },
         CmpItemAbbrMatchFuzzy = { fg = c.base05, bg = c.none, bold = true },
         CmpItemMenu = { fg = c.base10, bg = c.none, italic = true },
-        CmpGhostText = { fg = c.ghost },
         CmpItemKindInterface = { fg = c.base08, bg = c.none },
         CmpItemKindColor = { fg = c.base08, bg = c.none },
         CmpItemKindTypeParameter = { fg = c.base08, bg = c.none },
@@ -141,6 +143,8 @@ M.setup = function()
         CmpItemKindMethod = { fg = c.base15, bg = c.none },
         CmpItemKindValue = { fg = c.base15, bg = c.none },
         CmpItemKindEnumMember = { fg = c.base15, bg = c.none },
+
+        BlinkCmpGhostText = { fg = c.ghost },
     }
 
     local hlslens_highlight = {
