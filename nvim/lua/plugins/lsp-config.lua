@@ -2,10 +2,9 @@
 -- INFO: lsp server manager config
 --
 local mason_module = {
-    'williamboman/mason-lspconfig.nvim',
-    branch = '2.x',
+    'mason-org/mason-lspconfig.nvim',
     dependencies = {
-        { 'williamboman/mason.nvim', branch = 'v2.x', opts = { ui = { border = 'solid' } } },
+        { 'mason-org/mason.nvim', opts = { ui = { border = 'solid' } } },
         { 'nvim-lspconfig' }
     },
     event = { 'BufReadPre', 'BufNewFile' },
@@ -39,6 +38,10 @@ mason_module.config = function()
     local lsp_names = {}
     local lsp_dir = vim.fn.stdpath('config') .. '/after/lsp'
 
+    vim.lsp.config('*', {
+        capabilities = vim.lsp.protocol.make_client_capabilities()
+    })
+
     for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
         local lsp_name = file:gsub('%.lua$', '')
         table.insert(lsp_names, lsp_name)
@@ -55,8 +58,6 @@ mason_module.config = function()
         ensure_installed = lsp_names,
         automatic_enable = true,
     }
-
-    vim.lsp.enable(lsp_names)
 end
 
 -- ----------------------------------------------------------------------
