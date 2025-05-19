@@ -83,7 +83,7 @@ codecompanion.opts = {
                 layout   = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
                 -- width = 1,
                 -- height = 0.45,
-                width    = 0.3,
+                width    = 0.4,
                 height   = vim.o.lines - 3,
 
                 -- Options below only apply to floating windows
