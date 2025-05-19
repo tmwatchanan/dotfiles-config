@@ -85,7 +85,7 @@ M.opts = {
                     { warning = true },
                     { error = true },
                     { event = 'notify' },
-                    { event = 'msg_show', kind = { '' } },
+                    { event = 'msg_show' },
                     { event = 'lsp',      kind = 'message' },
                 },
             },
