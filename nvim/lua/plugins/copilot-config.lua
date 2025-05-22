@@ -46,11 +46,7 @@ codecompanion.opts = {
     adapters = {
         copilot = function()
             return require('codecompanion.adapters').extend('copilot', {
-                schema = {
-                    model = {
-                        default = 'claude-3.7-sonnet',
-                    },
-                },
+                schema = { model = { default = 'gpt-4.1' } },
             })
         end,
     },
