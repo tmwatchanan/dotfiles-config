@@ -22,14 +22,14 @@ os:
     open: "^open -R {{filename}}"
     editPreset: 'nvim-remote'
     edit: >-
-        if ($env.NVIM == "") {
+        if not ($env | columns | any { |col| $col == 'NVIM' }) {
             nvim -- {{filename}}
         } else {
             nvim --server $env.NVIM --remote-send "q"
             nvim --server $env.NVIM --remote {{filename}}
         }
     editAtLine: >-
-        if ($env.NVIM == "") {
+        if not ($env | columns | any { |col| $col == 'NVIM' }) {
             nvim +{{line}} -- {{filename}}
         } else {
             nvim --server $env.NVIM --remote-send "q"
@@ -37,7 +37,7 @@ os:
             nvim --server "$NVIM" --remote-send ":{{line}}<CR>"
         }
     openDirInEditor: >-
-        if ($env.NVIM == "") {
+        if not ($env | columns | any { |col| $col == 'NVIM' }) {
             nvim -- {{dir}}
         } else {
             nvim --server $env.NVIM --remote-send "q"
