@@ -54,17 +54,15 @@ M.opts = {
 }
 
 M.keys = function()
-    local oil = require('oil')
     local oil_keymap = require('config.keymaps').oil
-
     return {
         {
             oil_keymap.open_float,
             function()
                 if vim.w.is_oil_win then
-                    oil.close()
+                    require('oil').close()
                 else
-                    oil.open_float(nil, { preview = {} })
+                    require('oil').open_float(nil, { preview = {} })
                 end
             end
         },

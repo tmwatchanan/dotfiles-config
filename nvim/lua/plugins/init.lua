@@ -28,7 +28,7 @@ return {
     {
         'hiphish/rainbow-delimiters.nvim',
         submodules = false,
-        config = function ()
+        config = function()
             require('rainbow-delimiters').enable()
         end,
     },
@@ -54,7 +54,7 @@ return {
         keys = function()
             local hbac_keymap = require('config.keymaps').hbac
             return {
-                { hbac_keymap.toggle_pin, require('hbac').toggle_pin }
+                { hbac_keymap.toggle_pin, '<Cmd>Hbac toggle_pin<CR>' }
             }
         end
     },
@@ -64,8 +64,8 @@ return {
         keys = function()
             local rename_keymap = require('config.keymaps').rename
             return {
-                { rename_keymap.rename,       require('live-rename').map({ insert = true }) },
-                { rename_keymap.rename_clean, require('live-rename').map({ text = '', insert = true }) },
+                { rename_keymap.rename,       function() require('live-rename').map({ insert = true }) end },
+                { rename_keymap.rename_clean, function() require('live-rename').map({ text = '', insert = true }) end },
             }
         end
     },

@@ -31,19 +31,18 @@ M.opts = {
 
 
 M.keys = function()
-    local marks = require('marks')
     local marks_keymap = require('config.keymaps').marks
 
     -- NOTE: refresh marks after written buffer
     vim.api.nvim_create_autocmd('BufWritePost', {
-        callback = function() marks.refresh(true) end
+        callback = function() require('marks').refresh(true) end
     })
 
     return {
-        { marks_keymap.toggle, function() marks.toggle() end },
-        { marks_keymap.next,   function() marks.next() end },
-        { marks_keymap.prev,   function() marks.prev() end },
-        { marks_keymap.clear,  function() marks.delete_buf() end },
+        { marks_keymap.toggle, function() require('marks').toggle() end },
+        { marks_keymap.next,   function() require('marks').next() end },
+        { marks_keymap.prev,   function() require('marks').prev() end },
+        { marks_keymap.clear,  function() require('marks').delete_buf() end },
 
         -- NOTE: use quickfix to show all marks
         {
@@ -77,7 +76,7 @@ M.keys = function()
                 require('snacks').picker.pick({
                     source = 'marks.nvim',
                     format = 'file',
-                    items = gen_items(marks.mark_state:get_all_list() or {}),
+                    items = gen_items(require('marks').mark_state:get_all_list() or {}),
                 })
             end
         },
