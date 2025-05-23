@@ -38,7 +38,17 @@ end
 
 local codecompanion = {
     'olimorris/codecompanion.nvim',
-    dependencies = { 'plenary.nvim', 'nvim-treesitter', { 'echasnovski/mini.diff', opts = {} } },
+    dependencies = {
+        'plenary.nvim',
+        'nvim-treesitter',
+        {
+            'echasnovski/mini.diff',
+            config = function()
+                local diff = require('mini.diff')
+                diff.setup { source = diff.gen_source.none() }
+            end,
+        },
+    },
     cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions' },
 }
 
