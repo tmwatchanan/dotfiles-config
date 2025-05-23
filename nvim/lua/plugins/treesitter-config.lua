@@ -12,6 +12,7 @@ local M = {
             opts = true
         },
         'nvim-treesitter-textobjects',
+        'rainbow-delimiters.nvim',
     },
     main = 'nvim-treesitter.configs'
 }

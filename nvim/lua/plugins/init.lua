@@ -26,8 +26,15 @@ return {
         config = true
     },
     {
+        'hiphish/rainbow-delimiters.nvim',
+        submodules = false,
+        config = function ()
+            require('rainbow-delimiters').enable()
+        end,
+    },
+    {
         'Wansmer/treesj',
-        dependencies = { 'nvim-treesitter' },
+        dependencies = 'nvim-treesitter',
         opts = {
             use_default_keymaps = false,
         },
