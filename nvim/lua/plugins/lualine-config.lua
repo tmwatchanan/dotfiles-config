@@ -1,10 +1,13 @@
 local M = {
     'nvim-lualine/lualine.nvim',
-    dependencies = {
-        'nvim-colorscheme',
-    },
-    event = 'UIEnter',
+    dependencies = { 'nvim-colorscheme' },
+    event = 'VeryLazy',
 }
+
+M.init = function()
+    -- set an empty statusline till lualine loads
+    vim.o.statusline = ' '
+end
 
 M.opts = function()
     local icons = require('config').defaults.icons
@@ -41,7 +44,6 @@ M.opts = function()
         fmt = function(mode_string)
             return string.format('%-7s', mode_string)
         end,
-        padding = { left = 1, right = 1 },
     }
 
     local session_status = {
@@ -49,7 +51,6 @@ M.opts = function()
             return vim.fn.fnamemodify(require('resession').get_current(), ':t')
         end,
         icon = icons.lualine.session,
-        padding = { left = 1, right = 1 },
         cond = conditions.check_session_exist
     }
 
@@ -60,18 +61,38 @@ M.opts = function()
     }
 
     local path = {
-        function()
-            if vim.bo.buftype ~= '' then
-                return ''
-            end
-            local path = vim.fs.normalize(vim.fn.expand('%:.:h'))
-            if #path == 0 then
-                return ''
-            end
-            return path
-        end,
-        color = 'CmpGhostText',
+    function()
+        if vim.bo.buftype ~= '' then return '' end
+        local path = vim.fs.normalize(vim.fn.expand('%:.:h'))
+        return (#path > 0) and path or ''
+    end,
+        color = 'BlinkCmpGhostText',
     }
+
+    -- local diff = {
+    --     function()
+    --         local gitsigns = vim.b.gitsigns_status_dict
+    --         if not gitsigns then return '' end
+    --
+    --         local diff_icon = '▪'
+    --         local parts = {}
+    --
+    --         if gitsigns.added and gitsigns.added > 0 then
+    --             table.insert(parts, '%#GitSignsAdd#' .. diff_icon)
+    --         end
+    --         if gitsigns.changed and gitsigns.changed > 0 then
+    --             table.insert(parts, '%#GitSignsChange#' .. diff_icon)
+    --         end
+    --         if gitsigns.removed and gitsigns.removed > 0 then
+    --             table.insert(parts, '%#GitSignsDelete#' .. diff_icon)
+    --         end
+    --
+    --         if #parts > 0 then
+    --             return table.concat(parts) .. ' '
+    --         end
+    --         return ''
+    --     end,
+    -- }
 
     local blink_info = { source_name = '', kind = 0 }
     local blink_kinds = {}
@@ -83,7 +104,7 @@ M.opts = function()
         color = function()
             return ('BlinkCmpKind' .. ((blink_kinds[blink_info.kind]) or ''))
         end,
-        padding = { right = 8 },
+        -- padding = { right = 8 },
         cond = conditions.check_cmp_visible
     }
 
@@ -100,37 +121,53 @@ M.opts = function()
     }
 
     local diagnostics = {
-        'diagnostics',
-        sections = { 'error', 'warn' },
-        always_visible = true,
+        function()
+            local severities = {
+                { name = 'errors',   level = vim.diagnostic.severity.ERROR, hl = '%#DiagnosticError#' },
+                { name = 'warnings', level = vim.diagnostic.severity.WARN,  hl = '%#DiagnosticWarn#' },
+                { name = 'info',     level = vim.diagnostic.severity.INFO,  hl = '%#DiagnosticInfo#' },
+                { name = 'hints',    level = vim.diagnostic.severity.HINT,  hl = '%#DiagnosticHint#' },
+            }
+            local icon = '▪'
+            local total = 0
+            local output = {}
+
+            for _, sev in ipairs(severities) do
+                local count = #vim.diagnostic.get(0, { severity = sev.level })
+                total = total + count
+                if count > 0 then
+                    table.insert(output, sev.hl .. icon)
+                end
+            end
+
+            if vim.bo.modifiable and total > 0 then
+                return table.concat(output) .. ' '
+            end
+
+            return ''
+        end,
     }
 
     local lsp_status = {
         function()
             local attached_clients = vim.lsp.get_clients { bufnr = 0 }
-            local it = vim.iter(attached_clients)
-            it:map(function(client)
-                local name = client.name:gsub('language.server', 'ls')
-                return name
-            end)
-            local names = it:totable()
+            local names = vim.iter(attached_clients)
+                :map(function(client)
+                    local name = client.name:gsub('language.server', 'ls')
+                    return name
+                end)
+                :totable()
             return string.format('%s', table.concat(names, ' '))
         end,
+        padding = { left = 1, right = 2 },
         icon = icons.lualine.lsp,
-        padding = { right = 2 },
         cond = conditions.check_lsp_started
     }
 
     local location = {
         function()
-            local cur = vim.fn.line('.')
-            local total = vim.fn.line('$')
-            local content = (cur == 1 and 'Top') or (cur == total and 'Bot') or
-                string.format('%2d%%%%', math.floor(cur / total * 100))
-
-            return string.format('%s / %s', content, total)
+            return '%3l:%-2c'
         end,
-        padding = { right = 1 },
         icon = icons.lualine.location
     }
 
@@ -140,8 +177,9 @@ M.opts = function()
             local _, pinned = pcall(require('hbac.state').is_pinned, cur_buf)
             return pinned and 'pinned buffer' or ''
         end,
+        padding = { left = 1, right = 2 },
         color = 'WarningMsg',
-        icon = icons.lualine.pinned,
+        -- icon = icons.lualine.pinned,
         cond = conditions.check_hbac_loaded
     }
 
@@ -155,10 +193,10 @@ M.opts = function()
         },
         sections = {
             lualine_a = { mode },
-            lualine_b = { session_status },
-            lualine_c = { branch, path },
-            lualine_x = { cmp_label, cmp_kind, hbac },
-            lualine_y = { diagnostics, lsp_status, },
+            lualine_b = { session_status, branch },
+            lualine_c = { path, '%=', cmp_label, cmp_kind },
+            lualine_x = { diagnostics },
+            lualine_y = { hbac, lsp_status },
             lualine_z = { location },
         },
         tabline = {},

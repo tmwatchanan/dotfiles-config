@@ -53,12 +53,11 @@ M.opts = {
     cmdline = {
         view = 'cmdline',
         format = {
-            cmdline = { icon = ' COMMAND  ' },
-            search_down = { icon = ' SEARCH  ' },
-            search_up = { icon = ' SEARCH  ' },
-            filter = { icon = ' TERMINAL ', lang = 'fish' },
-            calculator = { icon = ' CALCULATOR ', icon_hl_group = 'NoiceCmdlineIconFilter' },
-            help = { icon = ' HELP  ' },
+            cmdline = { icon = ' COMMAND ' },
+            search_down = { icon = ' Search  ' },
+            search_up = { icon = ' Search  ' },
+            calculator = { icon = ' Calculator ', icon_hl_group = 'NoiceCmdlineIconFilter' },
+            help = { icon = ' Help   ' },
             input = { view = 'cmdline' },
             lua = false,
         }
