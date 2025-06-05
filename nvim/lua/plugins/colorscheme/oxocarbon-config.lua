@@ -1,6 +1,9 @@
 local M = {}
 
-M.info = { 'momepp/oxocarbon.nvim' }
+M.info = {
+    'momepp/oxocarbon.nvim',
+    colorscheme = 'oxocarbon',
+}
 
 M.setup = function()
     vim.opt.background = 'dark'
