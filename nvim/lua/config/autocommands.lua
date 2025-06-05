@@ -1,9 +1,3 @@
-vim.api.nvim_create_autocmd('InsertLeave', {
-    desc = 'turn off paste mode when leaving insert',
-    pattern = '*',
-    command = 'set nopaste'
-})
-
 vim.api.nvim_create_autocmd('FileType', {
     desc = 'open help docs in vertical split',
     pattern = 'help',
