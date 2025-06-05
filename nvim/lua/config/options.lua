@@ -1,7 +1,7 @@
 local opt          = vim.opt
 
 -- General
-opt.syntax         = 'on'
+opt.syntax         = 'off'
 opt.spelloptions   = 'noplainbuffer'
 
 opt.undofile       = true

@@ -1,7 +1,7 @@
 local M = {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
         {
             'nvim-treesitter/nvim-treesitter-context',
@@ -11,50 +11,47 @@ local M = {
             'folke/ts-comments.nvim',
             opts = true
         },
-        'nvim-treesitter-textobjects',
         'rainbow-delimiters.nvim',
+        'indent-blankline.nvim',
     },
     main = 'nvim-treesitter.configs'
 }
 
-M.opts = function()
-    local keymaps = require('config.keymaps').treesitter
-    return {
-        ensure_installed = {
-            'regex',
-            'lua',
-            'vim',
-            'vimdoc',
-            'markdown',
-            'markdown_inline',
-            'bash',
-            'fish',
-            'yaml',
-            'tsx',
-            'javascript',
-            'css',
-            'scss',
-            'latex'
-        },
-        ignore_install = {
-            'norg',
-            'vala'
-        },
-        auto_install = true,
-        sync_install = false,
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
-        },
-        indent = {
-            enable = true,
-            disable = { 'cpp' }
-        },
-        incremental_selection = {
-            enable = true,
-            keymaps = keymaps.incremental_selection,
-        },
-    }
-end
+M.opts = {
+    ensure_installed = {
+        'regex',
+        'lua',
+        'vim',
+        'vimdoc',
+        'markdown',
+        'markdown_inline',
+        'bash',
+        'nu',
+        'yaml',
+        'tsx',
+        'javascript',
+        'css',
+        'scss',
+        'latex',
+    },
+    ignore_install = {
+        'norg',
+        'vala'
+    },
+    auto_install = true,
+    sync_install = false,
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+    indent = {
+        enable = true,
+        disable = { 'cpp' }
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = require('config.keymaps').treesitter.incremental_selection,
+    },
+}
 
 return M
