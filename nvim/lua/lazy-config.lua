@@ -19,9 +19,6 @@ require('lazy').setup {
     spec = {
         { import = 'plugins' },
     },
-    checker = {
-        enabled = true,
-    },
     defaults = {
         lazy = true
     },
@@ -31,6 +28,9 @@ require('lazy').setup {
     ui = {
         border = 'solid',
         backdrop = 100,
+    },
+    rocks = {
+        enabled = false
     },
     performance = {
         rtp = {
