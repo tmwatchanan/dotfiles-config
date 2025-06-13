@@ -1,6 +1,6 @@
 local M = {
     'MeanderingProgrammer/treesitter-modules.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = 'BufEnter',
     dependencies = {
         {
             'nvim-treesitter/nvim-treesitter',
