@@ -1,2 +1,1 @@
--o allow_remote_control=yes --single-instance --listen-on unix:/tmp/mykitty
-
+-o allow_remote_control=socket-only --listen-on unix:/tmp/momeppkt-kitty

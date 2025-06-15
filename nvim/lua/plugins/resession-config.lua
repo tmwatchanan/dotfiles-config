@@ -14,6 +14,9 @@ M.config = function(_, opts)
     local resession = require('resession')
 
     resession.setup(opts)
+    resession.add_hook('post_load', function()
+        vim.cmd.edit({ mods = { emsg_silent = true } })
+    end)
 
     -- NOTE: load a dir-specific session when open nvim, save when exit.
     vim.api.nvim_create_autocmd('VimEnter', {

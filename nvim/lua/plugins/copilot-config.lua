@@ -39,7 +39,17 @@ end
 
 local codecompanion = {
     'olimorris/codecompanion.nvim',
-    dependencies = { 'plenary.nvim', 'nvim-treesitter', { 'echasnovski/mini.diff', opts = {} } },
+    dependencies = {
+        'plenary.nvim',
+        'nvim-treesitter',
+        {
+            'echasnovski/mini.diff',
+            config = function()
+                local diff = require('mini.diff')
+                diff.setup { source = diff.gen_source.none() }
+            end,
+        },
+    },
     cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions' },
 }
 
@@ -47,11 +57,7 @@ codecompanion.opts = {
     adapters = {
         copilot = function()
             return require('codecompanion.adapters').extend('copilot', {
-                schema = {
-                    model = {
-                        default = 'claude-3.7-sonnet',
-                    },
-                },
+                schema = { model = { default = 'claude-sonnet-4' } },
             })
         end,
     },
@@ -84,7 +90,7 @@ codecompanion.opts = {
                 layout   = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
                 -- width = 1,
                 -- height = 0.45,
-                width    = 0.3,
+                width    = 0.4,
                 height   = vim.o.lines - 3,
 
                 -- Options below only apply to floating windows

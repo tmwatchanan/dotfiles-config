@@ -1,8 +1,12 @@
 local M = {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile' },
+    'MeanderingProgrammer/treesitter-modules.nvim',
+    event = 'BufEnter',
     dependencies = {
+        {
+            'nvim-treesitter/nvim-treesitter',
+            build = ':TSUpdate',
+            branch = 'main',
+        },
         {
             'nvim-treesitter/nvim-treesitter-context',
             opts = { zindex = 5, max_lines = 3 },
@@ -13,13 +17,17 @@ local M = {
         },
         'nvim-treesitter-textobjects',
         'nvim-treesitter/nvim-treesitter-textobjects',
+        'rainbow-delimiters.nvim',
+        'indent-blankline.nvim',
     },
-    main = 'nvim-treesitter.configs'
 }
 
 M.opts = function()
     local keymaps = require('config.keymaps').treesitter
     local utils = require('config.fn-utils')
+
+    -- NOTE: extra parser register if filetype not matched
+    vim.treesitter.language.register('ini', { 'dosini' })
 
     return {
         ensure_installed = {
@@ -31,7 +39,7 @@ M.opts = function()
             'markdown',
             'markdown_inline',
             'bash',
-            'fish',
+            'nu',
             'yaml',
             'tsx',
             'javascript',
@@ -55,7 +63,7 @@ M.opts = function()
         },
         incremental_selection = {
             enable = true,
-            keymaps = keymaps.incremental_selection,
+            keymaps = require('config.keymaps').treesitter.incremental_selection,
         },
         textobjects = {
             select = {

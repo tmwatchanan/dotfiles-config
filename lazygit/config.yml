@@ -5,6 +5,7 @@ gui:
   showListFooter: false
   expandFocusedSidePanel: true
   expandedSidePanelWeight: 2
+  showRootItemInFileTree: false
   theme:
     selectedLineBgColor:
       - "#363646" # sumiInk5

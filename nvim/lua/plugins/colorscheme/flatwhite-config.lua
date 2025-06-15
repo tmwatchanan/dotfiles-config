@@ -1,6 +1,9 @@
 local M = {}
 
-M.info = { 'hylophile/flatwhite.nvim' }
+M.info = {
+    'hylophile/flatwhite.nvim',
+    colorscheme = 'flatwhite',
+}
 
 M.setup = function()
     local flatwhite_status, _ = pcall(require, 'flatwhite')

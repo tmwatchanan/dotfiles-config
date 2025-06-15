@@ -27,12 +27,6 @@ M.colors = {
     hint        = '#4fd6be',
 }
 
-M.bracket = {
-    '#ffd700',
-    '#da70d6',
-    '#2ac3de',
-}
-
 M.todocomments = {
     error = M.colors.error,
     warn  = M.colors.warn,

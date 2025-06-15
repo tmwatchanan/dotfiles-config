@@ -111,6 +111,9 @@ $env.SDKROOT = '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'
 # set path for pyenv
 path add $"(pyenv root)/shims"
 
+# set path for rustup
+path add $"(brew --prefix rustup)/bin"
+
 # setup fnm env
 fnm env --json | from json | load-env
 path add [($env.FNM_MULTISHELL_PATH | path join bin)]

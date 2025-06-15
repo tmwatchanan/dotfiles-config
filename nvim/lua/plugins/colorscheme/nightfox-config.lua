@@ -1,6 +1,9 @@
 local M = {}
 
-M.info = { 'EdenEast/nightfox.nvim' }
+M.info = {
+    'EdenEast/nightfox.nvim',
+    colorscheme = 'dawnfox',
+}
 
 M.setup = function()
     local options = {

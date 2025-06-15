@@ -658,10 +658,12 @@ def --env cx [arg] {
     ls -l
 }
 
-alias l = ls --all
-alias c = clear
+alias l = ls
+alias la = ls -a
 alias ll = ls -l
+alias lla = ls -la
 alias lt = eza --tree --level=2 --long --icons --git
+alias c = clear
 alias vi = nvim
 
 alias lg = lazygit

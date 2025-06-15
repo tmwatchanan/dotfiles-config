@@ -1,6 +1,6 @@
 local M = {
     'folke/noice.nvim',
-    event = 'UIEnter',
+    lazy = false,
     cond = not vim.g.vscode,
 }
 
@@ -30,9 +30,6 @@ M.opts = {
                 height = 'auto',
                 width = '100%',
             },
-            border = {
-                style = 'none',
-            },
             format = { ' {confirm}' },
         },
         mini = {
@@ -44,7 +41,12 @@ M.opts = {
         },
         split = {
             size = '30%'
-        }
+        },
+        popup = {
+            border = {
+                style = 'solid',
+            },
+        },
     },
     messages = {
         view_search = false,
@@ -52,12 +54,11 @@ M.opts = {
     cmdline = {
         view = 'cmdline',
         format = {
-            cmdline = { icon = ' COMMAND  ' },
-            search_down = { icon = ' SEARCH  ' },
-            search_up = { icon = ' SEARCH  ' },
-            filter = { icon = ' TERMINAL ', lang = 'fish' },
-            calculator = { icon = ' CALCULATOR ', icon_hl_group = 'NoiceCmdlineIconFilter' },
-            help = { icon = ' HELP  ' },
+            cmdline = { icon = ' COMMAND ' },
+            search_down = { icon = ' Search  ' },
+            search_up = { icon = ' Search  ' },
+            calculator = { icon = ' Calculator ', icon_hl_group = 'NoiceCmdlineIconFilter' },
+            help = { icon = ' Help   ' },
             input = { view = 'cmdline' },
             lua = { icon = ' Lua  '},
         }
@@ -67,6 +68,17 @@ M.opts = {
     },
     commands = {
         history = {
+            opts = {
+                format = {
+                    '{date} ',
+                    '{event}', { '{kind} ', before = { '.', hl_group = 'NoiceFormatKind' } },
+                    '{title} ',
+                    '{cmdline}',
+                    '\n',
+                    '{level} ',
+                    '{message}\n',
+                },
+            },
             filter_opts = { reverse = true },
             filter = {
                 any = {
@@ -74,7 +86,7 @@ M.opts = {
                     { error = true },
                     { event = 'notify' },
                     { event = 'msg_show' },
-                    { event = 'lsp',     kind = 'message' },
+                    { event = 'lsp',      kind = 'message' },
                 },
             },
         }

@@ -162,7 +162,7 @@ M.opts = function()
                 width    = 0,
                 relative = 'editor',
                 position = 'float',
-                border   = 'solid',
+                border   = { '', '', '', ' ', ' ', ' ', ' ', ' ' },
                 wo       = {
                     winhighlight =
                     'Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormal,FloatBorder:SnacksTerminalBorder,FloatFooter:SnacksTerminalFooter',
