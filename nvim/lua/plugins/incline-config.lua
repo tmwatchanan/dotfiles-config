@@ -24,7 +24,7 @@ M.opts = function()
             if props.focused then
                 local treesitter_context_status, treesitter_context = pcall(require, 'treesitter-context.context')
                 if treesitter_context_status then
-                    local context, _ = treesitter_context.get(props.buf, props.win)
+                    local context, _ = treesitter_context.get(props.win)
                     if context and #context > 0 then
                         first_line_length = vim.fn.getline(context[1][1] + 1):len()
                     end
