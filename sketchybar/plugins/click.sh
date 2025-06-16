@@ -14,24 +14,19 @@ fi
 APP="$1"
 DESC="$2"
 
-osascript <<EOF
-tell application "System Events"
-  tell process "$APP"
-    set found to false
-    repeat with mi in menu bar items of menu bar 1
-      # set miDesc to description of mi
-      # display dialog "Found menu item: '" & miDesc & "'" buttons {"OK"} default button 1
-      try
-        if (description of mi) starts with "$DESC" then
-          perform action "AXPress" of mi
-          set found to true
-          exit repeat
-        end if
-      end try
-    end repeat
-    # if not found then
-    #   display dialog "Menu item with description '$DESC' not found in $APP." buttons {"OK"} default button 1
-    # end if
-  end tell
+osascript -e "
+tell application \"System Events\"
+  with timeout of 2 seconds
+    try
+      repeat with mi in (menu bar items of menu bar 1 of process \"$APP\")
+        try
+          if (description of mi) contains \"$DESC\" or (title of mi) contains \"$DESC\" then
+            click mi
+            exit repeat
+          end if
+        end try
+      end repeat
+    end try
+  end timeout
 end tell
-EOF
+" > /dev/null 2>&1 &

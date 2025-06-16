@@ -35,11 +35,19 @@ default=(
     label.font="$FONT_FACE:Bold:12.0"
     label.color=$LABEL_COLOR
     label.padding_left=0
-    label.padding_right=7
+    label.padding_right=8
 )
 sketchybar --default "${default[@]}"
 
 # INFO: left-side bar components
+apple_menu=(
+    icon=􀣺
+    icon.font.size=15.0
+    click_script="$PLUGIN_DIR/click.sh 'Finder' 'Apple'"
+)
+sketchybar  --add item apple_menu left               \
+            --set apple_menu "${apple_menu[@]}"
+
 # INFO: add space config at maximum for 8 spaces
 for i in {0..11};
 do
@@ -99,7 +107,6 @@ KEYBOARD_EVENT="AppleSelectedInputSourcesChangedNotification"
 keyboard=(
     icon.drawing=off
     script="$PLUGIN_DIR/keyboard.sh"
-    click_script="osascript -e 'tell application \"System Events\" to tell process \"TextInputMenuAgent\" to perform action \"AXPress\" of menu bar item 1 of menu bar 2'"
 )
 
 sketchybar  --add item clock right                              \
