@@ -16,12 +16,12 @@ mason_module.config = function()
 
         local fname = string.format('%s/%s.json', path, server_name)
         local ok, result = pcall(vim.fn.readfile, fname)
-        if not ok or #result == 0 then return nil end
+        if not ok or type(result) ~= 'table' or #result == 0 then return nil end
 
-        result = table.concat(result)
-        if result == '' then return nil end
+        local content = table.concat(result)
+        if content == '' then return nil end
 
-        local json_ok, decoded = pcall(vim.json.decode, result)
+        local json_ok, decoded = pcall(vim.json.decode, content)
         if not json_ok then
             vim.notify('Failed to parse JSON from ' .. fname .. ': ' .. decoded, vim.log.levels.ERROR)
             return nil

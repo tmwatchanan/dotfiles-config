@@ -61,11 +61,11 @@ M.opts = function()
     }
 
     local path = {
-    function()
-        if vim.bo.buftype ~= '' then return '' end
-        local path = vim.fs.normalize(vim.fn.expand('%:.:h'))
-        return (#path > 0) and path or ''
-    end,
+        function()
+            if vim.bo.buftype ~= '' then return '' end
+            local path = vim.fs.normalize(vim.fn.expand('%:.:h'))
+            return (#path > 0) and path or ''
+        end,
         color = 'BlinkCmpGhostText',
     }
 
