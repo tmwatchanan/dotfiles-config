@@ -119,6 +119,13 @@ M.opts = function()
                 ghost_text = { enabled = false },
             },
         },
+        sources = {
+            providers = {
+                buffer = {
+                    opts = { enable_in_ex_commands = true }
+                }
+            }
+        }
     }
 end
 
