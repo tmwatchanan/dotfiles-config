@@ -9,7 +9,12 @@ local mini_ai_module = {
             --     require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
             -- end,
         },
-    }
+    },
+}
+
+mini_ai_module.keys = {
+    { 'a', mode = { 'x', 'o' } },
+    { 'i', mode = { 'x', 'o' } },
 }
 
 mini_ai_module.opts = function()

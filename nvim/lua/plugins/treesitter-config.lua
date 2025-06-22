@@ -5,7 +5,7 @@ local M = {
         {
             'nvim-treesitter/nvim-treesitter',
             build = ':TSUpdate',
-            branch = 'main',
+            branch = 'master', -- FIX: temporary fix for textobjects
         },
         {
             'nvim-treesitter/nvim-treesitter-context',
@@ -15,8 +15,6 @@ local M = {
             'folke/ts-comments.nvim',
             opts = true
         },
-        'nvim-treesitter-textobjects',
-        'nvim-treesitter/nvim-treesitter-textobjects',
         'rainbow-delimiters.nvim',
         'indent-blankline.nvim',
     },
@@ -95,14 +93,14 @@ M.opts = function()
     }
 end
 
-M.config = function(_, opts)
-    require('nvim-treesitter.configs').setup(opts)
-
-    -- INFO: Repeat movement with ]; and [;
-    local ts_repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
-    local repeat_keymaps = require('config.keymaps').treesitter.textobjects.repeat_move
-    vim.keymap.set({ 'n', 'x', 'o' }, repeat_keymaps.repeat_last_move_next, ts_repeat_move.repeat_last_move_next)
-    vim.keymap.set({ 'n', 'x', 'o' }, repeat_keymaps.repeat_last_move_previous, ts_repeat_move.repeat_last_move_previous)
-end
+-- M.config = function(_, opts)
+--     require('nvim-treesitter.configs').setup(opts)
+--
+--     -- INFO: Repeat movement with ]; and [;
+--     local ts_repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
+--     local repeat_keymaps = require('config.keymaps').treesitter.textobjects.repeat_move
+--     vim.keymap.set({ 'n', 'x', 'o' }, repeat_keymaps.repeat_last_move_next, ts_repeat_move.repeat_last_move_next)
+--     vim.keymap.set({ 'n', 'x', 'o' }, repeat_keymaps.repeat_last_move_previous, ts_repeat_move.repeat_last_move_previous)
+-- end
 
 return M
