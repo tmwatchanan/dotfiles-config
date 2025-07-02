@@ -43,6 +43,11 @@ return {
         }
     },
     {
+        'MomePP/sentiment.nvim',
+        event = 'VeryLazy',
+        config = true,
+    },
+    {
         'axkirillov/hbac.nvim',
         opts = {
             threshold = 20,
