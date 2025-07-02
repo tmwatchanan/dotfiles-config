@@ -58,6 +58,7 @@ opt.fillchars:append {
 opt.showtabline   = 0
 opt.cmdheight     = 0
 opt.laststatus    = 3
+opt.statusline    = ' '
 opt.numberwidth   = 3
 opt.signcolumn    = 'yes'
 -- opt.statuscolumn  = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"

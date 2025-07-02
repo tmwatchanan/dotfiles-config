@@ -1,7 +1,7 @@
 local M = {
     'b0o/incline.nvim',
-    event = 'VeryLazy',
     dependencies = { 'mini.icons' },
+    event = 'VeryLazy',
 }
 
 M.opts = function()

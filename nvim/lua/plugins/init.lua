@@ -129,7 +129,7 @@ return {
                     height = win_height,
                     row = math.floor((vim.o.lines - win_height) / 2) - 1,
                     col = math.floor((vim.o.columns - win_width) / 2) - 1,
-                    border = 'rounded',
+                    border = 'solid',
                     title = ' Project Notes - ' .. vim.uv.cwd() .. ' ',
                     footer = get_file_last_modified(vim.fn.expand('%:p')),
                     footer_pos = 'right',
