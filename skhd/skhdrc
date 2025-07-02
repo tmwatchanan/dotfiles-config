@@ -1,6 +1,6 @@
 # disable MacOS default
 cmd - h : [ ]
-# alt - v : skhd -k "ctrl + alt - v"
+alt - v : ~/.config/skhd/spotlight_clipboard.sh
 # alt - backspace : skhd -k "ctrl + alt - backspace"
 
 # Overrided MacOS default spaces navigation
@@ -8,10 +8,10 @@ ctrl - right : yabai -m space --focus next || yabai -m space --focus first
 ctrl - left  : yabai -m space --focus prev || yabai -m space --focus last
 
 # Space navigation (four spaces per display): cmd - {1, 2, 3, 4}
-cmd - 1 : yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[0]')
-cmd - 2 : yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[1]')
-cmd - 3 : yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[2]')
-cmd - 4 : yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[3]')
+ctrl - 1 : yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[0]')
+ctrl - 2 : yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[1]')
+ctrl - 3 : yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[2]')
+ctrl - 4 : yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[3]')
 
 # Window cyclic navigation
 cmd - j : yabai -m window --focus $(yabai -m query --windows --space | jq -r 'map(select(.["is-visible"])) | sort_by(.id) as $wins | $wins | index(map(select(.["has-focus"]))[0]) as $i | $wins[($i + 1) % length].id')
