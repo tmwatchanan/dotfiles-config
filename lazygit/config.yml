@@ -3,6 +3,7 @@ gui:
     showBottomLine: false
     showListFooter: false
     showRootItemInFileTree: false
+    useHunkModeInStagingView: true
     theme:
         selectedLineBgColor:
             - '#393939'
