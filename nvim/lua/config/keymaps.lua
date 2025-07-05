@@ -216,8 +216,8 @@ keymaps.noice = {
     docs_scroll_down = '<C-d>',
 }
 
--- INFO: flit keymaps
-keymaps.flit = {
+-- INFO: leap keymaps
+keymaps.leap = {
     forward  = 'f',
     backward = 'F',
     till     = 't',
