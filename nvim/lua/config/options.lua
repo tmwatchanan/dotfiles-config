@@ -34,7 +34,7 @@ opt.showcmd        = false
 opt.showmode       = false
 opt.splitright     = true
 
-opt.foldenable     = true
+opt.foldenable     = false
 -- opt.foldmethod     = "expr";
 -- opt.foldexpr       = "nvim_treesitter#foldexpr()";
 -- opt.foldlevel      = 99
