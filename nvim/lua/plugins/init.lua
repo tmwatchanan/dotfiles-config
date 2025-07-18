@@ -69,8 +69,8 @@ return {
         keys = function()
             local rename_keymap = require('config.keymaps').rename
             return {
-                { rename_keymap.rename,       function() require('live-rename').map({ insert = true }) end },
-                { rename_keymap.rename_clean, function() require('live-rename').map({ text = '', insert = true }) end },
+                { rename_keymap.rename,       function() require('live-rename').rename({ insert = true }) end },
+                { rename_keymap.rename_clean, function() require('live-rename').rename({ text = '', insert = true }) end },
             }
         end
     },
