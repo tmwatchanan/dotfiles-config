@@ -1,6 +1,5 @@
 local M = {
     'b0o/incline.nvim',
-    dependencies = { 'mini.icons' },
     event = 'VeryLazy',
 }
 
@@ -16,22 +15,24 @@ M.opts = function()
             zindex = 10,
         },
         render = function(props)
-            local bufname = vim.api.nvim_buf_get_name(props.buf)
-            local filename = vim.fn.fnamemodify(bufname, ':t')
+            local full_path = vim.api.nvim_buf_get_name(props.buf)
+            local parent_dir = vim.fn.fnamemodify(full_path, ':h:t')
+            local filename = vim.fn.fnamemodify(full_path, ':t')
 
-            local ext = vim.fn.fnamemodify(bufname, ':e')
-            local is_file = type(filename) == 'string'
-            local category = is_file and 'file' or 'extension'
-            local icon, _, _ = require('mini.icons').get(category, is_file and filename or ext)
             local is_modified = vim.bo[props.buf].modified
+            local errors = #vim.diagnostic.get(props.buf, { severity = vim.diagnostic.severity.ERROR })
 
             return {
                 {
-                    ' ',
-                    icon,
-                    ' ',
-                    filename ~= '' and filename or '[No Name]',
-                    group = is_modified and 'DiagnosticWarn' or nil
+                    is_modified and '  ●' or '',
+                    group = 'DiagnosticWarn'
+                },
+                {
+                    (errors > 0) and '  E' .. tostring(errors) or '',
+                    group = 'DiagnosticError'
+                },
+                {
+                    filename ~= '' and '  ' .. parent_dir .. '/' .. filename or '[No Name]',
                 }
             }
         end,
