@@ -5,6 +5,7 @@ local M = {
 
 M.opts = {
     _new_sign_calc = true,
+    gh = true,
     signcolumn = true,
     preview_config = {
         border = 'solid',
@@ -35,8 +36,7 @@ M.opts = {
                 if vim.wo.diff then
                     vim.cmd.normal({ gitsigns_keymap.prev_hunk, bang = true })
                 else
-                    gitsigns_actions
-                        .nav_hunk('prev')
+                    gitsigns_actions.nav_hunk('prev')
                 end
             end)
 
