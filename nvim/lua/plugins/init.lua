@@ -107,6 +107,11 @@ return {
         end,
     },
     {
+        'MomePP/sentiment.nvim',
+        event = 'VeryLazy',
+        config = true,
+    },
+    {
         'axkirillov/hbac.nvim',
         opts = {
             threshold = 20,
@@ -129,8 +134,8 @@ return {
         keys = function()
             local rename_keymap = require('config.keymaps').rename
             return {
-                { rename_keymap.rename,       function() require('live-rename').map({ insert = true }) end },
-                { rename_keymap.rename_clean, function() require('live-rename').map({ text = '', insert = true }) end },
+                { rename_keymap.rename,       function() require('live-rename').rename({ insert = true }) end },
+                { rename_keymap.rename_clean, function() require('live-rename').rename({ text = '', insert = true }) end },
             }
         end
     },
@@ -193,7 +198,7 @@ return {
                     height = win_height,
                     row = math.floor((vim.o.lines - win_height) / 2) - 1,
                     col = math.floor((vim.o.columns - win_width) / 2) - 1,
-                    border = 'rounded',
+                    border = 'solid',
                     title = ' Project Notes - ' .. vim.uv.cwd() .. ' ',
                     footer = get_file_last_modified(vim.fn.expand('%:p')),
                     footer_pos = 'right',

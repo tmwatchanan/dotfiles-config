@@ -1,6 +1,6 @@
 local M = {
     'folke/todo-comments.nvim',
-    event = { 'BufEnter', 'BufNewFile' }
+    event = { 'BufReadPre', 'BufNewFile' }
 }
 
 M.opts = {

@@ -1,11 +1,11 @@
 local M = {
     'MeanderingProgrammer/treesitter-modules.nvim',
-    event = 'BufEnter',
+    lazy = false,
     dependencies = {
         {
             'nvim-treesitter/nvim-treesitter',
             build = ':TSUpdate',
-            branch = 'master', -- FIX: temporary fix for textobjects
+            branch = 'main',
         },
         {
             'nvim-treesitter/nvim-treesitter-context',

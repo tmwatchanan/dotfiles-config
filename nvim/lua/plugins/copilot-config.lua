@@ -42,6 +42,7 @@ local codecompanion = {
     dependencies = {
         'plenary.nvim',
         'nvim-treesitter',
+        'ravitemer/codecompanion-history.nvim',
         {
             'echasnovski/mini.diff',
             config = function()
@@ -107,7 +108,46 @@ codecompanion.opts = {
         },
         diff = { provider = 'mini_diff' },
     },
+    extensions = {
+        history = {
+            opts = {
+                keymap = 'sh',
+                save_chat_keymap = 'sc',
+                auto_save = false,
+                picker = 'snacks',
+            }
+        }
+    }
 }
+
+codecompanion.config = function(_, plugin_opts)
+    require('codecompanion').setup(plugin_opts)
+
+    -- INFO: auto-save chat when chat history exist
+    vim.api.nvim_create_autocmd('User', {
+        pattern = 'CodeCompanion*Finished',
+        group = vim.api.nvim_create_augroup('UserCodeCompanionHistory', { clear = true }),
+        callback = vim.schedule_wrap(function(opts)
+            if opts.match == 'CodeCompanionRequestFinished' or opts.match == 'CodeCompanionAgentFinished' then
+                if opts.match == 'CodeCompanionRequestFinished' and opts.data.strategy ~= 'chat' then
+                    return
+                end
+
+                local chat_module = require('codecompanion.strategies.chat')
+                local bufnr = opts.data.bufnr
+                if not bufnr then return end
+
+                local history = require('codecompanion').extensions.history
+
+                local chat_history = history.get_chats(function(chat_data) return chat_data.cwd == vim.fn.getcwd() end)
+                local chat = chat_module.buf_get_chat(bufnr)
+                if chat and not vim.tbl_isempty(chat_history) then
+                    history.save_chat(chat)
+                end
+            end
+        end),
+    })
+end
 
 codecompanion.keys = function()
     local codecompanion_keymap = require('config.keymaps').codecompanion

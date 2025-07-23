@@ -5,11 +5,6 @@ local M = {
     cond = not vim.g.vscode,
 }
 
-M.init = function()
-    -- set an empty statusline till lualine loads
-    vim.o.statusline = ' '
-end
-
 M.opts = function()
     local icons = require('config').defaults.icons
     local utils = require('config.fn-utils')

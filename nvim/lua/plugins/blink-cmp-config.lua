@@ -119,21 +119,6 @@ M.opts = function()
         appearance = {
             nerd_font_variant = 'mono'
         },
-        sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
-            per_filetype = {
-                sql = { 'snippets', 'dadbod', 'buffer' },
-            },
-            providers = {
-                lazydev = {
-                    name = 'LazyDev',
-                    module = 'lazydev.integrations.blink',
-                    -- make lazydev completions top priority (see `:h blink.cmp`)
-                    score_offset = 100,
-                },
-                dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
-            },
-        },
         cmdline = {
             keymap = {
                 ['<CR>'] = { 'accept_and_enter', 'fallback' },
@@ -146,6 +131,24 @@ M.opts = function()
                 ghost_text = { enabled = false },
             },
         },
+        sources = {
+            default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
+            per_filetype = {
+                sql = { 'snippets', 'dadbod', 'buffer' },
+            },
+            providers = {
+                buffer = {
+                    opts = { enable_in_ex_commands = true }
+                },
+                lazydev = {
+                    name = 'LazyDev',
+                    module = 'lazydev.integrations.blink',
+                    -- make lazydev completions top priority (see `:h blink.cmp`)
+                    score_offset = 100,
+                },
+                dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
+            },
+        }
     }
 end
 

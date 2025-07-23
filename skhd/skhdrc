@@ -1,7 +1,7 @@
 # [START] yabai ----------------------------------------------------------------
 # disable MacOS default
 cmd - h : [ ]
-# alt - v : skhd -k "ctrl + alt - v"
+alt - v : ~/.config/skhd/spotlight_clipboard.sh
 # alt - backspace : skhd -k "ctrl + alt - backspace"
 
 # Overrided MacOS default spaces navigation
