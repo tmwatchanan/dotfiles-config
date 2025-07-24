@@ -1,16 +1,17 @@
 local M = {
     'lukas-reineke/indent-blankline.nvim',
+    dependencies = { 'hiphish/rainbow-delimiters.nvim' },
 }
 
 M.opts = function()
     local highlight = {
         'RainbowDelimiterRed',
-        'RainbowDelimiterBlue',
-        'RainbowDelimiterCyan',
-        'RainbowDelimiterGreen',
         'RainbowDelimiterYellow',
+        'RainbowDelimiterBlue',
         'RainbowDelimiterOrange',
+        'RainbowDelimiterGreen',
         'RainbowDelimiterViolet',
+        'RainbowDelimiterCyan',
     }
 
     return {
