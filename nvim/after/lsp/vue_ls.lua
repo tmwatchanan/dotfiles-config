@@ -1,3 +1,1 @@
-return {
-    init_options = {}
-}
+return {}
