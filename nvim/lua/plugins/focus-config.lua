@@ -1,6 +1,6 @@
 local M = {
     'nvim-focus/focus.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = 'UIEnter',
 }
 
 M.init = function()

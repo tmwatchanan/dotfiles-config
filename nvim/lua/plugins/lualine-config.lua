@@ -1,7 +1,7 @@
 local M = {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-colorscheme' },
-    event = 'VeryLazy',
+    event = 'VimEnter',
 }
 
 M.opts = function()
