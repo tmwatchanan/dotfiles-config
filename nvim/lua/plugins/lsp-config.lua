@@ -124,19 +124,6 @@ lspconfig_module.config = function()
         )
     end
 
-    -- INFO: lsp document color -- nvim 0.11 nightly
-    local function lsp_document_color(client, bufnr)
-        if client:supports_method(lsp_methods.textDocument_documentColor) then
-            vim.api.nvim_create_autocmd('LspAttach', {
-                buffer = bufnr,
-                once = true,
-                callback = function()
-                    vim.lsp.document_color.enable(true, bufnr, { style = 'virtual' })
-                end
-            })
-        end
-    end
-
     -- NOTE: lsp attach callback
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP features',
@@ -148,7 +135,6 @@ lspconfig_module.config = function()
             lsp_keymap(bufnr, require('config.keymaps').lsp)
             lsp_inlayhint(client, bufnr)
             lsp_highlight_symbol(client, bufnr)
-            lsp_document_color(client, bufnr)
         end
     })
 end
