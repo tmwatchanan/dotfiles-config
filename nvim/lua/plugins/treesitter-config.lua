@@ -21,7 +21,7 @@ local M = {
 
 M.opts = function()
     -- NOTE: extra parser register if filetype not matched
-    vim.treesitter.language.register('ini', { 'dosini' })
+    -- vim.treesitter.language.register('ini', { 'dosini', 'confini' }) -- supported
 
     return {
         ensure_installed = {
