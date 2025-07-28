@@ -1,9 +1,3 @@
-vim.api.nvim_create_autocmd('FileType', {
-    desc = 'open help docs in vertical split',
-    pattern = 'help',
-    command = ':wincmd L | :FocusAutoresize'
-})
-
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'highlight text on yank',
     pattern = '*',

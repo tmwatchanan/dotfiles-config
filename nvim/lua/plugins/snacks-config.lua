@@ -97,6 +97,7 @@ M.opts = function()
                 select = { layout = select_layout },
                 grep = { layout = vertical_layout },
                 grep_buffers = { layout = vertical_layout },
+                help = { confirm = 'vsplit'  },
             },
             formatters = {
                 file = { filename_first = true },
