@@ -676,7 +676,7 @@ alias tma = tmux new-session -A -s default
 alias tmd = tmux detach
 alias cat = bat
 alias kssh = kitty +kitten ssh
-alias ssh = TERM=xterm-256color exec ssh
+def ssh [...args] { with-env { TERM: "xterm-256color" } { ^ssh ...$args } }
 
 source ~/.cache/carapace/init.nu
 use ~/.cache/starship/init.nu
