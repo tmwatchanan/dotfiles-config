@@ -3,7 +3,7 @@ local mini_ai_module = {
     dependencies = {
         {
             'nvim-treesitter/nvim-treesitter-textobjects',
-            branch = 'main',
+            branch = 'master',
             -- init = function()
             --     -- no need to load the plugin, since we only need its queries
             --     require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')

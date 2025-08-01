@@ -1,12 +1,9 @@
 local M = {
-    'MeanderingProgrammer/treesitter-modules.nvim',
-    lazy = false,
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    branch = 'master',
+    event = 'BufEnter',
     dependencies = {
-        {
-            'nvim-treesitter/nvim-treesitter',
-            build = ':TSUpdate',
-            branch = 'main',
-        },
         {
             'nvim-treesitter/nvim-treesitter-context',
             opts = { zindex = 5, max_lines = 3 },

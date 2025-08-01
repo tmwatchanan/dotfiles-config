@@ -7,7 +7,7 @@
 (variable_declaration) @local_variable_declaration
 
 ((field) @field_inner . "," @field_comma
-    (#make-range! "field_outer" @field_inner @field_comma)
+  (#make-range! "field_outer" @field_inner @field_comma)
 )
 
 (field
@@ -16,7 +16,7 @@
     name: _ @field_name.symbol
     "]" @field_name.outer.end
   )
-  ; (#make-range! "field_name.outer" @field_name.outer.start @field_name.outer.end)
+  (#make-range! "field_name.outer" @field_name.outer.start @field_name.outer.end)
   "=" @equal
   value: _ @asdasda
 )
