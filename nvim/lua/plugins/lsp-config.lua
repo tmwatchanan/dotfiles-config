@@ -7,8 +7,8 @@ local mason_module = {
         { 'mason-org/mason.nvim', opts = { ui = { border = 'solid' }, pip = { upgrade_pip = true } } },
         { 'nvim-lspconfig' }
     },
+    event = 'BufEnter',
     cond = not vim.g.vscode,
-    event = { 'BufReadPre', 'BufNewFile' },
 }
 
 mason_module.config = function()
@@ -130,13 +130,6 @@ lspconfig_module.config = function()
         )
     end
 
-    -- INFO: lsp document color -- nvim 0.11 nightly
-    local function lsp_document_color(client, bufnr)
-        if client:supports_method(lsp_methods.textDocument_documentColor) then
-            vim.lsp.document_color.enable(true, bufnr)
-        end
-    end
-
     -- NOTE: lsp attach callback
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP features',
@@ -149,7 +142,6 @@ lspconfig_module.config = function()
             vim.lsp.inlay_hint.enable(vim.g.show_inlay_hint, { bufnr = bufnr })
             lsp_inlayhint(client, bufnr)
             lsp_highlight_symbol(client, bufnr)
-            lsp_document_color(client, bufnr)
         end
     })
 end

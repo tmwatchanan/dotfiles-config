@@ -18,3 +18,4 @@ zed/prompts/prompts-library-db.0.mdb
 nushell/history.txt
 carapace/bridge
 .nuxtrc
+.nuxt/devtools

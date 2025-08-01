@@ -1,6 +1,5 @@
 local copilot = {
     'zbirenbaum/copilot.lua',
-    event = 'LspAttach',
     cmd = 'Copilot',
     cond = not vim.g.vscode,
 }

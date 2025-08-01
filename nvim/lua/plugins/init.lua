@@ -58,14 +58,6 @@ return {
         cond = not vim.g.vscode,
     },
     {
-        'hiphish/rainbow-delimiters.nvim',
-        submodules = false,
-        config = function()
-            require('rainbow-delimiters').enable()
-        end,
-        cond = not vim.g.vscode,
-    },
-    {
         'Wansmer/treesj',
         dependencies = 'nvim-treesitter',
         opts = {

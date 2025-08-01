@@ -1,10 +1,4 @@
 vim.api.nvim_create_autocmd('FileType', {
-    desc = 'open help docs in vertical split',
-    pattern = 'help',
-    command = ':wincmd L | :FocusAutoresize'
-})
-
-vim.api.nvim_create_autocmd('FileType', {
     desc = 'press <Enter> to jump to the location in help docs',
     pattern = 'help',
     callback = function() vim.keymap.set('n', '<CR>', '<C-]>', { buffer = true }) end

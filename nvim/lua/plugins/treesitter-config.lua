@@ -12,7 +12,6 @@ local M = {
             'folke/ts-comments.nvim',
             opts = true
         },
-        'rainbow-delimiters.nvim',
         'indent-blankline.nvim',
     },
 }
@@ -22,7 +21,7 @@ M.opts = function()
     local utils = require('config.fn-utils')
 
     -- NOTE: extra parser register if filetype not matched
-    vim.treesitter.language.register('ini', { 'dosini' })
+    -- vim.treesitter.language.register('ini', { 'dosini', 'confini' }) -- supported
 
     return {
         ensure_installed = {
