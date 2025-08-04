@@ -21,7 +21,6 @@ opt.sessionoptions = { 'buffers', 'curdir', 'winsize', 'folds', 'terminal' }
 opt.wildignore     = '**/node_module/*, **/.pio/*, **/.git/*'
 
 -- UI editor
-opt.termguicolors  = true
 opt.number         = true
 opt.relativenumber = true
 opt.ruler          = false
