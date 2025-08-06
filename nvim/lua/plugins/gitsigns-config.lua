@@ -4,7 +4,6 @@ local M = {
 }
 
 M.opts = {
-    _new_sign_calc = true,
     gh = true,
     signcolumn = true,
     preview_config = {
