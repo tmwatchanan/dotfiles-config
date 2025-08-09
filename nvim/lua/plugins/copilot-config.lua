@@ -49,7 +49,7 @@ codecompanion.opts = {
     adapters = {
         copilot = function()
             return require('codecompanion.adapters').extend('copilot', {
-                schema = { model = { default = 'claude-sonnet-4' } },
+                schema = { model = { default = 'gpt-5' } },
             })
         end,
     },
@@ -77,7 +77,7 @@ codecompanion.opts = {
     display = {
         chat = {
             intro_message = '',
-            show_settings = true,
+            -- show_settings = true,
             window = {
                 layout   = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
                 -- width = 1,
