@@ -96,7 +96,7 @@ keymaps.rename = {
     rename_clean = '<leader>lR',
 }
 
--- INFO: Treesitter
+-- INFO: treesitter keymap
 keymaps.treesitter = {
     incremental_selection = {
         init_selection = '<Tab>',
@@ -105,17 +105,17 @@ keymaps.treesitter = {
     },
 }
 
--- INFO: Lazy keymap
+-- INFO: lazy keymap
 keymaps.lazy = {
     open = '<leader>P',
 }
 
--- INFO: Jot keymap
+-- INFO: jot keymap
 keymaps.jot = {
     toggle = '<leader>n',
 }
 
--- INFO: Focus keymap
+-- INFO: focus keymap
 keymaps.focus = {
     toggle_enable = '<leader><space>',
     toggle_size   = 'wt',
@@ -145,7 +145,7 @@ keymaps.gitconflict = {
     toggle_qflist = '<leader>x',
 }
 
--- INFO: Snacks picker keymap
+-- INFO: snacks picker keymap
 keymaps.snacks = {
     picker = {
         grep_workspace        = 'gw',
@@ -173,20 +173,20 @@ keymaps.snacks = {
     }
 }
 
--- INFO: Oil keymap
+-- INFO: oil keymap
 keymaps.oil = {
     open_float = '<leader>fb',
 
 }
 
--- INFO: Todocomments keymap
+-- INFO: todocomments keymap
 keymaps.todocomments = {
     toggle    = '<leader>c',
     next_todo = ']t',
     prev_todo = '[t',
 }
 
--- INFO: Marks keymap
+-- INFO: marks keymap
 keymaps.marks = {
     next   = "'",
     prev   = '"',
@@ -211,7 +211,7 @@ keymaps.resession = {
     delete = '<leader>sd',
 }
 
--- INFO: Noice keymaps
+-- INFO: noice keymaps
 keymaps.noice = {
     history          = '<leader>M',
     docs_scroll_up   = '<C-u>',

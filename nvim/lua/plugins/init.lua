@@ -96,12 +96,9 @@ return {
                 pcall(require('snacks').bufdelete.delete, { buf = bufnr, force = force })
             end
         },
-        keys = function()
-            local hbac_keymap = require('config.keymaps').hbac
-            return {
-                { hbac_keymap.toggle_pin, '<Cmd>Hbac toggle_pin<CR>' }
-            }
-        end
+        keys = {
+            { require('config.keymaps').hbac.toggle_pin, '<Cmd>Hbac toggle_pin<CR>' }
+        }
     },
     {
         'saecki/live-rename.nvim',
