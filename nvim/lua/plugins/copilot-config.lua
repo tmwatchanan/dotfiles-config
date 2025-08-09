@@ -41,13 +41,6 @@ local codecompanion = {
         'plenary.nvim',
         'nvim-treesitter',
         'ravitemer/codecompanion-history.nvim',
-        {
-            'echasnovski/mini.diff',
-            config = function()
-                local diff = require('mini.diff')
-                diff.setup { source = diff.gen_source.none() }
-            end,
-        },
     },
     cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions' },
 }

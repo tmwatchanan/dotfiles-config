@@ -26,6 +26,53 @@ return {
         config = true
     },
     {
+        'echasnovski/mini.diff',
+        main = 'mini.diff',
+        event = 'VeryLazy',
+        opts = function()
+            local diff_keymap = require('config.keymaps').diff
+            return {
+                view = { style = 'sign' },
+                options = { wrap_goto = true },
+                mappings = {
+                    -- Apply / Reset hunks inside a visual/operator region
+                    apply = diff_keymap.apply_hunk,
+                    reset = diff_keymap.reset_hunk,
+
+                    -- Hunk range textobject to be used inside operator
+                    textobject = diff_keymap.text_object,
+
+                    -- Go to hunk range in corresponding direction
+                    goto_first = diff_keymap.first_hunk,
+                    goto_prev = diff_keymap.prev_hunk,
+                    goto_next = diff_keymap.next_hunk,
+                    goto_last = diff_keymap.last_hunk,
+                }
+            }
+        end,
+        keys = function()
+            local diff_keymap = require('config.keymaps').diff
+            return {
+                {
+                    diff_keymap.preview_hunk,
+                    function() require('mini.diff').toggle_overlay() end,
+                },
+                {
+                    diff_keymap.stage_hunk,
+                    function() return require('mini.diff').operator('apply') .. diff_keymap.text_object end,
+                    expr = true,
+                    remap = true
+                },
+                {
+                    diff_keymap.discard_hunk,
+                    function() return require('mini.diff').operator('reset') .. diff_keymap.text_object end,
+                    expr = true,
+                    remap = true
+                }
+            }
+        end
+    },
+    {
         'Wansmer/treesj',
         dependencies = 'nvim-treesitter',
         opts = {
