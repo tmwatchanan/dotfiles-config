@@ -31,7 +31,7 @@ mason_module.config = function()
     end
 
     -- INFO: config lsp log with formatting
-    vim.lsp.set_log_level 'off' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
+    vim.lsp.log.set_level 'off' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
     -- require('vim.lsp.log').set_format_func(vim.inspect)
 
     -- INFO: load LSP configurations from individual files in ~/.config/nvim/lsp directory
