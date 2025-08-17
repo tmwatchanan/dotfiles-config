@@ -32,7 +32,10 @@ return {
         opts = function()
             local diff_keymap = require('config.keymaps').diff
             return {
-                view = { style = 'sign' },
+                view = {
+                    style = 'sign',
+                    signs = { add = '┃', change = '┃', delete = '┃' },
+                },
                 options = { wrap_goto = true },
                 mappings = {
                     -- Apply / Reset hunks inside a visual/operator region
