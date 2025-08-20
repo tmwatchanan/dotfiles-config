@@ -97,7 +97,6 @@ codecompanion.opts = {
                 }
             },
         },
-        diff = { provider = 'mini_diff' },
     },
     extensions = {
         history = {
