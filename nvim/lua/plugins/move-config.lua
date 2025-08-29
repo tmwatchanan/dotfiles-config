@@ -1,7 +1,7 @@
 local move_keymap = require('config.keymaps').move
 
 local M = {
-    'echasnovski/mini.move',
+    'nvim-mini/mini.move',
     main = 'mini.move',
 }
 

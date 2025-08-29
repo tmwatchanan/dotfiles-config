@@ -1,5 +1,5 @@
 local M = {
-    'echasnovski/mini.ai',
+    'nvim-mini/mini.ai',
     main = 'mini.ai',
     dependencies = {
         {

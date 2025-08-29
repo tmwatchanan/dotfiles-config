@@ -3,7 +3,7 @@ return {
     { 'nvim-lua/plenary.nvim' },
     { 'MunifTanjim/nui.nvim' },
     {
-        'echasnovski/mini.icons',
+        'nvim-mini/mini.icons',
         opts = {},
         init = function()
             package.preload['nvim-web-devicons'] = function()
@@ -20,7 +20,7 @@ return {
         config = true
     },
     {
-        'echasnovski/mini.surround',
+        'nvim-mini/mini.surround',
         main = 'mini.surround',
         event = 'VeryLazy',
         config = true

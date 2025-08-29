@@ -1,6 +1,6 @@
 local M = {
     'MomePP/oil.nvim',
-    dependencies = { 'echasnovski/mini.icons' },
+    dependencies = { 'mini.icons' },
 }
 
 M.opts = {
