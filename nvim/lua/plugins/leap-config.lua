@@ -21,30 +21,31 @@ M.keys = function()
         local leap = require('leap').leap
         local with_traversal_keys = require('leap.user').with_traversal_keys
 
-        local function ft_args(key_specific_args)
+        local function as_ft(key_specific_args)
             local common_args = {
                 inputlen = 1,
                 inclusive_op = true,
                 opts = {
-                    case_sensitive = true,
-                    labels = {},
+                    labels = {}, -- force autojump
                     safe_labels = vim.fn.mode(1):match('o') and {} or nil,
+                    case_sensitive = true,
+                    equivalence_classes = {},
                 },
             }
             return vim.tbl_deep_extend('keep', common_args, key_specific_args)
         end
 
-        local f_opts = with_traversal_keys('f', 'F')
-        local t_opts = with_traversal_keys('t', 'T')
+        local clever_f = with_traversal_keys('f', 'F')
+        local clever_t = with_traversal_keys('t', 'T')
 
         if user_key == leap_keymap.forward then
-            leap(ft_args({ opts = f_opts }))
+            leap(as_ft({ opts = clever_f }))
         elseif user_key == leap_keymap.backward then
-            leap(ft_args({ opts = f_opts, backward = true }))
+            leap(as_ft({ opts = clever_f, backward = true }))
         elseif user_key == leap_keymap.till then
-            leap(ft_args({ opts = t_opts, offset = -1 }))
+            leap(as_ft({ opts = clever_t, offset = -1 }))
         elseif user_key == leap_keymap.backtill then
-            leap(ft_args({ opts = t_opts, backward = true, offset = -1 }))
+            leap(as_ft({ opts = clever_t, backward = true, offset = 1 }))
         end
     end
 
