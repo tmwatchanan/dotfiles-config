@@ -32,6 +32,11 @@ copilot.opts = function()
             },
         },
         panel = { enabled = false },
+        server_opts_overrides = {
+            settings = {
+                telemetry = { telemetryLevel = 'off' }
+            }
+        }
     }
 end
 
