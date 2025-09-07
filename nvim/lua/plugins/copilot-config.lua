@@ -71,7 +71,7 @@ codecompanion.opts = {
                     modes = { n = '<C-c>', i = '<C-c>' },
                 },
                 toggle = {
-                    modes = { n = 'q' },
+                    modes = { n = { 'q', '<Space>' } },
                     callback = function()
                         require('codecompanion').toggle()
                     end,
@@ -89,8 +89,8 @@ codecompanion.opts = {
                 layout   = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
                 -- width = 1,
                 -- height = 0.45,
-                width    = 0.4,
-                height   = vim.o.lines - 3,
+                width    = 0.45,
+                height   = 1,
 
                 -- Options below only apply to floating windows
                 relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
