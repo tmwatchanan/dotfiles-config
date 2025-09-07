@@ -47,11 +47,13 @@ local codecompanion = {
 
 codecompanion.opts = {
     adapters = {
-        copilot = function()
-            return require('codecompanion.adapters').extend('copilot', {
-                schema = { model = { default = 'gpt-5' } },
-            })
-        end,
+        http = {
+            copilot = function()
+                return require('codecompanion.adapters').extend('copilot', {
+                    schema = { model = { default = 'grok-code-fast-1' } },
+                })
+            end,
+        }
     },
     strategies = {
         chat = {
