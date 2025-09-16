@@ -55,7 +55,7 @@ codecompanion.opts = {
         http = {
             copilot = function()
                 return require('codecompanion.adapters').extend('copilot', {
-                    schema = { model = { default = 'grok-code-fast-1' } },
+                    schema = { model = { default = 'gpt-5-mini' } },
                 })
             end,
         }
