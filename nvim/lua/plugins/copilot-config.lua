@@ -1,6 +1,7 @@
 local copilot = {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
+    dependencies = { 'copilotlsp-nvim/copilot-lsp' },
     cond = not vim.g.vscode,
 }
 
@@ -33,6 +34,14 @@ copilot.opts = function()
             },
         },
         panel = { enabled = false },
+        nes = {
+            enabled = true,
+            keymap = {
+                accept_and_goto = '<Tab>',
+                accept = false,
+                dismiss = '<Esc>',
+            },
+        },
     }
 end
 

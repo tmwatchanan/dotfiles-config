@@ -17,16 +17,20 @@ M.opts = function()
 
     return {
         keymap = {
-            -- ['<CR>'] = {
-            --     function(_)
-            --         if copilot_status and copilot_suggestion.is_visible() then
-            --             copilot_suggestion.accept()
-            --             return true -- NOTE: must return true, skip fallback case
-            --         end
-            --     end,
-            --     'accept',
-            --     'fallback',
-            -- },
+            ['<CR>'] = {
+                'accept',
+                'fallback',
+            },
+            ['<C-l>'] = {
+                function(_)
+                    if copilot_status and copilot_suggestion.is_visible() then
+                        copilot_suggestion.accept()
+                        return true -- NOTE: must return true, skip fallback case
+                    end
+                end,
+                'accept',
+                'fallback',
+            },
             ['<C-e>'] = {
                 function(_)
                     if copilot_status and copilot_suggestion.is_visible() then
@@ -38,43 +42,45 @@ M.opts = function()
                 'fallback',
             },
             ['<Tab>'] = {
-                function(cmp)
-                    if copilot_status and copilot_suggestion.is_visible() then
-                        copilot_suggestion.accept()
-                        return true -- NOTE: must return true, skip fallback case
-                    end
-                    -- if not cmp.is_visible() then return end
-                    -- vim.schedule(function() require('blink.cmp.completion.list').select_next() end)
-                    -- return true
+                function(_)
+                    local nes = require('copilot-lsp.nes')
+                    local result = nes.apply_pending_nes()
+                    nes.walk_cursor_end_edit()
+                    return result
                 end,
-                'accept',
                 'snippet_forward',
+                'accept',
                 'fallback'
             },
             ['<S-Tab>'] = {
-                function(cmp)
-                    if not cmp.is_visible() then return end
-                    vim.schedule(function() require('blink.cmp.completion.list').select_prev() end)
-                    return true
-                end,
                 'snippet_backward',
                 'fallback',
             },
-            ['<C-h>'] = {
+            ['<C-j>'] = {
+                function(_)
+                    if copilot_status and copilot_suggestion.is_visible() then
+                        copilot_suggestion.next()
+                        return true
+                    end
+                end,
+                function(cmp)
+                    if not cmp.is_visible() then return end
+                    vim.schedule(function() require('blink.cmp.completion.list').select_next() end)
+                    return true
+                end,
+                'fallback',
+            },
+            ['<C-k>'] = {
                 function(_)
                     if copilot_status and copilot_suggestion.is_visible() then
                         copilot_suggestion.prev()
                         return true
                     end
                 end,
-                'fallback',
-            },
-            ['<C-l>'] = {
-                function(_)
-                    if copilot_status and copilot_suggestion.is_visible() then
-                        copilot_suggestion.next()
-                        return true
-                    end
+                function(cmp)
+                    if not cmp.is_visible() then return end
+                    vim.schedule(function() require('blink.cmp.completion.list').select_prev() end)
+                    return true
                 end,
                 'fallback',
             },
@@ -93,7 +99,7 @@ M.opts = function()
                 }
             },
             menu = {
-                auto_show = false,
+                auto_show = true,
                 winblend = vim.opt.pumblend:get(),
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu',
                 scrollbar = false,
@@ -110,7 +116,7 @@ M.opts = function()
                 }
             },
             ghost_text = {
-                enabled = true,
+                enabled = false,
             }
         },
         signature = {
