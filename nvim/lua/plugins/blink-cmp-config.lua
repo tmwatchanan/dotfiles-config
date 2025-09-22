@@ -17,20 +17,39 @@ M.opts = function()
     return {
         keymap = {
             ['<CR>'] = {
-                function(_)
-                    if copilot_status and copilot_suggestion.is_visible() then
+                function(cmp)
+                    if not copilot_status then return false end
+
+                    if copilot_suggestion.is_visible() then
                         copilot_suggestion.accept()
                         return true -- NOTE: must return true, skip fallback case
+                    else
+                        local bufnr = vim.api.nvim_get_current_buf()
+                        if vim.b[bufnr].nes_state then
+                            cmp.hide()
+                            return (
+                                require('copilot.nes.api').nes_apply_pending_nes(bufnr)
+                                and require('copilot.nes.api').nes_walk_cursor_end_edit(bufnr)
+                            )
+                        end
                     end
                 end,
                 'accept',
                 'fallback',
             },
             ['<C-e>'] = {
-                function(_)
-                    if copilot_status and copilot_suggestion.is_visible() then
+                function(cmp)
+                    if not copilot_status then return false end
+
+                    if copilot_suggestion.is_visible() then
                         copilot_suggestion.dismiss()
                         return true
+                    else
+                        local bufnr = vim.api.nvim_get_current_buf()
+                        if vim.b[bufnr].nes_state then
+                            cmp.hide()
+                            return require('copilot.nes.api').nes_clear()
+                        end
                     end
                 end,
                 'cancel',

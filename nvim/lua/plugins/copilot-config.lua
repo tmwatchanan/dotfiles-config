@@ -1,5 +1,8 @@
 local copilot = {
     'zbirenbaum/copilot.lua',
+    dependencies = {
+        'copilotlsp-nvim/copilot-lsp'
+    },
     cmd = 'Copilot',
 }
 
@@ -31,6 +34,7 @@ copilot.opts = function()
                 prev = copilot_keymap.prev,
             },
         },
+        nes = { enabled = true },
         panel = { enabled = false },
         server_opts_overrides = {
             settings = {
