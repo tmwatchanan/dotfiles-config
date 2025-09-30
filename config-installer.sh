@@ -2,7 +2,7 @@
 
 # WARN: must have brew installed
 # brew install wget luarocks neovim lazygit git-flow-avh git-delta ripgrep fd jq eza
-brew install wget lazygit git-flow-avh git-delta ripgrep fd eza fnm neovim nushell gh bat pyenv tmux yabai skhd sketchybar starship
+brew install wget lazygit git-flow-avh git-delta ripgrep fd eza fnm neovim nushell gh bat pyenv tmux starship aerospace tree-sitter-cli carapace
 
 # INFO: -- move nvim config files to local config directory
 config_path=~/.config
