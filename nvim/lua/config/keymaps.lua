@@ -238,17 +238,18 @@ keymaps.treesj = {
     toggle = 'J',
 }
 
--- INFO: copilot keymap
-keymaps.copilot = {
-    next = '<m-]>',
-    prev = '<m-[>',
-}
-
 -- INFO: codecompanion keymap
 keymaps.codecompanion = {
-    chat = '<leader>A',
+    new_chat = '<leader>A',
     toggle = '<leader>a',
     inline = 'ga',
+}
+
+-- INFO: sidekick keymap
+keymaps.sidekick = {
+    apply_nes = '<Tab>',
+    toggle = '<leader>s',
+    prompt = '<leader>S',
 }
 
 -- INFO: hbac keymap

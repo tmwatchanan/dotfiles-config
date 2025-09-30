@@ -1,46 +1,50 @@
-local copilot = {
-    'zbirenbaum/copilot.lua',
-    dependencies = {
-        'copilotlsp-nvim/copilot-lsp'
-    },
-    cmd = 'Copilot',
+local sidekick = {
+    'folke/sidekick.nvim'
 }
 
-copilot.opts = function()
-    local copilot_keymap = require('config.keymaps').copilot
+sidekick.opts = {
+    cli = {
+        mux = {
+            backend = 'tmux',
+            enabled = true,
+        },
+    }
+}
 
-    -- INFO: hide copilot suggestion if blink cmp is visible
-    vim.api.nvim_create_autocmd('User', {
-        pattern = 'BlinkCmpShow',
-        callback = function()
-            vim.b.copilot_suggestion_hidden = true
-        end,
-    })
-    vim.api.nvim_create_autocmd('User', {
-        pattern = 'BlinkCmpHide',
-        callback = function()
-            vim.b.copilot_suggestion_hidden = false
-        end,
-    })
+sidekick.keys = function()
+    local sidekick_keymap = require('config.keymaps').sidekick
 
     return {
-        suggestion = {
-            auto_trigger = false,
-            hide_during_completion = true,
-            keymap = {
-                accept = false,
-                dismiss = false,
-                next = copilot_keymap.next,
-                prev = copilot_keymap.prev,
-            },
+        {
+            sidekick_keymap.apply_nes,
+            function()
+                -- if there is a next edit, jump to it, otherwise apply it if any
+                if require('sidekick').nes_jump_or_apply() then
+                    return -- jumped or applied
+                end
+                -- fall back to normal tab
+                return '<tab>'
+            end,
+            mode = { 'i', 'n' },
+            expr = true,
+            desc = 'Goto/Apply Next Edit Suggestion',
         },
-        nes = { enabled = true },
-        panel = { enabled = false },
-        server_opts_overrides = {
-            settings = {
-                telemetry = { telemetryLevel = 'off' }
-            }
-        }
+        {
+            sidekick_keymap.toggle,
+            function()
+                require('sidekick.cli').toggle({ name = 'copilot', focus = true })
+            end,
+            desc = 'Sidekick Toggle CLI',
+            mode = { 'n', 'v' },
+        },
+        {
+            sidekick_keymap.prompt,
+            function()
+                require('sidekick.cli').select_prompt()
+            end,
+            desc = 'Sidekick Prompt Picker',
+            mode = { 'n', 'v' },
+        },
     }
 end
 
@@ -154,14 +158,14 @@ codecompanion.keys = function()
     local codecompanion_keymap = require('config.keymaps').codecompanion
 
     return {
-        { codecompanion_keymap.chat,   '<Cmd>CodeCompanionChat<CR>',        mode = { 'n' }, desc = 'CodeCompanion - New Chat' },
-        { codecompanion_keymap.toggle, '<Cmd>CodeCompanionChat Toggle<CR>', mode = { 'n' }, desc = 'CodeCompanion - Toggle Chat' },
-        { codecompanion_keymap.toggle, ':CodeCompanionChat Add<CR>',        mode = { 'v' }, desc = 'CodeCompanion - Add to Chat' },
-        { codecompanion_keymap.inline, ':CodeCompanion ',                   mode = { 'v' }, desc = 'CodeCompanion - Inline Chat' },
+        { codecompanion_keymap.new_chat, '<Cmd>CodeCompanionChat<CR>',        mode = { 'n' }, desc = 'CodeCompanion - New Chat' },
+        { codecompanion_keymap.toggle,   '<Cmd>CodeCompanionChat Toggle<CR>', mode = { 'n' }, desc = 'CodeCompanion - Toggle Chat' },
+        { codecompanion_keymap.toggle,   ':CodeCompanionChat Add<CR>',        mode = { 'v' }, desc = 'CodeCompanion - Add to Chat' },
+        { codecompanion_keymap.inline,   ':CodeCompanion ',                   mode = { 'v' }, desc = 'CodeCompanion - Inline Chat' },
     }
 end
 
 return {
-    copilot,
+    sidekick,
     codecompanion,
 }
