@@ -54,10 +54,6 @@ M.opts = function()
             enable = true,
             disable = { 'cpp' }
         },
-        incremental_selection = {
-            enable = true,
-            keymaps = require('config.keymaps').treesitter.incremental_selection,
-        },
     }
 end
 

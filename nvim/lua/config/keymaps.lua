@@ -96,15 +96,6 @@ keymaps.rename = {
     rename_clean = '<leader>lR',
 }
 
--- INFO: treesitter keymap
-keymaps.treesitter = {
-    incremental_selection = {
-        init_selection = '<Tab>',
-        node_incremental = '<Tab>',
-        node_decremental = '<S-Tab>',
-    },
-}
-
 -- INFO: lazy keymap
 keymaps.lazy = {
     open = '<leader>P',

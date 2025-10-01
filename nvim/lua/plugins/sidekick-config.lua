@@ -22,12 +22,12 @@ M.keys = function()
                 if require('sidekick').nes_jump_or_apply() then
                     return -- jumped or applied
                 end
-                -- fall back to normal tab
-                return '<tab>'
+                -- fall back to normal keymap
+                return sidekick_keymap.apply_nes
             end,
-            mode = { 'i', 'n' },
             expr = true,
             desc = 'Goto/Apply Next Edit Suggestion',
+            mode = { 'n' },
         },
         {
             sidekick_keymap.toggle,
