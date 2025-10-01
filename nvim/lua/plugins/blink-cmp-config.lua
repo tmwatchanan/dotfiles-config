@@ -12,21 +12,17 @@ local M = {
 M.opts = {
     keymap = {
         ['<Tab>'] = {
-            function(cmp)
-                if not cmp.is_visible() then return false end
-                vim.schedule(function() require('blink.cmp.completion.list').select_next() end)
-                return true
-            end,
             'snippet_forward',
+            function(cmp)
+                return cmp.select_next({ on_ghost_text = true })
+            end,
             'fallback'
         },
         ['<S-Tab>'] = {
-            function(cmp)
-                if not cmp.is_visible() then return false end
-                vim.schedule(function() require('blink.cmp.completion.list').select_prev() end)
-                return true
-            end,
             'snippet_backward',
+            function(cmp)
+                return cmp.select_prev({ on_ghost_text = true })
+            end,
             'fallback',
         },
         ['<CR>'] = { 'accept', 'fallback' },
