@@ -127,6 +127,7 @@ lspconfig_module.config = function()
     -- NOTE: lsp attach callback
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP features',
+        group = vim.api.nvim_create_augroup('LspFeatures', {}),
         callback = function(event)
             local bufnr = event.buf
             local id = vim.tbl_get(event, 'data', 'client_id')
