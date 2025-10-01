@@ -1,1 +1,7 @@
-return {}
+return {
+    settings = {
+        telemetry = {
+            telemetryLevel = 'off',
+        },
+    },
+}
