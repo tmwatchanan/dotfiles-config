@@ -5,7 +5,8 @@ local M = {
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         'rafamadriz/friendly-snippets',
-        { 'windwp/nvim-autopairs', opts = { check_ts = true, fast_wrap = { map = '<C-l>' } } }
+        { 'windwp/nvim-autopairs',  opts = { check_ts = true, fast_wrap = { map = '<C-l>' } } },
+        { 'fang2hou/blink-copilot', opts = { max_completions = 2, max_attemps = 3 } },
     },
 }
 
@@ -81,10 +82,17 @@ M.opts = {
         },
     },
     sources = {
+        default = { 'copilot', 'lsp', 'buffer', 'snippets', 'path' },
         providers = {
             buffer = {
                 opts = { enable_in_ex_commands = true }
-            }
+            },
+            copilot = {
+                name = 'copilot',
+                module = 'blink-copilot',
+                score_offset = 100,
+                async = true,
+            },
         }
     }
 }
