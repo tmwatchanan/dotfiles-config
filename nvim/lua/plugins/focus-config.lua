@@ -5,6 +5,7 @@ local M = {
 
 M.init = function()
     local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal' }
+    local ignore_filetypes = { 'codecompanion' }
     local augroup = vim.api.nvim_create_augroup('FocusDisable', { clear = true })
 
     vim.api.nvim_create_autocmd('WinEnter', {
@@ -17,6 +18,17 @@ M.init = function()
             end
         end,
         desc = 'Disable focus autoresize for BufType',
+    })
+    vim.api.nvim_create_autocmd('FileType', {
+        group = augroup,
+        callback = function(_)
+            if vim.tbl_contains(ignore_filetypes, vim.bo.filetype) then
+                vim.b.focus_disable = true
+            else
+                vim.b.focus_disable = false
+            end
+        end,
+        desc = 'Disable focus autoresize for FileType',
     })
 end
 

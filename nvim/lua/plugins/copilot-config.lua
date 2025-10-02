@@ -5,6 +5,9 @@ local sidekick = {
 
 sidekick.opts = {
     cli = {
+        win = {
+            wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' }
+        },
         mux = {
             backend = 'tmux',
             enabled = true,
@@ -36,7 +39,13 @@ sidekick.keys = function()
                 require('sidekick.cli').toggle({ name = 'copilot', focus = true })
             end,
             desc = 'Sidekick Toggle CLI',
-            mode = { 'n', 'v' },
+            mode = { 'n' },
+        },
+        {
+            sidekick_keymap.toggle,
+            function() require('sidekick.cli').send({ selection = true }) end,
+            mode = { 'v' },
+            desc = 'Sidekick Send Visual Selection',
         },
         {
             sidekick_keymap.prompt,
@@ -80,11 +89,10 @@ codecompanion.opts = {
                     modes = { n = '<C-c>', i = '<C-c>' },
                 },
                 toggle = {
-                    modes = { n = { 'q', '<Space>' } },
+                    modes = { n = 'q', i = '<C-q>' },
                     callback = function()
                         require('codecompanion').toggle()
                     end,
-                    description = 'Toggle Chat',
                 },
             },
         },
@@ -92,25 +100,25 @@ codecompanion.opts = {
     },
     display = {
         chat = {
-            intro_message = '',
+            -- intro_message = '',
             -- show_settings = true,
             window = {
-                layout   = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
-                -- width = 1,
-                -- height = 0.45,
-                width    = 0.45,
-                height   = 1,
+                layout = 'vertical',   -- 'vertical', 'horizontal', 'float', 'replace'
+                width  = 80,
+                height = 20,
+                -- width    = 0.45,
+                -- height   = 1,
 
                 -- Options below only apply to floating windows
-                relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
-                border   = 'solid',
+                -- relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
+                -- border   = 'solid',
                 -- row = vim.o.lines - (math.floor(0.45 * vim.o.lines)) - 3, -- INFO: `-3` is from -1 statusline and -2 from border top-bottom
-                row      = 0,
-                col      = vim.o.columns,
-                title    = ' Code Companion ',
-                opts     = {
-                    winhighlight = 'Normal:NormalFloat,NormalNC:NormalFloatNC',
-                }
+                -- row      = 0,
+                -- col      = vim.o.columns,
+                title  = ' Code Companion ',
+                -- opts     = {
+                --     winhighlight = 'Normal:NormalFloat,NormalNC:NormalFloatNC',
+                -- }
             },
         },
     },
