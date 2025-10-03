@@ -6,7 +6,11 @@ local sidekick = {
 sidekick.opts = {
     cli = {
         win = {
-            wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' }
+            wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' },
+            keys = {
+                stopinsert = { '<esc><esc>', 'stopinsert', mode = 't' },
+                win_p = { '<C-o>', 'blur' },
+            }
         },
         mux = {
             backend = 'tmux',
@@ -23,15 +27,12 @@ sidekick.keys = function()
             sidekick_keymap.apply_nes,
             function()
                 -- if there is a next edit, jump to it, otherwise apply it if any
-                if require('sidekick').nes_jump_or_apply() then
-                    return -- jumped or applied
+                if not require('sidekick').nes_jump_or_apply() then
+                    return sidekick_keymap.apply_nes
                 end
-                -- fall back to normal keymap
-                return sidekick_keymap.apply_nes
             end,
             expr = true,
             desc = 'Goto/Apply Next Edit Suggestion',
-            mode = { 'n' },
         },
         {
             sidekick_keymap.toggle,
@@ -39,21 +40,20 @@ sidekick.keys = function()
                 require('sidekick.cli').toggle({ name = 'copilot', focus = true })
             end,
             desc = 'Sidekick Toggle CLI',
-            mode = { 'n' },
         },
         {
             sidekick_keymap.toggle,
-            function() require('sidekick.cli').send({ selection = true }) end,
-            mode = { 'v' },
+            function() require('sidekick.cli').send({ msg = '{selection}' }) end,
+            mode = { 'x' },
             desc = 'Sidekick Send Visual Selection',
         },
         {
             sidekick_keymap.prompt,
             function()
-                require('sidekick.cli').select_prompt()
+                require('sidekick.cli').prompt()
             end,
+            mode = { 'n', 'x' },
             desc = 'Sidekick Prompt Picker',
-            mode = { 'n', 'v' },
         },
     }
 end
@@ -103,7 +103,7 @@ codecompanion.opts = {
             -- intro_message = '',
             -- show_settings = true,
             window = {
-                layout = 'vertical',   -- 'vertical', 'horizontal', 'float', 'replace'
+                layout = 'vertical', -- 'vertical', 'horizontal', 'float', 'replace'
                 width  = 80,
                 height = 20,
                 -- width    = 0.45,
