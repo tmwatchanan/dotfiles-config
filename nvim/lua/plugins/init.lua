@@ -74,7 +74,7 @@ return {
     {
         'OXY2DEV/markview.nvim',
         dependencies = { 'nvim-treesitter', 'mini.icons' },
-        lazy = false,
+        ft = { 'markdown', 'codecompanion' },
         opts = function()
             local presets = require('markview.presets')
             return {
