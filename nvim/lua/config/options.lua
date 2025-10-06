@@ -33,13 +33,12 @@ opt.showcmd        = false
 opt.showmode       = false
 opt.splitright     = true
 
-opt.foldenable     = false
--- opt.foldmethod     = "expr";
--- opt.foldexpr       = "nvim_treesitter#foldexpr()";
--- opt.foldlevel      = 99
--- opt.foldlevelstart = 99
--- opt.foldmethod     = 'expr'
--- opt.foldexpr       = 'v:lua.vim.treesitter.foldexpr()'
+-- opt.foldenable     = false
+opt.foldlevelstart = 99
+opt.foldmethod     = 'expr'
+opt.foldexpr       = 'v:lua.vim.treesitter.foldexpr()'
+opt.foldcolumn     = '1'
+opt.foldtext       = ''
 
 opt.fillchars:append {
     horiz     = '━',
@@ -49,9 +48,12 @@ opt.fillchars:append {
     vertleft  = '┫',
     vertright = '┣',
     verthoriz = '╋',
-    foldopen  = '',
-    foldclose = '',
     eob       = ' ',
+    fold      = ' ',
+    foldclose = '',
+    foldopen  = '',
+    foldsep   = ' ',
+    foldinner = ' '
 }
 
 opt.showtabline   = 0
