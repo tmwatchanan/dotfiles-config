@@ -80,6 +80,7 @@ keymaps.lsp = {
     signature_help   = { key = 'gs', cmd = vim.lsp.buf.signature_help },
     diagnostic       = { key = '<leader>ld', cmd = function() require 'snacks'.picker.diagnostics() end },
     document_symbol  = { key = '<leader>ls', cmd = function() require 'snacks'.picker.lsp_symbols() end },
+    document_color   = { key = '<leader>lc', cmd = vim.lsp.document_color.color_presentation },
     code_action      = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
     format           = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
     hover            = {
