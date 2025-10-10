@@ -7,10 +7,6 @@ sidekick.opts = {
     cli = {
         win = {
             wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' },
-            keys = {
-                stopinsert = { '<esc><esc>', 'stopinsert', mode = 't' },
-                win_p = { '<C-o>', 'blur' },
-            }
         },
         mux = {
             backend = 'tmux',
@@ -103,6 +99,7 @@ codecompanion.opts = {
             -- intro_message = '',
             -- show_settings = true,
             window = {
+                title  = ' Code Companion ',
                 layout = 'vertical', -- 'vertical', 'horizontal', 'float', 'replace'
                 width  = 80,
                 height = 20,
@@ -114,11 +111,12 @@ codecompanion.opts = {
                 -- border   = 'solid',
                 -- row = vim.o.lines - (math.floor(0.45 * vim.o.lines)) - 3, -- INFO: `-3` is from -1 statusline and -2 from border top-bottom
                 -- row      = 0,
+                -- opts   = {
                 -- col      = vim.o.columns,
-                title  = ' Code Companion ',
-                -- opts     = {
-                --     winhighlight = 'Normal:NormalFloat,NormalNC:NormalFloatNC',
-                -- }
+                --     -- winhighlight = 'Normal:NormalFloat,NormalNC:NormalFloatNC',
+                --     number = false,
+                --     relativenumber = false,
+                -- },
             },
         },
     },
