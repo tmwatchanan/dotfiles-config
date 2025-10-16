@@ -144,18 +144,10 @@ M.opts = function()
     }
 
     local lsp_status = {
-        function()
-            local attached_clients = vim.lsp.get_clients { bufnr = 0 }
-            local names = vim.iter(attached_clients)
-                :map(function(client)
-                    local name = client.name:gsub('language.server', 'ls')
-                    return name
-                end)
-                :totable()
-            return string.format('%s', table.concat(names, ' '))
-        end,
+        'lsp_status',
         padding = { left = 1, right = 2 },
         icon = icons.lualine.lsp,
+        symbols = { done = '' },
         cond = conditions.check_lsp_started
     }
 
