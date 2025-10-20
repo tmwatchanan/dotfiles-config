@@ -58,7 +58,7 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>q', function() require 'snacks'.picker.qflist() end)
     vim.keymap.set('n', '<leader>Q', '<Cmd>cexpr []<CR>')
 
-    -- INFO: search word under cursor (recursive called `hlslens`)
+    -- INFO: search word under cursor
     vim.keymap.set('n', ']]', '*', { remap = true })
     vim.keymap.set('n', '[[', '#', { remap = true })
 
@@ -183,16 +183,6 @@ keymaps.marks = {
     toggle = "m'",
     clear  = 'md',
     list   = '<leader>m',
-}
-
--- INFO: hlslens keymap
-keymaps.hlslens = {
-    search_next = 'n',
-    search_prev = 'N',
-    word_next   = '*',
-    word_prev   = '#',
-    go_next     = 'g*',
-    go_prev     = 'g#',
 }
 
 -- INFO: resession keymaps

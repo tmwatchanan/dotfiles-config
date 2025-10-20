@@ -143,6 +143,13 @@ M.opts = function()
         end,
     }
 
+    local searchcount = {
+        'searchcount',
+        padding = { left = 2 },
+        color = 'OkMsg',
+        icon = icons.lualine.search,
+    }
+
     local lsp_status = {
         'lsp_status',
         padding = { left = 1, right = 2 },
@@ -181,7 +188,7 @@ M.opts = function()
         sections = {
             lualine_a = { mode },
             lualine_b = { session_status, branch },
-            lualine_c = { path, '%=', cmp_label, cmp_kind },
+            lualine_c = { path, searchcount, '%=', cmp_label, cmp_kind },
             lualine_x = { diagnostics },
             lualine_y = { hbac, lsp_status },
             lualine_z = { location },

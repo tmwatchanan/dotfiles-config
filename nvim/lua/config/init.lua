@@ -11,6 +11,7 @@ M.defaults = {
         },
         lualine = {
             git = '󰘬',
+            search = ' ',
             session = '󰥿',
             pinned = '',
             location = ' ',
