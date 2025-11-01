@@ -36,7 +36,7 @@ os:
         } else {
             nvim --server $env.NVIM --remote-send "q"
             nvim --server $env.NVIM --remote {{filename}}
-            nvim --server "$NVIM" --remote-send ":{{line}}<CR>"
+            nvim --server $env.NVIM --remote-send ":{{line}}<CR>"
         }
     openDirInEditor: >-
         if not ($env | columns | any { |col| $col == 'NVIM' }) {
