@@ -72,31 +72,24 @@ return {
         config = true,
     },
     {
-        'OXY2DEV/markview.nvim',
+        'MeanderingProgrammer/render-markdown.nvim',
         dependencies = { 'nvim-treesitter', 'mini.icons' },
         ft = { 'markdown', 'codecompanion' },
-        opts = function()
-            local presets = require('markview.presets')
-            return {
-                preview = {
-                    icon_provider = 'mini',
-                    filetypes = { 'markdown', 'codecompanion' },
-                    ignore_buftypes = {},
-                },
-                markdown = {
-                    list_items = {
-                        marker_minus = { add_padding = false },
-                        marker_plus = { add_padding = false },
-                        marker_star = { add_padding = false }
-                    },
-                    headings = presets.headings.glow,
-                    horizontal_rules = presets.horizontal_rules.thick,
-                },
-                markdown_inline = {
-                    checkboxes = presets.checkboxes.nerd,
-                }
-            }
-        end
+        opts = {
+            anti_conceal = {
+                enabled = false,
+            },
+            code = {
+                position = 'right',
+                width = 'block',
+                border = 'thick',
+                left_pad = 2,
+                right_pad = 2,
+            },
+            pipe_table = {
+                preset = 'round'
+            },
+        }
     },
     {
         'letieu/jot.lua',
