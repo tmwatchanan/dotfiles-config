@@ -11,9 +11,8 @@ gui:
     expandFocusedSidePanel: true
     expandedSidePanelWeight: 2
 git:
-    paging:
-        colorArg: always
-        pager: delta --paging=never
+    pagers:
+        - pager: delta --paging=never
     log:
         showGraph: always
         # showWholeGraph: true
