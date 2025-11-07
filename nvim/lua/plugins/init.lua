@@ -89,6 +89,13 @@ return {
             pipe_table = {
                 preset = 'round'
             },
+            overrides = {
+                filetype = {
+                    codecompanion = {
+                        render_modes = { 'n', 'c', 'v' },
+                    },
+                },
+            },
         }
     },
     {
