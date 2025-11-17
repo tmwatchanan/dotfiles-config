@@ -1,11 +1,9 @@
 local M = {
     'saghen/blink.cmp',
-    -- version = '*',
     build = 'cargo build --release',
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         'rafamadriz/friendly-snippets',
-        { 'windwp/nvim-autopairs',  opts = { check_ts = true, fast_wrap = { map = '<C-l>' } } },
         { 'fang2hou/blink-copilot', opts = { max_completions = 2, max_attemps = 3 } },
     },
 }

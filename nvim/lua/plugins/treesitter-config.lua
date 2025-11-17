@@ -15,7 +15,6 @@ local M = {
             'folke/ts-comments.nvim',
             opts = true
         },
-        'indent-blankline.nvim',
     },
 }
 

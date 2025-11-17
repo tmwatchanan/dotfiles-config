@@ -1,33 +1,30 @@
 local M = {
     'lukas-reineke/indent-blankline.nvim',
-    dependencies = { 'hiphish/rainbow-delimiters.nvim' },
+    dependencies = { 'blink.pairs' },
+    event = 'VeryLazy',
 }
 
-M.opts = function()
-    local highlight = {
-        'RainbowDelimiterRed',
-        'RainbowDelimiterYellow',
-        'RainbowDelimiterBlue',
-        'RainbowDelimiterOrange',
-        'RainbowDelimiterGreen',
-        'RainbowDelimiterViolet',
-        'RainbowDelimiterCyan',
-    }
-
-    return {
-        indent = {
-            char = '•',
-            smart_indent_cap = true,
+M.opts = {
+    indent = {
+        char = '•',
+        smart_indent_cap = true,
+    },
+    scope = {
+        enabled = true,
+        show_start = false,
+        show_end = false,
+        highlight = {
+            'BlinkPairsRed',
+            'BlinkPairsYellow',
+            'BlinkPairsBlue',
+            'BlinkPairsOrange',
+            'BlinkPairsGreen',
+            'BlinkPairsViolet',
+            'BlinkPairsCyan',
         },
-        scope = {
-            enabled = true,
-            show_start = false,
-            show_end = false,
-            highlight = highlight,
-        },
-        debounce = 300
-    }
-end
+    },
+    debounce = 300
+}
 
 M.config = function(_, opts)
     require('ibl').setup(opts)
