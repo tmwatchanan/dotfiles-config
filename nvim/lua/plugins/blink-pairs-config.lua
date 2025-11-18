@@ -4,6 +4,9 @@ local M = {
 }
 
 M.opts = {
+    mappings = {
+        cmdline = false,
+    },
     highlights = {
         groups = {
             'BlinkPairsRed',
