@@ -69,7 +69,7 @@ codecompanion.opts = {
         http = {
             copilot = function()
                 return require('codecompanion.adapters').extend('copilot', {
-                    schema = { model = { default = 'gpt-5-mini' } },
+                    schema = { model = { default = 'gemini-3-pro-preview' } },
                 })
             end,
         }
@@ -133,6 +133,17 @@ codecompanion.opts = {
                 save_chat_keymap = 'sc',
                 auto_save = false,
                 picker = 'snacks',
+                auto_generate_title = true,
+                title_generation_opts = {
+                    adapter = 'copilot',
+                    model = 'oswe-vscode-prime',
+                },
+                summary = {
+                    generation_opts = {
+                        adapter = 'copilot',
+                        model = 'oswe-vscode-prime',
+                    },
+                }
             }
         }
     }
