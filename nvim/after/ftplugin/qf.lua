@@ -38,3 +38,10 @@ vim.keymap.set('n', 'cu', ':cdo norm! u', {
     buffer = true,
     desc = 'Undo the last modification based on the quickfix',
 })
+
+vim.opt.number = false
+vim.opt.relativenumber = false
+vim.opt.signcolumn = "no"
+vim.o.cursorline = true
+
+vim.keymap.set('n', 'q', ':q<cr>', { buffer = 0 })

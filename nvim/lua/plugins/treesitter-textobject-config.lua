@@ -1,5 +1,6 @@
 local mini_ai_module = {
-    'echasnovski/mini.ai',
+    'nvim-mini/mini.ai',
+    main = 'mini.ai',
     dependencies = {
         {
             'nvim-treesitter/nvim-treesitter-textobjects',

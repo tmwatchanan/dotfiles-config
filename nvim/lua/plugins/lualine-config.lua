@@ -172,19 +172,18 @@ M.opts = function()
         end,
     }
 
+    local searchcount = {
+        'searchcount',
+        padding = { left = 2 },
+        color = 'OkMsg',
+        icon = icons.lualine.search,
+    }
+
     local lsp_status = {
-        function()
-            local attached_clients = vim.lsp.get_clients { bufnr = 0 }
-            local names = vim.iter(attached_clients)
-                :map(function(client)
-                    local name = client.name:gsub('language.server', 'ls')
-                    return name
-                end)
-                :totable()
-            return string.format('%s', table.concat(names, ' '))
-        end,
+        'lsp_status',
         padding = { left = 1, right = 2 },
         icon = icons.lualine.lsp,
+        symbols = { done = '' },
         cond = conditions.check_lsp_started
     }
 
@@ -235,8 +234,8 @@ M.opts = function()
         },
         sections = {
             lualine_a = { mode },
-            lualine_b = { session_status, recording_mode },
-            lualine_c = { branch, path, '%=', spacing, navic_location },
+            lualine_b = { session_status, recording_mode, branch },
+            lualine_c = { path, searchcount, '%=', spacing, navic_location },
             lualine_x = { cmp_label, cmp_kind, hbac },
             lualine_y = { swenv, diagnostics, lsp_status },
             lualine_z = { location },

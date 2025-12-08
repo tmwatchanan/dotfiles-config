@@ -1,14 +1,13 @@
 local M = {
     'lewis6991/gitsigns.nvim',
-    dependencies = 'plenary.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = 'VeryLazy',
     cond = not vim.g.vscode,
 }
 
 M.opts = {
-    _new_sign_calc = true,
     gh = true,
     signcolumn = true,
+    numhl = true,
     preview_config = {
         border = 'solid',
         row    = 1,

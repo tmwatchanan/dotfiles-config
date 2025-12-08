@@ -1,46 +1,56 @@
-local copilot = {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    dependencies = { 'copilotlsp-nvim/copilot-lsp' },
+local sidekick = {
+    'folke/sidekick.nvim',
+    event = 'VeryLazy'
     cond = not vim.g.vscode,
 }
 
-copilot.opts = function()
-    local copilot_keymap = require('config.keymaps').copilot
+sidekick.opts = {
+    cli = {
+        win = {
+            wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' },
+        },
+        mux = {
+            backend = 'tmux',
+            enabled = true,
+        },
+    }
+}
 
-    -- INFO: hide copilot suggestion if blink cmp is visible
-    vim.api.nvim_create_autocmd('User', {
-        pattern = 'BlinkCmpShow',
-        callback = function()
-            vim.b.copilot_suggestion_hidden = true
-        end,
-    })
-    vim.api.nvim_create_autocmd('User', {
-        pattern = 'BlinkCmpHide',
-        callback = function()
-            vim.b.copilot_suggestion_hidden = false
-        end,
-    })
+sidekick.keys = function()
+    local sidekick_keymap = require('config.keymaps').sidekick
 
     return {
-        suggestion = {
-            auto_trigger = true,
-            hide_during_completion = true,
-            keymap = {
-                accept = false,
-                dismiss = false,
-                next = copilot_keymap.next,
-                prev = copilot_keymap.prev,
-            },
+        {
+            sidekick_keymap.apply_nes,
+            function()
+                -- if there is a next edit, jump to it, otherwise apply it if any
+                if not require('sidekick').nes_jump_or_apply() then
+                    return sidekick_keymap.apply_nes
+                end
+            end,
+            expr = true,
+            desc = 'Goto/Apply Next Edit Suggestion',
         },
-        panel = { enabled = false },
-        nes = {
-            enabled = true,
-            keymap = {
-                accept_and_goto = '<Tab>',
-                accept = false,
-                dismiss = '<Esc>',
-            },
+        {
+            sidekick_keymap.toggle,
+            function()
+                require('sidekick.cli').toggle({ name = 'copilot', focus = true })
+            end,
+            desc = 'Sidekick Toggle CLI',
+        },
+        {
+            sidekick_keymap.toggle,
+            function() require('sidekick.cli').send({ msg = '{selection}' }) end,
+            mode = { 'x' },
+            desc = 'Sidekick Send Visual Selection',
+        },
+        {
+            sidekick_keymap.prompt,
+            function()
+                require('sidekick.cli').prompt()
+            end,
+            mode = { 'n', 'x' },
+            desc = 'Sidekick Prompt Picker',
         },
     }
 end
@@ -51,70 +61,71 @@ local codecompanion = {
         'plenary.nvim',
         'nvim-treesitter',
         'ravitemer/codecompanion-history.nvim',
-        {
-            'echasnovski/mini.diff',
-            config = function()
-                local diff = require('mini.diff')
-                diff.setup { source = diff.gen_source.none() }
-            end,
-        },
     },
     cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions' },
 }
 
 codecompanion.opts = {
     adapters = {
-        copilot = function()
-            return require('codecompanion.adapters').extend('copilot', {
-                schema = { model = { default = 'claude-sonnet-4' } },
-            })
-        end,
+        http = {
+            copilot = function()
+                return require('codecompanion.adapters').extend('copilot', {
+                    schema = { model = { default = 'gemini-3-pro-preview' } },
+                })
+            end,
+        }
     },
     strategies = {
         chat = {
             adapter = 'copilot',
             keymaps = {
-                close = {
-                    modes = { n = 'Q' }
-                },
                 stop = {
                     modes = { n = '<C-c>', i = '<C-c>' },
                 },
-                toggle = {
-                    modes = { n = 'q' },
-                    callback = function()
-                        require('codecompanion').toggle()
-                    end,
-                    description = 'Toggle Chat',
+                close = {
+                    modes = { n = 'Q' }
+                },
+                hide = {
+                    modes = { n = 'q', i = '<C-q>' },
+                    callback = function(chat) chat.ui:hide() end,
+                    description = 'Hide chat',
                 },
             },
         },
-        inline = { adapter = 'copilot' },
+        inline = {
+            adapter = 'copilot',
+            keymaps = {
+                stop = {
+                    modes = { n = '<C-c>' }
+                }
+            }
+        },
     },
     display = {
         chat = {
-            intro_message = '',
-            show_settings = true,
+            -- intro_message = '',
+            -- show_settings = true,
             window = {
-                layout   = 'float', -- 'vertical', 'horizontal', 'float', 'replace'
-                -- width = 1,
-                -- height = 0.45,
-                width    = 0.4,
-                height   = vim.o.lines - 3,
+                title  = ' Code Companion ',
+                layout = 'vertical', -- 'vertical', 'horizontal', 'float', 'replace'
+                width  = 80,
+                height = 20,
+                -- width    = 0.45,
+                -- height   = 1,
 
                 -- Options below only apply to floating windows
-                relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
-                border   = 'solid',
+                -- relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
+                -- border   = 'solid',
                 -- row = vim.o.lines - (math.floor(0.45 * vim.o.lines)) - 3, -- INFO: `-3` is from -1 statusline and -2 from border top-bottom
-                row      = 0,
-                col      = vim.o.columns,
-                title    = ' Code Companion ',
-                opts     = {
-                    winhighlight = 'Normal:NormalFloat,NormalNC:NormalFloatNC',
-                }
+                -- row      = 0,
+                -- opts   = {
+                -- col      = vim.o.columns,
+                --     -- winhighlight = 'Normal:NormalFloat,NormalNC:NormalFloatNC',
+                --     number = false,
+                --     relativenumber = false,
+                -- },
             },
         },
-        diff = { provider = 'mini_diff' },
     },
     extensions = {
         history = {
@@ -123,6 +134,17 @@ codecompanion.opts = {
                 save_chat_keymap = 'sc',
                 auto_save = false,
                 picker = 'snacks',
+                auto_generate_title = true,
+                title_generation_opts = {
+                    adapter = 'copilot',
+                    model = 'oswe-vscode-prime',
+                },
+                summary = {
+                    generation_opts = {
+                        adapter = 'copilot',
+                        model = 'oswe-vscode-prime',
+                    },
+                }
             }
         }
     }
@@ -133,25 +155,28 @@ codecompanion.config = function(_, plugin_opts)
 
     -- INFO: auto-save chat when chat history exist
     vim.api.nvim_create_autocmd('User', {
-        pattern = 'CodeCompanion*Finished',
+        pattern = 'CodeCompanionRequestFinished',
         group = vim.api.nvim_create_augroup('UserCodeCompanionHistory', { clear = true }),
         callback = vim.schedule_wrap(function(opts)
-            if opts.match == 'CodeCompanionRequestFinished' or opts.match == 'CodeCompanionAgentFinished' then
-                if opts.match == 'CodeCompanionRequestFinished' and opts.data.strategy ~= 'chat' then
-                    return
-                end
+            if opts.data.strategy ~= 'chat' then
+                return
+            end
 
-                local chat_module = require('codecompanion.strategies.chat')
-                local bufnr = opts.data.bufnr
-                if not bufnr then return end
+            local chat_module = require('codecompanion.strategies.chat')
+            local bufnr = opts.data.bufnr
+            if not bufnr then return end
 
-                local history = require('codecompanion').extensions.history
+            local history = require('codecompanion').extensions.history
 
-                local chat_history = history.get_chats(function(chat_data) return chat_data.cwd == vim.fn.getcwd() end)
-                local chat = chat_module.buf_get_chat(bufnr)
-                if chat and not vim.tbl_isempty(chat_history) then
-                    history.save_chat(chat)
-                end
+            -- Check if history exists for this CWD
+            local chat_history = history.get_chats(function(chat_data) return chat_data.cwd == vim.fn.getcwd() end)
+
+            -- Get the current chat object
+            local chat = chat_module.buf_get_chat(bufnr)
+
+            -- Save if we have a valid chat object and existing history
+            if chat and not vim.tbl_isempty(chat_history) then
+                history.save_chat(chat)
             end
         end),
     })
@@ -161,14 +186,14 @@ codecompanion.keys = function()
     local codecompanion_keymap = require('config.keymaps').codecompanion
 
     return {
-        { codecompanion_keymap.chat,   '<Cmd>CodeCompanionChat<CR>',        mode = { 'n' }, desc = 'CodeCompanion - New Chat' },
-        { codecompanion_keymap.toggle, '<Cmd>CodeCompanionChat Toggle<CR>', mode = { 'n' }, desc = 'CodeCompanion - Toggle Chat' },
-        { codecompanion_keymap.toggle, ':CodeCompanionChat Add<CR>',        mode = { 'v' }, desc = 'CodeCompanion - Add to Chat' },
-        { codecompanion_keymap.inline, ':CodeCompanion ',                   mode = { 'v' }, desc = 'CodeCompanion - Inline Chat' },
+        { codecompanion_keymap.new_chat, '<Cmd>CodeCompanionChat<CR>',        mode = { 'n' }, desc = 'CodeCompanion - New Chat' },
+        { codecompanion_keymap.toggle,   '<Cmd>CodeCompanionChat Toggle<CR>', mode = { 'n' }, desc = 'CodeCompanion - Toggle Chat' },
+        { codecompanion_keymap.toggle,   ':CodeCompanionChat Add<CR>',        mode = { 'v' }, desc = 'CodeCompanion - Add to Chat' },
+        { codecompanion_keymap.inline,   ':CodeCompanion ',                   mode = { 'v' }, desc = 'CodeCompanion - Inline Chat' },
     }
 end
 
 return {
-    copilot,
+    sidekick,
     codecompanion,
 }

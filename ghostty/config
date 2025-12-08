@@ -3,17 +3,20 @@ font-family = Maple Mono NF
 font-size = 13
 # font-thicken = true
 adjust-cell-height = 10%
-alpha-blending = linear-corrected
+# alpha-blending = linear-corrected
 
 # cursor config
 mouse-hide-while-typing = true
 shell-integration-features = no-cursor
 cursor-style = block
 
+# macos icon
+macos-icon = blueprint
+
 # colorscheme
 theme = oxocarbon
-background-opacity = 0.87
-background-blur-radius = 30
+background-opacity = 0.80
+background-blur-radius = 20
 bold-is-bright = true
 
 # window config
@@ -24,6 +27,7 @@ window-padding-y = 4
 
 # quick terminal config
 quick-terminal-space-behavior = remain
+quick-terminal-screen = macos-menu-bar
 
 # input config
 macos-option-as-alt = true

@@ -32,21 +32,18 @@ mason_module.config = function()
     end
 
     -- INFO: config lsp log with formatting
-    vim.lsp.set_log_level 'off' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
+    vim.lsp.log.set_level 'off' --    Levels by name: "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF"
     -- require('vim.lsp.log').set_format_func(vim.inspect)
 
+    -- INFO: global default capabilities for all servers
+    vim.lsp.config('*', { capabilities = vim.lsp.protocol.make_client_capabilities() })
+
     -- INFO: load LSP configurations from individual files in ~/.config/nvim/lsp directory
-    local lsp_names = {}
-    local lsp_dir = vim.fn.stdpath('config') .. '/after/lsp'
+    local server_names = vim.iter(vim.api.nvim_get_runtime_file('after/lsp/*.lua', true))
+        :map(function(file) return vim.fn.fnamemodify(file, ':t:r') end)
+        :totable()
 
-    vim.lsp.config('*', {
-        capabilities = vim.lsp.protocol.make_client_capabilities()
-    })
-
-    for _, file in ipairs(vim.fn.readdir(lsp_dir)) do
-        local lsp_name = file:gsub('%.lua$', '')
-        table.insert(lsp_names, lsp_name)
-
+    for _, lsp_name in ipairs(server_names) do
         -- NOTE: check local config if available and injected before lsp enabled
         local user_local_config = load_local_settings(vim.uv.cwd(), lsp_name)
         if user_local_config then
@@ -56,7 +53,7 @@ mason_module.config = function()
 
     -- NOTE: automatically setup lsp from default config installed via mason.nvim
     require('mason-lspconfig').setup {
-        ensure_installed = lsp_names,
+        ensure_installed = server_names,
         automatic_enable = true,
     }
 end
@@ -69,8 +66,6 @@ local lspconfig_module = {
 }
 
 lspconfig_module.config = function()
-    local lsp_methods = vim.lsp.protocol.Methods
-
     -- INFO: config lsp keymaps
     local function lsp_keymap(bufnr, mapping)
         local opts = { buffer = bufnr, silent = true, noremap = true }
@@ -84,29 +79,26 @@ lspconfig_module.config = function()
     vim.g.show_inlay_hint = true
     local function lsp_inlayhint(client, bufnr)
         -- INFO: enable inlay hints when enter insert mode and disable when leave
-        if client:supports_method(lsp_methods.textDocument_inlayHint) then
-            local inlayhint_augroup = vim.api.nvim_create_augroup('inlayhint_augroup', { clear = false })
-
-            vim.api.nvim_create_autocmd('InsertEnter', {
-                buffer = bufnr,
-                group = inlayhint_augroup,
-                callback = function() vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end,
-            })
-            vim.api.nvim_create_autocmd('InsertLeave', {
-                buffer = bufnr,
-                group = inlayhint_augroup,
-                callback = function()
-                    if not vim.g.show_inlay_hint then
-                        vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
-                    end
-                end,
-            })
+        if not (client and client:supports_method('textDocument/inlayHint')) then
+            return
         end
+
+        local inlayhint_augroup = vim.api.nvim_create_augroup('inlayhint_augroup', { clear = false })
+        vim.api.nvim_create_autocmd('InsertEnter', {
+            buffer = bufnr,
+            group = inlayhint_augroup,
+            callback = function() vim.lsp.inlay_hint.enable(true, { bufnr = bufnr }) end,
+        })
+        vim.api.nvim_create_autocmd('InsertLeave', {
+            buffer = bufnr,
+            group = inlayhint_augroup,
+            callback = function() vim.lsp.inlay_hint.enable(false, { bufnr = bufnr }) end,
+        })
     end
 
     -- INFO: lsp highlight symbols
     local function lsp_highlight_symbol(client, bufnr)
-        if not (client and client:supports_method(lsp_methods.textDocument_documentHighlight)) then
+        if not (client and client:supports_method('textDocument/documentHighlight')) then
             return
         end
 
@@ -117,13 +109,13 @@ lspconfig_module.config = function()
 
         vim.api.nvim_clear_autocmds(autocmd_opts)
 
-        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' },
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'InsertLeave' },
             vim.tbl_extend('force', autocmd_opts, {
                 callback = vim.lsp.buf.document_highlight,
             })
         )
 
-        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' },
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'InsertEnter', 'BufLeave' },
             vim.tbl_extend('force', autocmd_opts, {
                 callback = vim.lsp.buf.clear_references,
             })
@@ -133,10 +125,10 @@ lspconfig_module.config = function()
     -- NOTE: lsp attach callback
     vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP features',
+        group = vim.api.nvim_create_augroup('LspFeatures', {}),
         callback = function(event)
             local bufnr = event.buf
-            local id = vim.tbl_get(event, 'data', 'client_id')
-            local client = id and vim.lsp.get_client_by_id(id) or {}
+            local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
 
             lsp_keymap(bufnr, require('config.keymaps').lsp)
             vim.lsp.inlay_hint.enable(vim.g.show_inlay_hint, { bufnr = bufnr })

@@ -28,9 +28,35 @@ git:
     # branchLogCmd: "git log --graph --color --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%n%C(reset)%C(dim cyan)%an <%ae>%n%C(reset)%C(white)%w(0,4,4)%B%C(reset)' {{branchName}} --"
     # allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim cyan)- %an%C(reset)%C(bold yellow)%d%C(reset)'"
 os:
-  editPreset: "nvim-remote"
-  open: "open -R {{filename}}"
-notARepository: "quit"
+    open: "^open -R {{filename}}"
+
+    edit: |
+        if not set -q NVIM
+            nvim -- {{filename}}
+        else
+            nvim --server $NVIM --remote-send "q"
+            nvim --server $NVIM --remote {{filename}}
+        end
+
+    editPreset: "nvim-remote"
+
+    editAtLine: |
+        if not set -q NVIM
+            nvim +{{line}} -- {{filename}}
+        else
+            nvim --server $NVIM --remote-send "q"
+            nvim --server $NVIM --remote {{filename}}
+            nvim --server $NVIM --remote-send ":{{line}}<CR>"
+        end
+
+    openDirInEditor: |
+        if not set -q NVIM
+            nvim -- {{dir}}
+        else
+            nvim --server $NVIM --remote-send "q"
+            nvim --server $NVIM --remote {{dir}}
+        end
+notARepository: 'quit'
 promptToReturnFromSubprocess: false
 refresher:
   fetchInterval: 150

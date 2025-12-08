@@ -11,31 +11,7 @@ M.opts = function()
     local keymaps = require('config.keymaps').snacks
     local picker_keymap = keymaps.picker
 
-    local upad = { '', '', '', ' ', ' ', ' ', ' ', ' ' }
-
-    local horizontal_layout = {
-        layout = {
-            box = 'horizontal',
-            backdrop = false,
-            width = 0.85,
-            height = 0.8,
-            border = 'none',
-            {
-                box = 'vertical',
-                { win = 'input', height = 1,     border = 'solid', title = '{source} {live} {flags}', title_pos = 'center' },
-                { win = 'list',  border = 'hpad' },
-            },
-            {
-                win = 'preview',
-                title = '{preview:Preview}',
-                width = 0.55,
-                border = 'solid',
-                title_pos = 'center',
-            },
-        },
-    }
-
-    local vertical_layout = {
+    local fullscreen_layout = {
         layout = {
             box = 'vertical',
             backdrop = false,
@@ -54,16 +30,17 @@ M.opts = function()
         layout = {
             box = 'horizontal',
             backdrop = false,
-            row = -1,
+            row = 0,
             width = 0,
-            height = 0.3,
+            height = vim.o.lines - 1,
             border = 'none',
+            { win = 'preview', title = '{preview}', border = 'vpad' },
             {
                 box = 'vertical',
-                { win = 'input', border = 'vpad', height = 1, title = ' {title} {live} {flags}', title_pos = 'left' },
+                height = 0.25,
+                { win = 'input', border = 'solid', height = 1, title = ' {title} {live} {flags}', title_pos = 'left' },
                 { win = 'list',  border = 'hpad' },
             },
-            { win = 'preview', title = '{preview}', width = 0.55, border = 'hpad' },
         }
     }
 
@@ -87,18 +64,10 @@ M.opts = function()
     return {
         picker = {
             ui_select = true,
-            -- layout = horizontal_layout,
+            layout = fullscreen_layout,
             sources = {
-                diagnostics = { layout = bottom_layout },
-                lsp_definitions = { layout = bottom_layout },
-                lsp_declarations = { layout = bottom_layout },
-                lsp_implementations = { layout = bottom_layout },
-                lsp_references = { layout = bottom_layout },
-                lsp_symbols = { layout = bottom_layout },
                 select = { layout = select_layout },
-                grep = { layout = vertical_layout },
-                grep_buffers = { layout = vertical_layout },
-                help = { confirm = 'vsplit'  },
+                help = { confirm = 'vsplit' },
             },
             formatters = {
                 file = { filename_first = false },
@@ -122,7 +91,7 @@ M.opts = function()
                         qf[#qf + 1] = {
                             filename = require('snacks').picker.util.path(item),
                             bufnr = item.buf,
-                            lnum = item.pos and item.pos[1] or 1,
+
                             col = item.pos and item.pos[2] or 1,
                             end_lnum = item.end_pos and item.end_pos[1] or nil,
                             end_col = item.end_pos and item.end_pos[2] or nil,

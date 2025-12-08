@@ -29,7 +29,6 @@ opt.sessionoptions = { 'buffers', 'curdir', 'winsize', 'folds', 'terminal' }
 opt.wildignore     = '**/node_module/*, **/.pio/*, **/.git/*'
 
 -- UI editor
-opt.termguicolors  = true
 opt.number         = true
 opt.relativenumber = true
 opt.ruler          = false
@@ -44,24 +43,27 @@ opt.showmode       = false
 opt.splitright     = true
 
 opt.foldenable     = true
--- opt.foldmethod     = 'expr'
--- opt.foldexpr       = 'v:lua.vim.treesitter.foldexpr()'
-opt.foldlevel      = 99
 opt.foldlevelstart = 99
-opt.foldcolumn     = '0'
+opt.foldmethod     = 'expr'
+opt.foldexpr       = 'v:lua.vim.treesitter.foldexpr()'
+opt.foldcolumn     = '1'
+opt.foldtext       = ''
 
-opt.fillchars:append {
-    horiz     = '━',
-    horizup   = '┻',
-    horizdown = '┳',
-    vert      = '┃',
-    vertleft  = '┫',
-    vertright = '┣',
-    verthoriz = '╋',
-    foldopen  = '',
-    foldclose = '',
-    eob       = ' ',
-}
+-- opt.fillchars:append {
+--     horiz     = '━',
+--     horizup   = '┻',
+--     horizdown = '┳',
+--     vert      = '┃',
+--     vertleft  = '┫',
+--     vertright = '┣',
+--     verthoriz = '╋',
+--     eob       = ' ',
+--     fold      = ' ',
+--     foldclose = '',
+--     foldopen  = '',
+--     foldsep   = ' ',
+--     foldinner = ' '
+-- }
 
 opt.showtabline   = 0
 opt.cmdheight     = 0

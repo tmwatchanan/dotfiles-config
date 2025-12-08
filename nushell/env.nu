@@ -105,6 +105,10 @@ path add /opt/homebrew/sbin
 path add /run/current-system/sw/bin
 path add $"($env.HOME)/.local/bin"
 
+# set default editor
+$env.EDITOR = 'nvim'
+$env.VISUAL = 'nvim'
+
 # set path for commandline tools
 $env.SDKROOT = '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'
 

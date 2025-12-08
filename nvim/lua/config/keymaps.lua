@@ -111,9 +111,9 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>q', function() require 'snacks'.picker.qflist() end)
     vim.keymap.set('n', '<leader>Q', '<Cmd>cexpr []<CR>')
 
-    -- INFO: search word under cursor (recursive called `hlslens`)
-    -- vim.keymap.set('n', ']]', '*', { remap = true })
-    -- vim.keymap.set('n', '[[', '#', { remap = true })
+    -- INFO: search word under cursor
+    vim.keymap.set('n', ']]', '*', { remap = true })
+    vim.keymap.set('n', '[[', '#', { remap = true })
 
     -- INFO: delete a character next to the cursor in INSERT mode
     vim.keymap.set('i', '<C-l>', '<Esc>lxi')
@@ -229,6 +229,7 @@ keymaps.lsp = {
     signature_help      = { key = 'gs', cmd = vim.lsp.buf.signature_help },
     diagnostic          = { key = '<leader>ld', cmd = function() require 'snacks'.picker.diagnostics() end },
     document_symbol     = { key = '<leader>ls', cmd = function() require 'snacks'.picker.lsp_symbols() end },
+    document_color      = { key = '<leader>lc', cmd = vim.lsp.document_color.color_presentation },
     code_action         = { key = '<leader>lx', cmd = vim.lsp.buf.code_action },
     format              = { key = '<leader>ff', cmd = function() vim.lsp.buf.format({ async = true }) end },
     hover               = {
@@ -347,12 +348,12 @@ keymaps.mason = {
     open = '<leader>P',
 }
 
--- INFO: Jot keymap
+-- INFO: jot keymap
 keymaps.jot = {
     toggle = '<leader>n',
 }
 
--- INFO: Focus keymap
+-- INFO: focus keymap
 keymaps.focus = {
     toggle_enable = '<Bslash>f',
     toggle_size   = '<Bslash>F',
@@ -384,7 +385,7 @@ keymaps.gitconflict = {
     toggle_qflist = '<leader>x',
 }
 
--- INFO: Snacks picker keymap
+-- INFO: snacks picker keymap
 keymaps.snacks = {
     picker         = {
         grep_workspace        = 'gw',
@@ -415,19 +416,19 @@ keymaps.snacks = {
     git_blame_line = '<leader>gB',
 }
 
--- INFO: Oil keymap
+-- INFO: oil keymap
 keymaps.oil = {
     open_float = '<leader><Tab>',
 }
 
--- INFO: Todocomments keymap
+-- INFO: todocomments keymap
 keymaps.todocomments = {
     toggle    = '<Bslash>c',
     next_todo = ']t',
     prev_todo = '[t',
 }
 
--- INFO: Marks keymap
+-- INFO: marks keymap
 keymaps.marks = {
     next   = "'",
     prev   = '"',
@@ -444,23 +445,13 @@ keymaps.ufo = {
     close_with  = 'zm',
 }
 
--- INFO: hlslens keymap
-keymaps.hlslens = {
-    search_next = 'n',
-    search_prev = 'N',
-    word_next   = '*',
-    word_prev   = '#',
-    go_next     = 'g*',
-    go_prev     = 'g#',
-}
-
 -- INFO: resession keymaps
 keymaps.resession = {
     save   = '<leader>ss',
     delete = '<leader>sd',
 }
 
--- INFO: Noice keymaps
+-- INFO: noice keymaps
 keymaps.noice = {
     history          = '<leader>M',
     docs_scroll_up   = '<C-u>',
@@ -621,17 +612,18 @@ keymaps.neowords = {
     new_b = 'b',
 }
 
--- INFO: copilot keymap
-keymaps.copilot = {
-    next = '<m-]>',
-    prev = '<m-[>',
-}
-
 -- INFO: codecompanion keymap
 keymaps.codecompanion = {
-    chat = '<leader>A',
+    new_chat = '<leader>A',
     toggle = '<leader>a',
     inline = 'ga',
+}
+
+-- INFO: sidekick keymap
+keymaps.sidekick = {
+    apply_nes = '<Tab>',
+    toggle = '<leader>s',
+    prompt = '<leader>S',
 }
 
 -- INFO: hbac keymap

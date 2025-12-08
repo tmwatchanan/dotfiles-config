@@ -3,7 +3,7 @@ return {
     { 'nvim-lua/plenary.nvim' },
     { 'MunifTanjim/nui.nvim' },
     {
-        'echasnovski/mini.icons',
+        'nvim-mini/mini.icons',
         opts = {},
         init = function()
             package.preload['nvim-web-devicons'] = function()
@@ -99,11 +99,6 @@ return {
         end,
     },
     {
-        'MomePP/sentiment.nvim',
-        event = 'VeryLazy',
-        config = true,
-    },
-    {
         'axkirillov/hbac.nvim',
         opts = {
             threshold = 20,
@@ -112,13 +107,9 @@ return {
                 pcall(require('snacks').bufdelete.delete, { buf = bufnr, force = force })
             end
         },
-        keys = function()
-            local hbac_keymap = require('config.keymaps').hbac
-            return {
-                { hbac_keymap.toggle_pin, '<Cmd>Hbac toggle_pin<CR>' }
-            }
-        end,
-        cond = not vim.g.vscode,
+        keys = {
+            { require('config.keymaps').hbac.toggle_pin, '<Cmd>Hbac toggle_pin<CR>' }
+        }
     },
     {
         'saecki/live-rename.nvim',
@@ -138,31 +129,31 @@ return {
         cmd = { 'HexToggle', 'HexDump', 'HexAssemble' },
     },
     {
-        'OXY2DEV/markview.nvim',
+        'MeanderingProgrammer/render-markdown.nvim',
         dependencies = { 'nvim-treesitter', 'mini.icons' },
         ft = { 'markdown', 'codecompanion' },
-        opts = function()
-            local presets = require('markview.presets')
-            return {
-                preview = {
-                    icon_provider = 'mini',
-                    filetypes = { 'markdown', 'codecompanion' },
-                    ignore_buftypes = {},
-                },
-                markdown = {
-                    list_items = {
-                        marker_minus = { add_padding = false },
-                        marker_plus = { add_padding = false },
-                        marker_star = { add_padding = false }
+        opts = {
+            anti_conceal = {
+                enabled = false,
+            },
+            code = {
+                position = 'right',
+                width = 'block',
+                border = 'thick',
+                left_pad = 2,
+                right_pad = 2,
+            },
+            pipe_table = {
+                preset = 'round'
+            },
+            overrides = {
+                filetype = {
+                    codecompanion = {
+                        render_modes = { 'n', 'c', 'v' },
                     },
-                    headings = presets.headings.glow,
-                    horizontal_rules = presets.horizontal_rules.thick,
                 },
-                markdown_inline = {
-                    checkboxes = presets.checkboxes.nerd,
-                }
-            }
-        end,
+            },
+        }
     },
     {
         'letieu/jot.lua',

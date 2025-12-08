@@ -14,15 +14,16 @@ return {
                 enable = true,
                 globals = { 'vim', 'use' },
             },
+            hint = {
+                enable = true,
+                arrayIndex = 'Disable',
+            },
             workspace = {
+                checkThirdParty = false,
                 library = {
                     vim.env.VIMRUNTIME,
                     '${3rd}/luv/library',
-                    -- '${3rd}/busted/library',
                 },
-                maxPreload = 10000,
-                preloadFileSize = 10000,
-                checkThirdParty = false,
                 ignoreDir = {
                     '**/node_modules/**',
                 },

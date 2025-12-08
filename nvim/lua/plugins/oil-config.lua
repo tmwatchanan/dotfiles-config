@@ -1,6 +1,6 @@
 local M = {
     'MomePP/oil.nvim',
-    dependencies = { 'echasnovski/mini.icons' },
+    dependencies = { 'mini.icons' },
     cond = not vim.g.vscode,
 }
 
@@ -17,8 +17,13 @@ M.opts = {
     delete_to_trash = true,
     float = {
         border = 'solid',
-        max_width = 0.85,
-        max_height = 0.79, -- to equalize to snacks float win height
+        override = function(conf)
+            conf.width = vim.o.columns - 2 -- NOTE: this offset cause by padding = 2
+            conf.height = vim.o.lines - 3
+            conf.col = 0
+            conf.row = 0
+            return conf
+        end,
         win_options = {
             winhighlight = 'Normal:NormalFloat,FloatTitle:OilTitle',
             winblend = vim.opt.winblend:get(),

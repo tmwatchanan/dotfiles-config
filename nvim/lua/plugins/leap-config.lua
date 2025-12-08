@@ -9,43 +9,44 @@ M.keys = function()
     local function leap_all_windows()
         require('leap').leap {
             target_windows = vim.tbl_filter(
-                function(win)
-                    return vim.api.nvim_win_get_config(win).focusable
-                end,
+                function(win) return vim.api.nvim_win_get_config(win).focusable end,
                 vim.api.nvim_tabpage_list_wins(0)
             )
         }
     end
 
     local function leap_one_char(user_key)
-        local leap = require('leap').leap
-        local with_traversal_keys = require('leap.user').with_traversal_keys
+        local leap_user = require('leap.user')
+        local clever_f = leap_user.with_traversal_keys(leap_keymap.forward, leap_keymap.backward)
+        local clever_t = leap_user.with_traversal_keys(leap_keymap.till, leap_keymap.backtill)
 
-        local function ft_args(key_specific_args)
-            local common_args = {
-                inputlen = 1,
-                inclusive_op = true,
-                opts = {
-                    case_sensitive = true,
-                    labels = {},
-                    safe_labels = vim.fn.mode(1):match('o') and {} or nil,
-                },
-            }
-            return vim.tbl_deep_extend('keep', common_args, key_specific_args)
-        end
+        -- Lookup table for key configurations
+        local key_configs = {
+            [leap_keymap.forward] = { opts = clever_f },
+            [leap_keymap.backward] = { opts = clever_f, backward = true },
+            [leap_keymap.till] = { opts = clever_t, offset = -1 },
+            [leap_keymap.backtill] = { opts = clever_t, backward = true, offset = 1 },
+        }
 
-        local f_opts = with_traversal_keys('f', 'F')
-        local t_opts = with_traversal_keys('t', 'T')
+        local config = key_configs[user_key]
+        if not config then return end
 
-        if user_key == leap_keymap.forward then
-            leap(ft_args({ opts = f_opts }))
-        elseif user_key == leap_keymap.backward then
-            leap(ft_args({ opts = f_opts, backward = true }))
-        elseif user_key == leap_keymap.till then
-            leap(ft_args({ opts = t_opts, offset = -1 }))
-        elseif user_key == leap_keymap.backtill then
-            leap(ft_args({ opts = t_opts, backward = true, offset = -1 }))
-        end
+        -- Cache mode check result
+        local is_operator_pending = vim.fn.mode(1):match('o')
+
+        -- Build leap arguments directly
+        local leap_args = vim.tbl_deep_extend('keep', config, {
+            inputlen = 1,
+            inclusive_op = true,
+            opts = {
+                labels = {}, -- force autojump
+                safe_labels = is_operator_pending and {} or nil,
+                case_sensitive = true,
+                equivalence_classes = {},
+            },
+        })
+
+        require('leap').leap(leap_args)
     end
 
     return {
