@@ -235,10 +235,6 @@ keymaps.lsp = {
     hover               = {
         key = 'K',
         cmd = function()
-            local ufo_loaded, ufo = pcall(require, 'ufo')
-            if ufo_loaded then
-                if ufo.peekFoldedLinesUnderCursor() then return end
-            end
             return vim.diagnostic.open_float({ scope = 'cursor' }) or vim.lsp.buf.hover()
         end
     },

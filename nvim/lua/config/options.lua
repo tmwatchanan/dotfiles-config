@@ -42,28 +42,26 @@ opt.showcmd        = false
 opt.showmode       = false
 opt.splitright     = true
 
-opt.foldenable     = true
+-- opt.foldenable     = false
 opt.foldlevelstart = 99
-opt.foldmethod     = 'expr'
-opt.foldexpr       = 'v:lua.vim.treesitter.foldexpr()'
 opt.foldcolumn     = '1'
 opt.foldtext       = ''
 
--- opt.fillchars:append {
---     horiz     = '━',
---     horizup   = '┻',
---     horizdown = '┳',
---     vert      = '┃',
---     vertleft  = '┫',
---     vertright = '┣',
---     verthoriz = '╋',
---     eob       = ' ',
---     fold      = ' ',
---     foldclose = '',
---     foldopen  = '',
---     foldsep   = ' ',
---     foldinner = ' '
--- }
+opt.fillchars:append {
+    horiz     = '━',
+    horizup   = '┻',
+    horizdown = '┳',
+    vert      = '┃',
+    vertleft  = '┫',
+    vertright = '┣',
+    verthoriz = '╋',
+    eob       = ' ',
+    fold      = ' ',
+    foldclose = '',
+    foldopen  = '',
+    foldsep   = ' ',
+    foldinner = ' '
+}
 
 opt.showtabline   = 0
 opt.cmdheight     = 0
