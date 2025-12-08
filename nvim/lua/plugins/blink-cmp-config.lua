@@ -13,23 +13,32 @@ M.opts = {
     keymap = {
         ['<Tab>'] = {
             'snippet_forward',
-            function(cmp)
-                return cmp.select_next({ on_ghost_text = true })
-            end,
+            'accept',
             'fallback'
         },
         ['<S-Tab>'] = {
+            'snippet_backward',
+            'fallback',
+        },
+        -- ['<CR>'] = { 'accept', 'fallback' },
+        ['<C-e>'] = { 'cancel', 'fallback' },
+        ['<M-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
+        ['<C-j>'] = {
+            'snippet_forward',
+            function(cmp)
+                return cmp.select_next({ on_ghost_text = true })
+            end,
+            'fallback',
+        },
+        ['<C-k>'] = {
             'snippet_backward',
             function(cmp)
                 return cmp.select_prev({ on_ghost_text = true })
             end,
             'fallback',
         },
-        ['<CR>'] = { 'accept', 'fallback' },
-        ['<C-e>'] = { 'cancel', 'fallback' },
-        ['<M-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-        ['<C-u>'] = { 'scroll_documentation_up', 'fallback' },
-        ['<C-d>'] = { 'scroll_documentation_down', 'fallback' },
     },
     completion = {
         list = {
