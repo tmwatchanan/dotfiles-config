@@ -1,7 +1,7 @@
 local M = {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    branch = 'main',
+    branch = 'master',
     event = 'BufEnter',
     dependencies = {
         { 'nvim-treesitter/nvim-treesitter-context', opts = { zindex = 5, max_lines = 3 } },
@@ -11,6 +11,7 @@ local M = {
 
 
 M.config = function()
+    local keymaps = require('config.keymaps').treesitter
     local utils = require('config.fn-utils')
 
     local ensure_installed = {
@@ -29,7 +30,6 @@ M.config = function()
         'scss',
         'latex',
     }
-    require('nvim-treesitter').install(ensure_installed)
 
     -- NOTE: extra parser register if filetype not matched
     -- vim.treesitter.language.register('ini', { 'dosini', 'confini' }) -- supported
@@ -62,6 +62,7 @@ M.config = function()
     })
 
     return {
+        ensure_installed = ensure_installed,
         ignore_install = {
             'norg',
             'vala'

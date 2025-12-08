@@ -45,6 +45,16 @@ M.setup = function()
         RainbowDelimiterCyan = { fg = palette.waveRed },
     }
 
+    local blink_pairs_highlight = {
+        BlinkPairsRed = { fg = palette.springViolet2 },
+        BlinkPairsBlue = { fg = palette.dragonBlue },
+        BlinkPairsCyan = { fg = palette.springGreen },
+        BlinkPairsGreen = { fg = palette.waveAqua2 },
+        BlinkPairsYellow = { fg = palette.springViolet1 },
+        BlinkPairsOrange = { fg = palette.carpYellow },
+        BlinkPairsViolet = { fg = palette.waveRed },
+    }
+
     local treesitter_lsp_highlight = {
         ['@keyword.return'] = { link = '@keyword' },
         ['@string']         = { fg = palette.sakuraPink },
@@ -79,6 +89,7 @@ M.setup = function()
     overrided_highlights = utils.merge(overrided_highlights, incline_highlight)
     overrided_highlights = utils.merge(overrided_highlights, noice_highlight)
     overrided_highlights = utils.merge(overrided_highlights, rainbow_delimiter_highlight)
+    overrided_highlights = utils.merge(overrided_highlights, blink_pairs_highlight)
     overrided_highlights = utils.merge(overrided_highlights, treesitter_lsp_highlight)
     overrided_highlights = utils.merge(overrided_highlights, treesitter_context_highlight)
     overrided_highlights = utils.merge(overrided_highlights, hlslens_highlight)

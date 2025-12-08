@@ -11,6 +11,8 @@ M.opts = function()
     local keymaps = require('config.keymaps').snacks
     local picker_keymap = keymaps.picker
 
+    local upad = { '', '', '', ' ', ' ', ' ', ' ', ' ' }
+
     local fullscreen_layout = {
         layout = {
             box = 'vertical',
@@ -24,24 +26,6 @@ M.opts = function()
             { win = 'list',    border = upad },
             { win = 'preview', height = 0.4, border = 'rounded', title = '{preview}' },
         },
-    }
-
-    local bottom_layout = {
-        layout = {
-            box = 'horizontal',
-            backdrop = false,
-            row = 0,
-            width = 0,
-            height = vim.o.lines - 1,
-            border = 'none',
-            { win = 'preview', title = '{preview}', border = 'vpad' },
-            {
-                box = 'vertical',
-                height = 0.25,
-                { win = 'input', border = 'solid', height = 1, title = ' {title} {live} {flags}', title_pos = 'left' },
-                { win = 'list',  border = 'hpad' },
-            },
-        }
     }
 
     local select_layout = {

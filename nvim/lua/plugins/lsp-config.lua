@@ -76,7 +76,7 @@ lspconfig_module.config = function()
     end
 
     -- INFO: config lsp inlay hints
-    vim.g.show_inlay_hint = true
+    -- vim.g.show_inlay_hint = true
     local function lsp_inlayhint(client, bufnr)
         -- INFO: enable inlay hints when enter insert mode and disable when leave
         if not (client and client:supports_method('textDocument/inlayHint')) then
@@ -131,7 +131,7 @@ lspconfig_module.config = function()
             local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
 
             lsp_keymap(bufnr, require('config.keymaps').lsp)
-            vim.lsp.inlay_hint.enable(vim.g.show_inlay_hint, { bufnr = bufnr })
+            -- vim.lsp.inlay_hint.enable(vim.g.show_inlay_hint, { bufnr = bufnr })
             lsp_inlayhint(client, bufnr)
             lsp_highlight_symbol(client, bufnr)
         end

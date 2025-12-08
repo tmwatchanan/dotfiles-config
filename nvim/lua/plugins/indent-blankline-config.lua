@@ -42,8 +42,8 @@ M.opts = {
                 },
             },
         },
-        debounce = 300
-    }
+    },
+    debounce = 300,
 }
 
 M.config = function(_, opts)

@@ -1,6 +1,6 @@
 local sidekick = {
     'folke/sidekick.nvim',
-    event = 'VeryLazy'
+    event = 'VeryLazy',
     cond = not vim.g.vscode,
 }
 
