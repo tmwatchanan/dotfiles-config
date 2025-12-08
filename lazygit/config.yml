@@ -18,9 +18,9 @@ gui:
     "Watchanan Chantapakul": "#D27E99" # sakuraPink
 git:
   overrideGpg: true
-  paging:
-    colorArg: always
-    useConfig: true
+  pagers:
+    - colorArg: always
+      useConfig: true
   log:
     showGraph: always
     # showWholeGraph: true
