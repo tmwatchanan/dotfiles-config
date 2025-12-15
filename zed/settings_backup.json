@@ -7,11 +7,12 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "agent": {
+  "assistant": {
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-5-mini"
-    }
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-20240620"
+    },
+    "version": "2"
   },
   "telemetry": {
     "metrics": true
@@ -36,6 +37,7 @@
   },
   "relative_line_numbers": true,
   "vim_mode": true,
+  "vim": { "use_multiline_find": true },
   "line_indicator_format": "short",
   "tab_bar": {
     "show": false
@@ -48,11 +50,11 @@
   "lsp": {
     "clangd": {
       "binary": {
-        "path": "/Users/momeppkt/Developer/toolchains/esp-clang/bin/clangd",
+        "path": "/Users/momeppkt/Developments/toolchains/esp-clang/bin/clangd",
         "arguments": [
           "--offset-encoding=utf-16",
           "--background-index",
-          "--query-driver=/Users/momeppkt/.platformio/packages/toolchain-riscv32-esp/bin/riscv32-esp-elf-*"
+          "--query-driver=/Users/momeppkt/.platformio/packages/toolchain-xtensa-esp32s3/bin/xtensa-esp32s3-elf-*"
         ]
       }
     }
