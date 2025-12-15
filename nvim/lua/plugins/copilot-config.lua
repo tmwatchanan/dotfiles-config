@@ -65,18 +65,12 @@ local codecompanion = {
 }
 
 codecompanion.opts = {
-    adapters = {
-        http = {
-            copilot = function()
-                return require('codecompanion.adapters').extend('copilot', {
-                    schema = { model = { default = 'gemini-3-pro-preview' } },
-                })
-            end,
-        }
-    },
-    strategies = {
+    interactions = {
         chat = {
-            adapter = 'copilot',
+            adapter = {
+                name = 'copilot',
+                model = 'gemini-3-pro-preview',
+            },
             keymaps = {
                 stop = {
                     modes = { n = '<C-c>', i = '<C-c>' },
@@ -92,7 +86,10 @@ codecompanion.opts = {
             },
         },
         inline = {
-            adapter = 'copilot',
+            adapter = {
+                name = 'copilot',
+                model = 'gpt-5-mini',
+            },
             keymaps = {
                 stop = {
                     modes = { n = '<C-c>' }
@@ -154,28 +151,33 @@ codecompanion.config = function(_, plugin_opts)
 
     -- INFO: auto-save chat when chat history exist
     vim.api.nvim_create_autocmd('User', {
-        pattern = 'CodeCompanionRequestFinished',
+        pattern = 'CodeCompanion*Finished',
         group = vim.api.nvim_create_augroup('UserCodeCompanionHistory', { clear = true }),
         callback = vim.schedule_wrap(function(opts)
-            if opts.data.strategy ~= 'chat' then
-                return
-            end
+            if opts.match == 'CodeCompanionRequestFinished' or opts.match == 'CodeCompanionToolsFinished' then
+                if opts.match == 'CodeCompanionRequestFinished' and opts.data.interaction ~= 'chat' then
+                    return
+                end
 
-            local chat_module = require('codecompanion.strategies.chat')
-            local bufnr = opts.data.bufnr
-            if not bufnr then return end
+                local bufnr = opts.data.bufnr
+                if not bufnr then
+                    return
+                end
 
-            local history = require('codecompanion').extensions.history
+                local history = require('codecompanion').extensions.history
 
-            -- Check if history exists for this CWD
-            local chat_history = history.get_chats(function(chat_data) return chat_data.cwd == vim.fn.getcwd() end)
+                -- Check if history exists for this CWD
+                local chat_history = history.get_chats(function(chat_data) return chat_data.cwd == vim.fn.getcwd() end)
+                if not chat_history or next(chat_history) == nil then
+                    return
+                end
 
-            -- Get the current chat object
-            local chat = chat_module.buf_get_chat(bufnr)
-
-            -- Save if we have a valid chat object and existing history
-            if chat and not vim.tbl_isempty(chat_history) then
-                history.save_chat(chat)
+                -- Get the current chat object and save it (only after confirming prior history exists)
+                local chat_module = require('codecompanion.interactions.chat')
+                local chat = chat_module.buf_get_chat(bufnr)
+                if chat then
+                    history.save_chat(chat)
+                end
             end
         end),
     })
