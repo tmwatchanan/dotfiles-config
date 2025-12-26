@@ -13,9 +13,6 @@ M.config = function(_, opts)
     local resession = require('resession')
 
     resession.setup(opts)
-    resession.add_hook('post_load', function()
-        vim.cmd.edit({ mods = { emsg_silent = true } })
-    end)
 
     -- NOTE: load a dir-specific session when open nvim, save when exit.
     vim.api.nvim_create_autocmd('VimEnter', {
@@ -44,11 +41,10 @@ end
 
 M.keys = function()
     local resession_keymap = require('config.keymaps').resession
-    local resession = require('resession')
 
     return {
-        { resession_keymap.save,   function() resession.save(vim.fn.getcwd()) end },
-        { resession_keymap.delete, resession.delete },
+        { resession_keymap.save,   function() require('resession').save(vim.fn.getcwd()) end },
+        { resession_keymap.delete, function() require('resession').delete() end },
     }
 end
 
