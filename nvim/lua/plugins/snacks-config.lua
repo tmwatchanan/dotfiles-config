@@ -37,11 +37,8 @@ M.opts = function()
             min_width = 40,
             height = 0.4,
             min_height = 3,
-            border = 'vpad',
-            title = '{title}',
-            title_pos = 'center',
-            { win = 'input', height = 1,     border = 'bottom' },
-            { win = 'list',  border = 'none' },
+            { win = 'input', border = 'solid', height = 1, title = '{title}' },
+            { win = 'list',  border = 'hpad' },
         },
     }
 

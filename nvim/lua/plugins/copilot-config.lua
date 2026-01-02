@@ -66,18 +66,12 @@ local codecompanion = {
 }
 
 codecompanion.opts = {
-    adapters = {
-        http = {
-            copilot = function()
-                return require('codecompanion.adapters').extend('copilot', {
-                    schema = { model = { default = 'gemini-3-pro-preview' } },
-                })
-            end,
-        }
-    },
-    strategies = {
+    interactions = {
         chat = {
-            adapter = 'copilot',
+            adapter = {
+                name = 'copilot',
+                model = 'gemini-3-flash-preview',
+            },
             keymaps = {
                 stop = {
                     modes = { n = '<C-c>', i = '<C-c>' },
@@ -93,7 +87,10 @@ codecompanion.opts = {
             },
         },
         inline = {
-            adapter = 'copilot',
+            adapter = {
+                name = 'copilot',
+                model = 'gpt-5-mini',
+            },
             keymaps = {
                 stop = {
                     modes = { n = '<C-c>' }
@@ -134,15 +131,18 @@ codecompanion.opts = {
                 save_chat_keymap = 'sc',
                 auto_save = false,
                 picker = 'snacks',
+                chat_filter = function (chat_data)
+                    return chat_data.cwd == vim.fn.getcwd()
+                end,
                 auto_generate_title = true,
                 title_generation_opts = {
                     adapter = 'copilot',
-                    model = 'oswe-vscode-prime',
+                    model = 'gpt-5-mini',
                 },
                 summary = {
                     generation_opts = {
                         adapter = 'copilot',
-                        model = 'oswe-vscode-prime',
+                        model = 'gpt-5-mini',
                     },
                 }
             }
@@ -155,27 +155,41 @@ codecompanion.config = function(_, plugin_opts)
 
     -- INFO: auto-save chat when chat history exist
     vim.api.nvim_create_autocmd('User', {
-        pattern = 'CodeCompanionRequestFinished',
+        pattern = 'CodeCompanion*Finished',
         group = vim.api.nvim_create_augroup('UserCodeCompanionHistory', { clear = true }),
         callback = vim.schedule_wrap(function(opts)
-            if opts.data.strategy ~= 'chat' then
+            -- Guard: ensure opts and opts.data exist
+            if not opts or not opts.data or not opts.match then
                 return
             end
 
-            local chat_module = require('codecompanion.strategies.chat')
+            local match = opts.match
+            -- Only handle request or tools finished events
+            if match ~= 'CodeCompanionRequestFinished' and match ~= 'CodeCompanionToolsFinished' then
+                return
+            end
+
+            -- For requests, only save if interaction was a chat
+            if match == 'CodeCompanionRequestFinished' and opts.data.interaction ~= 'chat' then
+                return
+            end
+
             local bufnr = opts.data.bufnr
-            if not bufnr then return end
+            if not bufnr then
+                return
+            end
 
+            -- Return early if no history exists for current CWD
             local history = require('codecompanion').extensions.history
+            local cwd = vim.fn.getcwd()
+            local chat_history = history.get_chats(function(chat_data) return chat_data.cwd == cwd end)
+            if not chat_history or next(chat_history) == nil then
+                return
+            end
 
-            -- Check if history exists for this CWD
-            local chat_history = history.get_chats(function(chat_data) return chat_data.cwd == vim.fn.getcwd() end)
-
-            -- Get the current chat object
+            local chat_module = require('codecompanion.interactions.chat')
             local chat = chat_module.buf_get_chat(bufnr)
-
-            -- Save if we have a valid chat object and existing history
-            if chat and not vim.tbl_isempty(chat_history) then
+            if chat then
                 history.save_chat(chat)
             end
         end),

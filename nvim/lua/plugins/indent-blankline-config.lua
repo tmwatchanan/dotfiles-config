@@ -1,5 +1,5 @@
 local M = {
-    'lukas-reineke/indent-blankline.nvim',
+    'MomePP/indent-blankline.nvim',
     dependencies = { 'blink.pairs' },
     event = 'VeryLazy',
     cond = not vim.g.vscode,
