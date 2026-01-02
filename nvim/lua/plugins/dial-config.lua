@@ -2,27 +2,18 @@ local M = {
     'monaqa/dial.nvim',
 }
 
--- took from LazyVim
--- https://github.com/LazyVim/LazyVim/blob/12818a6cb499456f4903c5d8e68af43753ebc869/lua/lazyvim/plugins/extras/editor/dial.lua
----@param increment boolean
----@param g? boolean
-function M.dial(increment, g)
-    local mode = vim.fn.mode(true)
-    -- Use visual commands for VISUAL 'v', VISUAL LINE 'V' and VISUAL BLOCK '\22'
-    local is_visual = mode == 'v' or mode == 'V' or mode == '\22'
-    local func = (increment and 'inc' or 'dec') .. (g and '_g' or '_') .. (is_visual and 'visual' or 'normal')
-    local group = vim.g.dials_by_ft[vim.bo.filetype] or 'default'
-    return require('dial.map')[func](group)
-end
-
 M.keys = {
-    { '<C-a>',  function() return M.dial(true) end,        expr = true, desc = 'Increment', mode = { 'n', 'v' } },
-    { '<C-x>',  function() return M.dial(false) end,       expr = true, desc = 'Decrement', mode = { 'n', 'v' } },
-    { 'g<C-a>', function() return M.dial(true, true) end,  expr = true, desc = 'Increment', mode = { 'n', 'v' } },
-    { 'g<C-x>', function() return M.dial(false, true) end, expr = true, desc = 'Decrement', mode = { 'n', 'v' } },
+    { '<C-a>',  function() require("dial.map").manipulate("increment", "normal") end,  noremap = true, mode = 'n' },
+    { '<C-x>',  function() require('dial.map').manipulate("decrement", "normal") end,  noremap = true, mode = 'n' },
+    { 'g<C-a>', function() require('dial.map').manipulate("increment", "gnormal") end, noremap = true, mode = 'n' },
+    { 'g<C-x>', function() require('dial.map').manipulate("decrement", "gnormal") end, noremap = true, mode = 'n' },
+    { '<C-a>',  function() require('dial.map').manipulate("increment", "visual") end,  noremap = true, mode = 'v' },
+    { '<C-x>',  function() require('dial.map').manipulate("decrement", "visual") end,  noremap = true, mode = 'v' },
+    { 'g<C-a>', function() require('dial.map').manipulate("increment", "gvisual") end, noremap = true, mode = 'v' },
+    { 'g<C-x>', function() require('dial.map').manipulate("decrement", "gvisual") end, noremap = true, mode = 'v' },
 }
 
-M.opts = function()
+M.config = function()
     local augend = require('dial.augend')
 
     local logical_alias = augend.constant.new({
@@ -96,93 +87,76 @@ M.opts = function()
     })
 
     local capitalized_boolean = augend.constant.new({
-        elements = {
-            'True',
-            'False',
-        },
+        elements = { 'True', 'False' },
         word = true,
         cyclic = true,
     })
 
-    return {
-        dials_by_ft = {
-            css = 'css',
-            javascript = 'typescript',
-            javascriptreact = 'typescript',
-            json = 'json',
-            lua = 'lua',
-            markdown = 'markdown',
-            python = 'python',
-            sass = 'css',
-            scss = 'css',
-            typescript = 'typescript',
-            typescriptreact = 'typescript',
-            yaml = 'yaml',
+    local theme = augend.constant.new({
+        elements = { 'light', 'dark' },
+        word = true,
+        cyclic = true,
+    })
+
+    require("dial.config").augends:register_group {
+        default = {
+            augend.constant.alias.bool,
+            capitalized_boolean,
+            augend.integer.alias.decimal_int,
+            augend.integer.alias.hex,
+            augend.semver.alias.semver,
+            augend.date.alias['%Y/%m/%d'],
+            augend.date.alias['%Y-%m-%d'],
+            ordinal_numbers,
+            weekdays,
+            months,
+            theme,
         },
-        groups = {
-            default = {
-                augend.constant.alias.bool,
-                capitalized_boolean,
-                augend.integer.alias.decimal_int,
-                augend.integer.alias.hex,
-                augend.semver.alias.semver,
-                augend.date.alias['%Y/%m/%d'],
-                augend.date.alias['%Y-%m-%d'],
-                ordinal_numbers,
-                weekdays,
-                months,
-            },
-            typescript = {
-                augend.integer.alias.decimal_int,
-                augend.constant.alias.bool,
-                logical_alias,
-                augend.constant.new({ elements = { 'let', 'const' } }),
-            },
-            yaml = {
-                augend.integer.alias.decimal_int,
-                augend.constant.alias.bool,
-            },
-            css = {
-                augend.integer.alias.decimal_int,
-                augend.hexcolor.new({
-                    case = 'lower',
-                }),
-                augend.hexcolor.new({
-                    case = 'upper',
-                }),
-            },
-            markdown = {
-                augend.misc.alias.markdown_header,
-                augend.semver.alias.semver,
-                short_us_date,
-            },
-            json = {
-                augend.integer.alias.decimal_int,
-                augend.semver.alias.semver,
-                augend.constant.alias.bool,
-            },
-            lua = {
-                augend.integer.alias.decimal_int,
-                augend.constant.alias.bool,
-                augend.constant.new({
-                    elements = { 'and', 'or' },
-                    word = true,   -- if false, 'sand' is incremented into 'sor', 'doctor' into 'doctand', etc.
-                    cyclic = true, -- 'or' is incremented into 'and'.
-                }),
-            },
-            python = {
-                augend.integer.alias.decimal_int,
-                augend.semver.alias.semver,
-                capitalized_boolean,
-                logical_alias,
-            },
+        typescript = {
+            augend.integer.alias.decimal_int,
+            augend.constant.alias.bool,
+            logical_alias,
+            augend.constant.new({ elements = { 'let', 'const' } }),
+        },
+        yaml = {
+            augend.integer.alias.decimal_int,
+            augend.constant.alias.bool,
+        },
+        css = {
+            augend.integer.alias.decimal_int,
+            augend.hexcolor.new({
+                case = 'lower',
+            }),
+            augend.hexcolor.new({
+                case = 'upper',
+            }),
+        },
+        markdown = {
+            augend.misc.alias.markdown_header,
+            augend.semver.alias.semver,
+            short_us_date,
+        },
+        json = {
+            augend.integer.alias.decimal_int,
+            augend.semver.alias.semver,
+            augend.constant.alias.bool,
+        },
+        lua = {
+            augend.integer.alias.decimal_int,
+            augend.constant.alias.bool,
+            augend.constant.new({
+                elements = { 'and', 'or' },
+                word = true,   -- if false, 'sand' is incremented into 'sor', 'doctor' into 'doctand', etc.
+                cyclic = true, -- 'or' is incremented into 'and'.
+            }),
+        },
+        python = {
+            augend.integer.alias.decimal_int,
+            augend.semver.alias.semver,
+            capitalized_boolean,
+            logical_alias,
         },
     }
-end
-
-M.config = function(_, opts)
-    require('dial.config').augends:register_group(opts.groups)
-    vim.g.dials_by_ft = opts.dials_by_ft
 end
 
 return M
