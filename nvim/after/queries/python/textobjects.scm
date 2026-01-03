@@ -63,7 +63,3 @@
   definition: (_) @decorated_inner
 )
 
-(argument_list  ","? @argument_comma . (_) @argument.inner
-  (#make-range! "argument.outer" @argument_comma @argument.inner)
-)
-
