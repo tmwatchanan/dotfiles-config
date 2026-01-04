@@ -1,6 +1,6 @@
 local M = {
     'MomePP/indent-blankline.nvim',
-    dependencies = { 'blink.pairs' },
+    dependencies = { 'saghen/blink.pairs' },
     event = 'VeryLazy',
     cond = not vim.g.vscode,
 }

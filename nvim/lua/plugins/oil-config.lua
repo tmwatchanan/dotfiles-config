@@ -1,6 +1,6 @@
 local M = {
     'MomePP/oil.nvim',
-    dependencies = { 'mini.icons' },
+    dependencies = 'nvim-mini/mini.icons',
     cond = not vim.g.vscode,
 }
 

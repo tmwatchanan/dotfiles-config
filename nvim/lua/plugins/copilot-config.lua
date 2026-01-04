@@ -58,8 +58,8 @@ end
 local codecompanion = {
     'olimorris/codecompanion.nvim',
     dependencies = {
-        'plenary.nvim',
-        'nvim-treesitter',
+        'nvim-lua/plenary.nvim',
+        'nvim-treesitter/nvim-treesitter',
         'ravitemer/codecompanion-history.nvim',
     },
     cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions' },
@@ -131,7 +131,7 @@ codecompanion.opts = {
                 save_chat_keymap = 'sc',
                 auto_save = false,
                 picker = 'snacks',
-                chat_filter = function (chat_data)
+                chat_filter = function(chat_data)
                     return chat_data.cwd == vim.fn.getcwd()
                 end,
                 auto_generate_title = true,

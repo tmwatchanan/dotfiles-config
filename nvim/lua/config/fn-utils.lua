@@ -282,8 +282,10 @@ function M.preserve_cursor_position(fn)
 end
 
 function M.is_loaded(name)
-    local config = require('lazy.core.config')
-    return config.plugins[name] and config.plugins[name]._.loaded
+    local config = require('zpack.state')
+    local src_name = 'https://github.com/' .. name -- INFO: expands to full src url
+    -- vim.print(config.spec_registry._)
+    return config.spec_registry[src_name] and config.spec_registry[src_name].load_status == 'loaded'
 end
 
 return M

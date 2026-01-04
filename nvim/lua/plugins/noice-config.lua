@@ -86,7 +86,7 @@ M.opts = {
                     { error = true },
                     { event = 'notify' },
                     { event = 'msg_show' },
-                    { event = 'lsp',      kind = 'message' },
+                    { event = 'lsp',     kind = 'message' },
                 },
             },
         }
@@ -111,21 +111,19 @@ M.keys = function()
             noice_keymaps.docs_scroll_down,
             function()
                 if not require('noice.lsp').scroll(4) then
-                    return noice_keymaps.docs_scroll_down
+                    local keys = vim.api.nvim_replace_termcodes(noice_keymaps.docs_scroll_down, true, true, true)
+                    vim.api.nvim_feedkeys(keys, 'n', false)
                 end
             end,
-            silent = true,
-            expr = true,
         },
         {
             noice_keymaps.docs_scroll_up,
             function()
                 if not require('noice.lsp').scroll(-4) then
-                    return noice_keymaps.docs_scroll_up
+                    local keys = vim.api.nvim_replace_termcodes(noice_keymaps.docs_scroll_up, true, true, true)
+                    vim.api.nvim_feedkeys(keys, 'n', false)
                 end
             end,
-            silent = true,
-            expr = true,
         },
     }
 end

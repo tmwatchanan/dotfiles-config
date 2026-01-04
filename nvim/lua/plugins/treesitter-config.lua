@@ -5,7 +5,7 @@ local M = {
     event = 'BufEnter',
     dependencies = {
         { 'nvim-treesitter/nvim-treesitter-context', opts = { zindex = 5, max_lines = 3 } },
-        { 'folke/ts-comments.nvim',                  opts = true },
+        { 'folke/ts-comments.nvim',                  opts = {} },
     },
 }
 

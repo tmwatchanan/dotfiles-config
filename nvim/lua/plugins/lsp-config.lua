@@ -5,7 +5,7 @@ local mason_module = {
     'mason-org/mason-lspconfig.nvim',
     dependencies = {
         { 'mason-org/mason.nvim', opts = { ui = { border = 'solid' }, pip = { upgrade_pip = true } } },
-        { 'nvim-lspconfig' }
+        { 'neovim/nvim-lspconfig' }
     },
     event = 'BufEnter',
     cond = not vim.g.vscode,

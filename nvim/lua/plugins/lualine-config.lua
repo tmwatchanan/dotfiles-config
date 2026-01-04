@@ -1,6 +1,5 @@
 local M = {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-colorscheme' },
     event = 'VimEnter',
     cond = not vim.g.vscode,
 }

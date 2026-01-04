@@ -1,5 +1,5 @@
 local M = {
-    'https://codeberg.org/andyg/leap.nvim',
+    src = 'https://codeberg.org/andyg/leap.nvim',
     opts = true,
 }
 
