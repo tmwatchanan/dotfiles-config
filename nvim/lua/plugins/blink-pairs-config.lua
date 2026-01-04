@@ -1,6 +1,8 @@
 local M = {
     'saghen/blink.pairs',
-    build = 'cargo build --release',
+    -- build = 'cargo build --release',
+    version = vim.version.range('*'),
+    dependencies = 'saghen/blink.download',
 }
 
 M.opts = {

@@ -27,7 +27,7 @@ return {
     },
     {
         'Wansmer/treesj',
-        dependencies = 'nvim-treesitter',
+        dependencies = 'nvim-treesitter/nvim-treesitter',
         opts = {
             use_default_keymaps = false,
         },
@@ -68,7 +68,10 @@ return {
     },
     {
         'MeanderingProgrammer/render-markdown.nvim',
-        dependencies = { 'nvim-treesitter', 'mini.icons' },
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter',
+            'nvim-mini/mini.icons',
+        },
         ft = { 'markdown', 'codecompanion' },
         opts = {
             anti_conceal = {
@@ -95,7 +98,7 @@ return {
     },
     {
         'letieu/jot.lua',
-        dependencies = 'plenary.nvim',
+        dependencies = 'nvim-lua/plenary.nvim',
         config = function()
             local win_width = math.floor(vim.o.columns * 0.8)
             local win_height = math.floor(vim.o.lines * 0.8)

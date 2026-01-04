@@ -20,3 +20,4 @@ carapace/bridge
 .nuxt/devtools
 .copilot
 mole
+nvim/nvim-pack-lock.json

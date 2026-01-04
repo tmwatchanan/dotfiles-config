@@ -1,10 +1,11 @@
 local M = {
     'saghen/blink.cmp',
-    build = 'cargo build --release',
+    -- build = 'cargo build --release',
+    version = vim.version.range('1.*'),
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
-        'rafamadriz/friendly-snippets',
-        { 'fang2hou/blink-copilot', opts = { max_completions = 2, max_attemps = 3 } },
+        { 'rafamadriz/friendly-snippets' },
+        { 'fang2hou/blink-copilot',      opts = { max_completions = 2, max_attemps = 3 } },
     },
 }
 
