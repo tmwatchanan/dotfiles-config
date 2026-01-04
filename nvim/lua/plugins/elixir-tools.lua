@@ -4,7 +4,7 @@ local M = {
     version = "*",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-        "plenary.nvim",
+        "nvim-lua/plenary.nvim",
     },
 }
 

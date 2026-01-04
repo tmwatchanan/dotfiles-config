@@ -214,11 +214,11 @@ diagnostic_module.opts = {
 local formatter_module = {
     'nvimtools/none-ls.nvim',
     dependencies = {
-        'plenary.nvim',
+        'nvim-lua/plenary.nvim',
         {
             'jay-babu/mason-null-ls.nvim',
             dependencies = {
-                'williamboman/mason.nvim',
+                'mason-org/mason.nvim',
                 'WhoIsSethDaniel/mason-tool-installer.nvim',
             },
         },

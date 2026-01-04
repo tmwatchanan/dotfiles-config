@@ -2,9 +2,9 @@ local M = {
     'nvim-neotest/neotest',
     dependencies = {
         'nvim-neotest/nvim-nio',
-        'plenary.nvim',
+        'nvim-lua/plenary.nvim',
         'antoinemadec/FixCursorHold.nvim',
-        'nvim-treesitter',
+        'nvim-treesitter/nvim-treesitter',
         'nvim-neotest/neotest-python',
     },
     cond = not vim.g.vscode,

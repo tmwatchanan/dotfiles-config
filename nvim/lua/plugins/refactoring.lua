@@ -1,7 +1,7 @@
 local M = {
     'ThePrimeagen/refactoring.nvim',
     dependencies = {
-        'plenary.nvim',
+        'nvim-lua/plenary.nvim',
         'nvim-treesitter/nvim-treesitter',
     },
 }

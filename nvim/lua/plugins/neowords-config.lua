@@ -1,5 +1,6 @@
 local M = {
     'backdround/neowords.nvim',
+    lazy = false,
 }
 
 M.keys = function()
@@ -27,3 +28,4 @@ M.keys = function()
 end
 
 return M
+

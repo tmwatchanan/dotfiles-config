@@ -90,12 +90,12 @@ local dap_module = {
 local dapui_module = {
     'rcarriga/nvim-dap-ui',
     dependencies = {
-        'nvim-dap',
+        'mfussenegger/nvim-dap',
         'nvim-neotest/nvim-nio',
         {
             'theHamsta/nvim-dap-virtual-text',
             dependencies = {
-                'nvim-treesitter',
+                'nvim-treesitter/nvim-treesitter',
             },
         },
         'LiadOz/nvim-dap-repl-highlights',
@@ -166,8 +166,9 @@ dapui_module.keys = function()
     }
 end
 
-return {
-    dap_module,
-    dapui_module,
-    persistent_breakpoints_module,
-}
+return {}
+-- return {
+--     dap_module,
+--     dapui_module,
+--     persistent_breakpoints_module,
+-- }

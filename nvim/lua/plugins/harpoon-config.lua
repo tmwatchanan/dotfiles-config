@@ -1,7 +1,8 @@
 local M = {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
-    dependencies = { 'plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    lazy = false,
     cond = not vim.g.vscode,
 }
 
@@ -22,3 +23,4 @@ M.keys = function()
 end
 
 return M
+

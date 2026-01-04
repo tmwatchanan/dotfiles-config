@@ -1,6 +1,6 @@
 local M = {}
 
-M.info = { 'rebelot/kanagawa.nvim' }
+M.info = { 'rebelot/kanagawa.nvim', colorscheme = 'kanagawa' }
 
 M.setup = function()
     local kanagawa_status, kanagawa = pcall(require, 'kanagawa')

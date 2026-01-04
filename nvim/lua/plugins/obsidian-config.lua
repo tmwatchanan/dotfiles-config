@@ -1,6 +1,6 @@
 local M = {
     'epwalsh/obsidian.nvim',
-    version = '*', -- recommended, use latest release instead of latest commit
+    version = 'main', -- recommended, use latest release instead of latest commit
     lazy = true,
     -- ft = 'markdown',
     event = {
@@ -9,15 +9,15 @@ local M = {
         "BufNewFile " .. vim.fn.expand "~" .. "/tm/obsidian/**.md",
     },
     dependencies = {
-        'plenary.nvim',
-        'nvim-cmp',
-        'telescope.nvim',
-        'nvim-treesitter',
+        'nvim-lua/plenary.nvim',
     },
     cond = not vim.g.vscode,
 }
 
 M.opts = {
+    completion = {
+        blink = true,
+    },
     workspaces = {
         {
             name = 'know-how',
