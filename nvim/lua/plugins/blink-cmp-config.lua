@@ -1,8 +1,8 @@
 local M = {
     'saghen/blink.cmp',
     build = function(plugin)
-        local cmd = 'cd ' .. vim.fn.shellescape(plugin.path) .. ' && cargo build --release'
-        vim.fn.jobstart(cmd, {
+        vim.fn.jobstart({ 'cargo', 'build', '--release' }, {
+            cwd = plugin.path,
             on_exit = function(_, code)
                 if code == 0 then
                     vim.notify('Build successful', vim.log.levels.INFO, { title = 'blink.cmp' })
