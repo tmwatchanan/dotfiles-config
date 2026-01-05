@@ -288,4 +288,96 @@ function M.is_loaded(name)
     return config.spec_registry[src_name] and config.spec_registry[src_name].load_status == 'loaded'
 end
 
+--- Run a job with captured stdout/stderr output
+--- @param cmd string|table The command to run
+--- @param opts table Options for the job
+--- @field cwd? string Working directory for the command
+--- @field on_success? fun(stdout: string[], stderr: string[]) Callback for successful completion with output
+--- @field on_failure? fun(stdout: string[], stderr: string[]) Callback for failure with output
+--- @field success_message? string Message to display on success
+--- @field failure_message? string Message to display on failure
+--- @field title? string Title for notifications
+--- @field show_output? boolean Whether to include stdout/stderr in success notification (default: true)
+--- @return number job_id The job ID returned by jobstart
+function M.jobstart_with_output(cmd, opts)
+    opts = opts or {}
+    local stdout_data = {}
+    local stderr_data = {}
+
+    local job_opts = {
+        cwd = opts.cwd,
+        stdout_buffered = true,
+        stderr_buffered = true,
+        on_stdout = function(_, data, _)
+            if not data then
+                return
+            end
+            for _, line in ipairs(data) do
+                if line ~= nil and line ~= '' then
+                    table.insert(stdout_data, line)
+                end
+            end
+        end,
+        on_stderr = function(_, data, _)
+            if not data then
+                return
+            end
+            for _, line in ipairs(data) do
+                if line ~= nil and line ~= '' then
+                    table.insert(stderr_data, line)
+                end
+            end
+        end,
+        on_exit = function(_, code)
+            if code == 0 then
+                if opts.on_success then
+                    opts.on_success(stdout_data, stderr_data)
+                end
+                if opts.success_message then
+                    local msg = opts.success_message
+                    -- Include output on success by default
+                    local show_output = M.default_to(opts.show_output, true)
+                    if show_output then
+                        local lines = {}
+                        if #stdout_data > 0 then
+                            vim.list_extend(lines, stdout_data)
+                        end
+                        if #stderr_data > 0 then
+                            -- On success, stderr often contains progress/info, not errors
+                            vim.list_extend(lines, stderr_data)
+                        end
+                        if #lines > 0 then
+                            msg = msg .. ':\n' .. table.concat(lines, '\n')
+                        end
+                    end
+                    vim.notify(msg, vim.log.levels.INFO, { title = opts.title })
+                end
+            else
+                if opts.on_failure then
+                    opts.on_failure(stdout_data, stderr_data)
+                else
+                    -- Default failure handler
+                    local lines = {}
+                    if #stdout_data > 0 then
+                        table.insert(lines, 'STDOUT:')
+                        vim.list_extend(lines, stdout_data)
+                    end
+                    if #stderr_data > 0 then
+                        table.insert(lines, 'STDERR:')
+                        vim.list_extend(lines, stderr_data)
+                    end
+                    
+                    local msg = opts.failure_message or 'Command failed'
+                    if #lines > 0 then
+                        msg = msg .. ':\n' .. table.concat(lines, '\n')
+                    end
+                    vim.notify(msg, vim.log.levels.ERROR, { title = opts.title })
+                end
+            end
+        end,
+    }
+    
+    return vim.fn.jobstart(cmd, job_opts)
+end
+
 return M

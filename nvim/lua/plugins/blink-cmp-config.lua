@@ -1,15 +1,12 @@
 local M = {
     'saghen/blink.cmp',
     build = function(plugin)
-        vim.fn.jobstart({'cargo', 'build', '--release'}, {
+        local fn_utils = require('config.fn-utils')
+        fn_utils.jobstart_with_output({ 'cargo', 'build', '--release' }, {
             cwd = plugin.path,
-            on_exit = function(_, code)
-                if code == 0 then
-                    vim.notify('Build successful', vim.log.levels.INFO, { title = 'blink.cmp' })
-                else
-                    vim.notify('Build failed', vim.log.levels.ERROR, { title = 'blink.cmp' })
-                end
-            end,
+            success_message = 'Build successful',
+            failure_message = 'Build failed',
+            title = 'blink.cmp',
         })
     end,
     event = { 'InsertEnter', 'CmdlineEnter' },
