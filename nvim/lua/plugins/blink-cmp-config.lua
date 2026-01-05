@@ -2,10 +2,8 @@ local M = {
     'saghen/blink.cmp',
     build = function(plugin)
         local fn_utils = require('config.fn-utils')
-        fn_utils.jobstart_with_output({ 'cargo', 'build', '--release' }, {
+        fn_utils.jobstart({ 'cargo', 'build', '--release' }, {
             cwd = plugin.path,
-            success_message = 'Build successful',
-            failure_message = 'Build failed',
             title = 'blink.cmp',
         })
     end,

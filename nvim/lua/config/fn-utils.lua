@@ -294,15 +294,19 @@ end
 --- @field cwd? string Working directory for the command
 --- @field on_success? fun(stdout: string[], stderr: string[]) Callback for successful completion with output
 --- @field on_failure? fun(stdout: string[], stderr: string[]) Callback for failure with output
---- @field success_message? string Message to display on success
---- @field failure_message? string Message to display on failure
+--- @field success_message? string Message to display on success (default: 'Build successful')
+--- @field failure_message? string Message to display on failure (default: 'Build failed')
 --- @field title? string Title for notifications
 --- @field show_output? boolean Whether to include stdout/stderr in success notification (default: true)
 --- @return number job_id The job ID returned by jobstart
-function M.jobstart_with_output(cmd, opts)
+function M.jobstart(cmd, opts)
     opts = opts or {}
     local stdout_data = {}
     local stderr_data = {}
+
+    -- Set default messages
+    local success_message = M.default_to(opts.success_message, 'Build successful')
+    local failure_message = M.default_to(opts.failure_message, 'Build failed')
 
     local job_opts = {
         cwd = opts.cwd,
@@ -333,25 +337,23 @@ function M.jobstart_with_output(cmd, opts)
                 if opts.on_success then
                     opts.on_success(stdout_data, stderr_data)
                 end
-                if opts.success_message then
-                    local msg = opts.success_message
-                    -- Include output on success by default
-                    local show_output = M.default_to(opts.show_output, true)
-                    if show_output then
-                        local lines = {}
-                        if #stdout_data > 0 then
-                            vim.list_extend(lines, stdout_data)
-                        end
-                        if #stderr_data > 0 then
-                            -- On success, stderr often contains progress/info, not errors
-                            vim.list_extend(lines, stderr_data)
-                        end
-                        if #lines > 0 then
-                            msg = msg .. ':\n' .. table.concat(lines, '\n')
-                        end
+                local msg = success_message
+                -- Include output on success by default
+                local show_output = M.default_to(opts.show_output, true)
+                if show_output then
+                    local lines = {}
+                    if #stdout_data > 0 then
+                        vim.list_extend(lines, stdout_data)
                     end
-                    vim.notify(msg, vim.log.levels.INFO, { title = opts.title })
+                    if #stderr_data > 0 then
+                        -- On success, stderr often contains progress/info, not errors
+                        vim.list_extend(lines, stderr_data)
+                    end
+                    if #lines > 0 then
+                        msg = msg .. ':\n' .. table.concat(lines, '\n')
+                    end
                 end
+                vim.notify(msg, vim.log.levels.INFO, { title = opts.title })
             else
                 if opts.on_failure then
                     opts.on_failure(stdout_data, stderr_data)
@@ -367,7 +369,7 @@ function M.jobstart_with_output(cmd, opts)
                         vim.list_extend(lines, stderr_data)
                     end
                     
-                    local msg = opts.failure_message or 'Command failed'
+                    local msg = failure_message
                     if #lines > 0 then
                         msg = msg .. ':\n' .. table.concat(lines, '\n')
                     end
