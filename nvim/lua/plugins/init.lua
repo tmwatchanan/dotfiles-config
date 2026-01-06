@@ -72,8 +72,9 @@ return {
             'nvim-treesitter/nvim-treesitter',
             'nvim-mini/mini.icons',
         },
-        ft = { 'markdown', 'codecompanion' },
+        event = 'VeryLazy',
         opts = {
+            file_types = { 'markdown', 'codecompanion' },
             anti_conceal = {
                 enabled = false,
             },
