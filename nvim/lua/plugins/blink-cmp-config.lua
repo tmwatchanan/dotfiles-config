@@ -1,7 +1,12 @@
 local M = {
     'saghen/blink.cmp',
-    -- build = 'cargo build --release',
-    version = vim.version.range('1.*'),
+    build = function(plugin)
+        local fn_utils = require('config.fn-utils')
+        fn_utils.jobstart({ 'cargo', 'build', '--release' }, {
+            cwd = plugin.path,
+            title = 'blink.cmp',
+        })
+    end,
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         { 'rafamadriz/friendly-snippets' },
