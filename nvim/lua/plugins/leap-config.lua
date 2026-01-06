@@ -1,6 +1,6 @@
 local M = {
     src = 'https://codeberg.org/andyg/leap.nvim',
-    opts = true,
+    config = true,
 }
 
 M.keys = function()

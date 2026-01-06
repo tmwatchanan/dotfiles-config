@@ -50,7 +50,7 @@ return {
     },
     {
         'saecki/live-rename.nvim',
-        opts = true,
+        config = true,
         keys = function()
             local rename_keymap = require('config.keymaps').rename
             return {
