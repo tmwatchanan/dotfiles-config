@@ -7,6 +7,7 @@ local M = {
             title = 'blink.pairs',
         })
     end,
+    event = 'VeryLazy',
 }
 
 M.opts = {
