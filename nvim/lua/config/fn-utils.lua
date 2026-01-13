@@ -283,9 +283,17 @@ end
 
 function M.is_loaded(name)
     local config = require('zpack.state')
-    local src_name = 'https://github.com/' .. name -- INFO: expands to full src url
-    -- vim.print(config.spec_registry._)
-    return config.spec_registry[src_name] and config.spec_registry[src_name].load_status == 'loaded'
+
+    for _, data in pairs(config.spec_registry) do
+        local spec_name = data.plugin and data.plugin.spec and data.plugin.spec.name
+        local full_name = data.merged_spec and data.merged_spec[1]
+
+        if spec_name == name or full_name == name then
+            return data.load_status == 'loaded'
+        end
+    end
+
+    return false
 end
 
 --- Run a job with captured stdout/stderr output
