@@ -36,17 +36,18 @@ return {
         }
     },
     {
-        'axkirillov/hbac.nvim',
+        'serhez/bento.nvim',
+        event = 'VeryLazy',
         opts = {
-            threshold = 20,
-            close_command = function(bufnr)
-                local force = vim.api.nvim_get_option_value('buftype', { buf = bufnr }) == 'terminal'
-                pcall(require('snacks').bufdelete.delete, { buf = bufnr, force = force })
-            end
+            max_open_buffers = 20,
+            ui = {
+                floating = {
+                    max_rendered_buffers = 10,
+                    minimal_menu = 'dashed',
+                }
+            },
+            lock_char = require('config').defaults.icons.bento.pinned,
         },
-        keys = {
-            { require('config.keymaps').hbac.toggle_pin, '<Cmd>Hbac toggle_pin<CR>' }
-        }
     },
     {
         'saecki/live-rename.nvim',

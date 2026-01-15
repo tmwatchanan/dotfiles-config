@@ -13,10 +13,12 @@ M.defaults = {
             git = '󰘬',
             search = ' ',
             session = '󰥿',
-            pinned = '',
             location = ' ',
             lsp = ' '
         },
+        bento = {
+            pinned = '',
+        }
     },
 }
 
