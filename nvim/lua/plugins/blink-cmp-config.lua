@@ -51,9 +51,7 @@ M.opts = {
             max_items = 50,
             selection = {
                 preselect = true,
-                auto_insert = function(ctx)
-                    return ctx.mode == 'cmdline' and not vim.tbl_contains({ '/', '/?' }, vim.fn.getcmdtype())
-                end
+                auto_insert = false,
             }
         },
         menu = {
@@ -73,9 +71,7 @@ M.opts = {
                 winhighlight = 'Normal:Pmenu,FloatBorder:Pmenu,BlinkCmpDocSeparator:Pmenu',
             }
         },
-        ghost_text = {
-            enabled = true,
-        }
+        ghost_text = { enabled = true }
     },
     signature = {
         enabled = false,
@@ -85,14 +81,19 @@ M.opts = {
     },
     cmdline = {
         keymap = {
-            ['<CR>'] = { 'accept_and_enter', 'fallback' },
-            ['<C-e>'] = { 'hide', 'fallback' },
-            ['<Tab>'] = { 'show_and_insert', 'select_next', 'fallback' },
-            ['<S-Tab>'] = { 'select_prev', 'fallback' },
+            ['<C-e>'] = { 'cancel', 'fallback' },
+            ['<Tab>'] = { 'show_and_insert_or_accept_single', 'select_next' },
+            ['<S-Tab>'] = { 'show_and_insert_or_accept_single', 'select_prev' },
         },
         completion = {
+            list = {
+                selection = {
+                    preselect = true,
+                    auto_insert = true,
+                }
+            },
             menu = { auto_show = false },
-            ghost_text = { enabled = false },
+            ghost_text = { enabled = true },
         },
     },
     sources = {

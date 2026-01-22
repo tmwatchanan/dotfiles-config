@@ -4,16 +4,9 @@ local M = {
     cond = not vim.g.vscode,
 }
 
-M.opts = function()
-    return {
-        extensions = { hbac = {} }
-    }
-end
-
-M.config = function(_, opts)
+M.config = function()
     local resession = require('resession')
-
-    resession.setup(opts)
+    resession.setup {}
 
     -- NOTE: load a dir-specific session when open nvim, save when exit.
     vim.api.nvim_create_autocmd('VimEnter', {

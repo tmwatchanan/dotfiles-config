@@ -32,9 +32,6 @@ M.opts = function()
         check_cmp_visible = function()
             return utils.is_loaded('blink.cmp') and require('blink.cmp').is_visible()
         end,
-        check_hbac_loaded = function()
-            return utils.is_loaded('hbac.nvim') ~= nil
-        end,
     }
 
     local mode = {
@@ -180,7 +177,7 @@ M.opts = function()
 
     local lsp_status = {
         'lsp_status',
-        padding = { left = 1, right = 2 },
+        padding = { right = 2 },
         icon = icons.lualine.lsp,
         symbols = { done = '' },
         cond = conditions.check_lsp_started
@@ -211,18 +208,6 @@ M.opts = function()
         cond = conditions.is_python_file,
     }
 
-    local hbac = {
-        function()
-            local cur_buf = vim.api.nvim_get_current_buf()
-            local _, pinned = pcall(require('hbac.state').is_pinned, cur_buf)
-            return pinned and 'pinned' or ''
-        end,
-        padding = { left = 1, right = 2 },
-        color = 'WarningMsg',
-        -- icon = icons.lualine.pinned,
-        cond = conditions.check_hbac_loaded
-    }
-
     return {
         options = {
             theme = require('plugins.colorscheme').lualine,
@@ -235,7 +220,7 @@ M.opts = function()
             lualine_a = { mode },
             lualine_b = { session_status, recording_mode, branch },
             lualine_c = { path, searchcount, '%=', spacing, navic_location },
-            lualine_x = { cmp_label, cmp_kind, hbac },
+            lualine_x = { cmp_label, cmp_kind },
             lualine_y = { swenv, diagnostics, lsp_status },
             lualine_z = { location },
         },

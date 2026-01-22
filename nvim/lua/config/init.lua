@@ -13,7 +13,6 @@ M.defaults = {
             git = '󰘬',
             search = ' ',
             session = '󰥿',
-            pinned = '',
             location = ' ',
             lsp = ' ',
             navic_separator = '  ',
@@ -25,6 +24,9 @@ M.defaults = {
             log_point = '',
             stopped = '',
         },
+        bento = {
+            pinned = '',
+        }
     },
 }
 

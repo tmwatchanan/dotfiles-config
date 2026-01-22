@@ -106,27 +106,40 @@
     line-numbers                  = true
     side-by-side                  = false
     keep-plus-minus-markers       = false
-    syntax-theme                  = Monokai Extended Origin
-    file-style                    = bold
-    file-decoration-style         = ul
+
+    syntax-theme                  = oxocarbon-dark
+    
+    file-style                    = "#dde1e6" bold
+    file-decoration-style         = "#393939" ul
     file-added-label              = [+]
     file-copied-label             = [==]
     file-modified-label           = [*]
     file-removed-label            = [-]
     file-renamed-label            = [->]
+    
+    # Hunk headers
     hunk-header-style             = omit
-    minus-style                   = syntax "#450822"
-    minus-emph-style              = syntax "#891044"
+    hunk-header-decoration-style  = "#393939" box
+    hunk-header-file-style        = "#82cfff"
+    hunk-header-line-number-style = "#525252"
+
+    # Diff styles
+    minus-style                   = "#ee5396" "#2a161d"
+    minus-emph-style              = "#161616" "#ee5396" bold
     minus-non-emph-style          = minus-style
     minus-empty-line-marker-style = minus-style
-    plus-style                    = syntax "#023130"
-    plus-emph-style               = syntax "#046260"
+
+    plus-style                    = "#3ddbd9" "#0e2324"
+    plus-emph-style               = "#161616" "#3ddbd9" bold
     plus-non-emph-style           = plus-style
     plus-empty-line-marker-style  = plus-style
-    line-numbers-plus-style       = "#08bdba"
+    
+    # Line numbers
     line-numbers-minus-style      = "#ee5396"
+    line-numbers-plus-style       = "#3ddbd9"
     line-numbers-zero-style       = "#525252"
-    line-numbers-left-format      = "{nm:>4} ."
     line-numbers-left-style       = "#525252"
-    line-numbers-right-format     = "{np:>4} "
-    # line-numbers-right-style      = white
+    line-numbers-right-style      = "#525252"
+    line-numbers-left-format      = "{nm:>4} ."
+    line-numbers-right-format     = "{np:>4}  "
+

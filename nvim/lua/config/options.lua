@@ -97,3 +97,5 @@ opt.formatoptions = 'jrqln1' -- see :h fo-table
 -- opt.formatoptions:remove "o"
 opt.shortmess     = 'fnxoOtTF'
 opt.jumpoptions   = 'stack'
+
+opt.inccommand = 'split'

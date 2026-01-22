@@ -72,7 +72,7 @@ local dap_module = {
     'mfussenegger/nvim-dap',
     dependencies = {
         dap_python_module,
-        'jay-babu/mason-nvim-dap.nvim',
+        {'jay-babu/mason-nvim-dap.nvim', lazy = false},
     },
     cond = not vim.g.vscode,
     config = function()
@@ -166,9 +166,8 @@ dapui_module.keys = function()
     }
 end
 
-return {}
--- return {
---     dap_module,
---     dapui_module,
---     persistent_breakpoints_module,
--- }
+return {
+    dap_module,
+    dapui_module,
+    persistent_breakpoints_module,
+}

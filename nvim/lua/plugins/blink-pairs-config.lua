@@ -1,8 +1,12 @@
 local M = {
     'saghen/blink.pairs',
-    -- build = 'cargo build --release',
-    version = vim.version.range('*'),
-    dependencies = 'saghen/blink.download',
+    build = function(plugin)
+        local fn_utils = require('config.fn-utils')
+        fn_utils.jobstart({ 'cargo', 'build', '--release' }, {
+            cwd = plugin.path,
+            title = 'blink.pairs',
+        })
+    end,
 }
 
 M.opts = {

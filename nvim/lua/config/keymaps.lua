@@ -622,11 +622,6 @@ keymaps.sidekick = {
     prompt = '<leader>S',
 }
 
--- INFO: hbac keymap
-keymaps.hbac = {
-    toggle_pin = '<leader>fp',
-}
-
 -- INFO: cloak keymap
 keymaps.cloak = {
     toggle       = '<leader><leader>8',
