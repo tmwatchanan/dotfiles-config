@@ -19,18 +19,6 @@ M.opts = {
                 winhighlight = { Normal = 'Pmenu', FloatBorder = 'Pmenu', Search = 'NONE' }
             },
         },
-        confirm = {
-            backend = 'popup',
-            position = {
-                row = '100%',
-                col = 0,
-            },
-            size = {
-                height = 'auto',
-                width = '100%',
-            },
-            format = { ' {confirm}' },
-        },
         mini = {
             win_options = { winblend = 0 },
             timeout = 5000,
@@ -63,7 +51,7 @@ M.opts = {
         }
     },
     popupmenu = {
-        enabled = true,
+        enabled = false,
     },
     commands = {
         history = {
@@ -99,6 +87,18 @@ M.opts = {
             ['vim.lsp.util.stylize_markdown'] = true,
         }
     },
+    routes = {
+        {
+            view = 'cmdline',
+            filter = {
+                any = {
+                    { event = 'msg_show', kind = 'confirm' },
+                    { event = 'msg_show', kind = 'confirm_sub' },
+                    { event = 'msg_show', kind = 'number_prompt' },
+                },
+            },
+        },
+    }
 }
 
 M.keys = function()
