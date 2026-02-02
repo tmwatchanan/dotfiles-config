@@ -50,3 +50,16 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     desc = 'update diagnostics when written buffer',
     callback = function() vim.diagnostic.show() end
 })
+
+-- close window with q
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = {
+        'help',
+        'qf',
+        'nvim-pack',
+        'checkhealth',
+    },
+    callback = function(event)
+        vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true })
+    end
+})
