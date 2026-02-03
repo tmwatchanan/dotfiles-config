@@ -111,6 +111,7 @@ return {
             },
             lock_char = require('config').defaults.icons.bento.pinned,
         },
+        cond = not vim.g.vscode,
     },
     {
         'saecki/live-rename.nvim',
