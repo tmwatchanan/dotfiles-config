@@ -2,6 +2,7 @@ local M = {
     'sindrets/diffview.nvim',
     event = 'VeryLazy',
     cmd = 'DiffviewOpen',
+    cond = not vim.g.vscode,
 }
 
 M.opts = {
