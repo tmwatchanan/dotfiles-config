@@ -118,8 +118,8 @@ keymaps.focus = {
     split_down    = 'wj',
 }
 
--- INFO: GitSign keymap
-keymaps.gitsigns = {
+-- INFO: git keymap
+keymaps.git = {
     next_hunk    = ']c',
     prev_hunk    = '[c',
     stage_hunk   = '<leader>hs',
