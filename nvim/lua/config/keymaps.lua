@@ -360,12 +360,11 @@ keymaps.focus = {
     split_down    = '<C-j>',
 }
 
--- INFO: GitSign keymap
-keymaps.gitsigns = {
-    next_hunk        = ']h',
-    prev_hunk        = '[h',
+-- INFO: git keymap
+keymaps.git = {
+    next_hunk        = ']c',
+    prev_hunk        = '[c',
     stage_hunk       = '<leader>hs',
-    undo_stage_hunk  = '<leader>hu',
     reset_hunk       = '<leader>hr',
     preview_hunk     = '<leader>hp',
     blame_line       = '<leader>hb',
