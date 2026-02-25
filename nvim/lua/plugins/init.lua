@@ -43,7 +43,6 @@ return {
             ui = {
                 floating = {
                     max_rendered_buffers = 10,
-                    minimal_menu = 'dashed',
                 }
             },
             lock_char = require('config').defaults.icons.bento.pinned,
