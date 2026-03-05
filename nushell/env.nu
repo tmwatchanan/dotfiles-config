@@ -105,6 +105,20 @@ path add /opt/homebrew/sbin
 path add /run/current-system/sw/bin
 path add $"($env.HOME)/.local/bin"
 
+# set path for pyenv
+path add $"(pyenv root)/shims"
+
+# set path for rustup
+path add $"(brew --prefix rustup)/bin"
+path add ($env.CARGO_HOME? | default "~/.cargo" | path join "bin")
+
+# setup fnm env
+fnm env --json | from json | load-env
+path add [($env.FNM_MULTISHELL_PATH | path join bin)]
+
+# deduplicate PATH entries (keeps first occurrence)
+$env.PATH = ($env.PATH | uniq)
+
 # set default editor
 $env.EDITOR = 'nvim'
 $env.VISUAL = 'nvim'
@@ -112,15 +126,8 @@ $env.VISUAL = 'nvim'
 # set path for commandline tools
 $env.SDKROOT = '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'
 
-# set path for pyenv
-path add $"(pyenv root)/shims"
-
-# set path for rustup
-path add $"(brew --prefix rustup)/bin"
-
-# setup fnm env
-fnm env --json | from json | load-env
-path add [($env.FNM_MULTISHELL_PATH | path join bin)]
+# enable lsp for claude code
+$env.ENABLE_LSP_TOOL = 1
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')

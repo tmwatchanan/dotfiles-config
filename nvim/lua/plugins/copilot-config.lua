@@ -6,11 +6,17 @@ local sidekick = {
 sidekick.opts = {
     cli = {
         win = {
+            -- layout = 'float',
             wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' },
+            split = { width = 0.45 }
         },
-        mux = {
-            backend = 'tmux',
-            enabled = true,
+        tools = {
+            claude = {
+                env = vim.fn.getcwd():find('gogoboard') and {
+                    PATH = vim.fn.expand('~/Developer/toolchains/esp-clang/bin')
+                        .. ':' .. vim.uv.os_environ()['PATH'],
+                } or {},
+            },
         },
     }
 }
@@ -33,7 +39,7 @@ sidekick.keys = function()
         {
             sidekick_keymap.toggle,
             function()
-                require('sidekick.cli').toggle({ name = 'copilot', focus = true })
+                require('sidekick.cli').toggle({ name = 'claude', focus = true })
             end,
             desc = 'Sidekick Toggle CLI',
         },
@@ -69,7 +75,7 @@ codecompanion.opts = {
         chat = {
             adapter = {
                 name = 'copilot',
-                model = 'gemini-3-flash-preview',
+                model = 'claude-sonnet-4.6',
             },
             keymaps = {
                 stop = {
@@ -104,9 +110,9 @@ codecompanion.opts = {
             window = {
                 title  = ' Code Companion ',
                 layout = 'vertical', -- 'vertical', 'horizontal', 'float', 'replace'
-                width  = 80,
+                -- width  = 80,
                 height = 20,
-                -- width    = 0.45,
+                width  = 0.4,
                 -- height   = 1,
 
                 -- Options below only apply to floating windows
