@@ -47,6 +47,7 @@ M.opts = function()
             ui_select = true,
             layout = fullscreen_layout,
             sources = {
+                files = { hidden = true },
                 select = { layout = select_layout },
                 help = { confirm = 'vsplit' },
             },
