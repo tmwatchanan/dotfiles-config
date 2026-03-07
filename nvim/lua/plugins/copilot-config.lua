@@ -18,6 +18,10 @@ sidekick.opts = {
                 } or {},
             },
         },
+        mux = {
+            enabled = true,
+            backend = 'tmux',
+        },
     }
 }
 

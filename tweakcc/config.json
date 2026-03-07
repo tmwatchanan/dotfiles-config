@@ -1,7 +1,7 @@
 {
-  "ccVersion": "2.1.68",
+  "ccVersion": "2.1.71",
   "ccInstallationPath": null,
-  "lastModified": "2026-03-05T04:50:07.443Z",
+  "lastModified": "2026-03-07T04:32:44.363Z",
   "changesApplied": true,
   "settings": {
     "themes": [
@@ -666,22 +666,51 @@
       ]
     },
     "thinkingStyle": {
-      "updateInterval": 120,
+      "updateInterval": 80,
       "phases": [
-        "·",
-        "✢",
-        "✳",
-        "✶",
-        "✻",
-        "*"
+        "⠁",
+        "⠂",
+        "⠄",
+        "⡀",
+        "⡈",
+        "⡐",
+        "⡠",
+        "⣀",
+        "⣁",
+        "⣂",
+        "⣄",
+        "⣌",
+        "⣔",
+        "⣤",
+        "⣥",
+        "⣦",
+        "⣮",
+        "⣶",
+        "⣷",
+        "⣿",
+        "⡿",
+        "⠿",
+        "⢟",
+        "⠟",
+        "⡛",
+        "⠛",
+        "⠫",
+        "⢋",
+        "⠋",
+        "⠍",
+        "⡉",
+        "⠉",
+        "⠑",
+        "⠡",
+        "⢁"
       ],
-      "reverseMirror": true
+      "reverseMirror": false
     },
     "userMessageDisplay": {
       "format": " > {} ",
       "styling": [],
       "foregroundColor": "default",
-      "backgroundColor": null,
+      "backgroundColor": "default",
       "borderStyle": "none",
       "borderColor": "rgb(255,255,255)",
       "paddingX": 0,
@@ -693,7 +722,7 @@
     },
     "misc": {
       "showTweakccVersion": true,
-      "showPatchesApplied": true,
+      "showPatchesApplied": false,
       "expandThinkingBlocks": true,
       "enableConversationTitle": true,
       "hideStartupBanner": false,
@@ -715,7 +744,9 @@
       "allowBypassPermissionsInSudo": false,
       "suppressNativeInstallerWarning": false,
       "filterScrollEscapeSequences": false,
-      "enableWorktreeMode": true
+      "enableWorktreeMode": true,
+      "enableContextLimitOverride": false,
+      "enableModelCustomizations": true
     },
     "toolsets": [],
     "defaultToolset": null,
