@@ -6,9 +6,13 @@ local sidekick = {
 sidekick.opts = {
     cli = {
         win = {
-            -- layout = 'float',
-            wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' },
-            split = { width = 0.45 }
+            layout = 'float',
+            float = {
+                height = 1,
+                width = 1,
+            }
+            -- wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' },
+            -- split = { width = 0.45 }
         },
         tools = {
             claude = {
