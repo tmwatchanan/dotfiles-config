@@ -126,9 +126,6 @@ $env.VISUAL = 'nvim'
 # set path for commandline tools
 $env.SDKROOT = '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'
 
-# enable lsp for claude code
-$env.ENABLE_LSP_TOOL = 1
-
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
 

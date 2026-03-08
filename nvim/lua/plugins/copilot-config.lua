@@ -12,10 +12,17 @@ sidekick.opts = {
         },
         tools = {
             claude = {
-                env = vim.fn.getcwd():find('gogoboard') and {
-                    PATH = vim.fn.expand('~/Developer/toolchains/esp-clang/bin')
-                        .. ':' .. vim.uv.os_environ()['PATH'],
-                } or {},
+                env = (function()
+                    local env = {
+                        ENABLE_LSP_TOOL = '1'
+                    }
+
+                    if vim.fn.getcwd():find('gogoboard') then
+                        env.PATH = vim.fn.expand('~/Developer/toolchains/esp-clang/bin')
+                            .. ':' .. vim.uv.os_environ().PATH
+                    end
+                    return env
+                end)(),
             },
         },
         mux = {
