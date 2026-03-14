@@ -10,9 +10,12 @@ sidekick.opts = {
             float = {
                 height = 1,
                 width = 1,
-            }
+            },
             -- wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' },
-            -- split = { width = 0.45 }
+            -- split = { width = 0.45 },
+            keys = {
+                prompt = false
+            },
         },
         tools = {
             claude = {
@@ -26,6 +29,12 @@ sidekick.opts = {
 
                     return env
                 end)(),
+            },
+            opencode = {
+                env = {
+                    OPENCODE_EXPERIMENTAL_LSP_TOOL = 'true',
+                    OPENCODE_THEME = 'system'
+                },
             },
         },
         mux = {
@@ -53,7 +62,7 @@ sidekick.keys = function()
         {
             sidekick_keymap.toggle,
             function()
-                require('sidekick.cli').toggle({ name = 'claude', focus = true })
+                require('sidekick.cli').toggle({ name = 'opencode', focus = true })
             end,
             desc = 'Sidekick Toggle CLI',
         },
