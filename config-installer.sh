@@ -1,27 +1,60 @@
 #!/bin/bash
 
 # WARN: must have brew installed
-# brew install wget luarocks neovim lazygit git-flow-avh git-delta ripgrep fd jq eza
 brew install wget lazygit git-flow-avh git-delta ripgrep fd eza fnm neovim nushell gh bat pyenv tmux starship aerospace tree-sitter-cli carapace
-brew install --cask copilot-cli
+brew install opencode
+# brew install --cask ghostty kitty
 
-# INFO: -- move nvim config files to local config directory
 config_path=~/.config
-update_nvim_config="y"
-found_nvim_config=false
-if [ -d "$config_path/nvim" ]; then
-    found_nvim_config=true
-    read -p "found exist neovim config files.. overwrite (y) or (n) ? : " update_nvim_config
-fi
-if [ $update_nvim_config = "y" ]; then
-    if $found_nvim_config; then
-        rm -rf "$config_path/nvim"
+
+# INFO: -- helper to install a config directory
+install_config_dir() {
+    local name="$1"
+    local update="y"
+    local found=false
+    if [ -d "$config_path/$name" ]; then
+        found=true
+        read -p "found exist $name config.. overwrite (y) or (n) ? : " update
     fi
-    cp -r nvim "$config_path"
-    echo "added neovim config !"
-else
-    echo "skipped neovim config.."
-fi
+    if [ "$update" = "y" ]; then
+        if $found; then
+            rm -rf "$config_path/$name"
+        fi
+        cp -r "$name" "$config_path"
+        echo "added $name config !"
+    else
+        echo "skipped $name config.."
+    fi
+}
+
+# INFO: -- helper to install a config file
+install_config_file() {
+    local name="$1"
+    local update="y"
+    local found=false
+    if [ -f "$config_path/$name" ]; then
+        found=true
+        read -p "found exist $name config.. overwrite (y) or (n) ? : " update
+    fi
+    if [ "$update" = "y" ]; then
+        if $found; then
+            rm "$config_path/$name"
+        fi
+        cp "$name" "$config_path"
+        echo "added $name config !"
+    else
+        echo "skipped $name config.."
+    fi
+}
+
+# INFO: -- install config directories
+config_dirs=(nvim aerospace bat carapace delta ghostty git kitty lazygit nushell opencode tmux)
+for dir in "${config_dirs[@]}"; do
+    install_config_dir "$dir"
+done
+
+# INFO: -- install config files
+install_config_file "starship.toml"
 
 # INFO: -- symlink gitconfig file
 gitconfig=~/.gitconfig
@@ -31,7 +64,7 @@ if [[ -f "$gitconfig" || -L "$gitconfig" ]]; then
     found_gitconfig=true
     read -p "found exist gitconfig file.. overwrite (y) or (n) ? : " update_gitconfig
 fi
-if [ $update_gitconfig = "y" ]; then
+if [ "$update_gitconfig" = "y" ]; then
     if $found_gitconfig; then
         rm "$gitconfig" # remove old symlink or old config file
     fi
