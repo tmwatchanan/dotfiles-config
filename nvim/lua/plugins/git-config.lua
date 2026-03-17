@@ -64,9 +64,9 @@ local inlinediff_module = {
 inlinediff_module.opts = {
     colors = {
         InlineDiffAddContext = '#0e2324',
-        InlineDiffAddChange = '#3ddbd9',
+        InlineDiffAddChange = '#1e7d7c',
         InlineDiffDeleteContext = '#2a161d',
-        InlineDiffDeleteChange = '#ee5396',
+        InlineDiffDeleteChange = '#8c2a4a',
     },
 }
 
