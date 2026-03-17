@@ -100,6 +100,7 @@ use std "path add"
 # path add ($env.CARGO_HOME | path join "bin")
 # path add ($env.HOME | path join ".local" "bin")
 # $env.PATH = ($env.PATH | uniq)
+path add /usr/local/bin
 path add /opt/homebrew/bin
 path add /opt/homebrew/sbin
 path add /run/current-system/sw/bin
