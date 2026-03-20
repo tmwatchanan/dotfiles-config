@@ -42,6 +42,9 @@ sidekick.opts = {
                     OPENCODE_EXPERIMENTAL_LSP_TOOL = 'true',
                     OPENCODE_THEME = 'system'
                 },
+                native_scroll = true,
+                is_proc = '\\<ocv\\>',
+                continue = { '--continue' },
             },
         },
         mux = {
