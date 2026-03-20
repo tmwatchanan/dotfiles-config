@@ -69,7 +69,7 @@ sidekick.keys = function()
         {
             sidekick_keymap.toggle,
             function()
-                require('sidekick.cli').toggle({ name = 'opencode', focus = true })
+                require('sidekick.cli').toggle({ name = 'ocv', focus = true })
             end,
             desc = 'Sidekick Toggle CLI',
         },

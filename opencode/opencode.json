@@ -12,7 +12,6 @@
         }
     },
     "plugin": [
-        "context-mode",
-        "opencode-claude-auth"
+        "context-mode"
     ]
 }
