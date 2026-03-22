@@ -232,6 +232,7 @@ keymaps.sidekick = {
     apply_nes = '<Tab>',
     toggle = '<leader>s',
     prompt = '<leader>S',
+    focus = '<c-.>',
 }
 
 return keymaps

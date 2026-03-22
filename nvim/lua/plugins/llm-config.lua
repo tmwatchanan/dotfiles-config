@@ -13,9 +13,6 @@ sidekick.opts = {
             },
             -- wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' },
             -- split = { width = 0.45 },
-            keys = {
-                prompt = false
-            },
         },
         tools = {
             claude = {
@@ -89,6 +86,14 @@ sidekick.keys = function()
             end,
             mode = { 'n', 'x' },
             desc = 'Sidekick Prompt Picker',
+        },
+        {
+            sidekick_keymap.focus,
+            function()
+                require('sidekick.cli').focus()
+            end,
+            mode = { 'n', 't', 'i', 'x' },
+            desc = 'Sidekick Focus',
         },
     }
 end
