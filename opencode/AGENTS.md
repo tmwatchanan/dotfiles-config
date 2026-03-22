@@ -1,3 +1,9 @@
+# OpenCode CLI Agent Instructions
+
+> This file is loaded by **opencode** (not Claude Code).
+> The active CLI tool is opencode — do not assume Claude Code conventions,
+> paths, or behaviors.
+
 # Code Intelligence
 
 Prefer LSP over Grep/Glob/Read for code navigation:
