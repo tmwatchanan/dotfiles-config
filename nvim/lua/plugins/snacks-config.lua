@@ -202,7 +202,6 @@ M.keys = function()
                     local term_id = vim.b[terminal.buf].snacks_terminal.id
                     if term_id then
                         if term_id == check_term_id then
-                            vim.api.nvim_feedkeys(tostring(check_term_id), 'nx', false)
                             matched = true
                             break
                         end
@@ -212,12 +211,15 @@ M.keys = function()
                     end
                 end
 
-                -- INFO: if not match any and has valid term then use the prev id before target id in list
+                -- INFO: resolve final terminal id, fallback to prev id before target id in list
+                local final_id = check_term_id
                 if last_checked_id and not matched and not user_input then
-                    vim.api.nvim_feedkeys(tostring(last_checked_id), 'nx', false)
+                    final_id = last_checked_id
                 end
 
-                snacks.terminal.toggle(nil, terminal_toggle_opts)
+                snacks.terminal.toggle(nil, vim.tbl_deep_extend('force', terminal_toggle_opts, {
+                    count = final_id
+                }))
             end
         },
         { terminal_keymap.lazygit,              function() snacks.terminal.toggle('lazygit') end },
