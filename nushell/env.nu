@@ -106,6 +106,9 @@ path add /opt/homebrew/sbin
 path add /run/current-system/sw/bin
 path add $"($env.HOME)/.local/bin"
 
+# set path for bun global bin
+path add $"($env.HOME)/.bun/bin"
+
 # set path for pyenv
 path add $"(pyenv root)/shims"
 
