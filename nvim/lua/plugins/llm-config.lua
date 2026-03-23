@@ -11,6 +11,11 @@ sidekick.opts = {
                 height = 1,
                 width = 1,
             },
+            keys = {
+                shift_enter = { '<S-CR>', function(self)
+                    vim.api.nvim_chan_send(self.job, '\x1b[13;2u')
+                end },
+            },
             -- wo = { winhighlight = 'Normal:Normal,NormalNC:NormalNC' },
             -- split = { width = 0.45 },
         },
