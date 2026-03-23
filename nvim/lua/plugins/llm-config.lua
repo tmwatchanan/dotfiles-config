@@ -17,7 +17,9 @@ sidekick.opts = {
         tools = {
             claude = {
                 env = (function()
-                    local env = {}
+                    local env = {
+                        ENABLE_LSP_TOOL = '1',
+                    }
 
                     if vim.fn.getcwd():find('gogoboard') then
                         env.PATH = vim.fn.expand('~/Developer/toolchains/esp-clang/bin')
@@ -69,7 +71,7 @@ sidekick.keys = function()
         {
             sidekick_keymap.toggle,
             function()
-                require('sidekick.cli').toggle({ name = 'ocv', focus = true })
+                require('sidekick.cli').toggle({ name = 'claude', focus = true })
             end,
             desc = 'Sidekick Toggle CLI',
         },
