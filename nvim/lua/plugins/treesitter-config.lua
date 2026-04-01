@@ -30,6 +30,7 @@ M.config = function()
 
     -- NOTE: extra parser register if filetype not matched
     -- vim.treesitter.language.register('ini', { 'dosini', 'confini' }) -- supported
+    vim.treesitter.language.register('jsonc', 'json')
 
     vim.api.nvim_create_autocmd('FileType', {
         group = vim.api.nvim_create_augroup('treesitter.setup', {}),
