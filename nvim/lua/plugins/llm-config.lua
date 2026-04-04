@@ -27,7 +27,7 @@ sidekick.opts = {
                     }
 
                     if vim.fn.getcwd():find('gogoboard') then
-                        env.PATH = vim.fn.expand('~/Developer/toolchains/esp-clang/bin')
+                        env.PATH = vim.fn.expand('~/Developer/toolchains/esp-clangd/bin')
                             .. ':' .. vim.uv.os_environ().PATH
                     end
 
