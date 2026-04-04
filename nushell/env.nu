@@ -105,6 +105,7 @@ path add /opt/homebrew/bin
 path add /opt/homebrew/sbin
 path add /run/current-system/sw/bin
 path add $"($env.HOME)/.local/bin"
+path add $"($env.HOME)/.local/share/nvim/mason/bin"
 
 # set path for bun global bin
 path add $"($env.HOME)/.bun/bin"
