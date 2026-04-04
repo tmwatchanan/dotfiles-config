@@ -2,8 +2,5 @@
     "$schema": "https://opencode.ai/tui.json",
     "scroll_acceleration": {
         "enabled": true
-    },
-    "plugin": [
-      "@tarquinen/opencode-dcp@beta"
-    ]
+    }
 }
