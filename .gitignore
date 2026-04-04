@@ -19,3 +19,4 @@ mole
 nvim/nvim-pack-lock.json
 /opencode/context-mode/sessions
 /.tmp/external-context
+/.omc
