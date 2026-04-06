@@ -7,7 +7,7 @@ adjust-cell-height = 10%
 
 # cursor config
 mouse-hide-while-typing = true
-shell-integration-features = no-cursor
+shell-integration-features = cursor
 cursor-style = block
 
 # macos icon
