@@ -22,3 +22,4 @@ nvim/nvim-pack-lock.json
 /.omc
 /glab-cli
 /.claude/settings.local.json
+/opencode/context-mode/content

@@ -1,18 +1,27 @@
 {
-    "$schema": "https://opencode.ai/config.json",
-    "permission": {
-        "lsp": "allow"
-    },
-    "mcp": {
-        "context-mode": {
-            "type": "local",
-            "command": [
-                "context-mode"
-            ]
-        }
-    },
-    "plugin": [
-        "context-mode@latest",
-        "@tarquinen/opencode-dcp@latest"
-    ]
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "lsp": "allow"
+  },
+  "mcp": {
+    "context-mode": {
+      "type": "local",
+      "command": [
+        "context-mode"
+      ]
+    }
+  },
+  "plugin": [
+    "context-mode@latest",
+    "@tarquinen/opencode-dcp@latest",
+    "opencode-with-claude"
+  ],
+  "provider": {
+    "anthropic": {
+      "options": {
+        "baseURL": "http://127.0.0.1:3456",
+        "apiKey": "dummy"
+      }
+    }
+  }
 }
