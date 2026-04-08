@@ -230,7 +230,7 @@ keymaps.codecompanion = {
 -- INFO: sidekick keymap
 keymaps.sidekick = {
     apply_nes = '<Tab>',
-    toggle = '<leader>s',
+    select = '<leader>s',
     prompt = '<leader>S',
     focus = '<c-.>',
 }

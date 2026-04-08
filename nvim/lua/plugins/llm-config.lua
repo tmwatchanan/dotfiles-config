@@ -74,14 +74,14 @@ sidekick.keys = function()
             desc = 'Goto/Apply Next Edit Suggestion',
         },
         {
-            sidekick_keymap.toggle,
+            sidekick_keymap.select,
             function()
-                require('sidekick.cli').toggle({ focus = true })
+                require('sidekick.cli').select({ filter = { installed = true } })
             end,
-            desc = 'Sidekick Toggle CLI',
+            desc = 'Sidekick Select CLI',
         },
         {
-            sidekick_keymap.toggle,
+            sidekick_keymap.select,
             function() require('sidekick.cli').send({ msg = '{selection}' }) end,
             mode = { 'x' },
             desc = 'Sidekick Send Visual Selection',
