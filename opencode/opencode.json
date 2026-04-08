@@ -14,7 +14,7 @@
   "plugin": [
     "context-mode@latest",
     "@tarquinen/opencode-dcp@latest",
-    "opencode-with-claude"
+    "opencode-with-claude@latest"
   ],
   "provider": {
     "anthropic": {
