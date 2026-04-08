@@ -43,6 +43,7 @@ M.opts = function()
     }
 
     return {
+        image = { enabled = false },
         picker = {
             ui_select = true,
             layout = fullscreen_layout,
