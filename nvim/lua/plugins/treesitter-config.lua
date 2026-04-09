@@ -5,7 +5,7 @@ local M = {
         { 'nvim-treesitter/nvim-treesitter-context', opts = { zindex = 5, max_lines = 3 } },
         { 'folke/ts-comments.nvim',                  opts = {} },
         {
-            'nvim-treesitter/nvim-treesitter',
+            'neovim-treesitter/nvim-treesitter',
             branch = 'main',
             config = function()
                 -- NOTE: extra parser register if filetype not matched

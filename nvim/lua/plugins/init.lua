@@ -27,7 +27,7 @@ return {
     },
     {
         'Wansmer/treesj',
-        dependencies = 'nvim-treesitter/nvim-treesitter',
+        dependencies = 'neovim-treesitter/nvim-treesitter',
         opts = {
             use_default_keymaps = false,
         },
@@ -69,7 +69,7 @@ return {
     {
         'MeanderingProgrammer/render-markdown.nvim',
         dependencies = {
-            'nvim-treesitter/nvim-treesitter',
+            'neovim-treesitter/nvim-treesitter',
             'nvim-mini/mini.icons',
         },
         event = 'VeryLazy',
