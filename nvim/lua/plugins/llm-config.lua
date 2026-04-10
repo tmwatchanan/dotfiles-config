@@ -22,9 +22,7 @@ sidekick.opts = {
         tools = {
             claude = {
                 env = (function()
-                    local env = {
-                        ENABLE_LSP_TOOL = '1',
-                    }
+                    local env = {}
 
                     if vim.fn.getcwd():find('gogoboard') then
                         env.PATH = vim.fn.expand('~/Developer/toolchains/esp-clangd/bin')
