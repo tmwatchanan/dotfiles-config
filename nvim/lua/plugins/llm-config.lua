@@ -98,7 +98,7 @@ sidekick.keys = function()
         {
             sidekick_keymap.focus,
             function()
-                require('sidekick.cli').focus()
+                require('sidekick.cli').focus({ filter = { installed = true } })
             end,
             mode = { 'n', 't', 'i', 'x' },
             desc = 'Sidekick Focus',
