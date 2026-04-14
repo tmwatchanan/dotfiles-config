@@ -109,6 +109,28 @@ M.opts = function()
                 }
             }
         },
+        scratch = {
+            name = 'Project Notes',
+            ft = 'markdown',
+            icon = { '󰠮', 'SnacksScratchTitle' },
+            root = vim.fn.stdpath('data') .. '/notes',
+            autowrite = true,
+            filekey = {
+                cwd = true,
+                branch = false,
+                count = false,
+            },
+            win = {
+                width = 0.8,
+                height = 0.8,
+                border = 'solid',
+                title_pos = 'left',
+                footer_pos = 'right',
+                keys = {
+                    ['q'] = 'close',
+                },
+            },
+        },
         terminal = {
             win = {
                 height   = 0,
@@ -166,6 +188,7 @@ M.keys = function()
     local picker_keymap = keymaps.picker
     local bufdetele_keymap = keymaps.bufdelete
     local terminal_keymap = keymaps.terminal
+    local scratch_keymap = keymaps.scratch
 
     -- INFO: only mapped toggle key for no cmd terminal
     local terminal_toggle_opts = {
@@ -188,6 +211,25 @@ M.keys = function()
         { picker_keymap.grep_workspace,   function() snacks.picker.grep_word() end,   mode = { 'n', 'x' } },
 
         { bufdetele_keymap.delete,        function() snacks.bufdelete.delete() end },
+
+        {
+            scratch_keymap.toggle,
+            function()
+                snacks.scratch.open({
+                    win = {
+                        title = ' Project Notes - ' .. (vim.uv.cwd() or '') .. ' ',
+                        on_win = function(self)
+                            local fname = vim.api.nvim_buf_get_name(self.buf)
+                            local stat = fname ~= '' and vim.uv.fs_stat(fname)
+                            local footer = stat
+                                and (' Updated: ' .. os.date('%d-%b-%Y %H:%M', stat.mtime.sec) .. ' ')
+                                or ''
+                            vim.api.nvim_win_set_config(self.win, { footer = footer })
+                        end,
+                    }
+                })
+            end
+        },
 
         {
             terminal_keymap.toggle,

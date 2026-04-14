@@ -102,11 +102,6 @@ keymaps.lazy = {
     open = '<leader>P',
 }
 
--- INFO: jot keymap
-keymaps.jot = {
-    toggle = '<leader>n',
-}
-
 -- INFO: focus keymap
 keymaps.focus = {
     toggle_enable = '<leader><space>',
@@ -160,6 +155,9 @@ keymaps.snacks = {
         toggle = '<leader>t',
         lazygit = '<leader>g',
         lazygit_file_history = '<leader>G',
+    },
+    scratch = {
+        toggle = '<leader>n',
     }
 }
 
