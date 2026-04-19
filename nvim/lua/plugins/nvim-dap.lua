@@ -95,7 +95,7 @@ local dapui_module = {
         {
             'theHamsta/nvim-dap-virtual-text',
             dependencies = {
-                'nvim-treesitter/nvim-treesitter',
+                'neovim-treesitter/nvim-treesitter',
             },
         },
         'LiadOz/nvim-dap-repl-highlights',

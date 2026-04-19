@@ -38,6 +38,13 @@ M.init = function()
 
         require 'config.options'
         require 'zpack-config'
+
+        -- Neovim doesn't ship `#make-range!`, but some of our custom Treesitter
+        -- queries rely on it (consumed via `nvim-treesitter.query` helpers).
+        -- Register a no-op handler so query execution doesn't error.
+        pcall(function()
+            vim.treesitter.query.add_directive('make-range!', function() end)
+        end)
     end
 end
 

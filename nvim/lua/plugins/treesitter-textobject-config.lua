@@ -3,6 +3,10 @@ local mini_ai_module = {
     main = 'mini.ai',
     dependencies = {
         {
+            'neovim-treesitter/nvim-treesitter',
+            branch = 'main',
+        },
+        {
             'nvim-treesitter/nvim-treesitter-textobjects',
             version = 'main',
         },
@@ -16,7 +20,9 @@ mini_ai_module.keys = {
 
 mini_ai_module.opts = function()
     local ai = require('mini.ai')
-    local spec_treesitter = ai.gen_spec.treesitter
+    local spec_treesitter = function(captures)
+        return ai.gen_spec.treesitter(captures, { use_nvim_treesitter = true })
+    end
 
     return {
         n_lines = 500,

@@ -1,6 +1,6 @@
 local M = {
     'neovim-treesitter/nvim-treesitter',
-    branch = 'master',
+    branch = 'main',
     build = ':TSUpdate',
     event = 'BufEnter',
     dependencies = {
@@ -10,11 +10,7 @@ local M = {
     },
 }
 
-
 M.config = function()
-    local keymaps = require('config.keymaps').treesitter
-    local utils = require('config.fn-utils')
-
     local ensure_install = {
         'regex',
         'lua',
@@ -94,65 +90,6 @@ M.config = function()
             vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end,
     })
-
-    return {
-        ensure_installed = ensure_installed,
-        ignore_install = {
-            'norg',
-            'vala'
-        },
-        auto_install = true,
-        sync_install = false,
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
-        },
-        indent = {
-            enable = true,
-            disable = { 'cpp' }
-        },
-        incremental_selection = {
-            enable = true,
-            keymaps = require('config.keymaps').treesitter.incremental_selection,
-        },
-        textobjects = {
-            select = {
-                enable = true,
-                lookahead = true,
-            },
-            move = utils.merge(
-                {
-                    enable = true,
-                },
-                keymaps.textobjects.move
-            ),
-            swap = utils.merge(
-                {
-                    enable = true,
-                },
-                keymaps.textobjects.swap
-            ),
-            lsp_interop = {
-                enable = true,
-                border = 'none',
-                floating_preview_opts = {},
-                peek_definition_code = keymaps.textobjects.peek_definition_code,
-            },
-        },
-        matchup = {
-            enable = true,
-        },
-    }
 end
-
--- M.config = function(_, opts)
---     require('nvim-treesitter.configs').setup(opts)
---
---     -- INFO: Repeat movement with ]; and [;
---     local ts_repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
---     local repeat_keymaps = require('config.keymaps').treesitter.textobjects.repeat_move
---     vim.keymap.set({ 'n', 'x', 'o' }, repeat_keymaps.repeat_last_move_next, ts_repeat_move.repeat_last_move_next)
---     vim.keymap.set({ 'n', 'x', 'o' }, repeat_keymaps.repeat_last_move_previous, ts_repeat_move.repeat_last_move_previous)
--- end
 
 return M

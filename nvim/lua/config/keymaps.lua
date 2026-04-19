@@ -251,65 +251,7 @@ keymaps.rename = {
 
 -- INFO: Treesitter
 keymaps.treesitter = {
-    incremental_selection = {
-        init_selection = '<Tab>]',
-        node_incremental = '<Tab>]',
-        node_decremental = '<Tab>[',
-    },
     textobjects = {
-        repeat_move = {
-            repeat_last_move_next = '];',
-            repeat_last_move_previous = '[;',
-        },
-        move = {
-            goto_next_start = {
-                [']f'] = '@function.outer',
-                [']c'] = '@comment.outer',
-                [']u'] = '@conditional.outer',
-                [']l'] = '@loop.outer',
-                [']]'] = { query = { '@block.outer', '@local_declaration' } },
-                [']a'] = '@parameter.outer',
-            },
-            goto_next_end = {
-                [']F'] = '@function.outer',
-                [']C'] = '@comment.outer',
-                [']U'] = '@conditional.outer',
-                [']L'] = '@loop.outer',
-                [']}'] = { query = { '@block.outer', '@local_declaration' } },
-                [']A'] = '@parameter.outer',
-            },
-            goto_previous_start = {
-                ['[f'] = '@function.outer',
-                ['[c'] = '@comment.outer,',
-                ['[u'] = '@conditional.outer,',
-                ['[l'] = '@loop.outer',
-                ['[['] = { query = { '@block.outer' } },
-                ['[a'] = '@parameter.outer',
-            },
-            goto_previous_end = {
-                ['[F'] = '@function.outer',
-                ['[C'] = '@comment.outer,',
-                ['[U'] = '@conditional.outer,',
-                ['[L'] = '@loop.outer',
-                ['[{'] = { query = { '@block.outer' } },
-                ['[A'] = '@parameter.outer',
-            },
-        },
-        swap = {
-            -- NOTE: for others, use `sibling-swap.nvim`
-            swap_next = {
-                ['<leader>sm'] = '@function.outer',
-                ['<leader>sc'] = '@class.outer',
-            },
-            swap_previous = {
-                ['<leader><leader>sm'] = '@function.outer',
-                ['<leader><leader>sc'] = '@class.outer',
-            },
-        },
-        peek_definition_code = {
-            ['gM'] = '@function.outer',
-            ['gC'] = '@class.outer',
-        },
         various_textobjs = {
             disabledKeymaps = {
                 'r',  -- restOfParagraph

@@ -69,7 +69,7 @@ return {
     },
     {
         'Wansmer/sibling-swap.nvim',
-        requires = { 'nvim-treesitter/nvim-treesitter' },
+        requires = { 'neovim-treesitter/nvim-treesitter' },
         opts = {
             highlight_node_at_cursor = true,
         },
@@ -87,7 +87,7 @@ return {
     },
     {
         'andymass/vim-matchup',
-        dependencies = 'nvim-treesitter/nvim-treesitter',
+        dependencies = 'neovim-treesitter/nvim-treesitter',
         lazy = false,
         init = function()
             vim.g.matchup_matchparen_offscreen = { method = 'popup' }
