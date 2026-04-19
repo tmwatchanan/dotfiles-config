@@ -344,11 +344,6 @@ keymaps.mason = {
     open = '<leader>P',
 }
 
--- INFO: jot keymap
-keymaps.jot = {
-    toggle = '<leader>n',
-}
-
 -- INFO: focus keymap
 keymaps.focus = {
     toggle_enable = '<Bslash>f',
@@ -409,6 +404,9 @@ keymaps.snacks = {
     },
     gitbrowse      = '<leader>gb',
     git_blame_line = '<leader>gB',
+    scratch = {
+        toggle = '<leader>n',
+    }
 }
 
 -- INFO: oil keymap
@@ -617,8 +615,9 @@ keymaps.codecompanion = {
 -- INFO: sidekick keymap
 keymaps.sidekick = {
     apply_nes = '<Tab>',
-    toggle = '<leader>s',
+    select = '<leader>s',
     prompt = '<leader>S',
+    focus = '<c-.>',
 }
 
 -- INFO: cloak keymap

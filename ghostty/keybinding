@@ -1,2 +1,6 @@
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 keybind = ctrl+cmd+,=reload_config
+
+# send CSI u sequences for modified Enter (for tmux/neovim)
+keybind = ctrl+enter=text:\x1b[13;5u
+keybind = shift+enter=text:\x1b[13;2u

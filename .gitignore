@@ -4,7 +4,6 @@ fish/functions
 fish/fish_variables
 fish/conf.d
 configstore
-nvim/plugin/packer_compiled.lua
 tmux/plugins
 lazygit/state.yml
 containers
@@ -12,9 +11,6 @@ containers
 github-copilot
 nvim/lazy-lock.json
 gh
-zed/embeddings
-zed/.tmp*
-zed/prompts/prompts-library-db.0.mdb
 nushell/history.txt
 carapace/bridge
 .nuxtrc
@@ -22,3 +18,9 @@ carapace/bridge
 .copilot
 mole
 nvim/nvim-pack-lock.json
+/opencode/context-mode/sessions
+/.tmp/external-context
+/.omc
+/glab-cli
+/.claude/settings.local.json
+/opencode/context-mode/content

@@ -64,26 +64,28 @@ gitsigns_module.opts = {
 }
 
 local inlinediff_module = {
-    'yousame2/inlinediff-nvim',
-    main = 'inlinediff',
+    'cvlmtg/inline-diff.nvim',
     cmd = 'InlineDiff',
     cond = not vim.g.vscode,
 }
 
-inlinediff_module.opts = {
-    -- colors = {
-    --     InlineDiffAddContext = '#0e2324',
-    --     InlineDiffAddChange = '#3ddbd9',
-    --     InlineDiffDeleteContext = '#2a161d',
-    --     InlineDiffDeleteChange = '#ee5396',
-    -- },
-}
+inlinediff_module.config = function()
+    require('inline-diff').setup()
+
+    -- prevent enable() from resetting our highlights on every toggle
+    require('inline-diff.highlight').define = function() end
+
+    vim.api.nvim_set_hl(0, 'InlineDiffAdd', { fg = '#78b9b7', bg = '#0e2324' })
+    vim.api.nvim_set_hl(0, 'InlineDiffWordAdd', { fg = '#d0eeec', bg = '#1e5554' })
+    vim.api.nvim_set_hl(0, 'InlineDiffDelete', { fg = '#be6f90', bg = '#2a161d' })
+    vim.api.nvim_set_hl(0, 'InlineDiffWordDel', { fg = '#eaced8', bg = '#532740' })
+end
 
 inlinediff_module.keys = function()
     local git_keymap = require('config.keymaps').git
 
     return {
-        { git_keymap.preview_hunk, function() require('inlinediff').toggle() end }
+        { git_keymap.preview_hunk, function() require('inline-diff').toggle() end }
     }
 end
 

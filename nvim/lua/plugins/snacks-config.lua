@@ -43,10 +43,12 @@ M.opts = function()
     }
 
     return {
+        image = { enabled = false },
         picker = {
             ui_select = true,
             layout = fullscreen_layout,
             sources = {
+                files = { hidden = true },
                 select = { layout = select_layout },
                 help = { confirm = 'vsplit' },
             },
@@ -106,6 +108,28 @@ M.opts = function()
                     }
                 }
             }
+        },
+        scratch = {
+            name = 'Project Notes',
+            ft = 'markdown',
+            icon = { '󰠮', 'SnacksScratchTitle' },
+            root = vim.fn.stdpath('data') .. '/notes',
+            autowrite = true,
+            filekey = {
+                cwd = true,
+                branch = false,
+                count = false,
+            },
+            win = {
+                width = 0.8,
+                height = 0.8,
+                border = 'solid',
+                title_pos = 'left',
+                footer_pos = 'right',
+                keys = {
+                    ['q'] = 'close',
+                },
+            },
         },
         terminal = {
             win = {
@@ -186,6 +210,7 @@ M.keys = function()
     local picker_keymap = keymaps.picker
     local bufdetele_keymap = keymaps.bufdelete
     local terminal_keymap = keymaps.terminal
+    local scratch_keymap = keymaps.scratch
 
     -- INFO: only mapped toggle key for no cmd terminal
     local terminal_toggle_opts = {
@@ -211,6 +236,25 @@ M.keys = function()
         { bufdetele_keymap.delete,        function() snacks.bufdelete.delete() end },
 
         {
+            scratch_keymap.toggle,
+            function()
+                snacks.scratch.open({
+                    win = {
+                        title = ' Project Notes - ' .. (vim.uv.cwd() or '') .. ' ',
+                        on_win = function(self)
+                            local fname = vim.api.nvim_buf_get_name(self.buf)
+                            local stat = fname ~= '' and vim.uv.fs_stat(fname)
+                            local footer = stat
+                                and (' Updated: ' .. os.date('%d-%b-%Y %H:%M', stat.mtime.sec) .. ' ')
+                                or ''
+                            vim.api.nvim_win_set_config(self.win, { footer = footer })
+                        end,
+                    }
+                })
+            end
+        },
+
+        {
             terminal_keymap.toggle,
             function()
                 -- NOTE: check target_term_id exist in terminal list
@@ -224,7 +268,6 @@ M.keys = function()
                     local term_id = vim.b[terminal.buf].snacks_terminal.id
                     if term_id then
                         if term_id == check_term_id then
-                            vim.api.nvim_feedkeys(tostring(check_term_id), 'nx', false)
                             matched = true
                             break
                         end
@@ -234,12 +277,15 @@ M.keys = function()
                     end
                 end
 
-                -- INFO: if not match any and has valid term then use the prev id before target id in list
+                -- INFO: resolve final terminal id, fallback to prev id before target id in list
+                local final_id = check_term_id
                 if last_checked_id and not matched and not user_input then
-                    vim.api.nvim_feedkeys(tostring(last_checked_id), 'nx', false)
+                    final_id = last_checked_id
                 end
 
-                snacks.terminal.toggle(nil, terminal_toggle_opts)
+                snacks.terminal.toggle(nil, vim.tbl_deep_extend('force', terminal_toggle_opts, {
+                    count = final_id
+                }))
             end
         },
         { terminal_keymap.lazygit,              function() snacks.terminal.toggle('lg') end },

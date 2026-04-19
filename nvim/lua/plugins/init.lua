@@ -59,7 +59,7 @@ return {
     },
     {
         'Wansmer/treesj',
-        dependencies = 'nvim-treesitter/nvim-treesitter',
+        dependencies = 'neovim-treesitter/nvim-treesitter',
         opts = {
             use_default_keymaps = false,
         },
@@ -106,7 +106,6 @@ return {
             ui = {
                 floating = {
                     max_rendered_buffers = 10,
-                    minimal_menu = 'dashed',
                 }
             },
             lock_char = require('config').defaults.icons.bento.pinned,
@@ -133,7 +132,7 @@ return {
     {
         'MeanderingProgrammer/render-markdown.nvim',
         dependencies = {
-            'nvim-treesitter/nvim-treesitter',
+            'neovim-treesitter/nvim-treesitter',
             'nvim-mini/mini.icons',
         },
         event = 'VeryLazy',
@@ -161,45 +160,4 @@ return {
             },
         }
     },
-    {
-        'letieu/jot.lua',
-        dependencies = 'nvim-lua/plenary.nvim',
-        config = function()
-            local win_width = math.floor(vim.o.columns * 0.8)
-            local win_height = math.floor(vim.o.lines * 0.8)
-
-            local function get_file_last_modified(file_path)
-                local stat = vim.uv.fs_stat(file_path)
-                if stat then
-                    local last_modified = stat.mtime.sec
-                    return ' Updated: ' .. os.date('%d-%b-%Y %H:%M', last_modified) .. ' '
-                else
-                    return ''
-                end
-            end
-
-            require('jot').config = {
-                quit_key = 'q',
-                notes_dir = vim.fn.stdpath('data') .. '/jot',
-                win_opts = {
-                    relative = 'editor',
-                    width = win_width,
-                    height = win_height,
-                    row = math.floor((vim.o.lines - win_height) / 2) - 1,
-                    col = math.floor((vim.o.columns - win_width) / 2) - 1,
-                    border = 'solid',
-                    title = ' Project Notes - ' .. vim.uv.cwd() .. ' ',
-                    footer = get_file_last_modified(vim.fn.expand('%:p')),
-                    footer_pos = 'right',
-                }
-            }
-        end,
-        keys = function()
-            local jot_keymap = require('config.keymaps').jot
-            return {
-                { jot_keymap.toggle, function() require('jot').toggle() end }
-            }
-        end,
-        cond = not vim.g.vscode,
-    }
 }
