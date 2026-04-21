@@ -23,3 +23,4 @@ nvim/nvim-pack-lock.json
 /glab-cli
 /.claude/settings.local.json
 /opencode/context-mode/content
+/opencode/opencode-quota
