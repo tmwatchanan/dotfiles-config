@@ -4,19 +4,19 @@
   "presets": {
     "my-mix": {
       "orchestrator": {
-        "model": "opencode-go/qwen3.5-plus",
-        "variant": "low",
+        "model": "opencode-go/kimi-k2.6",
+        "variant": "high",
         "skills": ["*"],
         "mcps": ["*"]
       },
       "oracle": {
         "model": "opencode-go/kimi-k2.6",
         "variant": "high",
-        "skills": [],
+        "skills": ["simplify"],
         "mcps": []
       },
       "librarian": {
-        "model": "opencode-go/minimax-m2.5",
+        "model": "opencode-go/minimax-m2.7",
         "variant": "low",
         "skills": [],
         "mcps": ["websearch", "context7", "grep_app"]
@@ -33,8 +33,8 @@
         "mcps": []
       },
       "fixer": {
-        "model": "opencode-go/minimax-m2.7",
-        "variant": "high",
+        "model": "opencode-go/glm-5.1",
+        "variant": "low",
         "skills": [],
         "mcps": []
       }
@@ -46,12 +46,12 @@
     "main_pane_size": 60
   },
   "council": {
-    "master": { "model": "opencode-go/qwen3.6-plus" },
+    "master": { "model": "opencode-go/kimi-k2.6", "variant": "high" },
     "presets": {
       "default": {
-        "alpha": { "model": "opencode-go/glm-5.1" },
-        "beta": { "model": "opencode-go/kimi-k2.6" },
-        "gamma": { "model": "opencode-go/qwen3.6-plus" }
+        "alpha": { "model": "opencode-go/glm-5.1", "variant": "high" },
+        "beta":  { "model": "opencode-go/qwen3.6-plus" },
+        "gamma": { "model": "opencode-go/minimax-m2.7", "variant": "high" }
       }
     }
   },
@@ -60,13 +60,13 @@
     "timeoutMs": 20000,
     "retryDelayMs": 500,
     "chains": {
-      "orchestrator": ["opencode-go/qwen3.6-plus", "opencode-go/kimi-k2.5"],
+      "orchestrator": ["opencode-go/kimi-k2.5", "opencode-go/glm-5.1"],
       "oracle": ["opencode-go/glm-5.1", "opencode-go/kimi-k2.5"],
-      "designer": ["opencode-go/kimi-k2.5", "opencode-go/qwen3.6-plus"],
-      "fixer": ["opencode-go/glm-5.1", "opencode-go/kimi-k2.6"],
-      "librarian": ["opencode-go/qwen3.5-plus", "opencode-go/kimi-k2.5"],
-      "explorer": ["opencode-go/kimi-k2.5", "opencode-go/qwen3.6-plus"],
-      "council-master": ["opencode-go/glm-5.1"],
+      "designer": ["opencode-go/mimo-v2-pro", "opencode-go/kimi-k2.5"],
+      "fixer": ["opencode-go/kimi-k2.5", "opencode-go/minimax-m2.7"],
+      "librarian": ["opencode-go/minimax-m2.5", "opencode-go/qwen3.6-plus"],
+      "explorer": ["opencode-go/minimax-m2.5", "opencode-go/kimi-k2.5"],
+      "council-master": ["opencode-go/glm-5.1", "opencode-go/qwen3.6-plus"],
       "councillor": ["opencode-go/kimi-k2.5", "opencode-go/minimax-m2.7"]
     }
   }
