@@ -15,7 +15,7 @@
     "context-mode@latest",
     "@tarquinen/opencode-dcp@latest",
     "oh-my-opencode-slim@latest",
-    "@slkiser/opencode-quota"
+    "@slkiser/opencode-quota@latest"
   ],
   "agent": {
     "explore": {
@@ -28,7 +28,7 @@
   "experimental": {
     "quotaToast": {
       "enableToast": false,
-      "showSessionTokens": false,
+      "showSessionTokens": true,
       "enabledProviders": "auto",
       "formatStyle": "classic",
       "percentDisplayMode": "used"
