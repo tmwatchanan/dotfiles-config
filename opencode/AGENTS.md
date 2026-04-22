@@ -179,3 +179,8 @@ ctx_execute_file(path="debug.log", language="python",
 | `ctx doctor` | Call the `doctor` MCP tool, run the returned shell command, display as checklist |
 | `ctx upgrade` | Call the `upgrade` MCP tool, run the returned shell command, display as checklist |
 
+<claude-mem-context>
+# [opencode] recent context, 2026-04-22 3:57pm GMT+7
+
+No previous sessions found.
+</claude-mem-context>
