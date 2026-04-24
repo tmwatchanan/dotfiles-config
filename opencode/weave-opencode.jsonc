@@ -1,0 +1,73 @@
+{
+  // Weave config for OpenCode Go subscription.
+  // Maps agents away from default Claude models onto opencode-go/* tiers.
+  "$schema": "https://raw.githubusercontent.com/pgermishuys/opencode-weave/v0.7.6/schema/weave-config.schema.json",
+
+  "agents": {
+    // Orchestrator — heaviest reasoning
+    "loom": {
+      "model": "opencode-go/kimi-k2.6",
+      "fallback_models": [
+        "opencode-go/glm-5.1",
+        "opencode-go/minimax-m2.7",
+        "opencode-go/qwen3.6-plus"
+      ]
+    },
+    // Execution orchestrator — strong but cheaper than loom
+    "tapestry": {
+      "model": "opencode-go/glm-5.1",
+      "fallback_models": [
+        "opencode-go/minimax-m2.7",
+        "opencode-go/mimo-v2.5-pro"
+      ]
+    },
+    // Category worker — mid tier
+    "shuttle": {
+      "model": "opencode-go/mimo-v2.5-pro",
+      "fallback_models": [
+        "opencode-go/minimax-m2.5",
+        "opencode-go/qwen3.5-plus"
+      ]
+    },
+    // Strategic planner — top reasoning
+    "pattern": {
+      "model": "opencode-go/kimi-k2.6",
+      "fallback_models": [
+        "opencode-go/glm-5.1",
+        "opencode-go/qwen3.6-plus"
+      ]
+    },
+    // Codebase explorer — fast/cheap, free tier OK
+    "thread": {
+      "model": "opencode/gpt-5-nano",
+      "fallback_models": [
+        "opencode-go/mimo-v2-omni",
+        "opencode/minimax-m2.5-free"
+      ]
+    },
+    // External researcher — fast/cheap, free tier OK
+    "spindle": {
+      "model": "opencode/gpt-5-nano",
+      "fallback_models": [
+        "opencode-go/mimo-v2-omni",
+        "opencode/ling-2.6-flash-free"
+      ]
+    },
+    // Reviewer/auditor — strong
+    "weft": {
+      "model": "opencode-go/minimax-m2.7",
+      "fallback_models": [
+        "opencode-go/glm-5.1",
+        "opencode-go/mimo-v2.5-pro"
+      ]
+    },
+    // Security auditor — heaviest reasoning, skeptical
+    "warp": {
+      "model": "opencode-go/kimi-k2.6",
+      "fallback_models": [
+        "opencode-go/glm-5.1",
+        "opencode-go/qwen3.6-plus"
+      ]
+    }
+  }
+}
