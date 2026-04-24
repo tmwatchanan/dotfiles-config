@@ -14,8 +14,8 @@
   "plugin": [
     "context-mode@latest",
     "@tarquinen/opencode-dcp@latest",
-    "oh-my-opencode-slim@latest",
-    "@slkiser/opencode-quota@latest"
+    "@slkiser/opencode-quota@latest",
+    "@opencode_weave/weave"
   ],
   "agent": {
     "explore": {
