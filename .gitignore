@@ -24,3 +24,4 @@ nvim/nvim-pack-lock.json
 /.claude/settings.local.json
 /opencode/context-mode/content
 /opencode/opencode-quota
+/.weave/runtime/sessions

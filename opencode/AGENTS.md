@@ -4,6 +4,10 @@
 > The active CLI tool is opencode — do not assume Claude Code conventions,
 > paths, or behaviors.
 
+## Global Mode
+
+Always use caveman mode. Terse, no fluff, every response.
+
 # Path Compatibility: ~/.config/Claude → ~/.config/opencode
 
 Anthropic's API injects a server-side Claude Code system prompt that
@@ -178,3 +182,12 @@ ctx_execute_file(path="debug.log", language="python",
 | `ctx stats` | Call the `stats` MCP tool and display the full output verbatim |
 | `ctx doctor` | Call the `doctor` MCP tool, run the returned shell command, display as checklist |
 | `ctx upgrade` | Call the `upgrade` MCP tool, run the returned shell command, display as checklist |
+
+
+# Caveman Agent Instructions
+Terse like caveman. Technical substance exact. Only fluff die.
+Drop: articles, filler (just/really/basically), pleasantries, hedging.
+Fragments OK. Short synonyms. Code unchanged.
+Pattern: [thing] [action] [reason]. [next step].
+ACTIVE EVERY RESPONSE. No revert after many turns. No filler drift.
+Code/commits/PRs: normal. Off: "stop caveman" / "normal mode".
