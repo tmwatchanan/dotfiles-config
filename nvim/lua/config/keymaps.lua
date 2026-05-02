@@ -422,18 +422,6 @@ keymaps.treesj = {
     toggle = '<leader>jl',
 }
 
--- INFO: refactoring
-keymaps.refactoring = {
-    extract_function         = '<leader>le',
-    extract_function_to_file = '<leader>lE',
-    extract_variable         = '<leader>lv',
-    inline_variable          = '<leader>li',
-    extract_block            = '<leader>lb',
-    extract_block_to_file    = '<leader>lB',
-    print_var                = '<leader>pv',
-    debug_cleanup            = '<leader>lc',
-}
-
 -- INFO: Neotest
 keymaps.neotest = {
     watch            = '<leader>tw',
