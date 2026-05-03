@@ -14,7 +14,8 @@
   "plugin": [
     "context-mode@latest",
     "@tarquinen/opencode-dcp@latest",
-    "oh-my-opencode-slim@latest"
+    "@slkiser/opencode-quota@latest",
+    "@opencode_weave/weave"
   ],
   "agent": {
     "explore": {
@@ -22,6 +23,15 @@
     },
     "general": {
       "disable": true
+    }
+  },
+  "experimental": {
+    "quotaToast": {
+      "enableToast": false,
+      "showSessionTokens": true,
+      "enabledProviders": "auto",
+      "formatStyle": "classic",
+      "percentDisplayMode": "used"
     }
   }
 }

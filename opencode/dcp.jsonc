@@ -1,8 +1,3 @@
 {
-  "$schema": "https://raw.githubusercontent.com/Opencode-DCP/opencode-dynamic-context-pruning/master/dcp.schema.json",
-  "compress": {
-    "permission": "allow",
-    "maxContextLimit": 700000,
-    "minContextLimit": 300000
-  }
+  "$schema": "https://raw.githubusercontent.com/Opencode-DCP/opencode-dynamic-context-pruning/master/dcp.schema.json"
 }

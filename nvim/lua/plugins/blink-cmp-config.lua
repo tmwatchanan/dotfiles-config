@@ -1,11 +1,7 @@
 local M = {
     'saghen/blink.cmp',
-    build = function(plugin)
-        local fn_utils = require('config.fn-utils')
-        fn_utils.jobstart({ 'cargo', 'build', '--release' }, {
-            cwd = plugin.path,
-            title = 'blink.cmp',
-        })
+    build = function()
+        require('blink.cmp').build():wait(60000)
     end,
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
