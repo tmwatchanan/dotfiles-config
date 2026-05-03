@@ -11,7 +11,7 @@ local M = {
 local theme = require('plugins.colorscheme.kanagawa-config')
 M = utils.merge(M, theme.info)
 M.config = theme.setup
-M.colors = theme.colors()
+M.colors = theme.colors
 M.lualine = theme.lualine()
 
 return M

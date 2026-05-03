@@ -70,15 +70,19 @@ local inlinediff_module = {
 }
 
 inlinediff_module.config = function()
+    local function set_inline_diff_highlights()
+        local colors = require('plugins.colorscheme').colors()
+
+        vim.api.nvim_set_hl(0, 'InlineDiffAdd', { bg = colors.diff.add })
+        vim.api.nvim_set_hl(0, 'InlineDiffWordAdd', { bg = colors.diff.add })
+        vim.api.nvim_set_hl(0, 'InlineDiffDelete', { bg = colors.diff.delete })
+        vim.api.nvim_set_hl(0, 'InlineDiffWordDel', { bg = colors.diff.delete })
+    end
+
+    require('inline-diff.highlight').define = set_inline_diff_highlights
+
     require('inline-diff').setup()
-
-    -- prevent enable() from resetting our highlights on every toggle
-    require('inline-diff.highlight').define = function() end
-
-    vim.api.nvim_set_hl(0, 'InlineDiffAdd', { fg = '#78b9b7', bg = '#0e2324' })
-    vim.api.nvim_set_hl(0, 'InlineDiffWordAdd', { fg = '#d0eeec', bg = '#1e5554' })
-    vim.api.nvim_set_hl(0, 'InlineDiffDelete', { fg = '#be6f90', bg = '#2a161d' })
-    vim.api.nvim_set_hl(0, 'InlineDiffWordDel', { fg = '#eaced8', bg = '#532740' })
+    set_inline_diff_highlights()
 end
 
 inlinediff_module.keys = function()
