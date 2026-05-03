@@ -1,5 +1,6 @@
 local M = {
     'roobert/search-replace.nvim',
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

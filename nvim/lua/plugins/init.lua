@@ -37,6 +37,7 @@ return {
     {
         'nmac427/guess-indent.nvim',
         event = { 'BufReadPost', 'BufNewFile' },
+        cond = not vim.g.vscode,
     },
     {
         'kylechui/nvim-surround',
@@ -49,13 +50,13 @@ return {
     },
     {
         'SmiteshP/nvim-navic',
+        cond = not vim.g.vscode,
         opts = {
             lsp = {
                 auto_attach = true,
                 preference = { 'volar', 'jsonls' },
             },
         },
-        cond = not vim.g.vscode,
     },
     {
         'Wansmer/treesj',
@@ -84,6 +85,7 @@ return {
     {
         'towolf/vim-helm',
         ft = 'helm',
+        cond = not vim.g.vscode,
     },
     {
         'andymass/vim-matchup',
@@ -101,6 +103,7 @@ return {
     {
         'serhez/bento.nvim',
         event = 'VeryLazy',
+        cond = not vim.g.vscode,
         opts = {
             max_open_buffers = 20,
             ui = {
@@ -110,11 +113,11 @@ return {
             },
             lock_char = require('config').defaults.icons.bento.pinned,
         },
-        cond = not vim.g.vscode,
     },
     {
         'saecki/live-rename.nvim',
         config = true,
+        cond = not vim.g.vscode,
         keys = function()
             local rename_keymap = require('config.keymaps').rename
             return {
@@ -136,6 +139,7 @@ return {
             'nvim-mini/mini.icons',
         },
         event = 'VeryLazy',
+        cond = not vim.g.vscode,
         opts = {
             file_types = { 'markdown', 'codecompanion' },
             anti_conceal = {
