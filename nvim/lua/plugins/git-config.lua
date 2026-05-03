@@ -76,7 +76,7 @@ inlinediff_module.config = function()
         vim.api.nvim_set_hl(0, 'InlineDiffAdd', { bg = colors.diff.add })
         vim.api.nvim_set_hl(0, 'InlineDiffWordAdd', { bg = colors.diff.add })
         vim.api.nvim_set_hl(0, 'InlineDiffDelete', { bg = colors.diff.delete })
-        vim.api.nvim_set_hl(0, 'InlineDiffWordDel', { bg = colors.diff.delete })
+        vim.api.nvim_set_hl(0, 'InlineDiffWordDel', { bg = colors.diff.delete, strikethrough = true })
     end
 
     require('inline-diff.highlight').define = set_inline_diff_highlights
