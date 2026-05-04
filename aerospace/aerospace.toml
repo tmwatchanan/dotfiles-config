@@ -61,10 +61,10 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
     2 = 'main'
     3 = 'main'
     4 = 'main'
-    5 = ['secondary', '(?i).g60sd']
-    6 = ['secondary', '(?i).g60sd']
-    7 = ['secondary', '(?i).g60sd']
-    8 = ['secondary', '(?i).g60sd']
+    5 = ['secondary', 'main']
+    6 = ['secondary', 'main']
+    7 = ['secondary', 'main']
+    8 = ['secondary', 'main']
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
