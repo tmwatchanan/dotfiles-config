@@ -15,7 +15,7 @@
     "context-mode@latest",
     "@tarquinen/opencode-dcp@latest",
     "@slkiser/opencode-quota@latest",
-    "@opencode_weave/weave"
+    "@opencode_weave/weave@latest"
   ],
   "agent": {
     "explore": {
