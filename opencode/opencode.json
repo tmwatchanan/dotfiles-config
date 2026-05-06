@@ -34,8 +34,9 @@
       "enableToast": false,
       "showSessionTokens": true,
       "enabledProviders": "auto",
-      "formatStyle": "classic",
-      "percentDisplayMode": "used"
+      "percentDisplayMode": "used",
+      "formatStyle": "allWindows",
+      "opencodeGoWindows": ["rolling", "weekly", "monthly"]
     }
   }
 }
