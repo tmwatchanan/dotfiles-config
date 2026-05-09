@@ -116,16 +116,16 @@ alt - v : ~/.config/skhd/spotlight_clipboard.sh
 # lalt - t : kitty msg create-window
 
 # Toggle sketchybar
-shift + lalt - space : sketchybar --bar hidden=toggle
-ctrl + shift + lalt - r : sketchybar --remove '/.*/' && sh -c '$HOME/.config/sketchybar/sketchybarrc'
+# shift + lalt - space : sketchybar --bar hidden=toggle
+# ctrl + shift + lalt - r : sketchybar --remove '/.*/' && sh -c '$HOME/.config/sketchybar/sketchybarrc'
 
 # Toggle margin of sketchybar
-shift + lalt - m : CURRENT="$(sketchybar --query bar | jq -r '.y_offset')"; \
-                  if [ "$CURRENT" -eq "0" ]; then \
-                    yabai -m config external_bar all:36:0; \
-                    sketchybar --animate sin 15 --bar margin=10 y_offset=4 corner_radius=9; \
-                  else \
-                    yabai -m config external_bar all:36:0; \
-                    sketchybar --animate sin 15 --bar margin=0 y_offset=0 corner_radius=0; \
-                  fi \
+# shift + lalt - m : CURRENT="$(sketchybar --query bar | jq -r '.y_offset')"; \
+#                   if [ "$CURRENT" -eq "0" ]; then \
+#                     yabai -m config external_bar all:36:0; \
+#                     sketchybar --animate sin 15 --bar margin=10 y_offset=4 corner_radius=9; \
+#                   else \
+#                     yabai -m config external_bar all:36:0; \
+#                     sketchybar --animate sin 15 --bar margin=0 y_offset=0 corner_radius=0; \
+#                   fi \
 # ctrl + cmd - r : yabai -m config menubar_opacity "$(printf "%.1f" "$((1 - $(yabai -m config menubar_opacity | cut -d. -f1)))")"
