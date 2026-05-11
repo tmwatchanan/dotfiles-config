@@ -228,9 +228,8 @@ keymaps.codecompanion = {
 -- INFO: sidekick keymap
 keymaps.sidekick = {
     apply_nes = '<Tab>',
-    select = '<leader>s',
-    prompt = '<leader>S',
-    focus = '<c-.>',
+    select    = '<leader>s',
+    toggle    = '<c-.>',
 }
 
 return keymaps
