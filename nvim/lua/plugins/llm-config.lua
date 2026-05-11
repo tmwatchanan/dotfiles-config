@@ -50,6 +50,22 @@ local function resolve_slot(base, target)
     return best or target
 end
 
+-- INFO: drop numbered clones from sidekick's tool registry whose sessions are gone,
+-- so the picker doesn't list ghost entries after the user kills a CLI. Bases stay.
+local function prune_dead_clones()
+    local tools = require('sidekick.config').cli.tools
+    local State = require('sidekick.cli.state')
+    local live  = {}
+    for _, s in ipairs(State.get({ attached = true })) do
+        live[s.tool.name] = true
+    end
+    for name in pairs(tools) do
+        if name:match('_%d+$') and not live[name] then
+            tools[name] = nil
+        end
+    end
+end
+
 sidekick.opts = {
     cli = {
         win = {
@@ -145,6 +161,7 @@ sidekick.keys = function()
         {
             sidekick_keymap.select,
             function()
+                prune_dead_clones()
                 require('sidekick.cli').select({
                     filter = { installed = true },
                     cb     = function(state)
@@ -180,6 +197,7 @@ sidekick.keys = function()
 
                 if target_base then return go(target_base) end
 
+                prune_dead_clones()
                 require('sidekick.cli').select({
                     filter = { installed = true },
                     cb     = function(state)
