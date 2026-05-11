@@ -26,7 +26,7 @@ M.opts = {
         'help',
     },
     -- extra options modified by `MomePP/marks.nvim`
-    marks_sign = '',
+    marks_sign = '󱙝',
 }
 
 

@@ -102,11 +102,6 @@ keymaps.lazy = {
     open = '<leader>P',
 }
 
--- INFO: jot keymap
-keymaps.jot = {
-    toggle = '<leader>n',
-}
-
 -- INFO: focus keymap
 keymaps.focus = {
     toggle_enable = '<leader><space>',
@@ -118,8 +113,8 @@ keymaps.focus = {
     split_down    = 'wj',
 }
 
--- INFO: GitSign keymap
-keymaps.gitsigns = {
+-- INFO: git keymap
+keymaps.git = {
     next_hunk    = ']c',
     prev_hunk    = '[c',
     stage_hunk   = '<leader>hs',
@@ -160,6 +155,9 @@ keymaps.snacks = {
         toggle = '<leader>t',
         lazygit = '<leader>g',
         lazygit_file_history = '<leader>G',
+    },
+    scratch = {
+        toggle = '<leader>n',
     }
 }
 
@@ -230,13 +228,8 @@ keymaps.codecompanion = {
 -- INFO: sidekick keymap
 keymaps.sidekick = {
     apply_nes = '<Tab>',
-    toggle = '<leader>s',
-    prompt = '<leader>S',
-}
-
--- INFO: hbac keymap
-keymaps.hbac = {
-    toggle_pin = '<leader>p',
+    select    = '<leader>s',
+    toggle    = '<c-.>',
 }
 
 return keymaps

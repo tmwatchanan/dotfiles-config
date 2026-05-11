@@ -1,9 +1,11 @@
 local M = {
-    'MomePP/oil.nvim',
-    dependencies = { 'mini.icons' },
+    'barrettruth/canola.nvim',
+    dependencies = 'nvim-mini/mini.icons',
+    main = 'oil'
 }
 
 M.opts = {
+    diff_mode = true,
     columns = {
         'permissions',
         'size',
@@ -30,7 +32,6 @@ M.opts = {
             return ''
         end,
         preview_split = 'right',
-        preview_title_pos = 'center',
     },
     preview_win = {
         win_options = {

@@ -1,6 +1,6 @@
 local M = {
-    'https://codeberg.org/andyg/leap.nvim',
-    opts = true,
+    src = 'https://codeberg.org/andyg/leap.nvim',
+    config = true,
 }
 
 M.keys = function()
@@ -37,12 +37,10 @@ M.keys = function()
         -- Build leap arguments directly
         local leap_args = vim.tbl_deep_extend('keep', config, {
             inputlen = 1,
-            inclusive_op = true,
+            inclusive = true,
             opts = {
-                labels = {}, -- force autojump
-                safe_labels = is_operator_pending and {} or nil,
-                case_sensitive = true,
-                equivalence_classes = {},
+                labels = '', -- force autojump
+                safe_labels = is_operator_pending and '' or nil,
             },
         })
 

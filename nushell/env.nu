@@ -100,10 +100,29 @@ use std "path add"
 # path add ($env.CARGO_HOME | path join "bin")
 # path add ($env.HOME | path join ".local" "bin")
 # $env.PATH = ($env.PATH | uniq)
+path add /usr/local/bin
 path add /opt/homebrew/bin
 path add /opt/homebrew/sbin
 path add /run/current-system/sw/bin
 path add $"($env.HOME)/.local/bin"
+path add $"($env.HOME)/.local/share/nvim/mason/bin"
+
+# set path for bun global bin
+path add $"($env.HOME)/.bun/bin"
+
+# set path for pyenv
+path add $"(pyenv root)/shims"
+
+# set path for rustup
+path add $"(brew --prefix rustup)/bin"
+path add ($env.CARGO_HOME? | default "~/.cargo" | path join "bin")
+
+# setup fnm env
+fnm env --json | from json | load-env
+path add [($env.FNM_MULTISHELL_PATH | path join bin)]
+
+# deduplicate PATH entries (keeps first occurrence)
+$env.PATH = ($env.PATH | uniq)
 
 # set default editor
 $env.EDITOR = 'nvim'
@@ -111,16 +130,6 @@ $env.VISUAL = 'nvim'
 
 # set path for commandline tools
 $env.SDKROOT = '/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'
-
-# set path for pyenv
-path add $"(pyenv root)/shims"
-
-# set path for rustup
-path add $"(brew --prefix rustup)/bin"
-
-# setup fnm env
-fnm env --json | from json | load-env
-path add [($env.FNM_MULTISHELL_PATH | path join bin)]
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')

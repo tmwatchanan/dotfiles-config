@@ -1,6 +1,5 @@
 local M = {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-colorscheme' },
     event = 'VimEnter',
 }
 
@@ -28,9 +27,6 @@ M.opts = function()
         end,
         check_cmp_visible = function()
             return utils.is_loaded('blink.cmp') and require('blink.cmp').is_visible()
-        end,
-        check_hbac_loaded = function()
-            return utils.is_loaded('hbac.nvim') ~= nil
         end,
     }
 
@@ -152,7 +148,7 @@ M.opts = function()
 
     local lsp_status = {
         'lsp_status',
-        padding = { left = 1, right = 2 },
+        padding = { right = 2 },
         icon = icons.lualine.lsp,
         symbols = { done = '' },
         cond = conditions.check_lsp_started
@@ -163,18 +159,6 @@ M.opts = function()
             return '%3l:%-2c'
         end,
         icon = icons.lualine.location
-    }
-
-    local hbac = {
-        function()
-            local cur_buf = vim.api.nvim_get_current_buf()
-            local _, pinned = pcall(require('hbac.state').is_pinned, cur_buf)
-            return pinned and 'pinned buffer' or ''
-        end,
-        padding = { left = 1, right = 2 },
-        color = 'WarningMsg',
-        -- icon = icons.lualine.pinned,
-        cond = conditions.check_hbac_loaded
     }
 
     return {
@@ -190,7 +174,7 @@ M.opts = function()
             lualine_b = { session_status, branch },
             lualine_c = { path, searchcount, '%=', cmp_label, cmp_kind },
             lualine_x = { diagnostics },
-            lualine_y = { hbac, lsp_status },
+            lualine_y = { lsp_status },
             lualine_z = { location },
         },
         tabline = {},

@@ -19,18 +19,6 @@ M.opts = {
                 winhighlight = { Normal = 'Pmenu', FloatBorder = 'Pmenu', Search = 'NONE' }
             },
         },
-        confirm = {
-            backend = 'popup',
-            position = {
-                row = '100%',
-                col = 0,
-            },
-            size = {
-                height = 'auto',
-                width = '100%',
-            },
-            format = { ' {confirm}' },
-        },
         mini = {
             win_options = { winblend = 0 },
             timeout = 5000,
@@ -63,7 +51,7 @@ M.opts = {
         }
     },
     popupmenu = {
-        enabled = true,
+        enabled = false,
     },
     commands = {
         history = {
@@ -85,7 +73,7 @@ M.opts = {
                     { error = true },
                     { event = 'notify' },
                     { event = 'msg_show' },
-                    { event = 'lsp',      kind = 'message' },
+                    { event = 'lsp',     kind = 'message' },
                 },
             },
         }
@@ -99,6 +87,18 @@ M.opts = {
             ['vim.lsp.util.stylize_markdown'] = true,
         }
     },
+    routes = {
+        {
+            view = 'cmdline',
+            filter = {
+                any = {
+                    { event = 'msg_show', kind = 'confirm' },
+                    { event = 'msg_show', kind = 'confirm_sub' },
+                    { event = 'msg_show', kind = 'number_prompt' },
+                },
+            },
+        },
+    }
 }
 
 M.keys = function()
@@ -110,21 +110,19 @@ M.keys = function()
             noice_keymaps.docs_scroll_down,
             function()
                 if not require('noice.lsp').scroll(4) then
-                    return noice_keymaps.docs_scroll_down
+                    local keys = vim.api.nvim_replace_termcodes(noice_keymaps.docs_scroll_down, true, true, true)
+                    vim.api.nvim_feedkeys(keys, 'n', false)
                 end
             end,
-            silent = true,
-            expr = true,
         },
         {
             noice_keymaps.docs_scroll_up,
             function()
                 if not require('noice.lsp').scroll(-4) then
-                    return noice_keymaps.docs_scroll_up
+                    local keys = vim.api.nvim_replace_termcodes(noice_keymaps.docs_scroll_up, true, true, true)
+                    vim.api.nvim_feedkeys(keys, 'n', false)
                 end
             end,
-            silent = true,
-            expr = true,
         },
     }
 end

@@ -13,10 +13,12 @@ M.defaults = {
             git = '󰘬',
             search = ' ',
             session = '󰥿',
-            pinned = '',
             location = ' ',
             lsp = ' '
         },
+        bento = {
+            pinned = '',
+        }
     },
 }
 
@@ -25,7 +27,7 @@ M.init = function()
         M.did_init = true
 
         require 'config.options'
-        require 'lazy-config'
+        require 'zpack-config'
     end
 end
 
@@ -37,11 +39,10 @@ M.setup = function()
 
     if vim.fn.argc(-1) == 0 then
         -- setup autocommands to load user opts with VeryLazy event
-        vim.api.nvim_create_autocmd('User', {
+        vim.api.nvim_create_autocmd('UIEnter', {
             group = vim.api.nvim_create_augroup('UserConfig', { clear = true }),
-            pattern = 'VeryLazy',
             callback = function()
-                load_user_configs()
+                vim.schedule(function() load_user_configs() end)
             end,
         })
     else

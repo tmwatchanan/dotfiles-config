@@ -1,0 +1,42 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "lsp": "allow"
+  },
+  "mcp": {
+    "context-mode": {
+      "type": "local",
+      "command": [
+        "context-mode"
+      ]
+    },
+    "gitnexus": {
+      "type": "local",
+      "command": [ "gitnexus", "mcp" ]
+    }
+  },
+  "plugin": [
+    "context-mode@latest",
+    "@tarquinen/opencode-dcp@latest",
+    "@slkiser/opencode-quota@latest",
+    "@opencode_weave/weave@latest"
+  ],
+  "agent": {
+    "explore": {
+      "disable": true
+    },
+    "general": {
+      "disable": true
+    }
+  },
+  "experimental": {
+    "quotaToast": {
+      "enableToast": false,
+      "showSessionTokens": true,
+      "enabledProviders": "auto",
+      "percentDisplayMode": "used",
+      "formatStyle": "allWindows",
+      "opencodeGoWindows": ["rolling", "weekly", "monthly"]
+    }
+  }
+}
