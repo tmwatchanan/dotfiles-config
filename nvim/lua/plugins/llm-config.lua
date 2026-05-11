@@ -70,10 +70,14 @@ sidekick.opts = {
                 local label    = base and (base .. ' ' .. id) or self.tool.name
                 self.opts.float.footer = 'Sidekick: ' .. label
             end,
+            -- INFO: buffer-local terminal-mode keymap registered on each sidekick float
+            -- so <leader>s from inside the CLI hides the float (snacks-terminal pattern).
+            -- The rhs 'toggle' resolves to the terminal's M:toggle method.
             keys = {
                 shift_enter = { '<S-CR>', function(self)
                     vim.api.nvim_chan_send(self.job, '\x1b[13;2u')
                 end },
+                toggle = { '<leader>s', 'toggle' },
             },
             -- INFO: mirror snacks-terminal styling. winblend = 0 overrides the global
             -- default (options.lua sets 5 for slightly-transparent floats), same opt-out
@@ -202,12 +206,6 @@ sidekick.keys = function()
             end,
             mode = { 'x' },
             desc = 'Sidekick Send Visual Selection',
-        },
-        {
-            sidekick_keymap.toggle,
-            function() require('sidekick.cli').focus({ filter = { installed = true } }) end,
-            mode = { 't', 'i' },
-            desc = 'Sidekick Focus',
         },
     }
 end

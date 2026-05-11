@@ -185,8 +185,8 @@ keymaps.marks = {
 
 -- INFO: resession keymaps
 keymaps.resession = {
-    save   = '<leader>ss',
-    delete = '<leader>sd',
+    save   = '<leader>rs',
+    delete = '<leader>rd',
 }
 
 -- INFO: noice keymaps
@@ -228,8 +228,8 @@ keymaps.codecompanion = {
 -- INFO: sidekick keymap
 keymaps.sidekick = {
     apply_nes = '<Tab>',
-    select    = '<leader>s',
-    toggle    = '<c-.>',
+    toggle    = '<leader>s',
+    select    = '<leader>S',
 }
 
 return keymaps
