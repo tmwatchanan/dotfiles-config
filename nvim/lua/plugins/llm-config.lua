@@ -50,20 +50,105 @@ local function resolve_slot(base, target)
     return best or target
 end
 
--- INFO: drop numbered clones from sidekick's tool registry whose sessions are gone,
--- so the picker doesn't list ghost entries after the user kills a CLI. Bases stay.
-local function prune_dead_clones()
+-- INFO: ensure a cwd-local session exists for `name`. Sidekick's cli.toggle/show/send
+-- use State.with(attach=true) which falls through to a disambiguation picker when
+-- multiple sessions share the same tool name across cwds. filter.cwd=true scopes it
+-- but rejects synthetic states (a fresh slot gives "No tools match"). State.attach
+-- with our tool config creates the cwd-local session AND opens the float window
+-- (terminal:start always calls open_win) — so we return `true` and the caller skips
+-- the subsequent cli.toggle/show, which would otherwise close the just-opened float.
+local function ensure_cwd_session(name)
+    local State = require('sidekick.cli.state')
+    local cwd   = vim.fn.getcwd()
+    for _, s in ipairs(State.get({ name = name })) do
+        if s.session and s.session.cwd == cwd then return false end
+    end
+    State.attach({ tool = require('sidekick.config').get_tool(name) }, { show = true, focus = true })
+    return true
+end
+
+-- INFO: scoped CLI picker — bypasses sidekick.cli.select so we can:
+--   1. Drop dead clones from the registry (killed CLI leaves a ghost otherwise).
+--   2. Hide bases whose cwd-local clones already exist (picking them would route
+--      back through resolve_slot to the same live clone).
+--   3. Filter the picker list to current-cwd sessions plus non-clone bases.
+--   4. Trim the 40-col cwd-column padding from sidekick's row formatter, since
+--      every visible item is now in the current cwd and the column overflows the
+--      picker viewport.
+local function open_picker(cb)
     local tools = require('sidekick.config').cli.tools
     local State = require('sidekick.cli.state')
-    local live  = {}
+    local UI    = require('sidekick.cli.ui.select')
+    local cwd   = vim.fn.getcwd()
+
+    -- live (any cwd) drives the prune; has_clone (cwd-local) drives the base hide.
+    local live, has_clone = {}, {}
     for _, s in ipairs(State.get({ attached = true })) do
         live[s.tool.name] = true
-    end
-    for name in pairs(tools) do
-        if name:match('_%d+$') and not live[name] then
-            tools[name] = nil
+        if s.session and s.session.cwd == cwd then
+            local base = s.tool.name:match('^(.-)_%d+$')
+            if base then has_clone[base] = true end
         end
     end
+
+    local hidden = {}
+    for name, cfg in pairs(tools) do
+        local is_clone = name:match('_%d+$') ~= nil
+        if is_clone and not live[name] then
+            tools[name] = nil
+        elseif not is_clone and has_clone[name] then
+            hidden[name], tools[name] = cfg, nil
+        end
+    end
+
+    -- Real sessions in this cwd, plus base entries (synthetic states without a
+    -- session). Drop clone synthetics from other cwds and clone entries pointing
+    -- at sessions running elsewhere.
+    local items = vim.tbl_filter(function(t)
+        if t.session then return t.session.cwd == cwd end
+        return t.tool.name:match('_%d+$') == nil
+    end, State.get({ installed = true }))
+
+    local function restore()
+        for name, cfg in pairs(hidden) do tools[name] = cfg end
+    end
+
+    if #items == 0 then
+        restore()
+        return cb(nil)
+    end
+
+    -- Reuse sidekick's per-row formatter but collapse the 40-col cwd pad to a
+    -- single double-space separator so the cwd column still renders without
+    -- pushing past the picker viewport.
+    local function format_compact(item, picker)
+        local parts, result = UI.format(item, picker), {}
+        for _, p in ipairs(parts) do
+            local text = p[1] or ''
+            if text:match('^ +$') and #text > 10 then
+                result[#result + 1] = { '  ' }
+            else
+                result[#result + 1] = p
+            end
+        end
+        return result
+    end
+
+    vim.ui.select(items, {
+        prompt      = 'Select CLI tool:',
+        kind        = 'sidekick_cli',
+        format_item = function(item)
+            return table.concat(vim.tbl_map(function(p) return p[1] end, format_compact(item)))
+        end,
+        snacks      = { format = format_compact },
+    }, function(state)
+        restore()
+        if state and not state.installed then
+            UI.on_missing(state.tool)
+            state = nil
+        end
+        cb(state)
+    end)
 end
 
 sidekick.opts = {
@@ -79,12 +164,31 @@ sidekick.opts = {
                 border = { '', '', '', '', ' ', ' ', ' ', '' },
             },
             -- INFO: per-terminal init hook; sidekick deep-copies cli.win into self.opts
-            -- before calling this, so mutations to self.opts.float take effect when the
-            -- window opens. Render `claude_3` as `Sidekick: claude 3` for the footer.
+            -- before calling this. Footer renders the slot as a 5-segment sentence:
+            -- "Sidekick ID: <id> with <cli> on <cwd>" — each variable part carries its
+            -- own bold hl (id, cli name, cwd path) and the " with "/" on " connectors
+            -- use Normal. bold() resolves the base group's attrs and re-sets with
+            -- bold; idempotent + theme-aware (re-runs on each float open).
             config = function(self)
+                local function bold(name, base)
+                    local hl = vim.api.nvim_get_hl(0, { name = base, link = false }) or {}
+                    hl.bold = true
+                    vim.api.nvim_set_hl(0, name, hl)
+                end
+                bold('SidekickFooterAccent', 'SnacksTerminalFooter')
+                bold('SidekickFooterCli',    'MarkSignNumHL')
+                bold('SidekickFooterPath',   'WarningMsg')
+
                 local base, id = self.tool.name:match('^(.-)_(%d+)$')
-                local label    = base and (base .. ' ' .. id) or self.tool.name
-                self.opts.float.footer = 'Sidekick: ' .. label
+                local cwd      = vim.fn.fnamemodify(vim.fn.getcwd(), ':~')
+                self.opts.float.footer = {
+                    { 'Sidekick ID: ' .. id, 'SidekickFooterAccent' },
+                    { ' with ',              'Normal' },
+                    { base,                  'SidekickFooterCli' },
+                    { ' on ',                'Normal' },
+                    { cwd,                   'SidekickFooterPath' },
+                }
+                self.opts.float.footer_pos = 'left'
             end,
             -- INFO: buffer-local terminal-mode keymap registered on each sidekick float
             -- so <leader>s from inside the CLI hides the float (snacks-terminal pattern).
@@ -161,24 +265,23 @@ sidekick.keys = function()
         {
             sidekick_keymap.select,
             function()
-                prune_dead_clones()
-                require('sidekick.cli').select({
-                    filter = { installed = true },
-                    cb     = function(state)
-                        if not state then return end
-                        local base, id = state.tool.name:match('^(.-)_(%d+)$')
-                        if base then
-                            target_base, target_cli_id = base, tonumber(id)
-                            require('sidekick.cli').show({ name = state.tool.name, focus = true })
-                        else
-                            local slot  = resolve_slot(state.tool.name, target_cli_id)
-                            local clone = ensure_clone(state.tool.name, slot)
-                            if not clone then return end
-                            target_base, target_cli_id = state.tool.name, slot
-                            require('sidekick.cli').show({ name = clone, focus = true })
-                        end
-                    end,
-                })
+                open_picker(function(state)
+                    if not state then return end
+                    local base, id = state.tool.name:match('^(.-)_(%d+)$')
+                    local name
+                    if base then
+                        target_base, target_cli_id = base, tonumber(id)
+                        name = state.tool.name
+                    else
+                        local slot  = resolve_slot(state.tool.name, target_cli_id)
+                        local clone = ensure_clone(state.tool.name, slot)
+                        if not clone then return end
+                        target_base, target_cli_id = state.tool.name, slot
+                        name = clone
+                    end
+                    if ensure_cwd_session(name) then return end
+                    require('sidekick.cli').show({ name = name, filter = { cwd = true }, focus = true })
+                end)
             end,
             desc = 'Sidekick Select CLI',
         },
@@ -192,34 +295,35 @@ sidekick.keys = function()
                     local clone = ensure_clone(base, id)
                     if not clone then return end
                     target_base, target_cli_id = base, id
-                    require('sidekick.cli').toggle({ name = clone })
+                    if ensure_cwd_session(clone) then return end
+                    require('sidekick.cli').toggle({ name = clone, filter = { cwd = true } })
                 end
 
                 if target_base then return go(target_base) end
 
-                prune_dead_clones()
-                require('sidekick.cli').select({
-                    filter = { installed = true },
-                    cb     = function(state)
-                        if not state then return end
-                        local base, id = state.tool.name:match('^(.-)_(%d+)$')
-                        if base then
-                            target_base, target_cli_id = base, tonumber(id)
-                            require('sidekick.cli').toggle({ name = state.tool.name })
-                        else
-                            go(state.tool.name)
-                        end
-                    end,
-                })
+                open_picker(function(state)
+                    if not state then return end
+                    local base, id = state.tool.name:match('^(.-)_(%d+)$')
+                    if base then
+                        target_base, target_cli_id = base, tonumber(id)
+                        if ensure_cwd_session(state.tool.name) then return end
+                        require('sidekick.cli').toggle({ name = state.tool.name, filter = { cwd = true } })
+                    else
+                        go(state.tool.name)
+                    end
+                end)
             end,
             desc = 'Sidekick Toggle (count = slot)',
         },
         {
             sidekick_keymap.toggle,
             function()
+                local name = target_base and (target_base .. '_' .. target_cli_id) or nil
+                if name then ensure_cwd_session(name) end
                 require('sidekick.cli').send({
-                    msg  = '{selection}',
-                    name = target_base and (target_base .. '_' .. target_cli_id) or nil,
+                    msg    = '{selection}',
+                    name   = name,
+                    filter = { cwd = true },
                 })
             end,
             mode = { 'x' },
