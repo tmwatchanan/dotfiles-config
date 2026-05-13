@@ -1,79 +1,93 @@
 {
   // Weave config for OpenCode Go subscription.
   // Maps agents away from default Claude models onto opencode-go/* tiers.
-  // Tiering follows the "7-model OpenCode Go benchmark" Reddit post:
-  //   1. deepseek-v4-flash — default for high-volume agent loops (1M ctx, cheap, fast)
-  //   2. deepseek-v4-pro   — best for fewer, harder one-shot reasoning calls
-  //   3. qwen3.6-plus      — long context + commercial tooling
-  //   4. kimi-k2.6         — strong multimodal/agent fallback
-  //   5. glm-5.1           — coding-heavy fallback (200K ctx limits orchestration)
-  //   6. minimax-m2.7      — cheap practical fallback
+  //
+  // Mapping mirrors the oh-my-opencode-slim "opencode-go" preset
+  // (https://github.com/alvinunreal/oh-my-opencode-slim/blob/38e6f7d/docs/opencode-go-preset.md):
+  //   slim Orchestrator -> loom         (glm-5.1)
+  //   slim Oracle       -> pattern, warp (deepseek-v4-pro, heaviest reasoning)
+  //   slim Council      -> weft         (deepseek-v4-pro, review)
+  //   slim Fixer        -> tapestry, shuttle (deepseek-v4-flash, loop workers)
+  //   slim Explorer     -> thread       (minimax-m2.7, codebase nav)
+  //   slim Librarian    -> spindle      (minimax-m2.7, external docs/research)
+  //
+  // Tier rationale:
+  //   - deepseek-v4-pro   : deepest single-shot reasoning (Oracle/Council slot)
+  //   - deepseek-v4-flash : cheap, fast, 1M ctx — loop drivers
+  //   - glm-5.1           : capable orchestrator/coordinator
+  //   - kimi-k2.6         : strong reasoning fallback, multimodal-friendly
+  //   - qwen3.6-plus      : long context + commercial tooling fallback
+  //   - minimax-m2.7      : retrieval/exploration tier
+  //   - mimo-v2.5         : cheap practical fallback
   // Free-tier fallback (opencode/*):
   //   - nemotron-3-super-free — strong reasoning, used for spindle external research
   "$schema": "https://raw.githubusercontent.com/pgermishuys/opencode-weave/v0.7.6/schema/weave-config.schema.json",
 
   "agents": {
-    // Orchestrator — fewer, harder strategic calls → Pro
+    // Orchestrator — top-level dispatcher (slim Orchestrator)
     "loom": {
-      "model": "opencode-go/deepseek-v4-pro",
+      "model": "opencode-go/glm-5.1",
       "fallback_models": [
-        "opencode-go/deepseek-v4-flash",
-        "opencode-go/qwen3.6-plus",
-        "opencode-go/kimi-k2.6"
+        "opencode-go/deepseek-v4-pro",
+        "opencode-go/kimi-k2.6",
+        "opencode-go/qwen3.6-plus"
       ]
     },
-    // Execution orchestrator — long loop driver → Flash (cheap, 1M ctx)
+    // Execution orchestrator — long loop driver (slim Fixer)
     "tapestry": {
       "model": "opencode-go/deepseek-v4-flash",
       "fallback_models": [
-        "opencode-go/deepseek-v4-pro",
-        "opencode-go/qwen3.6-plus",
-        "opencode-go/glm-5.1"
-      ]
-    },
-    // Category worker — high-volume loop work → Flash
-    "shuttle": {
-      "model": "opencode-go/deepseek-v4-flash",
-      "fallback_models": [
+        "opencode-go/glm-5.1",
         "opencode-go/qwen3.6-plus",
         "opencode-go/minimax-m2.7"
       ]
     },
-    // Strategic planner — top reasoning → Pro
+    // Category worker — high-volume loop work (slim Fixer)
+    "shuttle": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "fallback_models": [
+        "opencode-go/qwen3.6-plus",
+        "opencode-go/minimax-m2.7",
+        "opencode-go/mimo-v2.5"
+      ]
+    },
+    // Strategic planner — top reasoning (slim Oracle)
     "pattern": {
       "model": "opencode-go/deepseek-v4-pro",
       "fallback_models": [
         "opencode-go/kimi-k2.6",
         "opencode-go/qwen3.6-plus",
-        "opencode-go/deepseek-v4-flash"
+        "opencode-go/glm-5.1"
       ]
     },
-    // Codebase explorer — fast/cheap, large ctx for crawling
+    // Codebase explorer — retrieval-tier (slim Explorer)
     "thread": {
-      "model": "opencode/gpt-5-nano",
+      "model": "opencode-go/minimax-m2.7",
       "fallback_models": [
         "opencode-go/deepseek-v4-flash",
-        "opencode-go/mimo-v2-omni"
+        "opencode-go/qwen3.6-plus",
+        "opencode-go/mimo-v2.5"
       ]
     },
-    // External researcher — fast/cheap, free tier OK
+    // External researcher — docs/knowledge (slim Librarian)
     "spindle": {
-      "model": "opencode/gpt-5-nano",
+      "model": "opencode-go/minimax-m2.7",
       "fallback_models": [
+        "opencode-go/qwen3.6-plus",
         "opencode-go/deepseek-v4-flash",
         "opencode/nemotron-3-super-free"
       ]
     },
-    // Reviewer/auditor — strong reasoning per call → Pro
+    // Reviewer/auditor — strong reasoning per call (slim Council)
     "weft": {
       "model": "opencode-go/deepseek-v4-pro",
       "fallback_models": [
-        "opencode-go/qwen3.6-plus",
         "opencode-go/kimi-k2.6",
+        "opencode-go/qwen3.6-plus",
         "opencode-go/glm-5.1"
       ]
     },
-    // Security auditor — heaviest skeptical reasoning → Pro
+    // Security auditor — heaviest skeptical reasoning (slim Oracle)
     "warp": {
       "model": "opencode-go/deepseek-v4-pro",
       "fallback_models": [
