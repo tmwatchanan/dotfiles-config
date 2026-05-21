@@ -4,18 +4,21 @@
     "lsp": "allow"
   },
   "mcp": {
-    "context-mode": {
+    "codegraph": {
       "type": "local",
       "command": [
-        "context-mode"
-      ]
+        "codegraph",
+        "serve",
+        "--mcp"
+      ],
+      "enabled": true
     }
   },
   "plugin": [
     "context-mode@latest",
     "@tarquinen/opencode-dcp@latest",
     "@slkiser/opencode-quota@latest",
-    "@opencode_weave/weave@latest"
+    "oh-my-opencode-slim"
   ],
   "agent": {
     "explore": {
@@ -32,7 +35,12 @@
       "enabledProviders": "auto",
       "percentDisplayMode": "used",
       "formatStyle": "allWindows",
-      "opencodeGoWindows": ["rolling", "weekly", "monthly"]
+      "opencodeGoWindows": [
+        "rolling",
+        "weekly",
+        "monthly"
+      ]
     }
-  }
+  },
+  "lsp": true
 }

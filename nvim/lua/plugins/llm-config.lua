@@ -230,8 +230,8 @@ sidekick.opts = {
             ocv = {
                 cmd = { 'ocv' },
                 env = {
+                    OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS = 'true',
                     OPENCODE_EXPERIMENTAL_LSP_TOOL = 'true',
-                    OPENCODE_THEME = 'system'
                 },
                 keys = {
                     prompt = { '<a-p>', 'prompt' },
