@@ -7,6 +7,7 @@ local M = {
             title = 'blink.pairs',
         })
     end,
+    cond = not vim.g.vscode,
 }
 
 M.opts = {

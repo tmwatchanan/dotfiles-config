@@ -131,6 +131,7 @@ return {
     {
         'RaafatTurki/hex.nvim',
         cmd = { 'HexToggle', 'HexDump', 'HexAssemble' },
+        cond = not vim.g.vscode,
     },
     {
         'MeanderingProgrammer/render-markdown.nvim',

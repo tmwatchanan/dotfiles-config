@@ -3,6 +3,7 @@ local move_keymap = require('config.keymaps').move
 local M = {
     'nvim-mini/mini.move',
     main = 'mini.move',
+    cond = not vim.g.vscode,
 }
 
 M.opts = {
