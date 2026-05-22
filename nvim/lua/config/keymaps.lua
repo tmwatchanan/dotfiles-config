@@ -218,13 +218,6 @@ keymaps.treesj = {
     toggle = 'J',
 }
 
--- INFO: codecompanion keymap
-keymaps.codecompanion = {
-    new_chat = '<leader>A',
-    toggle = '<leader>a',
-    inline = 'ga',
-}
-
 -- INFO: sidekick keymap
 keymaps.sidekick = {
     apply_nes = '<Tab>',
