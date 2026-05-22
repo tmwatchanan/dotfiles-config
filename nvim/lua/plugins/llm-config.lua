@@ -34,20 +34,51 @@ local function ensure_clone(base, i)
     return clone
 end
 
--- INFO: if target slot is live use it; else highest live slot below target; else target.
-local function resolve_slot(base, target)
+-- Set of attached clone slot ids for `base` in the current cwd.
+local function live_slots(base)
     local State = require('sidekick.cli.state')
-    local live  = {}
+    local slots = {}
     for _, s in ipairs(State.get({ attached = true, cwd = true })) do
         local b, i = s.tool.name:match('^(.-)_(%d+)$')
-        if b == base then live[tonumber(i)] = true end
+        if b == base then slots[tonumber(i)] = true end
     end
+    return slots
+end
+
+local function has_live_slot(base) return next(live_slots(base)) ~= nil end
+
+-- INFO: pick a slot for `base`. No live clones → reset to 1 (don't resurrect
+-- the last-used slot when everything was killed). Otherwise prefer target,
+-- then highest live below it (keeps counted-up workflows stable), else lowest
+-- live above it (handles target 1 dying with only higher slots alive).
+local function resolve_slot(base, target)
+    local live = live_slots(base)
+    if not next(live) then return 1 end
     if live[target] then return target end
-    local best
+    local below, above
     for i in pairs(live) do
-        if i < target and (not best or i > best) then best = i end
+        if i < target and (not below or i > below) then below = i end
+        if i > target and (not above or i < above) then above = i end
     end
-    return best or target
+    return below or above
+end
+
+-- INFO: resolve a picker pick — `name` can be a clone (`claude_2`) or a base
+-- (`claude`). For clones the slot is in the name; for bases, `count > 0` forces
+-- the slot, otherwise resolve_slot decides. Returns nil clone if `base` has no
+-- executable on PATH.
+local function resolve_pick(name, count)
+    local b, i = name:match('^(.-)_(%d+)$')
+    local base = b or name
+    local slot
+    if b then
+        slot = tonumber(i) --[[@as integer]]
+    elseif count and count > 0 then
+        slot = count
+    else
+        slot = resolve_slot(base, target_cli_id)
+    end
+    return base, slot, ensure_clone(base, slot)
 end
 
 -- INFO: ensure a cwd-local session exists for `name`. Sidekick's cli.toggle/show/send
@@ -267,20 +298,11 @@ sidekick.keys = function()
             function()
                 open_picker(function(state)
                     if not state then return end
-                    local base, id = state.tool.name:match('^(.-)_(%d+)$')
-                    local name
-                    if base then
-                        target_base, target_cli_id = base, tonumber(id)
-                        name = state.tool.name
-                    else
-                        local slot  = resolve_slot(state.tool.name, target_cli_id)
-                        local clone = ensure_clone(state.tool.name, slot)
-                        if not clone then return end
-                        target_base, target_cli_id = state.tool.name, slot
-                        name = clone
-                    end
-                    if ensure_cwd_session(name) then return end
-                    require('sidekick.cli').show({ name = name, filter = { cwd = true }, focus = true })
+                    local base, slot, clone = resolve_pick(state.tool.name)
+                    if not clone then return end
+                    target_base, target_cli_id = base, slot
+                    if ensure_cwd_session(clone) then return end
+                    require('sidekick.cli').show({ name = clone, filter = { cwd = true }, focus = true })
                 end)
             end,
             desc = 'Sidekick Select CLI',
@@ -290,27 +312,24 @@ sidekick.keys = function()
             function()
                 local count = vim.v.count
 
-                local function go(base)
-                    local id    = count > 0 and count or resolve_slot(base, target_cli_id)
-                    local clone = ensure_clone(base, id)
+                local function spawn(name)
+                    local base, slot, clone = resolve_pick(name, count)
                     if not clone then return end
-                    target_base, target_cli_id = base, id
+                    target_base, target_cli_id = base, slot
                     if ensure_cwd_session(clone) then return end
                     require('sidekick.cli').toggle({ name = clone, filter = { cwd = true } })
                 end
 
-                if target_base then return go(target_base) end
+                -- INFO: target_base sticks only while it has a live cwd-local session.
+                -- Once the last is killed (Ctrl-C) we fall through to the picker so the
+                -- user re-selects. Count override bypasses the check so `2<leader>s`
+                -- still spawns explicitly.
+                if target_base and (count > 0 or has_live_slot(target_base)) then
+                    return spawn(target_base)
+                end
 
                 open_picker(function(state)
-                    if not state then return end
-                    local base, id = state.tool.name:match('^(.-)_(%d+)$')
-                    if base then
-                        target_base, target_cli_id = base, tonumber(id)
-                        if ensure_cwd_session(state.tool.name) then return end
-                        require('sidekick.cli').toggle({ name = state.tool.name, filter = { cwd = true } })
-                    else
-                        go(state.tool.name)
-                    end
+                    if state then spawn(state.tool.name) end
                 end)
             end,
             desc = 'Sidekick Toggle (count = slot)',
@@ -318,7 +337,7 @@ sidekick.keys = function()
         {
             sidekick_keymap.toggle,
             function()
-                local name = target_base and (target_base .. '_' .. target_cli_id) or nil
+                local name = target_base and target_base .. '_' .. target_cli_id
                 if name then ensure_cwd_session(name) end
                 require('sidekick.cli').send({
                     msg    = '{selection}',
