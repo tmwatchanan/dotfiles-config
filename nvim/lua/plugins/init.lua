@@ -142,7 +142,7 @@ return {
         event = 'VeryLazy',
         cond = not vim.g.vscode,
         opts = {
-            file_types = { 'markdown', 'codecompanion' },
+            file_types = { 'markdown' },
             anti_conceal = {
                 enabled = false,
             },
@@ -155,13 +155,6 @@ return {
             },
             pipe_table = {
                 preset = 'round'
-            },
-            overrides = {
-                filetype = {
-                    codecompanion = {
-                        render_modes = { 'n', 'c', 'v' },
-                    },
-                },
             },
         }
     },

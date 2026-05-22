@@ -1,10 +1,12 @@
 local M = {
-    'MomePP/oil.nvim',
+    'barrettruth/canola.nvim',
     dependencies = 'nvim-mini/mini.icons',
     cond = not vim.g.vscode,
+    main = 'oil'
 }
 
 M.opts = {
+    diff_mode = true,
     columns = {
         'permissions',
         'size',
@@ -32,7 +34,6 @@ M.opts = {
             return ''
         end,
         preview_split = 'right',
-        preview_title_pos = 'center',
     },
     preview_win = {
         win_options = {

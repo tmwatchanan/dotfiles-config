@@ -382,8 +382,8 @@ keymaps.ufo = {
 
 -- INFO: resession keymaps
 keymaps.resession = {
-    save   = '<leader>ss',
-    delete = '<leader>sd',
+    save   = '<leader>rs',
+    delete = '<leader>rd',
 }
 
 -- INFO: noice keymaps
@@ -535,19 +535,11 @@ keymaps.neowords = {
     new_b = 'b',
 }
 
--- INFO: codecompanion keymap
-keymaps.codecompanion = {
-    new_chat = '<leader>A',
-    toggle = '<leader>a',
-    inline = 'ga',
-}
-
 -- INFO: sidekick keymap
 keymaps.sidekick = {
     apply_nes = '<Tab>',
-    select = '<leader>s',
-    prompt = '<leader>S',
-    focus = '<c-.>',
+    toggle    = '<leader>s',
+    select    = '<leader>S',
 }
 
 -- INFO: cloak keymap
