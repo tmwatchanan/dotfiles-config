@@ -1,12 +1,11 @@
 local M = {
     'saghen/blink.pairs',
-    build = function(plugin)
-        local fn_utils = require('config.fn-utils')
-        fn_utils.jobstart({ 'cargo', 'build', '--release' }, {
-            cwd = plugin.path,
-            title = 'blink.pairs',
-        })
+    build = function()
+        require('blink.pairs').build():wait(60000)
     end,
+    dependencies = {
+        { 'saghen/blink.lib' },
+    }
 }
 
 M.opts = {
