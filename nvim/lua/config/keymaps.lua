@@ -191,6 +191,8 @@ keymaps.setup = function()
     end, { desc = 'Execute the current file' })
     -- INFO: lazy.nvim reload plugin (shift+5 is %)
     vim.keymap.set('n', '<leader><leader>5', ':Lazy reload ')
+    -- INFO: update plugins
+    vim.keymap.set('n', '<leader>U', '<Cmd>ZPack update<CR>', { desc = 'Update ZPack plugins' })
     -- INFO: execute the selected line(s) in the shell
     vim.keymap.set('n', '<leader>xs', ':.w !sh<CR>', { desc = 'Execute the current line in the shell', silent = true })
     vim.keymap.set('x', '<leader>xs', ':w !sh<CR>',
