@@ -5,7 +5,8 @@
     "enabled": true
   },
   "plugin": [
-    "@slkiser/opencode-quota"
+    "@slkiser/opencode-quota@latest",
+    "opencode-vim@latest"
   ],
   "keybinds": {
     "messages_half_page_up": "ctrl+u",
