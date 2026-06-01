@@ -1,7 +1,7 @@
 local M = {
     'saghen/blink.pairs',
     build = function()
-        require('blink.pairs').build():wait(60000)
+        require('blink.pairs').build():pwait()
     end,
     dependencies = {
         { 'saghen/blink.lib' },
