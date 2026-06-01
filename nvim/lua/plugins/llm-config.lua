@@ -254,22 +254,9 @@ sidekick.opts = {
             },
             opencode = {
                 env = {
-                    OPENCODE_EXPERIMENTAL_LSP_TOOL = 'true',
-                    OPENCODE_THEME = 'system'
-                },
-            },
-            ocv = {
-                cmd = { 'ocv' },
-                env = {
                     OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS = 'true',
                     OPENCODE_EXPERIMENTAL_LSP_TOOL = 'true',
                 },
-                keys = {
-                    prompt = { '<a-p>', 'prompt' },
-                },
-                native_scroll = true,
-                is_proc = '\\<ocv\\>',
-                continue = { '--continue' },
             },
         },
         mux = {
