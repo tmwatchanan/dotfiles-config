@@ -263,6 +263,11 @@ sidekick.opts = {
                     OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS = 'true',
                     OPENCODE_EXPERIMENTAL_LSP_TOOL = 'true',
                 },
+                keys = {
+                    prompt = { '<a-p>', 'prompt' },
+                },
+                native_scroll = true,
+                continue = { '--continue' },
             },
         },
         mux = {
