@@ -241,6 +241,12 @@ sidekick.opts = {
         },
         tools = {
             claude = {
+                -- INFO: `/tui fullscreen` puts Claude Code on the alternate screen with
+                -- its own mouse-tracking TUI. Sidekick's default scrollback interception
+                -- (scrollback.lua) swallows <ScrollWheel*> to open ITS scrollback buffer,
+                -- so the wheel never reaches Claude's fullscreen scroller. native_scroll
+                -- disables that interception and forwards the wheel to the CLI app.
+                native_scroll = true,
                 env = (function()
                     local env = {}
 
