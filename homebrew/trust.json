@@ -1,0 +1,10 @@
+{
+  "trustedtaps": [
+    "anomalyco/tap",
+    "mediosz/tap",
+    "nikitabobko/tap",
+    "oven-sh/bun",
+    "supabase/tap",
+    "tw93/tap"
+  ]
+}
