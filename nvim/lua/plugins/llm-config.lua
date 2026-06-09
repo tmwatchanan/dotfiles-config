@@ -15,8 +15,8 @@ local target_cli_id = 1
 -- INFO: register a `<base>_<i>` clone on-demand. Symlink lives next to the real binary
 -- (already on $PATH); tool entry is injected into sidekick's live config registry.
 local function ensure_clone(base, i)
-    local clone  = base .. '_' .. i
-    local tools  = require('sidekick.config').cli.tools
+    local clone = base .. '_' .. i
+    local tools = require('sidekick.config').cli.tools
     if tools[clone] then return clone end
 
     local exe = vim.fn.exepath(base)
@@ -107,10 +107,10 @@ end
 --      every visible item is now in the current cwd and the column overflows the
 --      picker viewport.
 local function open_picker(cb)
-    local tools = require('sidekick.config').cli.tools
-    local State = require('sidekick.cli.state')
-    local UI    = require('sidekick.cli.ui.select')
-    local cwd   = vim.fn.getcwd()
+    local tools           = require('sidekick.config').cli.tools
+    local State           = require('sidekick.cli.state')
+    local UI              = require('sidekick.cli.ui.select')
+    local cwd             = vim.fn.getcwd()
 
     -- live (any cwd) drives the prune; has_clone (cwd-local) drives the base hide.
     local live, has_clone = {}, {}
@@ -207,12 +207,12 @@ sidekick.opts = {
                     vim.api.nvim_set_hl(0, name, hl)
                 end
                 bold('SidekickFooterAccent', 'SnacksTerminalFooter')
-                bold('SidekickFooterCli',    'MarkSignNumHL')
-                bold('SidekickFooterPath',   'WarningMsg')
+                bold('SidekickFooterCli', 'MarkSignNumHL')
+                bold('SidekickFooterPath', 'WarningMsg')
 
-                local base, id = self.tool.name:match('^(.-)_(%d+)$')
-                local cwd      = vim.fn.fnamemodify(vim.fn.getcwd(), ':~')
-                self.opts.float.footer = {
+                local base, id             = self.tool.name:match('^(.-)_(%d+)$')
+                local cwd                  = vim.fn.fnamemodify(vim.fn.getcwd(), ':~')
+                self.opts.float.footer     = {
                     { 'Sidekick ID: ' .. id, 'SidekickFooterAccent' },
                     { ' with ',              'Normal' },
                     { base,                  'SidekickFooterCli' },
@@ -235,7 +235,8 @@ sidekick.opts = {
             -- pattern as noice-config.lua's chat sub-views.
             wo = {
                 winblend     = 0,
-                winhighlight = 'Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormal,FloatBorder:SnacksTerminalBorder,FloatFooter:SnacksTerminalFooter',
+                winhighlight =
+                'Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormal,FloatBorder:SnacksTerminalBorder,FloatFooter:SnacksTerminalFooter',
             },
             -- split = { width = 0.45 },
         },
@@ -268,6 +269,13 @@ sidekick.opts = {
                 },
                 native_scroll = true,
                 continue = { '--continue' },
+            },
+            omp = {
+                cmd = { 'omp' },
+                native_scroll = false,
+                is_proc = '\\<omp\\>',
+                continue = { '--continue' },
+
             },
         },
         mux = {
