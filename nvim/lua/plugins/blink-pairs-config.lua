@@ -2,6 +2,7 @@ local M = {
     'saghen/blink.pairs',
     build = function()
         require('blink.pairs').build():pwait()
+        require('blink_linkedit_fix')('blink.pairs')
     end,
     dependencies = {
         { 'saghen/blink.lib' },
