@@ -1,8 +1,8 @@
 # font config
 font-family = Maple Mono NF
-font-size = 13
+font-size = 14
 # font-thicken = true
-adjust-cell-height = 10%
+adjust-cell-height = 8%
 # alpha-blending = linear-corrected
 
 # cursor config
