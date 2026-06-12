@@ -48,7 +48,11 @@ vim.api.nvim_create_autocmd({ 'CmdwinEnter' }, {
 
 vim.api.nvim_create_autocmd('BufWritePost', {
     desc = 'update diagnostics when written buffer',
-    callback = function() vim.diagnostic.show() end
+    callback = function(args)
+        if vim.api.nvim_buf_is_valid(args.buf) then
+            vim.diagnostic.show(nil, args.buf)
+        end
+    end
 })
 
 -- close window with q

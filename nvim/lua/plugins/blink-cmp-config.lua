@@ -1,7 +1,8 @@
 local M = {
     'saghen/blink.cmp',
     build = function()
-        require('blink.cmp').build():wait(60000)
+        require('blink.cmp').build():pwait()
+        require('blink_linkedit_fix')('blink.cmp')
     end,
     event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
