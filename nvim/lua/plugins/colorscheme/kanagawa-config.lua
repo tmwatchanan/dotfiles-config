@@ -17,16 +17,22 @@ M.setup = function()
     local palette = colors.palette
     local theme = colors.theme
 
+    -- Zed's terminal follows the (possibly light) Zed UI theme, so a
+    -- transparent background bleeds it through the dark colorscheme.
+    -- Paint our own background there; stay transparent elsewhere.
+    local transparent = vim.env.ZED_TERM ~= 'true'
+    local base_bg = transparent and colorset.transparent or theme.ui.bg
+
     local overrided_highlights = {}
 
     local incline_highlight = {
         InclineNormal = {
             fg = vim.o.background ~= 'dark' and colorset.black or colorset.white,
-            bg = colorset.transparent,
+            bg = base_bg,
             bold = true,
             blend = 0,
         },
-        InclineNormalNC = { fg = colorset.gray, bg = colorset.transparent, blend = 0 },
+        InclineNormalNC = { fg = colorset.gray, bg = base_bg, blend = 0 },
     }
 
     local noice_highlight = {
@@ -78,10 +84,10 @@ M.setup = function()
     }
 
     overrided_highlights = utils.merge(overrided_highlights, {
-        StatusLine = { bg = colorset.transparent }, -- transparent for terminal emulator
-        NormalNC = { bg = colorset.transparent },   -- transparent for terminal emulator
+        StatusLine = { bg = base_bg }, -- transparent for terminal emulator
+        NormalNC = { bg = base_bg },   -- transparent for terminal emulator
         -- NormalFloat = { bg = theme.ui.float.bg },
-        WinSeparator = { fg = palette.springViolet1, bg = colorset.transparent },
+        WinSeparator = { fg = palette.springViolet1, bg = base_bg },
         LspReferenceWrite = { underline = false }, -- cursor hover
         -- NavicText = { fg = theme.ui.fg, bg = theme.ui.bg },
         -- NavicSeparator = { fg = theme.ui.fg, bg = theme.ui.bg },
@@ -103,7 +109,7 @@ M.setup = function()
     kanagawa.setup {
         compile = false,
         undercurl = true,
-        transparent = true,
+        transparent = transparent,
         globalStatus = true,
         dimInactive = true,
         terminalColors = false,
@@ -128,33 +134,37 @@ M.lualine = function()
     local colorset = require('plugins.colorscheme.colorset').colors
     local theme = require('kanagawa.colors').setup().theme
 
+    -- same opaque-in-Zed rule as M.setup
+    local transparent = vim.env.ZED_TERM ~= 'true'
+    local base_bg = transparent and colorset.transparent or theme.ui.bg
+
     local kanagawa = {}
 
     kanagawa.normal = {
         a = { bg = theme.ui.bg, fg = theme.syn.fun },
-        b = { bg = colorset.transparent, fg = theme.ui.fg },
-        c = { bg = colorset.transparent, fg = theme.ui.fg },
+        b = { bg = base_bg, fg = theme.ui.fg },
+        c = { bg = base_bg, fg = theme.ui.fg },
     }
 
     kanagawa.insert = {
         a = { bg = theme.ui.bg, fg = theme.diag.ok },
-        b = { bg = colorset.transparent, fg = theme.ui.fg },
-        c = { bg = colorset.transparent },
+        b = { bg = base_bg, fg = theme.ui.fg },
+        c = { bg = base_bg },
     }
 
     kanagawa.command = {
         a = { bg = theme.ui.bg, fg = theme.syn.operator },
-        b = { bg = colorset.transparent, fg = theme.ui.fg },
+        b = { bg = base_bg, fg = theme.ui.fg },
     }
 
     kanagawa.visual = {
         a = { bg = theme.ui.bg, fg = theme.syn.keyword },
-        b = { bg = colorset.transparent, fg = theme.ui.fg },
+        b = { bg = base_bg, fg = theme.ui.fg },
     }
 
     kanagawa.replace = {
         a = { bg = theme.ui.bg, fg = theme.syn.constant },
-        b = { bg = colorset.transparent, fg = theme.ui.fg },
+        b = { bg = base_bg, fg = theme.ui.fg },
     }
 
     kanagawa.inactive = {

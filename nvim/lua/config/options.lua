@@ -23,7 +23,7 @@ elseif vim.fn.executable('pwsh') == 1 then
     opt.shellquote = '"'
     opt.shellxquote = ''
 end
-opt.clipboard      = vim.env.SSH_TTY and '' or 'unnamedplus'
+opt.clipboard      = 'unnamedplus' -- over SSH, nvim 0.10+ falls back to OSC 52 automatically
 
 opt.sessionoptions = { 'buffers', 'curdir', 'winsize', 'folds', 'terminal' }
 opt.wildignore     = '**/node_module/*, **/.pio/*, **/.git/*'
