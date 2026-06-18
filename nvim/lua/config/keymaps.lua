@@ -314,10 +314,6 @@ keymaps.git = {
     toggle_deleted   = '<leader>hx',
 }
 
--- INFO: git-conflict keymap
-keymaps.gitconflict = {
-    toggle_qflist = '<leader>x',
-}
 
 -- INFO: snacks picker keymap
 keymaps.snacks = {

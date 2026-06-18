@@ -6,5 +6,8 @@
     "oven-sh/bun",
     "supabase/tap",
     "tw93/tap"
+  ],
+  "trustedformulae": [
+    "supabase/tap/supabase"
   ]
 }
