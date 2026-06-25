@@ -1,1 +1,35 @@
 onboarding = false
+
+[keys]
+prefix = "ctrl+a"
+
+# reload config (tmux: prefix r); resize moved off r to keep it available
+reload_config = "prefix+r"
+resize_mode = "prefix+shift+r"
+
+# session/window tree picker (tmux: prefix C-w = choose-tree)
+workspace_picker = "prefix+ctrl+w"
+
+# --- Workspaces  (tmux sessions) ---
+new_workspace = "prefix+shift+n"       # tmux: N
+previous_workspace = "prefix+shift+h"  # tmux: H / K
+next_workspace = "prefix+shift+l"      # tmux: J / L / O
+close_workspace = "prefix+shift+x"     # tmux: X (kill-session)
+
+# --- Tabs  (tmux windows) ---
+new_tab = "prefix+ctrl+n"              # tmux: C-n
+previous_tab = "prefix+ctrl+k"         # tmux: C-k
+next_tab = "prefix+ctrl+j"             # tmux: C-j / C-o
+close_tab = "prefix+ctrl+x"            # tmux: C-x (kill-window)
+
+# --- Panes ---
+split_vertical = "prefix+|"            # tmux: | (split side-by-side)
+split_horizontal = "prefix+_"          # tmux: _ (split stacked)
+close_pane = "prefix+x"                # tmux: x (kill-pane)
+focus_pane_left = "prefix+h"           # tmux: h/j/k/l pane nav (directional)
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+# herd.nvim return trip: Ctrl-a Tab to jump back to the nvim pane
+last_pane = "prefix+tab"
