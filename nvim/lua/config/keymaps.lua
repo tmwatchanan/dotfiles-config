@@ -97,11 +97,6 @@ keymaps.rename = {
     rename_clean = '<leader>lR',
 }
 
--- INFO: lazy keymap
-keymaps.lazy = {
-    open = '<leader>P',
-}
-
 -- INFO: focus keymap
 keymaps.focus = {
     toggle_enable = '<leader><space>',
