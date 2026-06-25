@@ -47,6 +47,30 @@ automatically-unhide-macos-hidden-apps = true
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+# Pin apps to workspaces at AeroSpace startup. After a reboot, macOS reopens
+# all apps and AeroSpace assigns each detected window to whatever workspace is
+# active at that moment (an empty, unbound workspace 9), dumping everything
+# there. These 'during-aerospace-startup' rules force each app back to its home
+# workspace at launch. They only fire during startup, so normal window movement
+# during the day is unaffected.
+[[on-window-detected]]
+    if.app-id = 'com.mitchellh.ghostty'
+    if.during-aerospace-startup = true
+    check-further-callbacks = true # fall through to the 'layout tiling' rule below
+    run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+    if.app-id = 'com.microsoft.teams2'
+    if.during-aerospace-startup = true
+    run = 'move-node-to-workspace 4'
+
+# Arc: both windows go to workspace 2 (app-id can't distinguish the two windows).
+# Move the second window to workspace 3 manually after startup.
+[[on-window-detected]]
+    if.app-id = 'company.thebrowser.Browser'
+    if.during-aerospace-startup = true
+    run = 'move-node-to-workspace 2'
+
 [[on-window-detected]]
     if.app-id = 'com.mitchellh.ghostty'
     run = 'layout tiling'
