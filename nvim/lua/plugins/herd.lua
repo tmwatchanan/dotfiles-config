@@ -11,10 +11,10 @@ return {
     cond = function() return vim.env.HERDR_PANE_ID ~= nil end,
     event = 'VeryLazy',
     opts = {
-        -- <leader>; toggles to the agent (pairs with herdr last_pane = Ctrl-a ; for
-        -- the return). Only active inside a herdr pane (cond), so it shadows the
-        -- global `resume` mapping only here; outside herdr, <leader>; stays resume.
-        keys = { toggle = '<leader>;' },
+        -- Keys (active only inside a herdr pane, via cond):
+        --   <leader>;      (normal) toggle to this project's agent · (visual) send selection
+        --   <leader><Tab>  select/spawn a CLI tool (picker: running agents + spawnable tools)
+        keys = { toggle = '<leader>;', send = '<leader>;', select = '<leader><Tab>' },
         tools = {
             claude   = { cmd = { 'claude' } },
             opencode = {
