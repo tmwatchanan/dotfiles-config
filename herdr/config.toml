@@ -47,7 +47,7 @@ new_workspace = "prefix+shift+n"            # tmux N        | default: "prefix+s
 previous_workspace = "prefix+ctrl+k"       # unified nav: Ctrl-a C-k = up (vertical)    | default: "" (unset)
 next_workspace = "prefix+ctrl+j"           # unified nav: Ctrl-a C-j = down (vertical)  | default: "" (unset)
 close_workspace = "prefix+shift+x"          # tmux X        | default: "prefix+shift+d"
-switch_workspace = "prefix+shift+1..9"     # Ctrl-a Shift-1..9 → workspace N (projects)
+switch_workspace = "prefix+1..9"           # Ctrl-a 1..9 → workspace N (projects — reliable plain numbers)
 
 # --- Tabs  (tmux windows) ---
 new_tab = "prefix+ctrl+n"                  # tmux C-n      | default: "prefix+c"
@@ -73,7 +73,10 @@ cycle_pane_previous = "prefix+shift+tab"   # default: "prefix+shift+tab"
 last_pane = "prefix+;"                      # tmux last-pane | default: "" (unset)
 
 # --- Agents ---
-focus_agent = "prefix+1..9"                # Ctrl-a 1..9 → focus agent N (primary number switcher)
+# focus-by-number (focus_agent) needs modified digits, which are terminal-fragile in
+# prefix mode (Alt sends Esc → cancels prefix; Shift sends symbols). Cycle instead:
+next_agent = "prefix+down"                 # Ctrl-a ↓ → next agent in the panel
+previous_agent = "prefix+up"               # Ctrl-a ↑ → previous agent in the panel
 
 # ── herdr defaults NOT overridden above (uncomment + edit to customise) ──────────
 # help                     = "prefix+?"        # show every active binding
