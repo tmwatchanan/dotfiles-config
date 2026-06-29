@@ -10,6 +10,10 @@ return {
     cond = function() return vim.env.HERDR_PANE_ID ~= nil end,
     event = 'VeryLazy',
     opts = {
+        -- <leader>; toggles to the agent (pairs with herdr last_pane = Ctrl-a ; for
+        -- the return). Only active inside a herdr pane (cond), so it shadows the
+        -- global `resume` mapping only here; outside herdr, <leader>; stays resume.
+        keys = { toggle = '<leader>;' },
         tools = {
             claude   = { cmd = { 'claude' } },
             opencode = {
