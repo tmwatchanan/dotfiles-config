@@ -1,7 +1,35 @@
 onboarding = false
 
 [theme]
-name = "vesper"
+name = "vesper"                  # dark base for any token not set in [theme.custom]
+
+# Oxocarbon (IBM Carbon), transparent background — mirrors ghostty theme=oxocarbon
+# + background-opacity. panel_bg is see-through so Ghostty's blur shows behind panes.
+# Tokens: panel_bg surface0/1 surface_dim overlay0/1 text subtext0 accent
+#         + named colors mauve green yellow red blue teal peach.
+[theme.custom]
+panel_bg    = "transparent"      # main background → Ghostty transparency/blur shows through
+surface_dim = "#1a1a1a"      # sidebar/pane divider LINES + active-item highlight bg (raise toward #525252 to show, lower to #161616 to hide)
+surface0    = "#1a1a1a"          # oxocarbon bg — inactive tab / element bg
+surface1    = "#262626"          # elevated panel bg
+overlay0    = "#525252"          # sidebar section headers (spaces/agents/new/menu)
+overlay1    = "#525252"          # dim labels
+text        = "#f2f4f8"          # oxocarbon foreground
+subtext0    = "#b6b8bb"          # confirmed: inactive workspace names (not the line)
+accent      = "#00b4ff"          # oxocarbon blue (primary accent)
+blue        = "#00b4ff"
+teal        = "#00dfdb"
+mauve       = "#c693ff"          # purple
+green       = "#00c15a"          # done / success
+red         = "#ff4297"          # oxocarbon pink-red — errors / blocked
+peach       = "#ff74b8"          # oxocarbon pink
+yellow      = "#d4bb86"          # oxocarbon has no yellow — soft approximation; tweak to taste
+
+[ui]
+# Pane frame borders use `accent`; dropped here so panes separate by gaps instead.
+# (The subtle divider lines are colored separately via [theme.custom] surface_dim.)
+pane_borders = false
+pane_gaps = true
 
 [keys]
 prefix = "ctrl+a"                          # default: "ctrl+b"
@@ -10,38 +38,47 @@ prefix = "ctrl+a"                          # default: "ctrl+b"
 reload_config = "prefix+r"                 # default: "prefix+shift+r"
 resize_mode = "prefix+shift+r"             # default: "prefix+r"
 
-# session/window tree picker (tmux: prefix C-w = choose-tree)
-workspace_picker = "prefix+ctrl+w"         # default: "prefix+w"
+# workspace picker = Ctrl-a w;  workspace tree / omni-jump (goto) = Ctrl-a Ctrl-w
+workspace_picker = "prefix+w"              # default: "prefix+w" (unchanged)
+goto = "prefix+ctrl+w"                     # tmux C-w (choose-tree) | default: "prefix+g"
 
 # --- Workspaces  (tmux sessions) ---
-new_workspace = "prefix+shift+n"           # tmux N        | default: "prefix+shift+n" (unchanged)
-previous_workspace = "prefix+shift+h"      # tmux H / K    | default: "" (unset)
-next_workspace = "prefix+shift+l"          # tmux J / L / O| default: "" (unset)
-close_workspace = "prefix+shift+x"         # tmux X        | default: "prefix+shift+d"
+new_workspace = "prefix+shift+n"            # tmux N        | default: "prefix+shift+n" (unchanged)
+previous_workspace = "prefix+ctrl+k"       # unified nav: Ctrl-a C-k = up (vertical)    | default: "" (unset)
+next_workspace = "prefix+ctrl+j"           # unified nav: Ctrl-a C-j = down (vertical)  | default: "" (unset)
+close_workspace = "prefix+shift+x"          # tmux X        | default: "prefix+shift+d"
+switch_workspace = "prefix+shift+1..9"     # Ctrl-a Shift-1..9 → workspace N (projects)
 
 # --- Tabs  (tmux windows) ---
 new_tab = "prefix+ctrl+n"                  # tmux C-n      | default: "prefix+c"
-previous_tab = "prefix+ctrl+k"             # tmux C-k      | default: "prefix+p"
-next_tab = "prefix+ctrl+j"                 # tmux C-j / C-o| default: "prefix+n"
+previous_tab = "prefix+ctrl+h"             # tabs are horizontal → H = left   | default: "prefix+p"
+next_tab = "prefix+ctrl+l"                 # tabs are horizontal → L = right  | default: "prefix+n"
 close_tab = "prefix+ctrl+x"                # tmux C-x      | default: "prefix+shift+x"
+switch_tab = ""                            # freed: number row → agents/workspaces; switch tabs via Ctrl-a C-h/C-l
 
 # --- Panes ---
-split_vertical = "prefix+|"                # tmux |        | default: "prefix+v"     (split right)
-split_horizontal = "prefix+_"              # tmux _        | default: "prefix+minus" (split down)
+split_vertical = ["prefix+|", "prefix+enter"]          # tmux | + Enter (split right)        | default: "prefix+v"
+split_horizontal = ["prefix+_", "prefix+shift+enter"]  # tmux _ + Shift-Enter (split down)    | default: "prefix+minus"
 close_pane = "prefix+x"                    # tmux x        | default: "prefix+x" (unchanged)
 focus_pane_left = "prefix+h"               # tmux h/j/k/l  | default: "prefix+h" (unchanged)
 focus_pane_down = "prefix+j"               #               | default: "prefix+j" (unchanged)
 focus_pane_up = "prefix+k"                 #               | default: "prefix+k" (unchanged)
 focus_pane_right = "prefix+l"              #               | default: "prefix+l" (unchanged)
 
-# herd.nvim return trip: Ctrl-a Tab to jump back to the nvim pane
-last_pane = "prefix+tab"                   # default: "" (unset). NOTE: shadows cycle_pane_next below.
+# cycle panes (symmetric): Ctrl-a Tab = next, Ctrl-a Shift-Tab = previous
+cycle_pane_next = "prefix+tab"             # default: "prefix+tab"
+cycle_pane_previous = "prefix+shift+tab"   # default: "prefix+shift+tab"
+
+# herd.nvim return trip: Ctrl-a ; jumps back to the last (nvim) pane
+last_pane = "prefix+;"                      # tmux last-pane | default: "" (unset)
+
+# --- Agents ---
+focus_agent = "prefix+1..9"                # Ctrl-a 1..9 → focus agent N (primary number switcher)
 
 # ── herdr defaults NOT overridden above (uncomment + edit to customise) ──────────
 # help                     = "prefix+?"        # show every active binding
 # settings                 = "prefix+s"
 # detach                   = "prefix+q"
-# goto                     = "prefix+g"
 # toggle_sidebar           = "prefix+b"
 # open_notification_target = "prefix+o"
 # edit_scrollback          = "prefix+e"        # copy mode also opens with: prefix+[
@@ -50,15 +87,11 @@ last_pane = "prefix+tab"                   # default: "" (unset). NOTE: shadows 
 # rename_tab               = "prefix+shift+t"
 # rename_pane              = "prefix+shift+p"
 # switch_tab               = "prefix+1..9"     # indexed; or see [keys.indexed] below
-# cycle_pane_next          = "prefix+tab"      # shadowed by last_pane = "prefix+tab" above
-# cycle_pane_previous      = "prefix+shift+tab"
 # new_worktree             = "prefix+shift+g"
 # open_worktree            = ""                # unset by default
 # remove_worktree          = ""                # unset by default; opens confirmation
 # previous_agent           = ""                # unset
 # next_agent               = ""                # unset
-# focus_agent              = ""                # indexed, e.g. "prefix+alt+1..9"
-# switch_workspace         = ""                # indexed, e.g. "prefix+shift+1..9"
 # remote_image_paste       = "ctrl+v"          # only active in `herdr --remote`
 #
 # Navigate-mode movement (non-prefix; only while navigate mode is open):
