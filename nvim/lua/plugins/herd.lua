@@ -7,6 +7,7 @@
 -- Inside herdr you are in the Path B world; herd owns those keys there.
 return {
     'MomePP/herd.nvim',
+    dev = true,                -- use local ~/Developer/nvim-plugins/herd.nvim (fallback: GitHub)
     cond = function() return vim.env.HERDR_PANE_ID ~= nil end,
     event = 'VeryLazy',
     opts = {
