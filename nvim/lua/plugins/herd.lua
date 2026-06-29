@@ -11,9 +11,8 @@ return {
     cond = function() return vim.env.HERDR_PANE_ID ~= nil end,
     event = 'VeryLazy',
     opts = {
-        -- <leader><Tab>: (normal) pick/spawn a CLI tool · (visual) send selection.
-        -- Navigation (nvim <-> agent) is herdr-native directional focus: Ctrl-a h / l.
-        keys = { toggle = false, send = '<leader><Tab>', select = '<leader><Tab>' },
+        -- Keys use plugin defaults: <leader><Tab> = pick/spawn (normal) + send (visual);
+        -- toggle off → navigation is herdr directional focus (Ctrl-a h / l).
         tools = {
             claude   = { cmd = { 'claude' } },
             opencode = {
