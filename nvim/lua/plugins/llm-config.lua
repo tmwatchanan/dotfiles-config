@@ -1,6 +1,7 @@
 local sidekick      = {
     'folke/sidekick.nvim',
-    event = 'VeryLazy'
+    event = 'VeryLazy',
+    enabled = false,
 }
 
 -- INFO: numbered clones (claude_1, claude_2, ...) for multi-session per cwd.
