@@ -10,7 +10,7 @@
 -- (transparency winhighlight + tools) remain here.
 return {
     'MomePP/herd.nvim',
-    dev = true, -- use local ~/Developer/nvim-plugins/herd.nvim
+    -- dev = true, -- use local ~/Developer/nvim-plugins/herd.nvim
     cond = function() return vim.fn.executable('herdr') == 1 end,
     event = 'VeryLazy',
     opts = {
@@ -19,10 +19,6 @@ return {
             -- Ghostty's transparent background shows through the fullscreen float.
             winhighlight =
             'Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormal,FloatBorder:SnacksTerminalBorder,FloatFooter:SnacksTerminalFooter',
-            -- hand the mouse to Ghostty in the float so a plain click-drag selects text
-            -- natively (with copy-on-select in the ghostty config). Trade-off: the agent
-            -- doesn't receive mouse events inside the float.
-            mouse = false,
         },
         tools = {
             claude   = { cmd = { 'claude' } },
