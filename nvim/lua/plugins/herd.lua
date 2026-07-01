@@ -14,6 +14,11 @@ return {
     cond = function() return vim.fn.executable('herdr') == 1 end,
     event = 'VeryLazy',
     opts = {
+        -- native mode: spawn each agent as a sibling herdr tab (no nvim float) so
+        -- scroll/drag-select are native Ghostty/herdr. Requires nvim to run inside a
+        -- herdr pane (else it warns + falls back to float). Return to nvim via herdr's
+        -- own tab nav (Ctrl-a ; last_pane, or Ctrl-a Ctrl-h/l). win.* below is float-only.
+        mode = 'native',
         win = {
             -- transparency: map the float to the terminal highlight groups (Snacks) so
             -- Ghostty's transparent background shows through the fullscreen float.
