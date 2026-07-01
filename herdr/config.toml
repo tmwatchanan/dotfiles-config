@@ -51,10 +51,10 @@ switch_workspace = "prefix+1..9"           # Ctrl-a 1..9 → workspace N (projec
 
 # --- Tabs  (tmux windows) ---
 new_tab = "prefix+ctrl+n"                  # tmux C-n      | default: "prefix+c"
-previous_tab = "prefix+ctrl+h"             # tabs are horizontal → H = left   | default: "prefix+p"
-next_tab = "prefix+ctrl+l"                 # tabs are horizontal → L = right  | default: "prefix+n"
+previous_tab = ["prefix+ctrl+h", "prefix+left"]   # tabs are horizontal → H/← = left  | default: "prefix+p"
+next_tab = ["prefix+ctrl+l", "prefix+right"]      # tabs are horizontal → L/→ = right | default: "prefix+n"
 close_tab = "prefix+ctrl+x"                # tmux C-x      | default: "prefix+shift+x"
-switch_tab = ""                            # freed: number row → agents/workspaces; switch tabs via Ctrl-a C-h/C-l
+switch_tab = ""                            # freed: number row → agents/workspaces; switch tabs via Ctrl-a C-h/C-l or arrows
 
 # --- Panes ---
 split_vertical = ["prefix+|", "prefix+enter"]          # tmux | + Enter (split right)        | default: "prefix+v"
