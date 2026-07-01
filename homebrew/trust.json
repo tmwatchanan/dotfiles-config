@@ -11,7 +11,6 @@
     "supabase/tap/supabase"
   ],
   "trustedcasks": [
-    "mediosz/tap/swipeaerospace",
-    "momepp/tap/aside"
+    "mediosz/tap/swipeaerospace"
   ]
 }
