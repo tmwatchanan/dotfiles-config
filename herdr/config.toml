@@ -110,3 +110,10 @@ previous_agent = "prefix+up"               # Ctrl-a ↑ → previous agent in th
 # key = "prefix+alt+g"
 # type = "pane"        # "pane" = temp pane that closes on exit; "shell" = detached
 # command = "lazygit"
+
+# herd.nvim: prefix+s = jump from an agent tab back to the editor that
+# spawned it (overrides herdr's default `settings` binding).
+[[keys.command]]
+key = "prefix+s"
+type = "shell"
+command = "nvim -l /Users/momeppkt/Developer/nvim-plugins/herd.nvim/bin/herd-return.lua"
