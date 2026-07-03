@@ -5,9 +5,9 @@
 -- nvim-host model nvim no longer needs to live inside a herdr pane — herdr just needs
 -- its server/daemon running. The plugin's own ensure_server() warns if it isn't.
 --
--- Keys (<leader>s toggle/send/hide, <leader>S picker), the fullscreen float, and the
--- 'herd.nvim' workspace label are all plugin DEFAULTS now — only the personal bits
--- (transparency winhighlight + tools) remain here.
+-- Keys (<leader>\ toggle/send/hide, <leader>s picker, <leader>S dashboard), the
+-- fullscreen float, and the 'herd.nvim' workspace label are all plugin DEFAULTS
+-- now — only the personal bits (transparency winhighlight + tools) remain here.
 return {
     'MomePP/herd.nvim',
     -- dev = true, -- use local ~/Developer/nvim-plugins/herd.nvim
@@ -16,8 +16,8 @@ return {
     opts = {
         -- native mode: spawn each agent as a sibling herdr tab (no nvim float) so
         -- scroll/drag-select are native Ghostty/herdr. Requires nvim to run inside a
-        -- herdr pane (else it warns + falls back to float). Return to nvim via herdr's
-        -- own tab nav (Ctrl-a ; last_pane, or Ctrl-a Ctrl-h/l). win.* below is float-only.
+        -- herdr pane (else it warns + falls back to float). Round trip: <leader>\ goes
+        -- to the agent, Ctrl-a \ (herd-return) comes back. win.* below is float-only.
         mode = 'native',
         win = {
             -- transparency: map the float to the terminal highlight groups (Snacks) so
