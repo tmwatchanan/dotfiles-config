@@ -8,6 +8,9 @@ adjust-cell-height = 8%
 
 # cursor config
 mouse-hide-while-typing = true
+# auto-copy mouse selection to the system clipboard (native-style copy, incl. in
+# the herd.nvim float where win.mouse=false hands the mouse to ghostty)
+copy-on-select = clipboard
 shell-integration-features = cursor
 cursor-style = block
 

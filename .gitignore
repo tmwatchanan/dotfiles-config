@@ -23,6 +23,11 @@ nvim/nvim-pack-lock.json
 /.omc
 /glab-cli
 /.claude/settings.local.json
+/.claude/tmp
 /opencode/context-mode/content
 /opencode/opencode-quota
 /.weave/runtime/sessions
+
+# herdr: track only config.toml; ignore runtime state (logs, sockets, session)
+/herdr/*
+!/herdr/config.toml
