@@ -51,7 +51,10 @@ M.opts = function()
 
     local navic_location = {
         'navic',
-        -- color_correction = 'dynamic',
+        -- Repaint navic's bg (and separators) to match the lualine_c section on every
+        -- render, so it blends in instead of showing a distinct box. Theme-independent:
+        -- reads the live section colors, so it works across all colorschemes/variants.
+        color_correction = 'dynamic',
         navic_opts = {
             separator = icons.lualine.navic_separator,
             highlight = true,
