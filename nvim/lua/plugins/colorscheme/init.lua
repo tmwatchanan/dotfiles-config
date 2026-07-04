@@ -8,7 +8,7 @@ local M = {
 }
 
 -- INFO: selection colorscheme
-local theme = require('plugins.colorscheme.kanagawa-config')
+local theme = require('plugins.colorscheme.cyberdream-config')
 M = utils.merge(M, theme.info)
 M.config = theme.setup
 M.colors = theme.colors
