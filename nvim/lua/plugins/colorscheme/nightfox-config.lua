@@ -1,8 +1,15 @@
 local M = {}
 
+-- INFO: active nightfox variant — swap between: dayfox, dawnfox, nightfox, terafox
+local active = 'dayfox'
+
+-- Light variants want a light background; every other variant is dark.
+local light_variants = { dayfox = true, dawnfox = true }
+local background = light_variants[active] and 'light' or 'dark'
+
 M.info = {
     'EdenEast/nightfox.nvim',
-    colorscheme = 'dawnfox',
+    colorscheme = active,
 }
 
 M.setup = function()
@@ -691,8 +698,33 @@ M.setup = function()
     })
     _G.cursor_hl = vim.api.nvim_get_hl_by_name("Cursor", true)
 
-    vim.opt.background = 'light'
-    vim.cmd.colorscheme = 'dawnfox'
+    vim.opt.background = background
+    vim.cmd.colorscheme(active)
+
+    -- Custom groups (BlinkPairs*, RainbowDelimiter*) aren't part of nightfox,
+    -- so set them directly off the terafox palette; consumers like
+    -- indent-blankline expect BlinkPairs* to exist at load time.
+    local palette = require('nightfox.palette').load(active)
+    local custom_highlights = {
+        RainbowDelimiterRed = { fg = palette.red.base },
+        RainbowDelimiterYellow = { fg = palette.yellow.base },
+        RainbowDelimiterBlue = { fg = palette.blue.base },
+        RainbowDelimiterOrange = { fg = palette.orange.base },
+        RainbowDelimiterGreen = { fg = palette.green.base },
+        RainbowDelimiterViolet = { fg = palette.magenta.base },
+        RainbowDelimiterCyan = { fg = palette.cyan.base },
+
+        BlinkPairsRed = { fg = palette.red.base },
+        BlinkPairsBlue = { fg = palette.blue.base },
+        BlinkPairsCyan = { fg = palette.cyan.base },
+        BlinkPairsGreen = { fg = palette.green.base },
+        BlinkPairsYellow = { fg = palette.yellow.base },
+        BlinkPairsOrange = { fg = palette.orange.base },
+        BlinkPairsViolet = { fg = palette.magenta.base },
+    }
+    for hl_name, hl_value in pairs(custom_highlights) do
+        vim.api.nvim_set_hl(0, hl_name, hl_value)
+    end
 end
 
 M.colors = function ()
@@ -700,7 +732,7 @@ M.colors = function ()
 end
 
 M.lualine = function()
-    return 'dawnfox'
+    return active
 end
 
 return M
