@@ -2,7 +2,6 @@ local M = {
     'AckslD/swenv.nvim',
     ft = { 'python' },
     cond = not vim.g.vscode,
-    dev = true,
 }
 
 M.opts = {
