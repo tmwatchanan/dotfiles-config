@@ -20,7 +20,7 @@ git:
   overrideGpg: true
   pagers:
     - colorArg: always
-      useConfig: true
+      pager: delta --paging=never --hyperlinks --hyperlinks-file-link-format=lazygit-edit://{path}:{line}
   log:
     showGraph: always
     # showWholeGraph: true

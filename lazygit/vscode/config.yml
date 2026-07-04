@@ -7,8 +7,9 @@ gui:
     selectedRangeBgColor:
       - default
 git:
-  paging:
-    pager: delta --dark --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
   log:
     showGraph: always
     showWholeGraph: true
