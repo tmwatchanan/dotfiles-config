@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
+# Light-theme overlay, merged ON TOP of config.yml via LG_CONFIG_FILE when the
+# nvim float runs a light nightfox variant (dayfox/dawnfox). See snacks-config.lua.
+# The base selectedLineBgColor (#363646, dark) is invisible under a light float's
+# dark text, so re-point the selection to the dayfox Visual color instead.
+gui:
+  theme:
+    selectedLineBgColor:
+      - "#D4DBF4" # dayfox Visual — light lavender, readable with dark fg
+    cherryPickedCommitBgColor:
+      - "#BBC6F1" # dayfox Search — light blue
+    cherryPickedCommitFgColor:
+      - "#000000"

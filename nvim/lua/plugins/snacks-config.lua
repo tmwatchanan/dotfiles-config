@@ -215,10 +215,20 @@ M.keys = function()
     -- delta's active git-config feature is dark; on a light colorscheme
     -- (dayfox/dawnfox) lazygit's diff would render dark hunks on the light float.
     -- Point delta at the light `nightfox` delta feature via DELTA_FEATURES when the
-    -- theme is light. `nil` on dark themes leaves the default feature untouched.
+    -- theme is light. Likewise lazygit's own selectedLineBgColor (#363646, dark)
+    -- is invisible under the light float's dark text, so layer config.light.yml on
+    -- top of the base config via LG_CONFIG_FILE (comma-separated, later wins).
+    -- `nil` on dark themes leaves both the delta feature and lazygit theme untouched.
     local function lazygit_opts()
         if vim.o.background == 'light' then
-            return { env = { DELTA_FEATURES = 'nightfox' } }
+            local base = vim.fn.expand('~/.config/lazygit/config.yml')
+            local overlay = vim.fn.expand('~/.config/lazygit/config.light.yml')
+            return {
+                env = {
+                    DELTA_FEATURES = 'nightfox',
+                    LG_CONFIG_FILE = base .. ',' .. overlay,
+                },
+            }
         end
         return nil
     end
