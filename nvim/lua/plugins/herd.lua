@@ -5,9 +5,9 @@
 -- nvim-host model nvim no longer needs to live inside a herdr pane — herdr just needs
 -- its server/daemon running. The plugin's own ensure_server() warns if it isn't.
 --
--- Keys (<leader>\ toggle/send/hide, <leader>s picker, <leader>S dashboard), the
+-- Keys (<leader>\ toggle/send, <leader>s picker, <leader>S dashboard), the
 -- fullscreen float, and the 'herd.nvim' workspace label are all plugin DEFAULTS
--- now — only the personal bits (transparency winhighlight + tools) remain here.
+-- now — only the personal bits (hide key, transparency winhighlight + tools) remain here.
 return {
     'MomePP/herd.nvim',
     -- dev = true, -- use local ~/Developer/nvim-plugins/herd.nvim
@@ -19,6 +19,11 @@ return {
         -- herdr pane (else it warns + falls back to float). Round trip: <leader>\ goes
         -- to the agent, Ctrl-a \ (herd-return) comes back. win.* below is float-only.
         mode = 'native',
+        -- hide = doubled `\\`, NOT the default <leader>\. A <leader>-prefixed terminal-mode
+        -- map makes every literal <Space> typed into the agent wait &timeoutlen (400ms) for
+        -- a possible `\`; `\\` drops the <Space> prefix entirely, so Space is instant again.
+        -- Only used in the float fallback (native mode has no herd-owned terminal buffer).
+        keys = { hide = '\\\\' },
         win = {
             -- transparency: map the float to the terminal highlight groups (Snacks) so
             -- Ghostty's transparent background shows through the fullscreen float.
@@ -27,14 +32,14 @@ return {
         },
         tools = {
             claude   = { cmd = { 'claude' } },
-            opencode = {
-                cmd = { 'opencode', '--continue' },
-                env = {
-                    OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS = 'true',
-                    OPENCODE_EXPERIMENTAL_LSP_TOOL = 'true',
-                },
-            },
-            omp      = { cmd = { 'omp', '--continue' } },
+            -- opencode = {
+            --     cmd = { 'opencode', '--continue' },
+            --     env = {
+            --         OPENCODE_EXPERIMENTAL_BACKGROUND_SUBAGENTS = 'true',
+            --         OPENCODE_EXPERIMENTAL_LSP_TOOL = 'true',
+            --     },
+            -- },
+            -- omp      = { cmd = { 'omp', '--continue' } },
         },
     },
 }
