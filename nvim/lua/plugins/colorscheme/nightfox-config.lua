@@ -221,6 +221,11 @@ M.setup = function()
             LazyNormal = { link = "Normal" },
             MyNormalFloat = { link = "Normal" },
             MyNormalDocFloat = { link = "Normal" },
+            -- Same light-theme fix as dayfox: opaque (linked to Normal) so the light
+            -- editor buffer doesn't bleed into the lazygit/herd float.
+            SnacksTerminalNormal = { link = "Normal" },
+            SnacksTerminalBorder = { link = "Normal" },
+            SnacksTerminalFooter = { link = "Normal" },
             ToggleTerm1FloatBorder = { link = "FloatBorder" },
             FloatBorder = { bg = "#faf7e8" },
             LspFloatWinBorder = { link = "FloatBorder" },
@@ -608,6 +613,14 @@ M.setup = function()
             NormalNC = { link = "Normal" },
             NormalFloat = { bg = "#FAFAFA" },
             FloatBorder = { link = "NormalFloat" },
+            -- Snacks terminal floats (lazygit, herd) map Normal:SnacksTerminalNormal
+            -- so an *undefined* group renders transparent — correct for dark themes
+            -- (Ghostty's bg shows through), but dayfox is a light theme with an opaque
+            -- Normal, so a transparent float leaks the light editor buffer + its text.
+            -- Link to the dayfox Normal: opaque (no bleed) and keeps the dayfox look.
+            SnacksTerminalNormal = { link = "Normal" },
+            SnacksTerminalBorder = { link = "Normal" },
+            SnacksTerminalFooter = { link = "Normal" },
             illuminatedWordText = { bg = "#E3E0E0" },
             illuminatedWordRead = { bg = "#E3E0E0" },
             illuminatedWordKeepText = { bg = "#FCF0A1" },

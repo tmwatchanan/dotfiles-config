@@ -212,6 +212,17 @@ M.keys = function()
     local terminal_keymap = keymaps.terminal
     local scratch_keymap = keymaps.scratch
 
+    -- delta's active git-config feature is dark; on a light colorscheme
+    -- (dayfox/dawnfox) lazygit's diff would render dark hunks on the light float.
+    -- Point delta at the light `nightfox` delta feature via DELTA_FEATURES when the
+    -- theme is light. `nil` on dark themes leaves the default feature untouched.
+    local function lazygit_opts()
+        if vim.o.background == 'light' then
+            return { env = { DELTA_FEATURES = 'nightfox' } }
+        end
+        return nil
+    end
+
     -- INFO: only mapped toggle key for no cmd terminal
     local terminal_toggle_opts = {
         win = {
@@ -288,8 +299,8 @@ M.keys = function()
                 }))
             end
         },
-        { terminal_keymap.lazygit,              function() snacks.terminal.toggle({ 'lazygit' }) end },
-        { terminal_keymap.lazygit_file_history, function() snacks.terminal.toggle({ 'lazygit', '-f', vim.fn.expand('%') }) end },
+        { terminal_keymap.lazygit,              function() snacks.terminal.toggle({ 'lazygit' }, lazygit_opts()) end },
+        { terminal_keymap.lazygit_file_history, function() snacks.terminal.toggle({ 'lazygit', '-f', vim.fn.expand('%') }, lazygit_opts()) end },
 
         { keymaps.gitbrowse,                    function() snacks.gitbrowse() end,                                    desc = 'Snacks: Git Browse',    mode = { 'n', 'v' } },
         { keymaps.git_blame_line,               function() snacks.git.blame_line() end,                               desc = 'Snacks: Git Blame Line' },
