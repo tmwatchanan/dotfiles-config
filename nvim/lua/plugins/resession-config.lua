@@ -54,6 +54,9 @@ function M.pick_project()
     for i, dir in ipairs(recent) do
         rank[dir] = i
     end
+    local icons = require('config').defaults.icons.resession
+    local cwd = vim.fs.normalize(vim.fn.getcwd())
+
     require('snacks').picker.projects {
         projects = vim.deepcopy(recent),
         transform = function(item)
@@ -61,6 +64,18 @@ function M.pick_project()
             if r then
                 item.score_add = 1000 * (#recent - r + 1)
             end
+        end,
+        format = function(item, picker)
+            local ret = require('snacks.picker.format').file(item, picker)
+            local dir = vim.fs.normalize(item.file)
+            local marker = { '  ' }
+            if dir == cwd then
+                marker = { icons.current .. ' ', 'DiagnosticOk' }
+            elseif rank[dir] then
+                marker = { icons.jumped .. ' ', 'DiagnosticInfo' }
+            end
+            table.insert(ret, 1, marker)
+            return ret
         end,
         confirm = function(picker, item)
             picker:close()
@@ -78,6 +93,11 @@ M.config = function()
     -- NOTE: load a dir-specific session when open nvim, save when exit.
     vim.api.nvim_create_autocmd('VimEnter', {
         callback = function()
+            -- NOTE: on `:restart` Neovim restores its own session; don't also
+            -- autoload here or the two restores collide (E517 on stale bwipe)
+            if vim.v.startreason:match('^restart') then
+                return
+            end
             if vim.fn.argc(-1) == 0 then
                 resession.load(vim.fn.getcwd(), { silence_errors = true })
             end

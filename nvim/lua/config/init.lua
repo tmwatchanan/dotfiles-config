@@ -26,6 +26,10 @@ M.defaults = {
         },
         bento = {
             pinned = '',
+        },
+        resession = {
+            current = '',
+            jumped  = '󰋚',
         }
     },
 }
