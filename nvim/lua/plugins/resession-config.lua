@@ -46,27 +46,22 @@ function M.swap_project()
     end
 end
 
+-- NOTE: one merged picker: jumped projects float to the top in MRU order
+-- (top item is preselected, so `pick + <CR>` also swaps to the last project),
+-- followed by every other project found in the dev directories
 function M.pick_project()
+    local rank = {}
+    for i, dir in ipairs(recent) do
+        rank[dir] = i
+    end
     require('snacks').picker.projects {
-        confirm = function(picker, item)
-            picker:close()
-            if item and item.file then
-                M.switch_project(item.file)
+        projects = vim.deepcopy(recent),
+        transform = function(item)
+            local r = rank[vim.fs.normalize(item.file)]
+            if r then
+                item.score_add = 1000 * (#recent - r + 1)
             end
         end,
-    }
-end
-
-function M.pick_recent()
-    local items = {}
-    for i, dir in ipairs(recent) do
-        items[#items + 1] = { idx = i, score = 0, text = dir, file = dir, dir = true }
-    end
-    require('snacks').picker {
-        title = 'Jumped Projects',
-        items = items,
-        format = 'file',
-        sort = { fields = { 'idx' } },
         confirm = function(picker, item)
             picker:close()
             if item and item.file then
@@ -109,11 +104,10 @@ M.keys = function()
     local resession_keymap = require('config.keymaps').resession
 
     return {
-        { resession_keymap.save,         function() require('resession').save(vim.fn.getcwd()) end },
-        { resession_keymap.delete,       function() require('resession').delete() end },
-        { resession_keymap.pick_project, M.pick_project },
-        { resession_keymap.pick_recent,  M.pick_recent },
-        { resession_keymap.swap,         M.swap_project },
+        { resession_keymap.save,   function() require('resession').save(vim.fn.getcwd()) end },
+        { resession_keymap.delete, function() require('resession').delete() end },
+        { resession_keymap.pick,   M.pick_project },
+        { resession_keymap.swap,   M.swap_project },
     }
 end
 

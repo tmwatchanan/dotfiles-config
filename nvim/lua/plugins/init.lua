@@ -106,6 +106,8 @@ return {
         cond = not vim.g.vscode,
         opts = {
             max_open_buffers = 20,
+            -- NOTE: locked buffers sort to the top, so '1-'5 target stable pinned slots
+            locked_first = true,
             ui = {
                 floating = {
                     max_rendered_buffers = 10,
@@ -113,6 +115,16 @@ return {
             },
             lock_char = require('config').defaults.icons.bento.pinned,
         },
+        keys = function()
+            local bento_keymap = require('config.keymaps').bento
+            local keys = {
+                { bento_keymap.toggle_lock, function() require('bento').toggle_lock() end },
+            }
+            for i = 1, 5 do
+                table.insert(keys, { bento_keymap['select_' .. i], function() require('bento.ui').select_buffer(i) end })
+            end
+            return keys
+        end,
     },
     {
         'saecki/live-rename.nvim',

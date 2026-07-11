@@ -380,11 +380,10 @@ keymaps.ufo = {
 
 -- INFO: resession keymaps
 keymaps.resession = {
-    save         = '<leader>rs',
-    delete       = '<leader>rd',
-    pick_project = '<leader>rp',
-    pick_recent  = '<leader>rj',
-    swap         = '<leader>rr',
+    save   = '<leader>rs',
+    delete = '<leader>rd',
+    pick   = "'p",
+    swap   = "'r",
 }
 
 -- INFO: noice keymaps
@@ -491,17 +490,14 @@ keymaps.undotree = {
     open = '<leader>u',
 }
 
--- INFO: harpoon
-keymaps.harpoon = {
-    toggle_quick_menu = '<leader>`',
-    add_file          = '<leader><leader>`',
-    nav_next          = 'L',
-    nav_prev          = 'H',
-    nav_file_1        = "'1",
-    nav_file_2        = "'2",
-    nav_file_3        = "'3",
-    nav_file_4        = "'4",
-    nav_file_5        = "'5",
+-- INFO: bento keymaps
+keymaps.bento = {
+    toggle_lock = '<leader><leader>`',
+    select_1    = "'1",
+    select_2    = "'2",
+    select_3    = "'3",
+    select_4    = "'4",
+    select_5    = "'5",
 }
 
 -- INFO: flutter-tools
