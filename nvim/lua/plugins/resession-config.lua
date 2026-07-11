@@ -63,6 +63,8 @@ function M.pick_project()
             local r = rank[vim.fs.normalize(item.file)]
             if r then
                 item.score_add = 1000 * (#recent - r + 1)
+                -- NOTE: color the project name to match the jumped marker
+                item.filename_hl = 'DiagnosticInfo'
             end
         end,
         format = function(item, picker)
@@ -70,7 +72,23 @@ function M.pick_project()
             local dir = vim.fs.normalize(item.file)
             local marker = { '  ' }
             if dir == cwd then
-                marker = { icons.current .. ' ', 'DiagnosticOk' }
+                -- NOTE: fade the current project; there is nothing to switch to.
+                -- The path is a deferred cell whose dir/name highlights are
+                -- produced by its resolve() at render time, so wrap that too.
+                marker = { icons.current .. ' ', 'SnacksPickerDimmed' }
+                for _, cell in ipairs(ret) do
+                    cell[2] = 'SnacksPickerDimmed'
+                    local resolve = cell.resolve
+                    if resolve then
+                        cell.resolve = function(...)
+                            local resolved = resolve(...)
+                            for _, c in ipairs(resolved) do
+                                c[2] = 'SnacksPickerDimmed'
+                            end
+                            return resolved
+                        end
+                    end
+                end
             elseif rank[dir] then
                 marker = { icons.jumped .. ' ', 'DiagnosticInfo' }
             end
@@ -78,6 +96,10 @@ function M.pick_project()
             return ret
         end,
         confirm = function(picker, item)
+            -- NOTE: the current project is inert: keep the picker open
+            if item and vim.fs.normalize(item.file) == cwd then
+                return
+            end
             picker:close()
             if item and item.file then
                 M.switch_project(item.file)
