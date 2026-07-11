@@ -382,7 +382,7 @@ keymaps.ufo = {
 keymaps.resession = {
     save   = '<leader>rs',
     delete = '<leader>rd',
-    pick   = "'p",
+    pick   = "';",
     swap   = "''",
 }
 
@@ -492,12 +492,7 @@ keymaps.undotree = {
 
 -- INFO: bento keymaps
 keymaps.bento = {
-    toggle_lock = '<leader><leader>`',
-    select_1    = "'1",
-    select_2    = "'2",
-    select_3    = "'3",
-    select_4    = "'4",
-    select_5    = "'5",
+    toggle_lock = '<M-l>',
 }
 
 -- INFO: flutter-tools
