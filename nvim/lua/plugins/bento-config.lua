@@ -55,6 +55,8 @@ M.config = function(_, opts)
         end
     end
 
+    local lock_key = require('config.keymaps').bento.toggle_lock_current
+
     local bound = false
     local function unbind_position_keys()
         if not bound then
@@ -64,6 +66,7 @@ M.config = function(_, opts)
         for i = 1, HINTS do
             pcall(vim.keymap.del, 'n', tostring(i))
         end
+        pcall(vim.keymap.del, 'n', lock_key)
     end
     local function bind_position_keys()
         if bound then
@@ -76,6 +79,12 @@ M.config = function(_, opts)
                 unbind_position_keys()
             end, { silent = true, desc = 'Bento slot ' .. i })
         end
+        -- NOTE: locks the buffer being edited (the menu float never has focus),
+        -- keeping the menu open so the pin lands visibly in the top slots
+        vim.keymap.set('n', lock_key, function()
+            require('bento').toggle_lock()
+            require('bento.ui').refresh_menu()
+        end, { silent = true, desc = 'Bento: lock current buffer' })
     end
 
     -- NOTE: select_buffer(n) targets absolute list positions, so the hints
@@ -139,14 +148,6 @@ M.config = function(_, opts)
             sync()
         end
     end
-end
-
-M.keys = function()
-    local bento_keymap = require('config.keymaps').bento
-
-    return {
-        { bento_keymap.toggle_lock, function() require('bento').toggle_lock() end },
-    }
 end
 
 return M

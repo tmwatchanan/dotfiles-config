@@ -492,7 +492,7 @@ keymaps.undotree = {
 
 -- INFO: bento keymaps
 keymaps.bento = {
-    toggle_lock = '<M-l>',
+    toggle_lock_current = '`',
 }
 
 -- INFO: flutter-tools
