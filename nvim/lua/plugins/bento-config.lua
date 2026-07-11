@@ -20,10 +20,14 @@ M.config = function(_, opts)
     require('bento').setup(opts)
 
     -- NOTE: position jump inside the expanded menu: `;` then 1-5 selects the
-    -- buffer at that list position. Bento binds its labels as temporary
-    -- global maps only while the menu is expanded; mirror that lifecycle
-    -- for the number keys by wrapping the menu state transitions.
+    -- buffer at that list position, with a `(n)` hint rendered in the left
+    -- padding of the first five rows. Bento binds its labels as temporary
+    -- global maps only while the menu is expanded; mirror that lifecycle by
+    -- wrapping the menu state transitions.
     local ui = require('bento.ui')
+    local ns = vim.api.nvim_create_namespace('bento_position_hints')
+    local HINTS = 5
+    local HINT_WIDTH = 4 -- strwidth of '(n) '
 
     -- NOTE: an expanded menu is detected through bento's own temporary label
     -- maps (desc "Bento: Select buffer N") since its menu buffer carries no
@@ -37,22 +41,36 @@ M.config = function(_, opts)
         return false
     end
 
+    -- NOTE: the menu float is recognized by the winhighlight bento sets on it
+    local function find_menu()
+        local expected = 'Normal:' .. require('bento').get_config().highlights.window_bg
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+            local cfg = vim.api.nvim_win_get_config(win)
+            if cfg.relative ~= '' and not cfg.focusable then
+                local buf = vim.api.nvim_win_get_buf(win)
+                if vim.bo[buf].buftype == 'nofile' and vim.wo[win].winhighlight == expected then
+                    return win, buf
+                end
+            end
+        end
+    end
+
     local bound = false
     local function unbind_position_keys()
         if not bound then
             return
         end
         bound = false
-        for i = 1, 5 do
+        for i = 1, HINTS do
             pcall(vim.keymap.del, 'n', tostring(i))
         end
     end
     local function bind_position_keys()
-        if bound or not menu_is_expanded() then
+        if bound then
             return
         end
         bound = true
-        for i = 1, 5 do
+        for i = 1, HINTS do
             vim.keymap.set('n', tostring(i), function()
                 require('bento.ui').select_buffer(i)
                 unbind_position_keys()
@@ -60,18 +78,66 @@ M.config = function(_, opts)
         end
     end
 
-    local expand_menu, collapse_menu, close_menu = ui.expand_menu, ui.collapse_menu, ui.close_menu
-    ui.expand_menu = function(...)
-        expand_menu(...)
-        bind_position_keys()
+    -- NOTE: select_buffer(n) targets absolute list positions, so the hints
+    -- are only valid (and shown) on the first page
+    local page = 1
+    local function decorate()
+        local win, buf = find_menu()
+        if not buf then
+            return
+        end
+        vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+        if page ~= 1 then
+            return
+        end
+        local lines = vim.api.nvim_buf_line_count(buf)
+        for i = 1, lines do
+            local hint = i <= HINTS and ('(%d) '):format(i) or string.rep(' ', HINT_WIDTH)
+            vim.api.nvim_buf_set_extmark(buf, ns, i - 1, 0, {
+                virt_text = { { hint, i <= HINTS and 'Comment' or 'Normal' } },
+                virt_text_pos = 'inline',
+            })
+        end
+        -- widen the float for the hint column, keeping the right edge fixed
+        local cfg = vim.api.nvim_win_get_config(win)
+        pcall(vim.api.nvim_win_set_config, win, {
+            relative = 'editor',
+            width = cfg.width + HINT_WIDTH,
+            height = cfg.height,
+            row = cfg.row,
+            col = math.max(cfg.col - HINT_WIDTH, 0),
+        })
     end
-    ui.collapse_menu = function(...)
-        collapse_menu(...)
-        unbind_position_keys()
+
+    local function sync()
+        if menu_is_expanded() then
+            bind_position_keys()
+            decorate()
+        else
+            unbind_position_keys()
+        end
     end
-    ui.close_menu = function(...)
-        close_menu(...)
-        unbind_position_keys()
+
+    local page_hooks = {
+        expand_menu = function() page = 1 end,
+        collapse_menu = function() page = 1 end,
+        close_menu = function() page = 1 end,
+        next_page = function() page = page + 1 end,
+        prev_page = function() page = math.max(page - 1, 1) end,
+    }
+    local transitions = {
+        'expand_menu', 'collapse_menu', 'close_menu', 'refresh_menu',
+        'set_action_mode', 'handle_main_keymap', 'next_page', 'prev_page',
+    }
+    for _, name in ipairs(transitions) do
+        local orig, on_call = ui[name], page_hooks[name]
+        ui[name] = function(...)
+            orig(...)
+            if on_call then
+                on_call()
+            end
+            sync()
+        end
     end
 end
 
