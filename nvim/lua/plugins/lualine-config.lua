@@ -211,9 +211,27 @@ M.opts = function()
         cond = conditions.is_python_file,
     }
 
+    -- nightfox's generated lualine theme only defines section `c` for normal/inactive.
+    -- navic's dynamic color-correction (below) reads lualine_c_<mode> bg to blend the
+    -- breadcrumb into the bar; when a mode has no `c` entry that highlight group is never
+    -- created, so in command/insert/visual/replace/terminal the breadcrumb bg falls back
+    -- to None and stops blending. Resolve the theme here (at VimEnter, once the theme
+    -- module is on the rtp) and mirror normal.c into every mode so the group always exists.
+    local theme = require('plugins.colorscheme').lualine
+    if type(theme) == 'string' then
+        local ok, resolved = pcall(require, 'lualine.themes.' .. theme)
+        if ok then
+            for _, m in ipairs({ 'insert', 'visual', 'replace', 'command', 'terminal' }) do
+                resolved[m] = resolved[m] or {}
+                resolved[m].c = resolved[m].c or resolved.normal.c
+            end
+            theme = resolved
+        end
+    end
+
     return {
         options = {
-            theme = require('plugins.colorscheme').lualine,
+            theme = theme,
             icons_enabled = true,
             section_separators = ' ',
             component_separators = ' ',
