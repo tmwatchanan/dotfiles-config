@@ -14,6 +14,26 @@ M.opts = {
         }
     },
     lock_char = require('config').defaults.icons.bento.pinned,
+    actions = {
+        -- NOTE: bento's built-in delete ends with ui.render_expanded(), which
+        -- the ui module never exports, so every delete errors after deleting
+        -- and leaves the menu stale (the next press hands a dead buffer id to
+        -- nvim_buf_delete: "Invalid buffer id"). Override it until fixed
+        -- upstream; snacks.bufdelete also preserves the window layout and
+        -- prompts on unsaved changes. The refresh is scheduled so it runs
+        -- after BufDelete completes, when the pruning sees the buffer gone.
+        delete = {
+            key = '<BS>',
+            action = function(buf_id, _)
+                if vim.api.nvim_buf_is_valid(buf_id) then
+                    require('snacks').bufdelete.delete({ buf = buf_id })
+                end
+                vim.schedule(function()
+                    require('bento.ui').refresh_menu()
+                end)
+            end,
+        },
+    },
 }
 
 M.config = function(_, opts)
