@@ -34,7 +34,6 @@ return {
         '%.zip',
         '*.git/*',
         '*/tmp/*',
-        '.dart_tool/',
         '.DS_Store',
         '.git/',
         '.github/',

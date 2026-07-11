@@ -495,20 +495,6 @@ keymaps.bento = {
     toggle_lock_current = '`',
 }
 
--- INFO: flutter-tools
-keymaps.flutter_tools = {
-    run            = '<leader>fT',
-    quit           = '<leader>ftq',
-    devices        = '<leader>ftd',
-    detach         = '<leader>ftx',
-    emulators      = '<leader>fte',
-    reload         = '<leader>ftr',
-    restart        = '<leader>ftR',
-    rename         = '<leader>ftc',
-    outline_toggle = '<leader>fto',
-    visual_debug   = '<leader>ftv',
-}
-
 -- INFO: zen-mode
 keymaps.zen_mode = {
     toggle                = '<leader>Z<leader>',
