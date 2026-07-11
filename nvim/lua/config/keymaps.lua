@@ -380,8 +380,11 @@ keymaps.ufo = {
 
 -- INFO: resession keymaps
 keymaps.resession = {
-    save   = '<leader>rs',
-    delete = '<leader>rd',
+    save         = '<leader>rs',
+    delete       = '<leader>rd',
+    pick_project = '<leader>rp',
+    pick_recent  = '<leader>rj',
+    swap         = '<leader>rr',
 }
 
 -- INFO: noice keymaps
