@@ -88,7 +88,10 @@ end
 
 M.config = function()
     local resession = require('resession')
-    resession.setup {}
+    resession.setup {
+        -- NOTE: persists bento lock state, see lua/resession/extensions/bento.lua
+        extensions = { bento = {} },
+    }
 
     -- NOTE: load a dir-specific session when open nvim, save when exit.
     vim.api.nvim_create_autocmd('VimEnter', {
