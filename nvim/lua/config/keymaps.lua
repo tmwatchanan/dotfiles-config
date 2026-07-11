@@ -383,7 +383,7 @@ keymaps.resession = {
     save   = '<leader>rs',
     delete = '<leader>rd',
     pick   = "'p",
-    swap   = "'r",
+    swap   = "''",
 }
 
 -- INFO: noice keymaps
