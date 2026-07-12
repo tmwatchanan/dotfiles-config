@@ -1,6 +1,5 @@
 local M = {
     'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
     dependencies = {
         'nvim-lua/plenary.nvim',
         'nvim-tree/nvim-web-devicons',
@@ -14,6 +13,15 @@ local M = {
 M.opts = {
     window = {
         position = 'right',
+        mappings = {
+            -- Copy the absolute file path to the system clipboard
+            ['Y'] = function(state)
+                local node = state.tree:get_node()
+                local path = node:get_id()
+                vim.fn.setreg('+', path)
+                vim.notify('Copied path: ' .. path)
+            end,
+        },
     },
     filesystem = {
         follow_current_file = {
