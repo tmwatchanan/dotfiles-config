@@ -15,7 +15,10 @@ mason_module.config = function()
     local load_local_settings = function(path, server_name)
         vim.validate('path', path, 'string')
 
-        local fname = string.format('%s/%s.json', path, server_name)
+        -- NOTE: search upward from cwd so opening nvim in a subdirectory still finds it
+        local fname = vim.fs.find(server_name .. '.json', { path = path, upward = true, stop = vim.uv.os_homedir() })[1]
+        if not fname then return nil end
+
         local ok, result = pcall(vim.fn.readfile, fname)
         if not ok or type(result) ~= 'table' or #result == 0 then return nil end
 
@@ -43,13 +46,31 @@ mason_module.config = function()
         :map(function(file) return vim.fn.fnamemodify(file, ':t:r') end)
         :totable()
 
-    for _, lsp_name in ipairs(server_names) do
-        -- NOTE: check local config if available and injected before lsp enabled
-        local user_local_config = load_local_settings(vim.uv.cwd(), lsp_name)
-        if user_local_config then
-            vim.lsp.config(lsp_name, user_local_config)
+    local apply_local_settings = function()
+        for _, lsp_name in ipairs(server_names) do
+            -- NOTE: check local config if available and injected before lsp enabled
+            local user_local_config = load_local_settings(vim.uv.cwd(), lsp_name)
+            if user_local_config then
+                vim.lsp.config(lsp_name, user_local_config)
+
+                -- NOTE: push settings into already-running clients (e.g. after a session/cwd switch)
+                if user_local_config.settings then
+                    for _, client in ipairs(vim.lsp.get_clients { name = lsp_name }) do
+                        client.settings = vim.tbl_deep_extend('force', client.settings or {}, user_local_config.settings)
+                        client:notify('workspace/didChangeConfiguration', { settings = client.settings })
+                    end
+                end
+            end
         end
     end
+
+    apply_local_settings()
+
+    -- NOTE: re-apply when cwd changes (e.g. resession restoring another project's session)
+    vim.api.nvim_create_autocmd('DirChanged', {
+        group = vim.api.nvim_create_augroup('LspLocalSettings', {}),
+        callback = apply_local_settings,
+    })
 
     -- NOTE: automatically setup lsp from default config installed via mason.nvim
     require('mason-lspconfig').setup {
