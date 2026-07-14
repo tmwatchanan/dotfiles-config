@@ -6,7 +6,7 @@ local M = {
 M.opts = {
     patterns = {
         {
-            file_pattern = { '.env*', '.netrc' },
+            file_pattern = { '.env*', '*.env', '.netrc' },
             cloak_pattern = {
                 -- NOTE: `.env*`
                 -- '=.+',

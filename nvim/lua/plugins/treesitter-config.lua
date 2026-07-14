@@ -32,6 +32,7 @@ M.config = function()
     -- NOTE: extra parser register if filetype not matched
     -- vim.treesitter.language.register('ini', { 'dosini', 'confini' }) -- supported
     vim.treesitter.language.register('jsonc', 'json')
+    vim.treesitter.language.register('properties', 'env') -- KEY=value grammar; bash chokes on `<placeholder>` values
 
     local installing = {}
     local lang_cache = {} -- filetype -> language | false
