@@ -36,6 +36,7 @@ M.opts = {
         preview_split = 'right',
     },
     preview_win = {
+        preview_method = 'scratch',
         win_options = {
             winhighlight = 'Normal:OilPreviewNormal,FloatBorder:OilPreviewBorder,FloatTitle:OilPreviewTitle',
         },
