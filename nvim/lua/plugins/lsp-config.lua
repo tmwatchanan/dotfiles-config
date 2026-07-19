@@ -41,9 +41,16 @@ mason_module.config = function()
     -- INFO: global default capabilities for all servers
     vim.lsp.config('*', { capabilities = vim.lsp.protocol.make_client_capabilities() })
 
+    -- INFO: personal opt-out list; keeps upstream after/lsp/*.lua intact but skips these servers
+    local ok_disabled, disabled_servers = pcall(require, 'config.lsp-ignore')
+    if not ok_disabled or type(disabled_servers) ~= 'table' then disabled_servers = {} end
+    local is_disabled = {}
+    for _, name in ipairs(disabled_servers) do is_disabled[name] = true end
+
     -- INFO: load LSP configurations from individual files in ~/.config/nvim/lsp directory
     local server_names = vim.iter(vim.api.nvim_get_runtime_file('after/lsp/*.lua', true))
         :map(function(file) return vim.fn.fnamemodify(file, ':t:r') end)
+        :filter(function(name) return not is_disabled[name] end)
         :totable()
 
     local apply_local_settings = function()
@@ -75,7 +82,7 @@ mason_module.config = function()
     -- NOTE: automatically setup lsp from default config installed via mason.nvim
     require('mason-lspconfig').setup {
         ensure_installed = server_names,
-        automatic_enable = true,
+        automatic_enable = { exclude = disabled_servers },
     }
 end
 
