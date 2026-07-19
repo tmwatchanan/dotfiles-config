@@ -1,9 +1,13 @@
 # font config
+font-family = UDEV Gothic NFLG
 font-family = Maple Mono NF
-font-family = Sukhumvit Set
-font-size = 14
+font-family = JuliaMono
+font-size = 18
+# wezterm line_height = 0.75
+# NOTE: Thai rendering is broken regardless (ghostty-org/ghostty#5637) — marks
+# drift/gap because ghostty can't shape Indic-derived scripts; use wezterm for Thai
+adjust-cell-height = -25%
 # font-thicken = true
-adjust-cell-height = 8%
 # alpha-blending = linear-corrected
 
 # cursor config
@@ -13,28 +17,33 @@ mouse-hide-while-typing = true
 copy-on-select = clipboard
 shell-integration-features = cursor
 cursor-style = block
+# wezterm force_reverse_video_cursor
+cursor-invert-fg-bg = true
 
 # macos icon
 macos-icon = blueprint
 
-# colorscheme
-theme = oxocarbon
-background-opacity = 0.80
-background-blur-radius = 20
+# colorscheme — Rosé Pine ported from wezterm (themes/rose-pine)
+theme = rose-pine
+background-opacity = 0.93
+background-blur-radius = 50
 bold-is-bright = true
 
-# window config
+# window config — wezterm: window_decorations = RESIZE, no tab bar
 macos-titlebar-style = hidden
-window-padding-balance = true
-window-padding-x = 8
-window-padding-y = 4
+# wezterm window_padding: left 0.5cell / right 0 / top 0.3cell / bottom 0
+window-padding-x = 5,0
+window-padding-y = 4,0
+window-padding-balance = false
 
 # quick terminal config
 quick-terminal-space-behavior = remain
 quick-terminal-screen = macos-menu-bar
 
 # input config
+# both Option keys as Alt, matching wezterm send_composed_key_when_*_alt = false
 macos-option-as-alt = true
+# (kitty keyboard protocol is supported natively by ghostty — no toggle needed)
 
 # loads keybinding
 config-file = ?keybinding
