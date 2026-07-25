@@ -7,6 +7,9 @@ vim.filetype.add({
     },
     filename = {
         ['.env'] = 'env',
+        -- `conf` has no treesitter parser; dosini maps to `ini`, which parses
+        -- rclone's `[remote]` + `key = value` layout
+        ['rclone.conf'] = 'dosini',
     },
     pattern = {
         ['%.env%.[%w_.-]+'] = { 'env', { priority = 10 } },
