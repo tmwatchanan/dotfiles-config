@@ -18,6 +18,18 @@ M.opts = {
                 { '(password) (.+)', replace = '%1 ' },
             },
         },
+        {
+            -- rclone keys are lowercase and padded (`key = value`); cloak.nvim
+            -- matches with Lua patterns, so they need their own entry
+            file_pattern = 'rclone.conf',
+            cloak_pattern = {
+                { '(.*key.*=%s*)(.+)',    replace = '%1' },
+                { '(.*secret.*=%s*)(.+)', replace = '%1' },
+                { '(.*pass.*=%s*)(.+)',   replace = '%1' },
+                { '(.*token.*=%s*)(.+)',  replace = '%1' },
+                { '(.*cred.*=%s*)(.+)',   replace = '%1' },
+            },
+        },
     },
 }
 
