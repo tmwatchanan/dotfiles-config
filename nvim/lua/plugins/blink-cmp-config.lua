@@ -1,6 +1,9 @@
 local M = {
     'saghen/blink.cmp',
     build = function()
+        -- blink stamps the built lib with the git commit read at require time,
+        -- so evict the cached module or in-session updates stamp a stale hash
+        package.loaded['blink.cmp'] = nil
         require('blink.cmp').build():pwait()
         require('blink_linkedit_fix')('blink.cmp')
     end,
