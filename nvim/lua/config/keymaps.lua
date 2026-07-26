@@ -232,6 +232,7 @@ end
 -- INFO: LSP keymap
 keymaps.lsp = {
     definitions         = { key = 'gd', cmd = function() require 'snacks'.picker.lsp_definitions() end },
+    declarations        = { key = 'gD', cmd = function() require 'snacks'.picker.lsp_declarations() end },
     type_definitions    = { key = 'gt', cmd = function() require 'snacks'.picker.lsp_type_definitions() end },
     reference           = { key = 'gr', cmd = function() require 'snacks'.picker.lsp_references() end },
     implementation      = { key = 'gi', cmd = function() require 'snacks'.picker.lsp_implementations() end },
