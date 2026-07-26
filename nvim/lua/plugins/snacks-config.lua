@@ -224,6 +224,30 @@ M.keys = function()
         return nil
     end
 
+    -- yazi exits once a file is chosen, so hand it a chooser file and open the
+    -- selection when the float tears down. The path is fixed (not tempname) to keep
+    -- snacks' terminal id stable across toggles; truncate it first so a selection
+    -- from a previous run can't be replayed.
+    local yazi_chooser = vim.fs.joinpath(vim.fn.stdpath('cache'), 'yazi-chooser')
+    local function yazi_toggle()
+        vim.fn.writefile({}, yazi_chooser)
+        local file = vim.fn.expand('%:p')
+        local entry = vim.fn.filereadable(file) == 1 and file or (vim.uv.cwd() or '.')
+        snacks.terminal.toggle({ 'yazi', entry, '--chooser-file', yazi_chooser }, {
+            win = {
+                on_close = function()
+                    local chosen = vim.fn.filereadable(yazi_chooser) == 1 and vim.fn.readfile(yazi_chooser) or {}
+                    vim.fn.writefile({}, yazi_chooser)
+                    vim.schedule(function()
+                        for _, path in ipairs(chosen) do
+                            if path ~= '' then vim.cmd.edit(vim.fn.fnameescape(path)) end
+                        end
+                    end)
+                end,
+            },
+        })
+    end
+
     -- INFO: only mapped toggle key for no cmd terminal
     local terminal_toggle_opts = {
         win = {
@@ -302,6 +326,7 @@ M.keys = function()
         },
         { terminal_keymap.lazygit,              function() snacks.terminal.toggle({ 'lazygit' }, lazygit_opts()) end },
         { terminal_keymap.lazygit_file_history, function() snacks.terminal.toggle({ 'lazygit', '-f', vim.fn.expand('%') }, lazygit_opts()) end },
+        { terminal_keymap.yazi,                 yazi_toggle },
 
         { keymaps.gitbrowse,                    function() snacks.gitbrowse() end,                                    desc = 'Snacks: Git Browse',    mode = { 'n', 'v' } },
         { keymaps.git_blame_line,               function() snacks.git.blame_line() end,                               desc = 'Snacks: Git Blame Line' },
