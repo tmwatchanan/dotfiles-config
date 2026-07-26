@@ -7,7 +7,9 @@ local mason_module = {
         { 'mason-org/mason.nvim', opts = { ui = { border = 'solid' }, pip = { upgrade_pip = true } } },
         { 'neovim/nvim-lspconfig' }
     },
-    event = 'BufEnter',
+    -- NOTE: BufEnter is too late — `vim.lsp.enable` only hooks FileType, which
+    -- already fired for files passed as argv (`nvim foo.py`, yazi's `e`)
+    event = { 'BufReadPre', 'BufNewFile' },
     cond = not vim.g.vscode,
 }
 
