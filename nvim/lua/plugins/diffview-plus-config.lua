@@ -1,7 +1,11 @@
+-- Actively maintained fork of sindrets/diffview.nvim (upstream last moved 2024-06).
+-- Drop-in: same `:Diffview*` commands and `require('diffview')` module path.
 local M = {
-    'sindrets/diffview.nvim',
-    event = 'VeryLazy',
-    cmd = 'DiffviewOpen',
+    'dlyongemallo/diffview-plus.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    -- repo name no longer matches the lua module, so `opts` would be dropped silently
+    main = 'diffview',
+    cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewFileHistory', 'DiffviewToggleFiles', 'DiffviewDiffFiles' },
     cond = not vim.g.vscode,
 }
 
