@@ -27,6 +27,72 @@ M.opts = function()
         '__tests__',
     }
 
+    local gitmodules_cache = {}
+
+    ---@return string[] submodule paths, relative to `root`
+    local function submodule_paths(root)
+        local file = vim.fs.joinpath(root, '.gitmodules')
+        local stat = vim.uv.fs_stat(file)
+        if not stat then return {} end
+
+        local cached = gitmodules_cache[root]
+        if cached and cached.mtime == stat.mtime.sec then return cached.paths end
+
+        local paths = {}
+        for _, line in ipairs(vim.fn.readfile(file)) do
+            local path = line:match('^%s*path%s*=%s*(.-)%s*$')
+            if path then paths[#paths + 1] = path end
+        end
+
+        gitmodules_cache[root] = { mtime = stat.mtime.sec, paths = paths }
+        return paths
+    end
+
+    -- Submodules hold pinned, externally-owned code that swamps a search (~1.2k of
+    -- the 1.6k files in a ranker-v2 worktree). `.gitmodules` is tracked, so reading
+    -- it covers every worktree and every other repo without per-project config.
+    local function submodule_globs(cwd)
+        local root = vim.fs.root(cwd, '.gitmodules')
+        if not root then return {} end
+
+        local globs = {}
+        for _, path in ipairs(submodule_paths(root)) do
+            -- nil when the submodule sits outside cwd, where rg/fd never look anyway,
+            -- and '.' when cwd *is* the submodule, which is a deliberate search of it
+            local rel = vim.fs.relpath(cwd, vim.fs.joinpath(root, path))
+            if rel and rel ~= '.' then globs[#globs + 1] = rel end
+        end
+        return globs
+    end
+
+    local exclude_groups = {
+        exclude_tests = function() return test_globs end,
+        exclude_submodules = submodule_globs,
+    }
+
+    -- Snacks applies `config` once per config layer, so this runs several times per
+    -- picker open: rebuild from the untouched snapshot rather than appending.
+    local function apply_excludes(opts)
+        opts.exclude_base = opts.exclude_base or opts.exclude or {}
+
+        local cwd = opts.cwd or vim.uv.cwd()
+        local exclude = vim.list_slice(opts.exclude_base)
+        for name, globs in pairs(exclude_groups) do
+            if opts[name] then vim.list_extend(exclude, globs(cwd)) end
+        end
+        opts.exclude = exclude
+
+        return opts
+    end
+
+    local function toggle_exclude(picker, name)
+        picker.opts[name] = not picker.opts[name]
+        apply_excludes(picker.opts)
+
+        picker.list:set_target()
+        picker:find()
+    end
+
     local fullscreen_layout = {
         layout = {
             box = 'vertical',
@@ -76,23 +142,23 @@ M.opts = function()
                     unselected = '  ',
                 }
             },
+            exclude_submodules = true,
+            config = apply_excludes,
+            -- each flag marks the state that deviates from the default, so a plain
+            -- title means tests included and submodules excluded
             toggles = {
                 exclude_tests = 'T',
+                exclude_submodules = { icon = 'S', value = false },
             },
             actions = {
                 -- snacks auto-generates `toggle_<name>` for every entry in
                 -- `toggles`, but those only flip the boolean; `exclude` has to be
                 -- rebuilt from the source's own excludes for the finder to see it.
                 toggle_test_files = function(picker)
-                    local base = picker.opts.exclude_base or picker.opts.exclude or {}
-                    picker.opts.exclude_base = base
-                    picker.opts.exclude_tests = not picker.opts.exclude_tests
-                    picker.opts.exclude = picker.opts.exclude_tests
-                        and vim.list_extend(vim.list_slice(base), test_globs)
-                        or base
-
-                    picker.list:set_target()
-                    picker:find()
+                    toggle_exclude(picker, 'exclude_tests')
+                end,
+                toggle_submodule_files = function(picker)
+                    toggle_exclude(picker, 'exclude_submodules')
                 end,
                 send_to_qflist = function(picker)
                     picker:close()
@@ -128,6 +194,7 @@ M.opts = function()
                         [picker_keymap.action_select_all] = { 'select_all', mode = { 'i', 'n' } },
                         [picker_keymap.action_send_to_qflist] = { 'send_to_qflist', mode = { 'i', 'n' } },
                         [picker_keymap.action_toggle_tests] = { 'toggle_test_files', mode = { 'i', 'n' } },
+                        [picker_keymap.action_toggle_submodules] = { 'toggle_submodule_files', mode = { 'i', 'n' } },
                     }
                 },
                 list = {
@@ -138,6 +205,7 @@ M.opts = function()
                         [picker_keymap.action_select_all] = 'select_all',
                         [picker_keymap.action_send_to_qflist] = 'send_to_qflist',
                         [picker_keymap.action_toggle_tests] = 'toggle_test_files',
+                        [picker_keymap.action_toggle_submodules] = 'toggle_submodule_files',
                     }
                 }
             }
