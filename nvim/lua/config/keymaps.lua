@@ -336,6 +336,7 @@ keymaps.snacks = {
         action_send_to_qflist = '<C-q>',
         action_scroll_up      = '<C-u>',
         action_scroll_down    = '<C-d>',
+        action_toggle_tests   = '<m-t>',
     },
     bufdelete      = {
         delete = '<leader>wQ',

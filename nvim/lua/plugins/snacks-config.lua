@@ -13,6 +13,20 @@ M.opts = function()
 
     local upad = { '', '', '', ' ', ' ', ' ', ' ', ' ' }
 
+    -- gitignore-style globs, so slash-free patterns match at any depth. Fed to
+    -- `rg -g !<glob>` (grep) and `fd --exclude` (files), i.e. filtered at the
+    -- source instead of after the fact, keeping the picker counts honest.
+    local test_globs = {
+        'test_*',
+        '*_test.*',
+        '*.test.*',
+        '*.spec.*',
+        'conftest.py',
+        'test',
+        'tests',
+        '__tests__',
+    }
+
     local fullscreen_layout = {
         layout = {
             box = 'vertical',
@@ -62,7 +76,24 @@ M.opts = function()
                     unselected = '  ',
                 }
             },
+            toggles = {
+                exclude_tests = 'T',
+            },
             actions = {
+                -- snacks auto-generates `toggle_<name>` for every entry in
+                -- `toggles`, but those only flip the boolean; `exclude` has to be
+                -- rebuilt from the source's own excludes for the finder to see it.
+                toggle_test_files = function(picker)
+                    local base = picker.opts.exclude_base or picker.opts.exclude or {}
+                    picker.opts.exclude_base = base
+                    picker.opts.exclude_tests = not picker.opts.exclude_tests
+                    picker.opts.exclude = picker.opts.exclude_tests
+                        and vim.list_extend(vim.list_slice(base), test_globs)
+                        or base
+
+                    picker.list:set_target()
+                    picker:find()
+                end,
                 send_to_qflist = function(picker)
                     picker:close()
 
@@ -96,6 +127,7 @@ M.opts = function()
                         [picker_keymap.action_focus_preview] = { 'focus_preview', mode = { 'i', 'n' } },
                         [picker_keymap.action_select_all] = { 'select_all', mode = { 'i', 'n' } },
                         [picker_keymap.action_send_to_qflist] = { 'send_to_qflist', mode = { 'i', 'n' } },
+                        [picker_keymap.action_toggle_tests] = { 'toggle_test_files', mode = { 'i', 'n' } },
                     }
                 },
                 list = {
@@ -105,6 +137,7 @@ M.opts = function()
                         [picker_keymap.action_focus_preview] = 'focus_preview',
                         [picker_keymap.action_select_all] = 'select_all',
                         [picker_keymap.action_send_to_qflist] = 'send_to_qflist',
+                        [picker_keymap.action_toggle_tests] = 'toggle_test_files',
                     }
                 }
             }
