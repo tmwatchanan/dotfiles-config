@@ -7,6 +7,7 @@ local M = {}
 --- tree as the left side instead.
 function M.codediff_commit()
     require('snacks').picker.git_log({
+        cmd_args = { '--abbrev=8' },
         confirm = function(picker, item)
             picker:close()
             if not item then return end
