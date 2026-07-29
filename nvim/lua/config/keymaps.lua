@@ -479,14 +479,14 @@ keymaps.swenv = {
     pick = '<leader>pe',
 }
 
--- INFO: diffview
-keymaps.diffview = {
+-- INFO: codediff
+keymaps.codediff = {
     open          = '<leader>dv',
-    close         = '<leader>dc',
     current_file  = '<leader>df',
     file_history  = '<leader>dF',
     toggle_files  = '<leader>dt',
     compare_head  = '<leader>dh',
+    commit        = '<leader>dc',
     review_branch = '<leader>dr',
     merge_request = '<leader>dmr',
 }
