@@ -142,12 +142,13 @@ M.opts = function()
                     unselected = '  ',
                 }
             },
+            exclude_tests = true,
             exclude_submodules = true,
             config = apply_excludes,
             -- each flag marks the state that deviates from the default, so a plain
-            -- title means tests included and submodules excluded
+            -- title means both tests and submodules excluded
             toggles = {
-                exclude_tests = 'T',
+                exclude_tests = { icon = 'T', value = false },
                 exclude_submodules = { icon = 'S', value = false },
             },
             actions = {
