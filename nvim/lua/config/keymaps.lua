@@ -484,11 +484,15 @@ keymaps.codediff = {
     open          = '<leader>dv',
     current_file  = '<leader>df',
     file_history  = '<leader>dF',
+    -- codediff scopes its view keymaps to session buffers, so `toggle_files`
+    -- shadows `mark` inside a diff and leaves it free everywhere else
     toggle_files  = '<leader>dt',
     compare_head  = '<leader>dh',
     commit        = '<leader>dc',
     review_branch = '<leader>dr',
     merge_request = '<leader>dmr',
+    mark          = '<leader>dt',
+    compare_mark  = '<leader>dT',
 }
 
 -- INFO: undotree
