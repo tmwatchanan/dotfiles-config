@@ -6,6 +6,14 @@
 /zed
 /wezterm
 
+# owned by ~/dev/dotfiles (newer copies live there)
+/aerospace
+/git
+/herdr
+
+# absolute symlink from another machine; stow aborts on it
+/Claude
+
 .gitconfig
 config-installer.sh
 starship.toml
