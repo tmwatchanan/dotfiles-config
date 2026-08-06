@@ -57,6 +57,16 @@ M.opts = {
             end,
             desc = 'Reveal directory'
         },
+        [require('config.keymaps').oil.grep_dir] = {
+            callback = function()
+                local pickers = require('config.pickers')
+                local dir = pickers.oil_dir() -- read before close: needs the oil buffer
+
+                require('oil').close()
+                pickers.grep_in(dir)
+            end,
+            desc = 'Grep in directory'
+        },
 
         -- close
         ['<Esc>'] =  'actions.close',

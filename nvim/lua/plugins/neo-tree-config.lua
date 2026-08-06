@@ -21,6 +21,10 @@ M.opts = {
                 vim.fn.setreg('+', path)
                 vim.notify('Copied path: ' .. path)
             end,
+            [require('config.keymaps').neotree.grep_dir] = function(state)
+                local pickers = require('config.pickers')
+                pickers.grep_in(pickers.neotree_dir(state))
+            end,
         },
     },
     filesystem = {

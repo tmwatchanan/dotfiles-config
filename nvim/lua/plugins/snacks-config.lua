@@ -131,6 +131,37 @@ M.opts = function()
                 files = { hidden = true },
                 select = { layout = select_layout },
                 help = { confirm = 'vsplit' },
+                -- fd's own `--type d`, since the built-in `files` source pins
+                -- itself to `--type f --type l`; picking an entry greps inside it
+                dirs = {
+                    format = 'file',
+                    hidden = true,
+                    preview = false,
+                    finder = function(opts, ctx)
+                        local cwd = vim.fs.normalize(opts.cwd or vim.uv.cwd() or '.')
+                        local args = { '--type', 'd', '--color', 'never', '--exclude', '.git' }
+                        if opts.hidden then args[#args + 1] = '--hidden' end
+                        for _, e in ipairs(opts.exclude or {}) do
+                            vim.list_extend(args, { '--exclude', e })
+                        end
+
+                        return require('snacks.picker.source.proc').proc(ctx:opts({
+                            cmd = 'fd',
+                            args = args,
+                            transform = function(item)
+                                item.cwd = cwd
+                                item.file = item.text
+                                item.dir = true
+                            end,
+                        }), ctx)
+                    end,
+                    confirm = function(picker, item)
+                        picker:close()
+                        if item then
+                            require('config.pickers').grep_in(require('snacks').picker.util.path(item))
+                        end
+                    end,
+                },
             },
             formatters = {
                 file = { filename_first = false },
@@ -160,6 +191,14 @@ M.opts = function()
                 end,
                 toggle_submodule_files = function(picker)
                     toggle_exclude(picker, 'exclude_submodules')
+                end,
+                narrow_to_dir = function(picker, item)
+                    if not item then return end
+
+                    local dir = require('snacks').picker.util.dir(item)
+                    local search = picker.input.filter.search
+                    picker:close()
+                    require('config.pickers').grep_in(dir, search)
                 end,
                 send_to_qflist = function(picker)
                     picker:close()
@@ -196,6 +235,7 @@ M.opts = function()
                         [picker_keymap.action_send_to_qflist] = { 'send_to_qflist', mode = { 'i', 'n' } },
                         [picker_keymap.action_toggle_tests] = { 'toggle_test_files', mode = { 'i', 'n' } },
                         [picker_keymap.action_toggle_submodules] = { 'toggle_submodule_files', mode = { 'i', 'n' } },
+                        [picker_keymap.action_narrow_to_dir] = { 'narrow_to_dir', mode = { 'i', 'n' } },
                     }
                 },
                 list = {
@@ -207,6 +247,7 @@ M.opts = function()
                         [picker_keymap.action_send_to_qflist] = 'send_to_qflist',
                         [picker_keymap.action_toggle_tests] = 'toggle_test_files',
                         [picker_keymap.action_toggle_submodules] = 'toggle_submodule_files',
+                        [picker_keymap.action_narrow_to_dir] = 'narrow_to_dir',
                     }
                 }
             }
@@ -367,6 +408,7 @@ M.keys = function()
         { picker_keymap.find_files,       function() snacks.picker.files({ hidden = true }) end },
         { picker_keymap.oldfiles,         function() snacks.picker.recent() end },
         { picker_keymap.search_workspace, function() snacks.picker.grep({ hidden = true }) end },
+        { picker_keymap.search_directory, function() snacks.picker.pick({ source = 'dirs' }) end },
         { picker_keymap.search_buffers,   function() snacks.picker.grep_buffers({ hidden = true }) end },
         { picker_keymap.grep_workspace,   function() snacks.picker.grep_word({ hidden = true }) end,   mode = { 'n', 'x' } },
         { picker_keymap.keymaps,          function() snacks.picker.keymaps() end },

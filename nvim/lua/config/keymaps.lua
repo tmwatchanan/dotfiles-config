@@ -323,6 +323,7 @@ keymaps.snacks = {
     picker         = {
         grep_workspace           = 'gw',
         search_workspace         = '<leader>fw',
+        search_directory         = '<leader>fd',
         search_buffers           = '<leader>/',
         buffers                  = '<C-_>', -- `<C-_>` is actually `<C-/>`
         find_files               = '<leader>fs',
@@ -338,6 +339,7 @@ keymaps.snacks = {
         action_scroll_down       = '<C-d>',
         action_toggle_tests      = '<m-t>',
         action_toggle_submodules = '<m-u>',
+        action_narrow_to_dir     = '<m-n>',
     },
     bufdelete      = {
         delete = '<leader>wQ',
@@ -358,6 +360,7 @@ keymaps.snacks = {
 -- INFO: oil keymap
 keymaps.oil = {
     open_float = '<leader><Tab>',
+    grep_dir   = '<leader>fd',
 }
 
 -- INFO: todocomments keymap
@@ -556,7 +559,8 @@ keymaps.obsidian = {
 
 -- INFO: neo-tree keymap
 keymaps.neotree = {
-    toggle = '<leader>nt',
+    toggle   = '<leader>nt',
+    grep_dir = '<leader>fd',
 }
 
 -- INFO: vim-visual-multi keymap
