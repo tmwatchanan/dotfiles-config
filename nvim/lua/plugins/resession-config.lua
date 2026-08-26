@@ -116,13 +116,14 @@ M.config = function()
     }
 
     -- NOTE: load a dir-specific session when open nvim, save when exit.
+    -- `:restart` routes through here too: its VimLeavePre save below + this
+    -- autoload round-trip the session across the relaunch (argv is reused, so
+    -- argc(-1) stays 0). `silence_errors` swallows any load collision, so no
+    -- restart guard is needed. (`:restart`'s own mksession restore runs after
+    -- VimEnter, on top of this autoload — harmless, since the VimLeavePre save
+    -- below refreshes the session first, so both carry the same state.)
     vim.api.nvim_create_autocmd('VimEnter', {
         callback = function()
-            -- NOTE: on `:restart` Neovim restores its own session; don't also
-            -- autoload here or the two restores collide (E517 on stale bwipe)
-            if vim.v.startreason:match('^restart') then
-                return
-            end
             if vim.fn.argc(-1) == 0 then
                 resession.load(vim.fn.getcwd(), { silence_errors = true })
             end
@@ -131,6 +132,12 @@ M.config = function()
     })
     vim.api.nvim_create_autocmd('VimLeavePre', {
         callback = function()
+            -- NOTE: only the instance that autoloaded owns the session; a
+            -- stray `nvim <file>` here would otherwise overwrite it
+            if vim.fn.argc(-1) ~= 0 then
+                return
+            end
+
             -- NOTE: save only exist session
             local files = require('resession.files')
             local current_session = string.format('%s', vim.fn.getcwd():gsub(files.sep, '_'):gsub(':', '_'))
