@@ -16,11 +16,14 @@ M.opts = function()
     -- gitignore-style globs, so slash-free patterns match at any depth. Fed to
     -- `rg -g !<glob>` (grep) and `fd --exclude` (files), i.e. filtered at the
     -- source instead of after the fact, keeping the picker counts honest.
+    -- `test_*` is a legitimate prefix for config/data files, so pin the name
+    -- patterns to code extensions; directory names below stay extension-free.
+    local code_ext = '{py,lua,js,jsx,mjs,cjs,ts,tsx,go,rs,java,kt,rb,sh,sql,scala,c,h,cpp,hpp}'
     local test_globs = {
-        'test_*',
-        '*_test.*',
-        '*.test.*',
-        '*.spec.*',
+        'test_*.' .. code_ext,
+        '*_test.' .. code_ext,
+        '*.test.' .. code_ext,
+        '*.spec.' .. code_ext,
         'conftest.py',
         'test',
         'tests',
