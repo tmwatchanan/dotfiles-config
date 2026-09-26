@@ -178,6 +178,9 @@ keymaps.setup = function()
     vim.keymap.set({ 'n', 'v' }, '<leader>cc', [[:s/\v(\s*)(\S+)(\s|$)/\1"\2",\3/ge | s/,$//ge<CR><Cmd>noh<CR>]])
     vim.keymap.set({ 'n', 'v' }, '<leader>cC', [[:s/[",]//ge<CR><Cmd>noh<CR>]])
 
+    -- INFO: remove all whitespaces
+    vim.keymap.set({ 'n', 'v' }, '<leader>c<Space>', [[:s/\s//ge<CR><Cmd>noh<CR>]])
+
     -- INFO: swap between equal and colon
     vim.keymap.set({ 'n', 'v' }, '<leader>s=', [[:s/: /=/g<CR><Cmd>noh<CR>]])
     vim.keymap.set({ 'n', 'v' }, '<leader>s+', [[:s/\v"(\w+)": "([^"]+)",?/\1=\2/g<CR><Cmd>noh<CR>]])
