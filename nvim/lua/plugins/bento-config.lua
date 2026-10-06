@@ -14,30 +14,38 @@ M.opts = {
         }
     },
     lock_char = require('config').defaults.icons.bento.pinned,
-    actions = {
-        -- NOTE: bento's built-in delete ends with ui.render_expanded(), which
-        -- the ui module never exports, so every delete errors after deleting
-        -- and leaves the menu stale (the next press hands a dead buffer id to
-        -- nvim_buf_delete: "Invalid buffer id"). Override it until fixed
-        -- upstream; snacks.bufdelete also preserves the window layout and
-        -- prompts on unsaved changes. The refresh is scheduled so it runs
-        -- after BufDelete completes, when the pruning sees the buffer gone.
-        delete = {
-            key = '<BS>',
-            action = function(buf_id, _)
-                if vim.api.nvim_buf_is_valid(buf_id) then
-                    require('snacks').bufdelete.delete({ buf = buf_id })
-                end
-                vim.schedule(function()
-                    require('bento.ui').refresh_menu()
-                end)
-            end,
-        },
-    },
 }
 
 M.config = function(_, opts)
     require('bento').setup(opts)
+
+    -- NOTE: v2 registers no keys or actions in setup(); these restore v1's defaults
+    local api = require('bento.api')
+    local keymap = require('config.keymaps').bento
+    api.register_expand_key(keymap.expand)
+    api.register_last_buffer_key(keymap.last_buffer)
+    api.register_collapse_key(keymap.collapse)
+    api.register_prev_page_key(keymap.prev_page)
+    api.register_next_page_key(keymap.next_page)
+    api.register_action('open', { key = keymap.open, action = api.actions.open, hl = 'DiagnosticVirtualTextHint' })
+    -- NOTE: snacks.bufdelete preserves the window layout and prompts on unsaved
+    -- changes; the refresh is scheduled so it runs after BufDelete completes
+    api.register_action('delete', {
+        key = keymap.delete,
+        hl = 'DiagnosticVirtualTextError',
+        action = function(buf_id, _)
+            if vim.api.nvim_buf_is_valid(buf_id) then
+                require('snacks').bufdelete.delete({ buf = buf_id })
+            end
+            vim.schedule(function()
+                require('bento.ui').refresh_menu()
+            end)
+        end,
+    })
+    api.register_action('vsplit', { key = keymap.vsplit, action = api.actions.vsplit, hl = 'DiagnosticVirtualTextInfo' })
+    api.register_action('split', { key = keymap.split, action = api.actions.split, hl = 'DiagnosticVirtualTextInfo' })
+    api.register_action('lock', { key = keymap.lock, action = api.actions.lock, hl = 'DiagnosticVirtualTextWarn' })
+    api.set_default_action('open')
 
     -- NOTE: position jump inside the expanded menu: `;` then 1-5 selects the
     -- buffer at that list position, with a `(n)` hint rendered in the left
@@ -75,7 +83,7 @@ M.config = function(_, opts)
         end
     end
 
-    local lock_key = require('config.keymaps').bento.toggle_lock_current
+    local lock_key = keymap.toggle_lock_current
 
     local bound = false
     local function unbind_position_keys()
@@ -156,7 +164,7 @@ M.config = function(_, opts)
     }
     local transitions = {
         'expand_menu', 'collapse_menu', 'close_menu', 'refresh_menu',
-        'set_action_mode', 'handle_main_keymap', 'next_page', 'prev_page',
+        'set_action_mode', 'open_menu', 'next_page', 'prev_page',
     }
     for _, name in ipairs(transitions) do
         local orig, on_call = ui[name], page_hooks[name]

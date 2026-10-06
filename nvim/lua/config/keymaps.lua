@@ -509,6 +509,16 @@ keymaps.undotree = {
 
 -- INFO: bento keymaps
 keymaps.bento = {
+    expand              = ';',
+    last_buffer         = ';',
+    collapse            = '<Esc>',
+    prev_page           = '[',
+    next_page           = ']',
+    open                = '<CR>',
+    delete              = '<BS>',
+    vsplit              = '|',
+    split               = '_',
+    lock                = '*',
     toggle_lock_current = '`',
 }
 
