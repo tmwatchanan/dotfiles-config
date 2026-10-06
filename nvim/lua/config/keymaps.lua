@@ -141,7 +141,7 @@ keymaps.setup = function()
     vim.keymap.set('n', '<leader>dpwd', function() vim.print(('window: %s'):format(vim.api.nvim_get_current_win())) end)
     vim.keymap.set('n', '<leader>dphl', commands.GetHighlightGroupUnderCursor, { noremap = true, silent = false })
 
-    -- INFO: yank current buffer path, absolute or relative to cwd
+    -- INFO: yank current buffer path (absolute, relative to cwd) or file name
     local function yank_buffer_path(modifier)
         local path = vim.fn.expand('%' .. modifier)
         vim.fn.setreg('+', path)
@@ -149,6 +149,7 @@ keymaps.setup = function()
     end
     vim.keymap.set('n', '<leader>yp', function() yank_buffer_path(':p') end)
     vim.keymap.set('n', '<leader>yP', function() yank_buffer_path(':.') end)
+    vim.keymap.set('n', '<leader>yf', function() yank_buffer_path(':t') end)
 
     -- INFO: disable ScrollWheelRight and ScrollWheelLeft in normal mode
     vim.keymap.set('n', '<ScrollWheelRight>', '<Nop>', { remap = false, silent = true })
